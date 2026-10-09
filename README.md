@@ -1,6 +1,7 @@
 # Zenbon POS
 
-Point-of-sale system for restaurants and retail — a server plus Android and Linux desktop clients.
+Point-of-sale system for restaurants and retail — a server with a web back office,
+an Android client, and optional browser tills.
 
 Releases are published here. Download the assets for your platform from the
 [latest release](../../releases/latest).
@@ -9,12 +10,18 @@ Releases are published here. Download the assets for your platform from the
 
 | Asset | What it is |
 |---|---|
-| `zenbon-pos-server-<version>.zip` | Server package — application JAR, bundled Java runtime, startup and service-install scripts |
+| `zenbon-pos-server-<version>.zip` | Server package — application JAR, bundled Java runtime (Eclipse Temurin 21), startup and service-install scripts, license files |
 | `zenbon-pos-<version>.apk` | Android client |
-| `zenbon-pos-<version>.deb` | Linux desktop client (x86-64) |
+| `pos-server-<version>.jar`, `pos-server-<version>.jar.cdir.gz` | The server JAR on its own, for the in-app updater's small delta downloads — you don't need these for a fresh install |
+| `SHA256SUMS` | Checksums of the assets — verify with `sha256sum -c SHA256SUMS` |
+| `THIRD-PARTY-LICENSES.txt`, `sbom.json` | Licenses of all bundled third-party software, and a CycloneDX software bill of materials (releases after v1.1.0) |
 
 The server bundles its own minimal Java runtime and, by default, an embedded
 database — no separate Java or PostgreSQL install is required.
+
+**The server needs an x86_64 (amd64) Linux host.** The bundled database binaries
+and the TSE driver libraries are x86_64 only; on ARM the server refuses to start
+the embedded database and says so.
 
 ## Installing the server
 
@@ -43,26 +50,22 @@ Android — enable installation from unknown sources, then install the APK:
 adb install zenbon-pos-<version>.apk
 ```
 
-Linux desktop:
-
-```bash
-sudo dpkg -i zenbon-pos-<version>.deb
-```
-
 Clients discover the server over the local network; point them at the server's
 host and port on first launch.
+
+**Back office and browser tills:** open `http://<server>:<port>/` in a browser.
+The start page links to the back office (`/admin/`) and, once a browser-station
+role is enabled in the back office under *Settings → Browser-Stationen*, to the
+browser till (`/pos/`). A browser till is online-only and prints through the
+server.
 
 ## TSE hardware support
 
 German deployments require a certified TSE (Technische Sicherheitseinrichtung).
-The server talks to TSE hardware in two ways:
-
-- **REMOTE mode** — the server talks to a TSE connector over the network. Works
-  out of the box with these releases; nothing extra to install.
-- **LOCAL mode** — the server drives a directly attached Swissbit TSE through its
-  JNI SDK. **These public builds do not ship that SDK**, because it is proprietary
-  and cannot be redistributed here. You must obtain it from Swissbit and install
-  it yourself.
+The server drives a Swissbit TSE attached to the server host directly, through
+Swissbit's JNI SDK. **These public builds do not ship that SDK**, because it is
+proprietary and cannot be redistributed here. You must obtain it from Swissbit
+and install it yourself.
 
 ### Supplying your own TSE runtime
 
@@ -81,24 +84,23 @@ deploy/
     ├── linux64/
     │   ├── libWormAPI.so
     │   └── libWormAPIJni.so
-    ├── linux32/
-    │   ├── libWormAPI.so
-    │   └── libWormAPIJni.so
-    ├── windows64/
-    │   ├── WormAPI.dll
-    │   └── WormAPIJni.dll
-    └── windows32/
-        ├── WormAPI.dll
-        └── WormAPIJni.dll
+    └── linux32/
+        ├── libWormAPI.so
+        └── libWormAPIJni.so
 ```
 
 Only the subfolder matching your platform is needed; `run.sh` selects `linux64`
-or `linux32` from `uname -m`. Ship all four if you build one image for mixed
-hardware.
+or `linux32` from `uname -m`.
 
-The server starts and runs normally when these files are absent — it prints a
-warning at startup and TSE LOCAL mode stays unavailable. REMOTE mode and every
-non-fiscal feature are unaffected.
+Without these files the server still starts and every non-fiscal feature works,
+but **a German till cannot sell**:
+
+- the local TSE connection cannot be selected (the server rejects it);
+- in NORMAL mode terminals cannot register a TSE client, so bills are refused
+  before they are created.
+
+SIMULATION mode produces fake signatures and is for development only. Outside
+Germany, set the TSE mode to DISABLED.
 
 ## Support
 
@@ -108,7 +110,21 @@ from the `VERSION` file in your server package and the relevant lines from
 
 ## License
 
-Released under the MIT License — see [LICENSE](LICENSE).
+Zenbon POS is released under the MIT License — see [LICENSE](LICENSE). From the
+release after v1.1.0, each server package also carries a `LICENSE.md` saying
+the same for that package.
 
-The Swissbit TSE SDK is **not** covered by that license and is not distributed
-here. Obtain it from Swissbit under their terms.
+The software it is built with keeps its own licenses. From the release after
+v1.1.0, every release lists them,
+with their full texts, in `THIRD-PARTY-LICENSES.txt` (inside the server package
+and attached to the release), together with a CycloneDX SBOM, `sbom.json`. Both
+are generated from what is actually shipped. Releases contain only open-source,
+freely redistributable components (permissive licenses, plus LGPL, MPL-2.0, EPL
+and CDDL), enforced by a license check on every release build, with these
+proprietary exceptions, which are **not** covered by the MIT License:
+
+- **Google ML Kit and Google Play services** (Android app only) — document and
+  QR-code scanning, under Google's own terms. Replacing it with an open-source
+  scanner is planned.
+- **Swissbit TSE SDK** — not distributed here and not part of any release in this
+  repository. Obtain it from Swissbit under their terms (see above).

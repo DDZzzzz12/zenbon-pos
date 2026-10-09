@@ -19,31 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-# Third-party software
-
-The MIT License above covers Zenbon POS itself. The software it is built with
-keeps its own licenses.
-
-- **Complete list:** every release ships `THIRD-PARTY-LICENSES.txt` (inside the
-  server package and attached to the release) together with a CycloneDX SBOM,
-  `sbom.json`. Both are generated from the dependencies actually shipped in that
-  release, so they are always current; this file deliberately does not repeat
-  that list.
-- **License policy:** releases contain only open-source, freely redistributable
-  components (permissive licenses, plus LGPL, MPL-2.0, EPL and CDDL). A license
-  check enforces this on every release build.
-
-## Proprietary components
-
-These are not open source and are not covered by the MIT License:
-
-- **Google ML Kit and Google Play services** (Android app only): document
-  scanning and QR-code scanning use Google's ML Kit, distributed under Google's
-  own terms. Replacing it with an open-source scanner is planned.
-- **Swissbit TSE SDK** (`WormAPI.jar` and its native libraries): proprietary
-  software of Swissbit AG. It is **not distributed here** and is not part of any
-  release in this repository. Operators who use a locally attached Swissbit TSE
-  obtain it from Swissbit under Swissbit's license terms (see `README.md`).
