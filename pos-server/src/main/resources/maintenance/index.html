@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Server maintenance</title>
+    <!-- Absolute on purpose: the CSP's base-uri 'none' rules out <base>, and opened as /maintenance
+         (no trailing slash) a relative URL would resolve to /app.js. -->
+    <link rel="stylesheet" href="/maintenance/app.css">
+    <script defer src="/maintenance/app.js"></script>
+    <script defer src="/maintenance/vendor/alpine.min.js"></script>
+</head>
+<body x-data="maintenance" x-cloak>
+<header class="bar">
+    <h1 x-text="t('title')"></h1>
+    <div class="bar-right">
+        <label class="sr-only" for="lang" x-text="t('language')"></label>
+        <select id="lang" x-model="lang">
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+            <option value="zh">中文</option>
+        </select>
+        <button type="button" x-show="token" x-on:click="signOut()" x-text="t('signOut')"></button>
+    </div>
+</header>
+
+<main>
+    <!-- Sign in -->
+    <section class="card narrow" x-show="!token">
+        <h2 x-text="t('signIn')"></h2>
+        <form x-on:submit.prevent="signIn()">
+            <label for="username" x-text="t('username')"></label>
+            <input id="username" type="text" autocomplete="username" required x-model="login.username">
+            <label for="password" x-text="t('password')"></label>
+            <input id="password" type="password" autocomplete="current-password" required x-model="login.password">
+            <button type="submit" class="primary" x-bind:disabled="login.busy" x-text="t('signIn')"></button>
+        </form>
+        <p class="error" role="alert" x-show="login.error" x-text="login.error"></p>
+    </section>
+
+    <!-- Search -->
+    <section x-show="token">
+        <form class="card filters" x-on:submit.prevent="search()">
+            <div class="field wide">
+                <label for="traceId" x-text="t('traceId')"></label>
+                <input id="traceId" type="text" maxlength="64" autocomplete="off" x-model.trim="query.traceId">
+            </div>
+            <div class="field">
+                <label for="from" x-text="t('from')"></label>
+                <input id="from" type="datetime-local" x-model="query.from">
+            </div>
+            <div class="field">
+                <label for="to" x-text="t('to')"></label>
+                <input id="to" type="datetime-local" x-model="query.to">
+            </div>
+            <div class="field">
+                <label for="level" x-text="t('level')"></label>
+                <select id="level" x-model="query.level">
+                    <option value="" x-text="t('anyLevel')"></option>
+                    <option value="DEBUG">DEBUG</option>
+                    <option value="INFO">INFO</option>
+                    <option value="WARN">WARN</option>
+                    <option value="ERROR">ERROR</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="code" x-text="t('code')"></label>
+                <input id="code" type="text" maxlength="64" autocomplete="off" x-model.trim="query.code">
+            </div>
+            <div class="field">
+                <label for="status" x-text="t('status')"></label>
+                <input id="status" type="number" min="100" max="599" x-model="query.status">
+            </div>
+            <div class="field wide">
+                <label for="text" x-text="t('text')"></label>
+                <input id="text" type="text" maxlength="200" autocomplete="off" x-model="query.text">
+            </div>
+            <fieldset class="field wide">
+                <legend x-text="t('sources')"></legend>
+                <template x-for="name in sourceNames" x-bind:key="name">
+                    <label class="check">
+                        <input type="checkbox" x-bind:value="name" x-model="query.sources">
+                        <span x-text="name"></span>
+                    </label>
+                </template>
+            </fieldset>
+            <div class="actions">
+                <button type="submit" class="primary" x-bind:disabled="busy" x-text="busy ? t('searching') : t('search')"></button>
+            </div>
+        </form>
+
+        <p class="error" role="alert" x-show="error" x-text="error"></p>
+
+        <div x-show="result">
+            <p class="summary" x-text="summary()"></p>
+            <p class="notice" x-show="result && result.truncated === 'MATCH_CAP'" x-text="t('truncatedCap')"></p>
+            <p class="notice" x-show="result && result.truncated === 'SCAN_BUDGET'" x-text="t('truncatedBudget')"></p>
+            <p class="notice" x-show="retentionNote()" x-text="retentionNote()"></p>
+            <p x-show="result && result.entries.length === 0" x-text="t('noResults')"></p>
+
+            <ul class="entries">
+                <template x-for="(entry, index) in (result ? result.entries : [])" x-bind:key="index">
+                    <li class="entry">
+                        <button type="button" class="row" x-on:click="toggle(index)" x-bind:aria-expanded="isOpen(index)">
+                            <span class="when" x-text="formatTime(entry.timestamp)"></span>
+                            <span class="badge" x-bind:class="'lvl-' + entry.level" x-text="entry.level"></span>
+                            <span class="src" x-text="entry.source"></span>
+                            <span class="what">
+                                <span x-text="entry.code || ''"></span>
+                                <span x-text="entry.statusCode ? ' ' + entry.statusCode : ''"></span>
+                                <span x-text="entry.method ? ' ' + entry.method : ''"></span>
+                                <span x-text="entry.path ? ' ' + entry.path : ''"></span>
+                            </span>
+                            <span class="msg" x-text="entry.message"></span>
+                        </button>
+                        <div class="detail" x-show="isOpen(index)">
+                            <dl>
+                                <dt x-text="t('traceId')"></dt>
+                                <dd>
+                                    <span x-text="entry.traceId || '-'"></span>
+                                    <button type="button" class="link" x-show="entry.traceId && canCopy" x-on:click="copy(entry.traceId)" x-text="t('copy')"></button>
+                                </dd>
+                                <dt x-text="t('logger')"></dt>
+                                <dd x-text="entry.logger || '-'"></dd>
+                                <dt x-text="t('duration')" x-show="entry.durationMs !== null && entry.durationMs !== undefined"></dt>
+                                <dd x-show="entry.durationMs !== null && entry.durationMs !== undefined" x-text="entry.durationMs + ' ms'"></dd>
+                                <dt x-text="t('client')" x-show="entry.clientApp"></dt>
+                                <dd x-show="entry.clientApp" x-text="[entry.clientApp, entry.appVersion, entry.clientErrorId].filter(Boolean).join(' / ')"></dd>
+                            </dl>
+                            <pre class="trace" x-show="entry.exception" x-text="exceptionText(entry)"></pre>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </section>
+</main>
+</body>
+</html>

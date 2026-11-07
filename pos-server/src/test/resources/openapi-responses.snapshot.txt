@@ -1,0 +1,2856 @@
+DELETE /api/admin/permission-groups/{code} 204 -> none
+DELETE /api/admin/permission-groups/{code} 401 -> none
+DELETE /api/admin/permission-groups/{code} 403 -> none
+DELETE /api/admin/permission-groups/{code} 404 -> none
+DELETE /api/admin/permission-groups/{code} 409 -> none
+DELETE /api/allocations/{id} 204 -> none
+DELETE /api/allocations/{id} 400 -> none
+DELETE /api/allocations/{id} 401 -> none
+DELETE /api/allocations/{id} 403 -> none
+DELETE /api/allocations/{id} 404 -> none
+DELETE /api/auth/approvals/{requestId} 200 -> none
+DELETE /api/auth/approvals/{requestId} 400 -> none
+DELETE /api/auth/approvals/{requestId} 401 -> none
+DELETE /api/auth/approvals/{requestId} 403 -> none
+DELETE /api/auth/approvals/{requestId} 404 -> none
+DELETE /api/auth/approvals/{requestId} 409 -> none
+DELETE /api/auth/temporary-session/{sessionId} 204 -> none
+DELETE /api/auth/temporary-session/{sessionId} 401 -> none
+DELETE /api/auth/temporary-session/{sessionId} 403 -> none
+DELETE /api/card-terminals/{id} 204 -> none
+DELETE /api/card-terminals/{id} 400 -> none
+DELETE /api/card-terminals/{id} 401 -> none
+DELETE /api/card-terminals/{id} 403 -> none
+DELETE /api/card-terminals/{id} 404 -> none
+DELETE /api/choice-groups/{id} 204 -> none
+DELETE /api/choice-groups/{id} 400 -> none
+DELETE /api/choice-groups/{id} 401 -> none
+DELETE /api/choice-groups/{id} 403 -> none
+DELETE /api/choice-groups/{id} 404 -> none
+DELETE /api/custom-exports/{id} 204 -> none
+DELETE /api/custom-exports/{id} 400 -> none
+DELETE /api/custom-exports/{id} 401 -> none
+DELETE /api/custom-exports/{id} 403 -> none
+DELETE /api/custom-exports/{id} 404 -> none
+DELETE /api/debtors/{id} 204 -> none
+DELETE /api/debtors/{id} 400 -> none
+DELETE /api/debtors/{id} 401 -> none
+DELETE /api/debtors/{id} 403 -> none
+DELETE /api/debtors/{id} 404 -> none
+DELETE /api/debtors/{id} 409 -> none
+DELETE /api/documents/link/{linkId} 200 -> application/json "object"
+DELETE /api/documents/link/{linkId} 400 -> none
+DELETE /api/documents/link/{linkId} 401 -> none
+DELETE /api/documents/link/{linkId} 403 -> none
+DELETE /api/documents/link/{linkId} 404 -> none
+DELETE /api/documents/{id} 200 -> application/json "object"
+DELETE /api/documents/{id} 400 -> none
+DELETE /api/documents/{id} 401 -> none
+DELETE /api/documents/{id} 404 -> none
+DELETE /api/employee/info/by-employee/{employeeId} 200 -> application/json "string"
+DELETE /api/employee/info/by-employee/{employeeId} 400 -> none
+DELETE /api/employee/info/by-employee/{employeeId} 401 -> none
+DELETE /api/employee/info/by-employee/{employeeId} 403 -> none
+DELETE /api/employee/info/by-employee/{employeeId} 404 -> none
+DELETE /api/employees/{id} 200 -> application/json "string"
+DELETE /api/employees/{id} 400 -> none
+DELETE /api/employees/{id} 401 -> none
+DELETE /api/employees/{id} 403 -> none
+DELETE /api/employees/{id} 404 -> none
+DELETE /api/issue-reports/token 200 -> application/json $ref org.example.project.core.domain.dto.issuereport.IssueReportDto.SettingsDto
+DELETE /api/issue-reports/token 401 -> none
+DELETE /api/issue-reports/token 403 -> none
+DELETE /api/location-types/{id} 204 -> none
+DELETE /api/location-types/{id} 400 -> none
+DELETE /api/location-types/{id} 401 -> none
+DELETE /api/location-types/{id} 403 -> none
+DELETE /api/location-types/{id} 404 -> none
+DELETE /api/location-types/{id} 409 -> none
+DELETE /api/opening-hours/overrides/{id} 204 -> none
+DELETE /api/opening-hours/overrides/{id} 400 -> none
+DELETE /api/opening-hours/overrides/{id} 401 -> none
+DELETE /api/opening-hours/overrides/{id} 403 -> none
+DELETE /api/opening-hours/overrides/{id} 404 -> none
+DELETE /api/payment-types/{id} 204 -> none
+DELETE /api/payment-types/{id} 400 -> none
+DELETE /api/payment-types/{id} 401 -> none
+DELETE /api/payment-types/{id} 403 -> none
+DELETE /api/payment-types/{id} 404 -> none
+DELETE /api/pfand-types/{id} 204 -> none
+DELETE /api/pfand-types/{id} 400 -> none
+DELETE /api/pfand-types/{id} 401 -> none
+DELETE /api/pfand-types/{id} 403 -> none
+DELETE /api/pfand-types/{id} 404 -> none
+DELETE /api/printer-location/{id} 200 -> application/json "object"
+DELETE /api/printer-location/{id} 400 -> none
+DELETE /api/printer-location/{id} 401 -> none
+DELETE /api/printer-location/{id} 404 -> none
+DELETE /api/product-categories/{id} 204 -> none
+DELETE /api/product-categories/{id} 400 -> none
+DELETE /api/product-categories/{id} 401 -> none
+DELETE /api/product-categories/{id} 403 -> none
+DELETE /api/product-categories/{id} 404 -> none
+DELETE /api/product-categories/{id} 409 -> none
+DELETE /api/product-choice-groups/bulk-category/{categoryId}/{groupId} 204 -> none
+DELETE /api/product-choice-groups/bulk-category/{categoryId}/{groupId} 400 -> none
+DELETE /api/product-choice-groups/bulk-category/{categoryId}/{groupId} 401 -> none
+DELETE /api/product-choice-groups/bulk-category/{categoryId}/{groupId} 403 -> none
+DELETE /api/product-extras-assignment/bulk-category/{categoryId}/{extrasId} 204 -> none
+DELETE /api/product-extras-assignment/bulk-category/{categoryId}/{extrasId} 400 -> none
+DELETE /api/product-extras-assignment/bulk-category/{categoryId}/{extrasId} 401 -> none
+DELETE /api/product-extras-assignment/bulk-category/{categoryId}/{extrasId} 403 -> none
+DELETE /api/product-extras-assignment/{productId}/{extrasId} 204 -> none
+DELETE /api/product-extras-assignment/{productId}/{extrasId} 400 -> none
+DELETE /api/product-extras-assignment/{productId}/{extrasId} 401 -> none
+DELETE /api/product-extras-assignment/{productId}/{extrasId} 403 -> none
+DELETE /api/product-extras-assignment/{productId}/{extrasId} 404 -> none
+DELETE /api/product-extras/{id} 204 -> none
+DELETE /api/product-extras/{id} 400 -> none
+DELETE /api/product-extras/{id} 401 -> none
+DELETE /api/product-extras/{id} 403 -> none
+DELETE /api/product-extras/{id} 404 -> none
+DELETE /api/products/{id} 200 -> application/json "string"
+DELETE /api/products/{id} 400 -> none
+DELETE /api/products/{id} 401 -> none
+DELETE /api/products/{id} 403 -> none
+DELETE /api/products/{id} 404 -> none
+DELETE /api/promotions/{id} 200 -> none
+DELETE /api/promotions/{id} 400 -> none
+DELETE /api/promotions/{id} 401 -> none
+DELETE /api/promotions/{id} 403 -> none
+DELETE /api/promotions/{id} 404 -> none
+DELETE /api/reservation-rules/{id} 204 -> none
+DELETE /api/reservation-rules/{id} 400 -> none
+DELETE /api/reservation-rules/{id} 401 -> none
+DELETE /api/reservation-rules/{id} 403 -> none
+DELETE /api/reservation-rules/{id} 404 -> none
+DELETE /api/reservations/{id} 204 -> none
+DELETE /api/reservations/{id} 400 -> none
+DELETE /api/reservations/{id} 401 -> none
+DELETE /api/reservations/{id} 403 -> none
+DELETE /api/reservations/{id} 404 -> none
+DELETE /api/reservations/{id}/unassign-tables 204 -> none
+DELETE /api/reservations/{id}/unassign-tables 400 -> none
+DELETE /api/reservations/{id}/unassign-tables 401 -> none
+DELETE /api/reservations/{id}/unassign-tables 403 -> none
+DELETE /api/reservations/{id}/unassign-tables 404 -> none
+DELETE /api/room-elements/{id} 200 -> application/json "string"
+DELETE /api/room-elements/{id} 400 -> none
+DELETE /api/room-elements/{id} 401 -> none
+DELETE /api/room-elements/{id} 403 -> none
+DELETE /api/room-elements/{id} 404 -> none
+DELETE /api/shop-info/{id} 200 -> application/json "string"
+DELETE /api/shop-info/{id} 400 -> none
+DELETE /api/shop-info/{id} 401 -> none
+DELETE /api/shop-info/{id} 403 -> none
+DELETE /api/shop-info/{id} 404 -> none
+DELETE /api/tables/sessions/{sessionId}/remove-customer 200 -> application/json $ref TableSessionResponseDto
+DELETE /api/tables/sessions/{sessionId}/remove-customer 400 -> none
+DELETE /api/tables/sessions/{sessionId}/remove-customer 401 -> none
+DELETE /api/tables/sessions/{sessionId}/remove-customer 404 -> none
+DELETE /api/tables/{id} 200 -> application/json "string"
+DELETE /api/tables/{id} 400 -> none
+DELETE /api/tables/{id} 401 -> none
+DELETE /api/tables/{id} 403 -> none
+DELETE /api/tables/{id} 404 -> none
+DELETE /api/tables/{id} 409 -> none
+DELETE /api/tables/{id}/session 200 -> application/json "object"
+DELETE /api/tables/{id}/session 400 -> none
+DELETE /api/tables/{id}/session 401 -> application/json "string"
+DELETE /api/tables/{id}/session 403 -> none
+DELETE /api/tables/{id}/session 404 -> none
+DELETE /api/tables/{id}/session 409 -> none
+DELETE /api/tse/export 200 -> application/json $ref ExportAndDeleteResultDto
+DELETE /api/tse/export 401 -> none
+DELETE /api/tse/export 403 -> none
+DELETE /api/tse/export 409 -> none
+DELETE /api/tse/export 422 -> none
+DELETE /api/tse/export 423 -> none
+DELETE /api/tse/export 424 -> none
+DELETE /api/tse/export 500 -> none
+DELETE /api/tse/export 507 -> none
+DELETE /api/update/token 200 -> application/json $ref SettingsDto
+DELETE /api/update/token 401 -> none
+DELETE /api/update/token 403 -> none
+DELETE /api/v1/bills/{id} 200 -> application/json "string"
+DELETE /api/v1/bills/{id} 400 -> none
+DELETE /api/v1/bills/{id} 401 -> none
+DELETE /api/v1/bills/{id} 403 -> none
+DELETE /api/v1/bills/{id} 404 -> none
+DELETE /api/v1/bills/{id} 409 -> none
+DELETE /api/v1/bills/{id} 503 -> none
+DELETE /api/v1/kassenbuch/entries/{headerId}/link-document 200 -> application/json $ref KassenbuchGroupedDetailDto
+DELETE /api/v1/kassenbuch/entries/{headerId}/link-document 400 -> none
+DELETE /api/v1/kassenbuch/entries/{headerId}/link-document 401 -> none
+DELETE /api/v1/kassenbuch/entries/{headerId}/link-document 403 -> none
+DELETE /api/v1/kassenbuch/entries/{headerId}/link-document 404 -> none
+DELETE /api/v1/sales-invoices/{id} 204 -> none
+DELETE /api/v1/sales-invoices/{id} 400 -> none
+DELETE /api/v1/sales-invoices/{id} 401 -> none
+DELETE /api/v1/sales-invoices/{id} 403 -> none
+DELETE /api/v1/sales-invoices/{id} 404 -> none
+DELETE /api/v1/sales-invoices/{id} 409 -> none
+DELETE /api/v1/terminals/{id} 200 -> application/json "object"
+DELETE /api/v1/terminals/{id} 400 -> none
+DELETE /api/v1/terminals/{id} 401 -> none
+DELETE /api/v1/terminals/{id} 403 -> none
+DELETE /api/v1/terminals/{id} 404 -> none
+DELETE /api/vat/{id} 200 -> application/json "string"
+DELETE /api/vat/{id} 400 -> none
+DELETE /api/vat/{id} 401 -> none
+DELETE /api/vat/{id} 403 -> none
+DELETE /api/vat/{id} 404 -> none
+DELETE /api/vat/{id} 409 -> none
+GET / 200 -> application/json "object" | text/html; charset=UTF-8 none
+GET / 302 -> none
+GET /api/admin/permission-groups 200 -> application/json array of $ref PermissionGroupResponseDto
+GET /api/admin/permission-groups 401 -> none
+GET /api/admin/permission-groups 403 -> none
+GET /api/admin/permission-groups/capabilities 200 -> application/json $ref CapabilityCatalogDto
+GET /api/admin/permission-groups/capabilities 401 -> none
+GET /api/admin/permission-groups/capabilities 403 -> none
+GET /api/admin/permission-groups/{code} 200 -> application/json $ref PermissionGroupResponseDto
+GET /api/admin/permission-groups/{code} 401 -> none
+GET /api/admin/permission-groups/{code} 403 -> none
+GET /api/admin/permission-groups/{code} 404 -> none
+GET /api/admin/permissions 200 -> application/json array of "object"
+GET /api/admin/permissions 401 -> none
+GET /api/admin/permissions 403 -> none
+GET /api/admin/permissions/effective 200 -> application/json $ref EffectiveAccessDto
+GET /api/admin/permissions/effective 400 -> none
+GET /api/admin/permissions/effective 401 -> none
+GET /api/admin/permissions/effective 403 -> none
+GET /api/admin/permissions/effective 404 -> none
+GET /api/admin/permissions/explain 200 -> application/json $ref AccessExplanationDto
+GET /api/admin/permissions/explain 400 -> none
+GET /api/admin/permissions/explain 401 -> none
+GET /api/admin/permissions/explain 403 -> none
+GET /api/allocations/open-instalments 200 -> application/json $ref OpenInstalmentListDto
+GET /api/allocations/open-instalments 401 -> none
+GET /api/allocations/open-instalments 403 -> none
+GET /api/allocations/open-invoices 200 -> application/json $ref OpenInvoiceListDto
+GET /api/allocations/open-invoices 400 -> none
+GET /api/allocations/open-invoices 401 -> none
+GET /api/allocations/open-invoices 403 -> none
+GET /api/allocations/open-sales-invoices 200 -> application/json $ref OpenSalesInvoiceListDto
+GET /api/allocations/open-sales-invoices 400 -> none
+GET /api/allocations/open-sales-invoices 401 -> none
+GET /api/allocations/open-sales-invoices 403 -> none
+GET /api/allocations/queue 200 -> application/json $ref QueueResponseDto
+GET /api/allocations/queue 400 -> none
+GET /api/allocations/queue 401 -> none
+GET /api/allocations/queue 403 -> none
+GET /api/allocations/suggestions 200 -> application/json $ref org.example.project.core.domain.dto.allocation.SuggestionDto.ResponseDto
+GET /api/allocations/suggestions 400 -> none
+GET /api/allocations/suggestions 401 -> none
+GET /api/allocations/suggestions 403 -> none
+GET /api/allocations/suggestions 404 -> none
+GET /api/allocations/telemetry 200 -> application/json $ref org.example.project.core.domain.dto.matching.MatchTelemetryDto.ResponseDto
+GET /api/allocations/telemetry 401 -> none
+GET /api/allocations/telemetry 403 -> none
+GET /api/audit/transactions 200 -> application/json array of $ref TransactionAuditLogDto
+GET /api/audit/transactions 401 -> none
+GET /api/audit/transactions 403 -> none
+GET /api/audit/transactions/paginated 200 -> application/json $ref PaginatedTransactionAuditResponseDto
+GET /api/audit/transactions/paginated 401 -> none
+GET /api/audit/transactions/paginated 403 -> none
+GET /api/auth/approvals/pending 200 -> application/json array of $ref ApprovalRequestDto
+GET /api/auth/approvals/pending 401 -> none
+GET /api/auth/approvals/pending 403 -> none
+GET /api/auth/approvals/{requestId}/status 200 -> application/json $ref RequestStatusDto
+GET /api/auth/approvals/{requestId}/status 400 -> none
+GET /api/auth/approvals/{requestId}/status 401 -> none
+GET /api/auth/approvals/{requestId}/status 404 -> none
+GET /api/auth/me 200 -> application/json $ref EmployeeInfo
+GET /api/auth/me 401 -> none
+GET /api/auth/me 404 -> none
+GET /api/auth/sessions/policy 200 -> application/json $ref Policy
+GET /api/auth/sessions/policy 401 -> none
+GET /api/auth/temporary-session/active 200 -> application/json $ref TemporarySessionResponseDto
+GET /api/auth/temporary-session/active 204 -> none
+GET /api/auth/temporary-session/active 400 -> none
+GET /api/auth/temporary-session/active 401 -> none
+GET /api/auth/validate 200 -> application/json $ref ValidationResponse
+GET /api/auth/validate 401 -> none
+GET /api/bank-accounts 200 -> application/json $ref org.example.project.core.domain.dto.bank.BankAccountDto.ListResponseDto
+GET /api/bank-accounts 401 -> none
+GET /api/bank-accounts 403 -> none
+GET /api/bank-accounts/{id} 200 -> application/json $ref org.example.project.core.domain.dto.bank.BankAccountDto.ResponseDto
+GET /api/bank-accounts/{id} 400 -> none
+GET /api/bank-accounts/{id} 401 -> none
+GET /api/bank-accounts/{id} 403 -> none
+GET /api/bank-accounts/{id} 404 -> none
+GET /api/bank-accounts/{id}/statements 200 -> application/json $ref StatementListResponseDto
+GET /api/bank-accounts/{id}/statements 400 -> none
+GET /api/bank-accounts/{id}/statements 401 -> none
+GET /api/bank-accounts/{id}/statements 403 -> none
+GET /api/bank-accounts/{id}/statements 404 -> none
+GET /api/bank-accounts/{id}/statements/{statementId}/transactions 200 -> application/json $ref StatementTransactionListResponseDto
+GET /api/bank-accounts/{id}/statements/{statementId}/transactions 400 -> none
+GET /api/bank-accounts/{id}/statements/{statementId}/transactions 401 -> none
+GET /api/bank-accounts/{id}/statements/{statementId}/transactions 403 -> none
+GET /api/bank-accounts/{id}/statements/{statementId}/transactions 404 -> none
+GET /api/bills/create-with-card 200 -> text/event-stream none
+GET /api/bills/create-with-card 400 -> none
+GET /api/bills/create-with-card 401 -> none
+GET /api/bills/create-with-card 403 -> none
+GET /api/card-settlements/ 200 -> application/json array of $ref CardSettlementResponseDto
+GET /api/card-settlements/ 400 -> none
+GET /api/card-settlements/ 401 -> none
+GET /api/card-settlements/ 403 -> none
+GET /api/card-settlements/{id}/reconciliation 200 -> application/json $ref ReconciliationReportDto
+GET /api/card-settlements/{id}/reconciliation 400 -> none
+GET /api/card-settlements/{id}/reconciliation 401 -> none
+GET /api/card-settlements/{id}/reconciliation 403 -> none
+GET /api/card-settlements/{id}/reconciliation 404 -> none
+GET /api/card-terminals 200 -> application/json array of $ref CardTerminalResponseDto
+GET /api/card-terminals 401 -> none
+GET /api/card-terminals/available 200 -> application/json array of $ref CardTerminalResponseDto
+GET /api/card-terminals/available 401 -> none
+GET /api/card-terminals/{id} 200 -> application/json $ref CardTerminalResponseDto
+GET /api/card-terminals/{id} 400 -> none
+GET /api/card-terminals/{id} 401 -> none
+GET /api/card-terminals/{id} 404 -> none
+GET /api/card-terminals/{id}/totals-preview 200 -> application/json $ref SettlementPreviewDto
+GET /api/card-terminals/{id}/totals-preview 400 -> none
+GET /api/card-terminals/{id}/totals-preview 401 -> none
+GET /api/card-terminals/{id}/totals-preview 403 -> none
+GET /api/card-terminals/{id}/totals-preview 404 -> none
+GET /api/card-terminals/{id}/totals-preview 503 -> none
+GET /api/changes 200 -> application/json $ref ResponseDto
+GET /api/changes 400 -> none
+GET /api/changes 401 -> none
+GET /api/choice-groups 200 -> application/json $ref org.example.project.core.domain.dto.product.ChoiceGroupDto.ListResponseDto
+GET /api/choice-groups 401 -> none
+GET /api/choice-groups/sync/{lastSyncTime} 200 -> application/json $ref org.example.project.core.domain.dto.product.ChoiceGroupDto.ListResponseDto
+GET /api/choice-groups/sync/{lastSyncTime} 400 -> none
+GET /api/choice-groups/sync/{lastSyncTime} 401 -> none
+GET /api/choice-groups/{id} 200 -> application/json $ref ChoiceGroupResponseDto
+GET /api/choice-groups/{id} 400 -> none
+GET /api/choice-groups/{id} 401 -> none
+GET /api/choice-groups/{id} 404 -> none
+GET /api/contracts 200 -> application/json $ref org.example.project.core.domain.dto.contract.ContractDto.ListResponseDto
+GET /api/contracts 401 -> none
+GET /api/contracts 403 -> none
+GET /api/contracts/alerts 200 -> application/json $ref org.example.project.core.domain.dto.contract.ContractAlertDto.ListResponseDto
+GET /api/contracts/alerts 401 -> none
+GET /api/contracts/alerts 403 -> none
+GET /api/contracts/{id} 200 -> application/json $ref org.example.project.core.domain.dto.contract.ContractDto.ResponseDto
+GET /api/contracts/{id} 400 -> none
+GET /api/contracts/{id} 401 -> none
+GET /api/contracts/{id} 403 -> none
+GET /api/contracts/{id} 404 -> none
+GET /api/contracts/{id}/instalments 200 -> application/json $ref InstalmentListDto
+GET /api/contracts/{id}/instalments 400 -> none
+GET /api/contracts/{id}/instalments 401 -> none
+GET /api/contracts/{id}/instalments 403 -> none
+GET /api/contracts/{id}/instalments 404 -> none
+GET /api/custom-exports 200 -> application/json array of $ref DefinitionDto
+GET /api/custom-exports 401 -> none
+GET /api/custom-exports 403 -> none
+GET /api/custom-exports/catalogue 200 -> application/json array of $ref SubjectDto
+GET /api/custom-exports/catalogue 401 -> none
+GET /api/custom-exports/catalogue 403 -> none
+GET /api/custom-exports/{id}/run 200 -> text/csv; charset=UTF-8 none
+GET /api/custom-exports/{id}/run 400 -> none
+GET /api/custom-exports/{id}/run 401 -> none
+GET /api/custom-exports/{id}/run 403 -> none
+GET /api/custom-exports/{id}/run 404 -> none
+GET /api/custom-exports/{id}/run 409 -> none
+GET /api/customer-addresses 200 -> application/json array of $ref CustomerAddressResponseDto
+GET /api/customer-addresses 401 -> none
+GET /api/customer-addresses/customer/{customerId} 200 -> application/json array of $ref CustomerAddressResponseDto
+GET /api/customer-addresses/customer/{customerId} 400 -> none
+GET /api/customer-addresses/customer/{customerId} 401 -> none
+GET /api/customers 200 -> application/json array of $ref CustomerResponseDto
+GET /api/customers 401 -> none
+GET /api/customers/search 200 -> application/json array of $ref CustomerSummaryDto
+GET /api/customers/search 400 -> none
+GET /api/customers/search 401 -> none
+GET /api/customers/{id} 200 -> application/json $ref CustomerResponseDto
+GET /api/customers/{id} 400 -> none
+GET /api/customers/{id} 401 -> none
+GET /api/customers/{id} 404 -> none
+GET /api/debtors 200 -> application/json $ref org.example.project.core.domain.dto.debtor.DebtorDto.ListResponseDto
+GET /api/debtors 401 -> none
+GET /api/debtors 403 -> none
+GET /api/debtors/{id} 200 -> application/json $ref org.example.project.core.domain.dto.debtor.DebtorDto.ResponseDto
+GET /api/debtors/{id} 400 -> none
+GET /api/debtors/{id} 401 -> none
+GET /api/debtors/{id} 403 -> none
+GET /api/debtors/{id} 404 -> none
+GET /api/documents 200 -> application/json $ref DocumentListResponseDto
+GET /api/documents 401 -> none
+GET /api/documents/document-types 200 -> application/json $ref DocumentTypesResponseDto
+GET /api/documents/document-types 401 -> none
+GET /api/documents/export/datev-ap 200 -> application/json $ref DatevExportLogDto
+GET /api/documents/export/datev-ap 400 -> none
+GET /api/documents/export/datev-ap 401 -> none
+GET /api/documents/export/datev-ap/statistics 200 -> application/json $ref ApExportStatisticsDto
+GET /api/documents/export/datev-ap/statistics 400 -> none
+GET /api/documents/export/datev-ap/statistics 401 -> none
+GET /api/documents/statistics 200 -> application/json $ref DocumentStorageStatisticsDto
+GET /api/documents/statistics 401 -> none
+GET /api/documents/unlinked 200 -> application/json array of $ref DocumentResponseDto
+GET /api/documents/unlinked 401 -> none
+GET /api/documents/{id} 200 -> application/json $ref DocumentResponseDto
+GET /api/documents/{id} 400 -> none
+GET /api/documents/{id} 401 -> none
+GET /api/documents/{id} 404 -> none
+GET /api/documents/{id}/file 200 -> */* none
+GET /api/documents/{id}/file 400 -> none
+GET /api/documents/{id}/file 401 -> none
+GET /api/documents/{id}/file 404 -> none
+GET /api/documents/{id}/invoice 200 -> application/json $ref InvoiceDto
+GET /api/documents/{id}/invoice 400 -> none
+GET /api/documents/{id}/invoice 401 -> none
+GET /api/documents/{id}/invoice 404 -> none
+GET /api/documents/{id}/linked 200 -> application/json array of $ref DocumentLinkResponseDto
+GET /api/documents/{id}/linked 400 -> none
+GET /api/documents/{id}/linked 401 -> none
+GET /api/documents/{id}/linked 404 -> none
+GET /api/documents/{id}/metadata 200 -> application/json $ref DocumentMetadataDto
+GET /api/documents/{id}/metadata 400 -> none
+GET /api/documents/{id}/metadata 401 -> none
+GET /api/documents/{id}/metadata 404 -> none
+GET /api/employee/info 200 -> application/json array of $ref EmployeeInfoResponseDto
+GET /api/employee/info 401 -> none
+GET /api/employee/info 403 -> none
+GET /api/employee/info/by-employee/{employeeId} 200 -> application/json $ref EmployeeInfoResponseDto
+GET /api/employee/info/by-employee/{employeeId} 400 -> none
+GET /api/employee/info/by-employee/{employeeId} 401 -> none
+GET /api/employee/info/by-employee/{employeeId} 403 -> none
+GET /api/employee/info/by-employee/{employeeId} 404 -> none
+GET /api/employee/info/me 200 -> application/json $ref EmployeeInfoResponseDto
+GET /api/employee/info/me 401 -> none
+GET /api/employee/info/me 404 -> none
+GET /api/employees/info/active 200 -> application/json array of $ref EmployeeInfoDto
+GET /api/employees/info/active 401 -> none
+GET /api/employees/me 200 -> application/json $ref EmployeeResponseDto
+GET /api/employees/me 401 -> none
+GET /api/employees/me 404 -> none
+GET /api/employees/summary 200 -> application/json array of $ref EmployeeSummaryResponseDto
+GET /api/employees/summary 401 -> none
+GET /api/employees/summary 403 -> none
+GET /api/employees/{employeeId}/schedule 200 -> application/json $ref WeeklyScheduleResponseDto
+GET /api/employees/{employeeId}/schedule 400 -> none
+GET /api/employees/{employeeId}/schedule 401 -> none
+GET /api/employees/{employeeId}/schedule 403 -> none
+GET /api/employees/{employeeId}/schedule 404 -> none
+GET /api/employees/{id} 200 -> application/json $ref EmployeeResponseDto
+GET /api/employees/{id} 400 -> none
+GET /api/employees/{id} 401 -> none
+GET /api/employees/{id} 403 -> none
+GET /api/employees/{id} 404 -> none
+GET /api/entry-logs/paginated 200 -> application/json $ref PaginatedEntryLogResponseDto
+GET /api/entry-logs/paginated 401 -> none
+GET /api/entry-logs/paginated 403 -> none
+GET /api/finance/bookkeeping-start 200 -> application/json $ref org.example.project.core.domain.dto.finance.BookkeepingStartDto.ResponseDto
+GET /api/finance/bookkeeping-start 401 -> none
+GET /api/finance/bookkeeping-start 403 -> none
+GET /api/finance/bookkeeping-start 404 -> none
+GET /api/invoices 200 -> application/json $ref org.example.project.core.domain.dto.document.InvoiceListDto.ListResponseDto
+GET /api/invoices 400 -> none
+GET /api/invoices 401 -> none
+GET /api/invoices 403 -> none
+GET /api/invoices/{id} 200 -> application/json $ref InvoiceDto
+GET /api/invoices/{id} 400 -> none
+GET /api/invoices/{id} 401 -> none
+GET /api/invoices/{id} 403 -> none
+GET /api/invoices/{id} 404 -> none
+GET /api/issue-reports/settings 200 -> application/json $ref org.example.project.core.domain.dto.issuereport.IssueReportDto.SettingsDto
+GET /api/issue-reports/settings 401 -> none
+GET /api/issue-reports/settings 403 -> none
+GET /api/items/cancellations 200 -> application/json array of $ref CancellationResponseDto
+GET /api/items/cancellations 400 -> none
+GET /api/items/cancellations 401 -> none
+GET /api/items/cancellations 403 -> none
+GET /api/items/session/{sessionId} 200 -> application/json array of $ref OrderItemResponseDto
+GET /api/items/session/{sessionId} 400 -> none
+GET /api/items/session/{sessionId} 401 -> none
+GET /api/items/transfers 200 -> application/json array of $ref ItemTransferHistoryResponseDto
+GET /api/items/transfers 400 -> none
+GET /api/items/transfers 401 -> none
+GET /api/items/transfers 403 -> none
+GET /api/items/transfers/{tableSessionId} 200 -> application/json array of $ref ItemTransferHistoryResponseDto
+GET /api/items/transfers/{tableSessionId} 400 -> none
+GET /api/items/transfers/{tableSessionId} 401 -> none
+GET /api/location-types 200 -> application/json $ref org.example.project.core.domain.dto.table.LocationTypeDto.ListResponseDto
+GET /api/location-types 401 -> none
+GET /api/location-types/{id} 200 -> application/json $ref org.example.project.core.domain.dto.table.LocationTypeDto.ResponseDto
+GET /api/location-types/{id} 400 -> none
+GET /api/location-types/{id} 401 -> none
+GET /api/location-types/{id} 404 -> none
+GET /api/maintenance/logs 200 -> application/json $ref LogSearchResponseDto
+GET /api/maintenance/logs 400 -> none
+GET /api/maintenance/logs 401 -> none
+GET /api/maintenance/logs 404 -> none
+GET /api/maintenance/logs 503 -> none
+GET /api/notifications/stream 200 -> text/event-stream none
+GET /api/notifications/stream 401 -> none
+GET /api/opening-hours 200 -> application/json array of $ref WeeklyResponseDto
+GET /api/opening-hours 401 -> none
+GET /api/opening-hours/overrides 200 -> application/json array of $ref OverrideResponseDto
+GET /api/opening-hours/overrides 400 -> none
+GET /api/opening-hours/overrides 401 -> none
+GET /api/orders/by-table-session/{tableSessionId} 200 -> application/json array of $ref OrderResponseDto
+GET /api/orders/by-table-session/{tableSessionId} 400 -> none
+GET /api/orders/by-table-session/{tableSessionId} 401 -> none
+GET /api/partners/duplicates 200 -> application/json $ref DuplicateListResponseDto
+GET /api/partners/duplicates 401 -> none
+GET /api/partners/duplicates 403 -> none
+GET /api/partners/export/datev-stammdaten 200 -> text/csv; charset=ISO-8859-1 none
+GET /api/partners/export/datev-stammdaten 400 -> none
+GET /api/partners/export/datev-stammdaten 401 -> none
+GET /api/partners/export/datev-stammdaten 403 -> none
+GET /api/partners/export/datev-stammdaten 404 -> none
+GET /api/partners/export/datev-stammdaten 409 -> none
+GET /api/partners/{id} 200 -> application/json $ref org.example.project.core.domain.dto.partner.BusinessPartnerDto.ResponseDto
+GET /api/partners/{id} 400 -> none
+GET /api/partners/{id} 401 -> none
+GET /api/partners/{id} 403 -> none
+GET /api/partners/{id} 404 -> none
+GET /api/payment-types 200 -> application/json $ref PaymentTypeListResponseDto
+GET /api/payment-types 401 -> none
+GET /api/payment-types/active 200 -> application/json array of $ref PaymentTypeSummaryDto
+GET /api/payment-types/active 401 -> none
+GET /api/payment-types/active 403 -> none
+GET /api/payment-types/statistics 200 -> application/json $ref PaymentTypeStatisticsDto
+GET /api/payment-types/statistics 401 -> none
+GET /api/payment-types/statistics 403 -> none
+GET /api/payment-types/sync/{lastSyncTime} 200 -> application/json array of $ref PaymentTypeResponseDto
+GET /api/payment-types/sync/{lastSyncTime} 400 -> none
+GET /api/payment-types/sync/{lastSyncTime} 401 -> none
+GET /api/payment-types/{id} 200 -> application/json $ref PaymentTypeResponseDto
+GET /api/payment-types/{id} 400 -> none
+GET /api/payment-types/{id} 401 -> none
+GET /api/payment-types/{id} 404 -> none
+GET /api/pfand-types 200 -> application/json array of $ref PfandTypeResponseDto
+GET /api/pfand-types 401 -> none
+GET /api/print-job-history 200 -> application/json array of $ref PrintJobHistoryDto
+GET /api/print-job-history 400 -> none
+GET /api/print-job-history 401 -> none
+GET /api/printer-discovery/discover 200 -> application/json array of $ref DiscoveredPrinterDto
+GET /api/printer-discovery/discover 401 -> none
+GET /api/printer-discovery/discover 503 -> none
+GET /api/printer-discovery/formats 200 -> application/json array of "string"
+GET /api/printer-discovery/formats 400 -> application/json "string"
+GET /api/printer-discovery/formats 401 -> none
+GET /api/printer-discovery/formats 503 -> none
+GET /api/printer-discovery/status 200 -> application/json $ref DiscoveredPrinterDto
+GET /api/printer-discovery/status 400 -> application/json "string"
+GET /api/printer-discovery/status 401 -> none
+GET /api/printer-discovery/status 503 -> none
+GET /api/printer-location 200 -> application/json array of $ref PrinterLocationResponseDto
+GET /api/printer-location 401 -> none
+GET /api/product-categories 200 -> application/json array of $ref ProductCategoryResponseDto
+GET /api/product-categories 401 -> none
+GET /api/product-categories/sync/{lastSyncTime} 200 -> application/json array of $ref ProductCategoryResponseDto
+GET /api/product-categories/sync/{lastSyncTime} 400 -> none
+GET /api/product-categories/sync/{lastSyncTime} 401 -> none
+GET /api/product-categories/{id} 200 -> application/json $ref ProductCategoryResponseDto
+GET /api/product-categories/{id} 400 -> none
+GET /api/product-categories/{id} 401 -> none
+GET /api/product-categories/{id} 404 -> none
+GET /api/product-choice-groups 200 -> application/json $ref org.example.project.core.domain.dto.product.ProductChoiceGroupDto.ListResponseDto
+GET /api/product-choice-groups 401 -> none
+GET /api/product-choice-groups/product/{productId} 200 -> application/json $ref ProductGroupsResponseDto
+GET /api/product-choice-groups/product/{productId} 400 -> none
+GET /api/product-choice-groups/product/{productId} 401 -> none
+GET /api/product-choice-groups/sync/{lastSyncTime} 200 -> application/json $ref org.example.project.core.domain.dto.product.ProductChoiceGroupDto.ListResponseDto
+GET /api/product-choice-groups/sync/{lastSyncTime} 400 -> none
+GET /api/product-choice-groups/sync/{lastSyncTime} 401 -> none
+GET /api/product-extras 200 -> application/json array of $ref ProductExtrasResponseDto
+GET /api/product-extras 401 -> none
+GET /api/product-extras-assignment 200 -> application/json $ref ListResponseDto
+GET /api/product-extras-assignment 401 -> none
+GET /api/product-extras-assignment/product/{productId} 200 -> application/json array of $ref org.example.project.core.domain.dto.product.ProductExtrasAssignmentDto.ResponseDto
+GET /api/product-extras-assignment/product/{productId} 400 -> none
+GET /api/product-extras-assignment/product/{productId} 401 -> none
+GET /api/product-extras-assignment/sync/{lastSyncTime} 200 -> application/json $ref ListResponseDto
+GET /api/product-extras-assignment/sync/{lastSyncTime} 400 -> none
+GET /api/product-extras-assignment/sync/{lastSyncTime} 401 -> none
+GET /api/product-extras/sync/{lastSyncTime} 200 -> application/json array of $ref ProductExtrasResponseDto
+GET /api/product-extras/sync/{lastSyncTime} 400 -> none
+GET /api/product-extras/sync/{lastSyncTime} 401 -> none
+GET /api/product-extras/{id} 200 -> application/json $ref ProductExtrasResponseDto
+GET /api/product-extras/{id} 400 -> none
+GET /api/product-extras/{id} 401 -> none
+GET /api/product-extras/{id} 404 -> none
+GET /api/products 200 -> application/json array of $ref ProductResponseDto
+GET /api/products 401 -> none
+GET /api/products/by-category/{categoryId} 200 -> application/json array of $ref ProductResponseDto
+GET /api/products/by-category/{categoryId} 400 -> none
+GET /api/products/by-category/{categoryId} 401 -> none
+GET /api/products/by-number/{productNumber} 200 -> application/json $ref ProductResponseDto
+GET /api/products/by-number/{productNumber} 400 -> none
+GET /api/products/by-number/{productNumber} 401 -> none
+GET /api/products/by-number/{productNumber} 404 -> none
+GET /api/products/favourites 200 -> application/json $ref FavouriteProductListResponseDto
+GET /api/products/favourites 401 -> none
+GET /api/products/images/{filename} 200 -> */* none
+GET /api/products/images/{filename} 400 -> none
+GET /api/products/images/{filename} 404 -> application/json "string"
+GET /api/products/search 200 -> application/json array of $ref ProductResponseDto
+GET /api/products/search 400 -> none
+GET /api/products/search 401 -> none
+GET /api/products/sync/{lastSyncTime} 200 -> application/json array of $ref ProductResponseDto
+GET /api/products/sync/{lastSyncTime} 400 -> none
+GET /api/products/sync/{lastSyncTime} 401 -> none
+GET /api/products/{id} 200 -> application/json $ref ProductResponseDto
+GET /api/products/{id} 400 -> none
+GET /api/products/{id} 401 -> none
+GET /api/products/{id} 404 -> none
+GET /api/promotions 200 -> application/json array of $ref PromotionResponseDto
+GET /api/promotions 401 -> none
+GET /api/promotions/all 200 -> application/json array of $ref PromotionResponseDto
+GET /api/promotions/all 401 -> none
+GET /api/promotions/all 403 -> none
+GET /api/promotions/{id} 200 -> application/json $ref PromotionResponseDto
+GET /api/promotions/{id} 400 -> none
+GET /api/promotions/{id} 401 -> none
+GET /api/promotions/{id} 403 -> none
+GET /api/promotions/{id} 404 -> none
+GET /api/promotions/{id}/usage 200 -> application/json $ref PromotionUsageDto
+GET /api/promotions/{id}/usage 400 -> none
+GET /api/promotions/{id}/usage 401 -> none
+GET /api/promotions/{id}/usage 403 -> none
+GET /api/promotions/{id}/usage 404 -> none
+GET /api/reservation-rules 200 -> application/json array of $ref org.example.project.core.domain.dto.reservation.ReservationRuleDto.ResponseDto
+GET /api/reservation-rules 400 -> none
+GET /api/reservation-rules 401 -> none
+GET /api/reservation-rules/{id} 200 -> application/json $ref org.example.project.core.domain.dto.reservation.ReservationRuleDto.ResponseDto
+GET /api/reservation-rules/{id} 400 -> none
+GET /api/reservation-rules/{id} 401 -> none
+GET /api/reservation-rules/{id} 404 -> none
+GET /api/reservations 200 -> application/json array of $ref org.example.project.core.domain.dto.reservation.ReservationDto.ResponseDto
+GET /api/reservations 400 -> none
+GET /api/reservations 401 -> none
+GET /api/reservations/availability 200 -> application/json $ref AvailabilityResponseDto
+GET /api/reservations/availability 400 -> none
+GET /api/reservations/availability 401 -> none
+GET /api/reservations/search 200 -> application/json array of $ref org.example.project.core.domain.dto.reservation.ReservationDto.ResponseDto
+GET /api/reservations/search 400 -> none
+GET /api/reservations/search 401 -> none
+GET /api/reservations/{id} 200 -> application/json $ref org.example.project.core.domain.dto.reservation.ReservationDto.ResponseDto
+GET /api/reservations/{id} 400 -> none
+GET /api/reservations/{id} 401 -> none
+GET /api/reservations/{id} 404 -> none
+GET /api/reservations/{id}/tables 200 -> application/json array of $ref AssignmentDto
+GET /api/reservations/{id}/tables 400 -> none
+GET /api/reservations/{id}/tables 401 -> none
+GET /api/reservations/{id}/tables 404 -> none
+GET /api/room-elements 200 -> application/json $ref RoomElementListResponseDto
+GET /api/room-elements 400 -> none
+GET /api/room-elements 401 -> none
+GET /api/room-elements/by-location/{locationTypeId} 200 -> application/json array of $ref RoomElementResponseDto
+GET /api/room-elements/by-location/{locationTypeId} 400 -> none
+GET /api/room-elements/by-location/{locationTypeId} 401 -> none
+GET /api/room-elements/by-type/{type} 200 -> application/json array of $ref RoomElementResponseDto
+GET /api/room-elements/by-type/{type} 400 -> none
+GET /api/room-elements/by-type/{type} 401 -> none
+GET /api/room-elements/sync/{lastSyncTime} 200 -> application/json array of $ref RoomElementResponseDto
+GET /api/room-elements/sync/{lastSyncTime} 400 -> none
+GET /api/room-elements/sync/{lastSyncTime} 401 -> none
+GET /api/room-elements/{id} 200 -> application/json $ref RoomElementResponseDto
+GET /api/room-elements/{id} 400 -> none
+GET /api/room-elements/{id} 401 -> none
+GET /api/room-elements/{id} 404 -> none
+GET /api/scheduled-jobs 200 -> application/json array of $ref ScheduledJobResponseDto
+GET /api/scheduled-jobs 401 -> none
+GET /api/scheduled-jobs 403 -> none
+GET /api/scheduled-jobs/types 200 -> application/json array of $ref JobTypeInfoDto
+GET /api/scheduled-jobs/types 401 -> none
+GET /api/scheduled-jobs/types 403 -> none
+GET /api/scheduled-jobs/{id} 200 -> application/json $ref ScheduledJobDetailDto
+GET /api/scheduled-jobs/{id} 400 -> none
+GET /api/scheduled-jobs/{id} 401 -> none
+GET /api/scheduled-jobs/{id} 403 -> none
+GET /api/scheduled-jobs/{id} 404 -> none
+GET /api/scheduled-jobs/{id}/executions 200 -> application/json $ref JobExecutionPageDto
+GET /api/scheduled-jobs/{id}/executions 400 -> none
+GET /api/scheduled-jobs/{id}/executions 401 -> none
+GET /api/scheduled-jobs/{id}/executions 403 -> none
+GET /api/scheduled-jobs/{id}/executions 404 -> none
+GET /api/setup/readiness 200 -> application/json $ref SetupReadinessDto
+GET /api/setup/readiness 401 -> none
+GET /api/setup/readiness 403 -> none
+GET /api/setup/status 200 -> application/json $ref InitialSetupStatusDto
+GET /api/shop-info 200 -> application/json array of $ref ShopInfoResponseDto
+GET /api/shop-info 401 -> none
+GET /api/shop-info 403 -> none
+GET /api/shop-info/logo/{filename} 200 -> */* none
+GET /api/shop-info/logo/{filename} 400 -> none
+GET /api/shop-info/logo/{filename} 404 -> application/json "string"
+GET /api/shop-info/sync 200 -> application/json $ref ShopInfoSyncResponseDto
+GET /api/shop-info/sync 401 -> none
+GET /api/shop-info/sync 404 -> application/json "string"
+GET /api/shop-info/{id} 200 -> application/json $ref ShopInfoResponseDto
+GET /api/shop-info/{id} 400 -> none
+GET /api/shop-info/{id} 401 -> none
+GET /api/shop-info/{id} 403 -> none
+GET /api/shop-info/{id} 404 -> application/json "string"
+GET /api/statistics/catalog 200 -> application/json $ref CatalogBreakdownResponseDto
+GET /api/statistics/catalog 400 -> none
+GET /api/statistics/catalog 401 -> none
+GET /api/statistics/catalog 403 -> none
+GET /api/statistics/financial 200 -> application/json $ref FinancialOverviewResponseDto
+GET /api/statistics/financial 400 -> none
+GET /api/statistics/financial 401 -> none
+GET /api/statistics/financial 403 -> none
+GET /api/statistics/promotions 200 -> application/json $ref PromotionBreakdownResponseDto
+GET /api/statistics/promotions 400 -> none
+GET /api/statistics/promotions 401 -> none
+GET /api/statistics/promotions 403 -> none
+GET /api/statistics/sales/bills 200 -> application/json $ref PaginatedBillsResponseDto
+GET /api/statistics/sales/bills 400 -> none
+GET /api/statistics/sales/bills 401 -> none
+GET /api/statistics/sales/bills 403 -> none
+GET /api/statistics/sales/by-employee 200 -> application/json $ref PaginatedEmployeeGroupsResponseDto
+GET /api/statistics/sales/by-employee 400 -> none
+GET /api/statistics/sales/by-employee 401 -> none
+GET /api/statistics/sales/by-employee 403 -> none
+GET /api/statistics/sales/by-table 200 -> application/json $ref PaginatedTableCardsResponseDto
+GET /api/statistics/sales/by-table 400 -> none
+GET /api/statistics/sales/by-table 401 -> none
+GET /api/statistics/sales/by-table 403 -> none
+GET /api/statistics/sales/by-table/{tableId}/sessions 200 -> application/json $ref TableSessionsResponseDto
+GET /api/statistics/sales/by-table/{tableId}/sessions 400 -> none
+GET /api/statistics/sales/by-table/{tableId}/sessions 401 -> none
+GET /api/statistics/sales/by-table/{tableId}/sessions 403 -> none
+GET /api/statistics/sales/canceled-items 200 -> application/json $ref CanceledItemsResponseDto
+GET /api/statistics/sales/canceled-items 400 -> none
+GET /api/statistics/sales/canceled-items 401 -> none
+GET /api/statistics/sales/canceled-items 403 -> none
+GET /api/statistics/sales/overview 200 -> application/json $ref SalesOverviewResponseDto
+GET /api/statistics/sales/overview 400 -> none
+GET /api/statistics/sales/overview 401 -> none
+GET /api/statistics/sales/overview 403 -> none
+GET /api/statistics/sales/payments 200 -> application/json $ref PaginatedPaymentsResponseDto
+GET /api/statistics/sales/payments 400 -> none
+GET /api/statistics/sales/payments 401 -> none
+GET /api/statistics/sales/payments 403 -> none
+GET /api/statistics/sales/sessions 200 -> application/json $ref PaginatedSessionsResponseDto
+GET /api/statistics/sales/sessions 400 -> none
+GET /api/statistics/sales/sessions 401 -> none
+GET /api/statistics/sales/sessions 403 -> none
+GET /api/statistics/sales/trends 200 -> application/json $ref SalesTrendsResponseDto
+GET /api/statistics/sales/trends 400 -> none
+GET /api/statistics/sales/trends 401 -> none
+GET /api/statistics/sales/trends 403 -> none
+GET /api/suppliers 200 -> application/json $ref org.example.project.core.domain.dto.supplier.SupplierDto.ListResponseDto
+GET /api/suppliers 401 -> none
+GET /api/suppliers 403 -> none
+GET /api/suppliers/{id} 200 -> application/json $ref org.example.project.core.domain.dto.supplier.SupplierDto.ResponseDto
+GET /api/suppliers/{id} 400 -> none
+GET /api/suppliers/{id} 401 -> none
+GET /api/suppliers/{id} 403 -> none
+GET /api/suppliers/{id} 404 -> none
+GET /api/tables 200 -> application/json $ref RTableListResponseDto
+GET /api/tables 400 -> none
+GET /api/tables 401 -> none
+GET /api/tables/billing-requests/pending 200 -> application/json array of $ref billing_request
+GET /api/tables/billing-requests/pending 401 -> none
+GET /api/tables/combinable 200 -> application/json array of $ref CombinablePairDto
+GET /api/tables/combinable 401 -> none
+GET /api/tables/rotation/next 200 -> application/json $ref NextSnapshotDto
+GET /api/tables/rotation/next 401 -> none
+GET /api/tables/search 200 -> application/json $ref RTableListResponseDto
+GET /api/tables/search 400 -> none
+GET /api/tables/search 401 -> none
+GET /api/tables/sessions 200 -> application/json array of $ref TableSessionResponseDto
+GET /api/tables/sessions 401 -> none
+GET /api/tables/sessions/{id} 200 -> application/json $ref TableSessionResponseDto
+GET /api/tables/sessions/{id} 400 -> none
+GET /api/tables/sessions/{id} 401 -> none
+GET /api/tables/sessions/{id} 404 -> none
+GET /api/tables/sessions/{sessionId}/customer 200 -> application/json $ref SessionCustomerDto
+GET /api/tables/sessions/{sessionId}/customer 400 -> none
+GET /api/tables/sessions/{sessionId}/customer 401 -> none
+GET /api/tables/sessions/{sessionId}/customer 404 -> none
+GET /api/tables/sync/{lastSyncTime} 200 -> application/json array of $ref RTableResponseDto
+GET /api/tables/sync/{lastSyncTime} 400 -> none
+GET /api/tables/sync/{lastSyncTime} 401 -> none
+GET /api/tables/{id} 200 -> application/json $ref RTableResponseDto
+GET /api/tables/{id} 400 -> none
+GET /api/tables/{id} 401 -> none
+GET /api/tables/{id} 404 -> none
+GET /api/tables/{id}/combinable 200 -> application/json array of "integer"
+GET /api/tables/{id}/combinable 400 -> none
+GET /api/tables/{id}/combinable 401 -> none
+GET /api/tables/{id}/combinable 404 -> none
+GET /api/tables/{id}/currentSession 200 -> application/json $ref TableSessionResponseDto
+GET /api/tables/{id}/currentSession 400 -> none
+GET /api/tables/{id}/currentSession 401 -> none
+GET /api/tables/{id}/currentSession 404 -> none
+GET /api/tables/{id}/currentSession 409 -> none
+GET /api/tse/admin/status 200 -> application/json $ref TseAdminSessionStatusDto
+GET /api/tse/admin/status 401 -> none
+GET /api/tse/admin/status 403 -> none
+GET /api/tse/clients 200 -> application/json $ref ClientListResultDto
+GET /api/tse/clients 401 -> none
+GET /api/tse/clients 403 -> none
+GET /api/tse/clients 423 -> none
+GET /api/tse/clients 424 -> none
+GET /api/tse/clients 500 -> none
+GET /api/tse/config 200 -> application/json $ref TseConfig
+GET /api/tse/config 401 -> none
+GET /api/tse/config 403 -> none
+GET /api/tse/config 404 -> none
+GET /api/tse/export/size 200 -> application/json $ref ExportSizeDto
+GET /api/tse/export/size 401 -> none
+GET /api/tse/export/size 403 -> none
+GET /api/tse/export/size 424 -> none
+GET /api/tse/export/size 500 -> none
+GET /api/tse/findings 200 -> application/json $ref FindingsResponseDto
+GET /api/tse/findings 400 -> none
+GET /api/tse/findings 401 -> none
+GET /api/tse/findings 403 -> none
+GET /api/tse/firmware-check 200 -> application/json $ref FirmwareUpdateCheckResultDto
+GET /api/tse/firmware-check 401 -> none
+GET /api/tse/firmware-check 403 -> none
+GET /api/tse/firmware-check 424 -> none
+GET /api/tse/firmware-check 500 -> none
+GET /api/tse/flashhealth 200 -> application/json $ref FlashHealthResultDto
+GET /api/tse/flashhealth 401 -> none
+GET /api/tse/flashhealth 403 -> none
+GET /api/tse/flashhealth 424 -> none
+GET /api/tse/flashhealth 500 -> none
+GET /api/tse/health 200 -> application/json $ref HealthCheckResultDto
+GET /api/tse/health 401 -> none
+GET /api/tse/health 403 -> none
+GET /api/tse/health 424 -> none
+GET /api/tse/health 500 -> none
+GET /api/tse/info 200 -> application/json $ref TseInfoDto
+GET /api/tse/info 401 -> none
+GET /api/tse/info 403 -> none
+GET /api/tse/info 424 -> none
+GET /api/tse/info 500 -> none
+GET /api/tse/last-transaction 200 -> application/json $ref LastTransactionResultDto
+GET /api/tse/last-transaction 401 -> none
+GET /api/tse/last-transaction 403 -> none
+GET /api/tse/last-transaction 424 -> none
+GET /api/tse/last-transaction 500 -> none
+GET /api/tse/ping 200 -> application/json $ref PingResponse
+GET /api/tse/ping 401 -> none
+GET /api/tse/ping 403 -> none
+GET /api/tse/queue/entries 200 -> application/json array of $ref QueueEntryResponseDto
+GET /api/tse/queue/entries 400 -> none
+GET /api/tse/queue/entries 401 -> none
+GET /api/tse/queue/entries 403 -> none
+GET /api/tse/queue/entries/{id} 200 -> application/json $ref QueueEntryResponseDto
+GET /api/tse/queue/entries/{id} 400 -> none
+GET /api/tse/queue/entries/{id} 401 -> none
+GET /api/tse/queue/entries/{id} 403 -> none
+GET /api/tse/queue/entries/{id} 404 -> none
+GET /api/tse/queue/status 200 -> application/json $ref QueueStatusDto
+GET /api/tse/queue/status 401 -> none
+GET /api/tse/queue/status 403 -> none
+GET /api/tse/status 200 -> application/json $ref StatusInfoDto
+GET /api/tse/status 401 -> none
+GET /api/tse/status 403 -> none
+GET /api/tse/status 424 -> none
+GET /api/tse/status 500 -> none
+GET /api/tse/transactions 200 -> application/json $ref TransactionListResultDto
+GET /api/tse/transactions 401 -> none
+GET /api/tse/transactions 403 -> none
+GET /api/tse/transactions 424 -> none
+GET /api/tse/transactions 500 -> none
+GET /api/update/client/android 200 -> application/json $ref AndroidClientDto
+GET /api/update/client/android 404 -> none
+GET /api/update/client/android/download 200 -> */* none
+GET /api/update/client/android/download 404 -> none
+GET /api/update/settings 200 -> application/json $ref SettingsDto
+GET /api/update/settings 401 -> none
+GET /api/update/settings 403 -> none
+GET /api/update/status 200 -> application/json $ref StatusDto
+GET /api/update/status 401 -> none
+GET /api/update/status 403 -> none
+GET /api/v1/backup/config 200 -> application/json $ref BackupConfigDto
+GET /api/v1/backup/config 401 -> none
+GET /api/v1/backup/config 403 -> none
+GET /api/v1/backup/directories 200 -> application/json $ref DirectoryListingDto
+GET /api/v1/backup/directories 401 -> none
+GET /api/v1/backup/directories 403 -> none
+GET /api/v1/backup/directories 404 -> none
+GET /api/v1/backup/list 200 -> application/json $ref BackupListDto
+GET /api/v1/backup/list 401 -> none
+GET /api/v1/backup/list 403 -> none
+GET /api/v1/backup/list 404 -> none
+GET /api/v1/backup/restored-paths 200 -> application/json $ref ReviewDto
+GET /api/v1/backup/restored-paths 401 -> none
+GET /api/v1/backup/restored-paths 403 -> none
+GET /api/v1/bills 200 -> application/json array of $ref BillResponseDto
+GET /api/v1/bills 401 -> none
+GET /api/v1/bills/number/{billNumber} 200 -> application/json $ref BillResponseDto
+GET /api/v1/bills/number/{billNumber} 400 -> none
+GET /api/v1/bills/number/{billNumber} 401 -> none
+GET /api/v1/bills/number/{billNumber} 404 -> none
+GET /api/v1/bills/search 200 -> application/json array of $ref BillResponseDto
+GET /api/v1/bills/search 400 -> none
+GET /api/v1/bills/search 401 -> none
+GET /api/v1/bills/statistics 200 -> application/json $ref BillStatisticsDto
+GET /api/v1/bills/statistics 400 -> none
+GET /api/v1/bills/statistics 401 -> none
+GET /api/v1/bills/summaries 200 -> application/json array of $ref BillSummaryDto
+GET /api/v1/bills/summaries 401 -> none
+GET /api/v1/bills/table-session/{tableSessionId} 200 -> application/json array of $ref BillResponseDto
+GET /api/v1/bills/table-session/{tableSessionId} 400 -> none
+GET /api/v1/bills/table-session/{tableSessionId} 401 -> none
+GET /api/v1/bills/tse-transaction/{transactionNumber} 200 -> application/json $ref BillResponseDto
+GET /api/v1/bills/tse-transaction/{transactionNumber} 400 -> none
+GET /api/v1/bills/tse-transaction/{transactionNumber} 401 -> none
+GET /api/v1/bills/tse-transaction/{transactionNumber} 404 -> none
+GET /api/v1/bills/{id} 200 -> application/json $ref BillResponseDto
+GET /api/v1/bills/{id} 400 -> none
+GET /api/v1/bills/{id} 401 -> none
+GET /api/v1/bills/{id} 404 -> none
+GET /api/v1/changelog 200 -> application/json $ref PaginatedChangelogResponseDto
+GET /api/v1/changelog 401 -> none
+GET /api/v1/config/{shopId}/billing-rules 200 -> application/json $ref BillingRulesResponseDto
+GET /api/v1/config/{shopId}/billing-rules 400 -> application/json "object"
+GET /api/v1/config/{shopId}/billing-rules 401 -> none
+GET /api/v1/config/{shopId}/billing-rules 500 -> application/json "object"
+GET /api/v1/config/{shopId}/break-rules 200 -> application/json $ref BreakRulesConfigResponseDto
+GET /api/v1/config/{shopId}/break-rules 400 -> application/json "object"
+GET /api/v1/config/{shopId}/break-rules 401 -> none
+GET /api/v1/config/{shopId}/break-rules 500 -> application/json "object"
+GET /api/v1/config/{shopId}/browser-stations 200 -> application/json $ref BrowserStationsResponseDto
+GET /api/v1/config/{shopId}/browser-stations 400 -> none
+GET /api/v1/config/{shopId}/browser-stations 401 -> none
+GET /api/v1/config/{shopId}/cash-book-transfer-target 200 -> application/json $ref CashBookTransferTargetResponseDto
+GET /api/v1/config/{shopId}/cash-book-transfer-target 400 -> none
+GET /api/v1/config/{shopId}/cash-book-transfer-target 401 -> none
+GET /api/v1/config/{shopId}/datev-account-mapping 200 -> application/json $ref MappingResponseDto
+GET /api/v1/config/{shopId}/datev-account-mapping 400 -> application/json "object"
+GET /api/v1/config/{shopId}/datev-account-mapping 401 -> none
+GET /api/v1/config/{shopId}/datev-account-mapping 500 -> application/json "object"
+GET /api/v1/config/{shopId}/datev-xml 200 -> application/json $ref DatevXmlConfigResponseDto
+GET /api/v1/config/{shopId}/datev-xml 400 -> application/json "object"
+GET /api/v1/config/{shopId}/datev-xml 401 -> none
+GET /api/v1/config/{shopId}/datev-xml 500 -> application/json "object"
+GET /api/v1/config/{shopId}/document-storage 200 -> application/json $ref DocumentStorageConfigResponseDto
+GET /api/v1/config/{shopId}/document-storage 400 -> application/json "object"
+GET /api/v1/config/{shopId}/document-storage 401 -> none
+GET /api/v1/config/{shopId}/document-storage 500 -> application/json "object"
+GET /api/v1/config/{shopId}/kassen-meldung 200 -> application/json $ref KassenMeldungResponseDto
+GET /api/v1/config/{shopId}/kassen-meldung 400 -> application/json "object"
+GET /api/v1/config/{shopId}/kassen-meldung 401 -> none
+GET /api/v1/config/{shopId}/kassen-meldung 403 -> none
+GET /api/v1/config/{shopId}/kassen-meldung 404 -> application/json "object"
+GET /api/v1/config/{shopId}/kassen-meldung 500 -> application/json "object"
+GET /api/v1/config/{shopId}/kassen-meldung/pdf 200 -> application/pdf none
+GET /api/v1/config/{shopId}/kassen-meldung/pdf 400 -> application/json "object"
+GET /api/v1/config/{shopId}/kassen-meldung/pdf 401 -> none
+GET /api/v1/config/{shopId}/kassen-meldung/pdf 403 -> none
+GET /api/v1/config/{shopId}/kassen-meldung/pdf 404 -> application/json "object"
+GET /api/v1/config/{shopId}/kassen-meldung/pdf 500 -> application/json "object"
+GET /api/v1/config/{shopId}/kassenbuch-beleg-age 200 -> application/json $ref KassenbuchBelegAgeResponseDto
+GET /api/v1/config/{shopId}/kassenbuch-beleg-age 400 -> none
+GET /api/v1/config/{shopId}/kassenbuch-beleg-age 401 -> none
+GET /api/v1/config/{shopId}/order-rules 200 -> application/json $ref OrderRulesResponseDto
+GET /api/v1/config/{shopId}/order-rules 400 -> application/json "object"
+GET /api/v1/config/{shopId}/order-rules 401 -> none
+GET /api/v1/config/{shopId}/order-rules 500 -> application/json "object"
+GET /api/v1/config/{shopId}/print-settings 200 -> application/json $ref PrintSettingsResponseDto
+GET /api/v1/config/{shopId}/print-settings 400 -> application/json "object"
+GET /api/v1/config/{shopId}/print-settings 401 -> none
+GET /api/v1/config/{shopId}/print-settings 500 -> application/json "object"
+GET /api/v1/config/{shopId}/vat-mapping 200 -> application/json $ref VatMappingResponseDto
+GET /api/v1/config/{shopId}/vat-mapping 400 -> application/json "object"
+GET /api/v1/config/{shopId}/vat-mapping 401 -> none
+GET /api/v1/config/{shopId}/vat-mapping 500 -> application/json "object"
+GET /api/v1/config/{shopId}/voucher-config 200 -> application/json $ref VoucherConfigResponseDto
+GET /api/v1/config/{shopId}/voucher-config 400 -> application/json "object"
+GET /api/v1/config/{shopId}/voucher-config 401 -> none
+GET /api/v1/config/{shopId}/voucher-config 500 -> application/json "object"
+GET /api/v1/config/{shopId}/web-access 200 -> application/json $ref WebAccessResponseDto
+GET /api/v1/config/{shopId}/web-access 400 -> none
+GET /api/v1/config/{shopId}/web-access 401 -> none
+GET /api/v1/config/{shopId}/web-access 403 -> none
+GET /api/v1/datev/export-log 200 -> application/json array of $ref DatevExportLogDto
+GET /api/v1/datev/export-log 400 -> none
+GET /api/v1/datev/export-log 401 -> none
+GET /api/v1/datev/export-log 403 -> none
+GET /api/v1/datev/export-log/{id}/download 200 -> */* none
+GET /api/v1/datev/export-log/{id}/download 400 -> none
+GET /api/v1/datev/export-log/{id}/download 401 -> none
+GET /api/v1/datev/export-log/{id}/download 403 -> none
+GET /api/v1/datev/export-log/{id}/download 404 -> none
+GET /api/v1/datev/export-log/{id}/download 503 -> none
+GET /api/v1/datev/export/ad-hoc 200 -> application/octet-stream none
+GET /api/v1/datev/export/ad-hoc 400 -> none
+GET /api/v1/datev/export/ad-hoc 401 -> none
+GET /api/v1/datev/export/ad-hoc 403 -> none
+GET /api/v1/datev/export/ad-hoc 409 -> none
+GET /api/v1/datev/export/catchup/preview 200 -> application/json $ref CatchupPreviewDto
+GET /api/v1/datev/export/catchup/preview 400 -> none
+GET /api/v1/datev/export/catchup/preview 401 -> none
+GET /api/v1/datev/export/catchup/preview 403 -> none
+GET /api/v1/dsfinvk/statistics 200 -> application/json $ref org.example.project.core.domain.dto.dsfinvk.DsfinvkExportDto.ExportStatisticsDto
+GET /api/v1/dsfinvk/statistics 400 -> none
+GET /api/v1/dsfinvk/statistics 401 -> none
+GET /api/v1/dsfinvk/statistics 403 -> none
+GET /api/v1/dsfinvk/validate 200 -> application/json $ref ValidationResultDto
+GET /api/v1/dsfinvk/validate 400 -> none
+GET /api/v1/dsfinvk/validate 401 -> none
+GET /api/v1/dsfinvk/validate 403 -> none
+GET /api/v1/kassenbuch/available-cash 200 -> application/json $ref AvailableCashDto
+GET /api/v1/kassenbuch/available-cash 401 -> none
+GET /api/v1/kassenbuch/available-cash 403 -> none
+GET /api/v1/kassenbuch/available-cash 404 -> none
+GET /api/v1/kassenbuch/balance 200 -> application/json "string"
+GET /api/v1/kassenbuch/balance 401 -> none
+GET /api/v1/kassenbuch/balance 403 -> none
+GET /api/v1/kassenbuch/balance 404 -> none
+GET /api/v1/kassenbuch/books 200 -> application/json array of $ref org.example.project.core.domain.dto.kassenbuch.CashBookDto.ResponseDto
+GET /api/v1/kassenbuch/books 401 -> none
+GET /api/v1/kassenbuch/books 403 -> none
+GET /api/v1/kassenbuch/books/{bookId}/close/preview 200 -> application/json $ref ClosePreviewDto
+GET /api/v1/kassenbuch/books/{bookId}/close/preview 400 -> none
+GET /api/v1/kassenbuch/books/{bookId}/close/preview 401 -> none
+GET /api/v1/kassenbuch/books/{bookId}/close/preview 403 -> none
+GET /api/v1/kassenbuch/books/{bookId}/close/preview 404 -> none
+GET /api/v1/kassenbuch/books/{bookId}/close/preview 422 -> none
+GET /api/v1/kassenbuch/books/{bookId}/closes 200 -> application/json array of $ref CloseResponseDto
+GET /api/v1/kassenbuch/books/{bookId}/closes 400 -> none
+GET /api/v1/kassenbuch/books/{bookId}/closes 401 -> none
+GET /api/v1/kassenbuch/books/{bookId}/closes 403 -> none
+GET /api/v1/kassenbuch/books/{bookId}/closes 404 -> none
+GET /api/v1/kassenbuch/books/{bookId}/signing-terminal/candidates 200 -> application/json array of $ref SigningTerminalCandidateDto
+GET /api/v1/kassenbuch/books/{bookId}/signing-terminal/candidates 400 -> none
+GET /api/v1/kassenbuch/books/{bookId}/signing-terminal/candidates 401 -> none
+GET /api/v1/kassenbuch/books/{bookId}/signing-terminal/candidates 403 -> none
+GET /api/v1/kassenbuch/books/{bookId}/signing-terminal/candidates 404 -> none
+GET /api/v1/kassenbuch/cash-count/expected 200 -> application/json $ref CashCountExpectationDto
+GET /api/v1/kassenbuch/cash-count/expected 401 -> none
+GET /api/v1/kassenbuch/cash-count/expected 403 -> none
+GET /api/v1/kassenbuch/entries 200 -> application/json array of $ref KassenbuchGroupedSummaryDto
+GET /api/v1/kassenbuch/entries 400 -> none
+GET /api/v1/kassenbuch/entries 401 -> none
+GET /api/v1/kassenbuch/entries 403 -> none
+GET /api/v1/kassenbuch/entries/grouped/{headerId} 200 -> application/json $ref KassenbuchGroupedDetailDto
+GET /api/v1/kassenbuch/entries/grouped/{headerId} 400 -> none
+GET /api/v1/kassenbuch/entries/grouped/{headerId} 401 -> none
+GET /api/v1/kassenbuch/entries/grouped/{headerId} 403 -> none
+GET /api/v1/kassenbuch/entries/grouped/{headerId} 404 -> none
+GET /api/v1/kassenbuch/entries/recent 200 -> application/json array of $ref KassenbuchGroupedSummaryDto
+GET /api/v1/kassenbuch/entries/recent 401 -> none
+GET /api/v1/kassenbuch/entries/recent 403 -> none
+GET /api/v1/kassenbuch/entries/search 200 -> application/json array of $ref KassenbuchGroupedSummaryDto
+GET /api/v1/kassenbuch/entries/search 400 -> none
+GET /api/v1/kassenbuch/entries/search 401 -> none
+GET /api/v1/kassenbuch/entries/search 403 -> none
+GET /api/v1/kassenbuch/entries/{entryId} 200 -> application/json $ref KassenbuchEntryResponseDto
+GET /api/v1/kassenbuch/entries/{entryId} 400 -> none
+GET /api/v1/kassenbuch/entries/{entryId} 401 -> none
+GET /api/v1/kassenbuch/entries/{entryId} 403 -> none
+GET /api/v1/kassenbuch/entries/{entryId} 404 -> none
+GET /api/v1/kassenbuch/export/buchungsstapel 200 -> application/json $ref DatevExportLogDto
+GET /api/v1/kassenbuch/export/buchungsstapel 400 -> none
+GET /api/v1/kassenbuch/export/buchungsstapel 401 -> none
+GET /api/v1/kassenbuch/export/buchungsstapel 403 -> none
+GET /api/v1/kassenbuch/export/datev-xml 200 -> application/json $ref DatevExportLogDto
+GET /api/v1/kassenbuch/export/datev-xml 400 -> none
+GET /api/v1/kassenbuch/export/datev-xml 401 -> none
+GET /api/v1/kassenbuch/export/datev-xml 403 -> none
+GET /api/v1/kassenbuch/export/datev-xml/statistics 200 -> application/json $ref ExportStatisticsDto
+GET /api/v1/kassenbuch/export/datev-xml/statistics 400 -> none
+GET /api/v1/kassenbuch/export/datev-xml/statistics 401 -> none
+GET /api/v1/kassenbuch/export/datev-xml/statistics 403 -> none
+GET /api/v1/monthly-close 200 -> application/json $ref MonthlyCloseResponseDto
+GET /api/v1/monthly-close 400 -> none
+GET /api/v1/monthly-close 401 -> none
+GET /api/v1/monthly-close 403 -> none
+GET /api/v1/sales-invoices 200 -> application/json $ref org.example.project.core.domain.dto.salesinvoice.SalesInvoiceDto.ListResponseDto
+GET /api/v1/sales-invoices 400 -> none
+GET /api/v1/sales-invoices 401 -> none
+GET /api/v1/sales-invoices 403 -> none
+GET /api/v1/sales-invoices/export/datev 200 -> application/zip none
+GET /api/v1/sales-invoices/export/datev 400 -> none
+GET /api/v1/sales-invoices/export/datev 401 -> none
+GET /api/v1/sales-invoices/export/datev 403 -> none
+GET /api/v1/sales-invoices/export/datev 409 -> none
+GET /api/v1/sales-invoices/export/datev/statistics 200 -> application/json $ref ArExportStatisticsDto
+GET /api/v1/sales-invoices/export/datev/statistics 400 -> none
+GET /api/v1/sales-invoices/export/datev/statistics 401 -> none
+GET /api/v1/sales-invoices/export/datev/statistics 403 -> none
+GET /api/v1/sales-invoices/{id} 200 -> application/json $ref org.example.project.core.domain.dto.salesinvoice.SalesInvoiceDto.ResponseDto
+GET /api/v1/sales-invoices/{id} 400 -> none
+GET /api/v1/sales-invoices/{id} 401 -> none
+GET /api/v1/sales-invoices/{id} 403 -> none
+GET /api/v1/sales-invoices/{id} 404 -> none
+GET /api/v1/sales-invoices/{id}/pdf 200 -> application/pdf none
+GET /api/v1/sales-invoices/{id}/pdf 400 -> none
+GET /api/v1/sales-invoices/{id}/pdf 401 -> none
+GET /api/v1/sales-invoices/{id}/pdf 403 -> none
+GET /api/v1/sales-invoices/{id}/pdf 404 -> none
+GET /api/v1/sales-invoices/{id}/pdf 500 -> none
+GET /api/v1/terminals 200 -> application/json array of $ref TerminalSummaryDto
+GET /api/v1/terminals 401 -> none
+GET /api/v1/terminals 403 -> none
+GET /api/v1/terminals/me 200 -> application/json $ref TerminalResponseDto
+GET /api/v1/terminals/me 400 -> none
+GET /api/v1/terminals/me 401 -> none
+GET /api/v1/terminals/me 404 -> none
+GET /api/v1/terminals/me-by-device 200 -> application/json $ref TerminalResponseDto
+GET /api/v1/terminals/me-by-device 401 -> none
+GET /api/v1/terminals/me-by-device 404 -> none
+GET /api/v1/terminals/me-by-device 500 -> none
+GET /api/v1/terminals/root-ca 200 -> application/x-pem-file none
+GET /api/v1/terminals/root-ca 404 -> none
+GET /api/v1/terminals/tse-pairing-status 200 -> application/json $ref TsePairingStatusDto
+GET /api/v1/terminals/tse-pairing-status 401 -> none
+GET /api/v1/terminals/tse-pairing-status 403 -> none
+GET /api/vat 200 -> application/json array of $ref VatResponseDto
+GET /api/vat 401 -> none
+GET /api/vouchers/active 200 -> application/json array of $ref VoucherResponseDto
+GET /api/vouchers/active 401 -> none
+GET /api/vouchers/created-by-date 200 -> application/json array of $ref VoucherResponseDto
+GET /api/vouchers/created-by-date 400 -> none
+GET /api/vouchers/created-by-date 401 -> none
+GET /api/vouchers/number/{voucherNumber}/redemption-history 200 -> application/json $ref VoucherRedemptionHistoryDto
+GET /api/vouchers/number/{voucherNumber}/redemption-history 400 -> none
+GET /api/vouchers/number/{voucherNumber}/redemption-history 401 -> none
+GET /api/vouchers/number/{voucherNumber}/redemption-history 404 -> none
+GET /api/vouchers/redeemed-by-date 200 -> application/json array of $ref VoucherRedemptionSummaryDto
+GET /api/vouchers/redeemed-by-date 400 -> none
+GET /api/vouchers/redeemed-by-date 401 -> none
+GET /api/vouchers/search 200 -> application/json array of $ref VoucherResponseDto
+GET /api/vouchers/search 400 -> none
+GET /api/vouchers/search 401 -> none
+GET /api/vouchers/statistics 200 -> application/json $ref VoucherStatisticsDto
+GET /api/vouchers/statistics 401 -> none
+GET /api/z-bon 200 -> application/json array of $ref ZBonResponseDto
+GET /api/z-bon 401 -> none
+GET /api/z-bon/closing-readiness 200 -> application/json $ref ClosingReadinessDto
+GET /api/z-bon/closing-readiness 401 -> none
+GET /api/z-bon/closing-readiness 403 -> none
+GET /api/z-bon/history 200 -> application/json array of $ref ZBonSummeryDto
+GET /api/z-bon/history 400 -> none
+GET /api/z-bon/history 401 -> none
+GET /api/z-bon/history 403 -> none
+GET /api/z-bon/latest/datetime 200 -> application/json "string"
+GET /api/z-bon/latest/datetime 401 -> none
+GET /api/z-bon/open-period-tips 200 -> application/json array of $ref OpenPeriodTipDto
+GET /api/z-bon/open-period-tips 401 -> none
+GET /api/z-bon/open-period-tips 403 -> none
+GET /api/z-bon/recent 200 -> application/json array of $ref ZBonSummeryDto
+GET /api/z-bon/recent 401 -> none
+GET /api/z-bon/recent 403 -> none
+GET /api/z-bon/{id} 200 -> application/json $ref ZBonResponseDto
+GET /api/z-bon/{id} 400 -> none
+GET /api/z-bon/{id} 401 -> none
+GET /api/z-bon/{id} 403 -> none
+GET /api/z-bon/{id} 404 -> none
+GET /api/z-bon/{id}/pdf 200 -> application/pdf none
+GET /api/z-bon/{id}/pdf 400 -> none
+GET /api/z-bon/{id}/pdf 401 -> none
+GET /api/z-bon/{id}/pdf 403 -> none
+GET /api/z-bon/{id}/pdf 404 -> none
+GET /health 200 -> text/plain none
+GET /openapi 200 -> text/plain none
+GET /openapi-generated.json 200 -> text/plain none
+GET /pos-preview/{**} 302 -> none
+HEAD / 200 -> application/json "object" | text/html; charset=UTF-8 none
+HEAD / 302 -> none
+PATCH /api/employees/language 200 -> application/json "string"
+PATCH /api/employees/language 400 -> none
+PATCH /api/employees/language 401 -> none
+PATCH /api/employees/language 404 -> none
+PATCH /api/employees/me/pin 200 -> application/json "string"
+PATCH /api/employees/me/pin 400 -> none
+PATCH /api/employees/me/pin 401 -> none
+PATCH /api/employees/me/pin 404 -> none
+PATCH /api/employees/{id}/deactivate 200 -> application/json "string"
+PATCH /api/employees/{id}/deactivate 400 -> none
+PATCH /api/employees/{id}/deactivate 401 -> none
+PATCH /api/employees/{id}/deactivate 403 -> none
+PATCH /api/employees/{id}/deactivate 404 -> none
+PATCH /api/employees/{id}/password 200 -> application/json "string"
+PATCH /api/employees/{id}/password 400 -> none
+PATCH /api/employees/{id}/password 401 -> none
+PATCH /api/employees/{id}/password 403 -> none
+PATCH /api/employees/{id}/password 404 -> none
+PATCH /api/employees/{id}/rotation-pool 200 -> application/json $ref EmployeeResponseDto
+PATCH /api/employees/{id}/rotation-pool 400 -> none
+PATCH /api/employees/{id}/rotation-pool 401 -> none
+PATCH /api/employees/{id}/rotation-pool 403 -> none
+PATCH /api/employees/{id}/rotation-pool 404 -> none
+PATCH /api/printer-location/{id}/activate 200 -> application/json "object"
+PATCH /api/printer-location/{id}/activate 400 -> none
+PATCH /api/printer-location/{id}/activate 401 -> none
+PATCH /api/printer-location/{id}/activate 404 -> none
+PATCH /api/room-elements/{id}/dimensions 200 -> application/json $ref RoomElementResponseDto
+PATCH /api/room-elements/{id}/dimensions 400 -> none
+PATCH /api/room-elements/{id}/dimensions 401 -> none
+PATCH /api/room-elements/{id}/dimensions 403 -> none
+PATCH /api/room-elements/{id}/dimensions 404 -> none
+PATCH /api/room-elements/{id}/position 200 -> application/json $ref RoomElementResponseDto
+PATCH /api/room-elements/{id}/position 400 -> none
+PATCH /api/room-elements/{id}/position 401 -> none
+PATCH /api/room-elements/{id}/position 403 -> none
+PATCH /api/room-elements/{id}/position 404 -> none
+POST /api/admin/permission-groups 201 -> application/json $ref PermissionGroupResponseDto
+POST /api/admin/permission-groups 400 -> none
+POST /api/admin/permission-groups 401 -> none
+POST /api/admin/permission-groups 403 -> none
+POST /api/admin/permission-groups 409 -> none
+POST /api/allocations 201 -> application/json $ref CreateResponseDto
+POST /api/allocations 400 -> none
+POST /api/allocations 401 -> none
+POST /api/allocations 403 -> none
+POST /api/allocations 404 -> none
+POST /api/allocations 409 -> none
+POST /api/allocations/batch 201 -> application/json array of $ref CreateResponseDto
+POST /api/allocations/batch 400 -> none
+POST /api/allocations/batch 401 -> none
+POST /api/allocations/batch 403 -> none
+POST /api/allocations/batch 404 -> none
+POST /api/allocations/batch 409 -> none
+POST /api/auth/approvals/{requestId}/approve 200 -> application/json $ref ApprovalResponseDto
+POST /api/auth/approvals/{requestId}/approve 400 -> none
+POST /api/auth/approvals/{requestId}/approve 401 -> none
+POST /api/auth/approvals/{requestId}/approve 403 -> none
+POST /api/auth/approvals/{requestId}/approve 404 -> none
+POST /api/auth/approvals/{requestId}/approve 409 -> none
+POST /api/auth/approvals/{requestId}/deny 200 -> application/json $ref ApprovalResponseDto
+POST /api/auth/approvals/{requestId}/deny 400 -> none
+POST /api/auth/approvals/{requestId}/deny 401 -> none
+POST /api/auth/approvals/{requestId}/deny 403 -> none
+POST /api/auth/approvals/{requestId}/deny 404 -> none
+POST /api/auth/approvals/{requestId}/deny 409 -> none
+POST /api/auth/login 200 -> application/json $ref LoginResponse
+POST /api/auth/login 400 -> none
+POST /api/auth/login 401 -> none
+POST /api/auth/login 403 -> none
+POST /api/auth/logout 200 -> application/json "string"
+POST /api/auth/logout 401 -> none
+POST /api/auth/refresh 200 -> application/json $ref LoginResponse
+POST /api/auth/refresh 400 -> none
+POST /api/auth/refresh 401 -> none
+POST /api/auth/refresh 403 -> none
+POST /api/auth/sessions/revoke-all 200 -> application/json "string"
+POST /api/auth/sessions/revoke-all 401 -> none
+POST /api/auth/sessions/revoke-all 403 -> none
+POST /api/auth/temporary-session 201 -> application/json $ref TemporarySessionResponseDto
+POST /api/auth/temporary-session 400 -> none
+POST /api/auth/temporary-session 401 -> none
+POST /api/auth/temporary-session 403 -> none
+POST /api/bank-accounts 201 -> application/json $ref org.example.project.core.domain.dto.bank.BankAccountDto.ResponseDto
+POST /api/bank-accounts 400 -> none
+POST /api/bank-accounts 401 -> none
+POST /api/bank-accounts 403 -> none
+POST /api/bank-accounts 409 -> none
+POST /api/bank-accounts/resolve 200 -> application/json $ref ResolveResponseDto
+POST /api/bank-accounts/resolve 401 -> none
+POST /api/bank-accounts/resolve 403 -> none
+POST /api/card-terminals/ 201 -> application/json $ref CardTerminalResponseDto
+POST /api/card-terminals/ 400 -> none
+POST /api/card-terminals/ 401 -> none
+POST /api/card-terminals/ 403 -> none
+POST /api/card-terminals/ 409 -> none
+POST /api/card-terminals/{id}/connect 200 -> application/json $ref CardTerminalResponseDto
+POST /api/card-terminals/{id}/connect 400 -> none
+POST /api/card-terminals/{id}/connect 401 -> none
+POST /api/card-terminals/{id}/connect 403 -> none
+POST /api/card-terminals/{id}/connect 404 -> none
+POST /api/card-terminals/{id}/connect 503 -> none
+POST /api/card-terminals/{id}/diagnosis 200 -> application/json $ref DiagnosisResponseDto
+POST /api/card-terminals/{id}/diagnosis 400 -> none
+POST /api/card-terminals/{id}/diagnosis 401 -> none
+POST /api/card-terminals/{id}/diagnosis 403 -> none
+POST /api/card-terminals/{id}/diagnosis 404 -> none
+POST /api/card-terminals/{id}/diagnosis 503 -> none
+POST /api/card-terminals/{id}/disconnect 200 -> application/json $ref CardTerminalResponseDto
+POST /api/card-terminals/{id}/disconnect 400 -> none
+POST /api/card-terminals/{id}/disconnect 401 -> none
+POST /api/card-terminals/{id}/disconnect 403 -> none
+POST /api/card-terminals/{id}/disconnect 404 -> none
+POST /api/card-terminals/{id}/status 200 -> application/json $ref CardTerminalResponseDto
+POST /api/card-terminals/{id}/status 400 -> none
+POST /api/card-terminals/{id}/status 401 -> none
+POST /api/card-terminals/{id}/status 404 -> none
+POST /api/card-terminals/{id}/status 503 -> none
+POST /api/choice-groups 201 -> application/json $ref ChoiceGroupResponseDto
+POST /api/choice-groups 400 -> none
+POST /api/choice-groups 401 -> none
+POST /api/choice-groups 403 -> none
+POST /api/contracts 201 -> application/json $ref org.example.project.core.domain.dto.contract.ContractDto.ResponseDto
+POST /api/contracts 400 -> none
+POST /api/contracts 401 -> none
+POST /api/contracts 403 -> none
+POST /api/custom-exports 200 -> application/json $ref DefinitionDto
+POST /api/custom-exports 400 -> none
+POST /api/custom-exports 401 -> none
+POST /api/custom-exports 403 -> none
+POST /api/custom-exports 404 -> none
+POST /api/customer-addresses 201 -> application/json $ref CustomerAddressResponseDto
+POST /api/customer-addresses 400 -> none
+POST /api/customer-addresses 401 -> none
+POST /api/customer-addresses 404 -> none
+POST /api/customers 201 -> application/json $ref CustomerResponseDto
+POST /api/customers 400 -> none
+POST /api/customers 401 -> none
+POST /api/customers 409 -> none
+POST /api/debtors 201 -> application/json $ref org.example.project.core.domain.dto.debtor.DebtorDto.ResponseDto
+POST /api/debtors 400 -> none
+POST /api/debtors 401 -> none
+POST /api/debtors 403 -> none
+POST /api/debtors 409 -> none
+POST /api/documents/link 201 -> application/json array of $ref DocumentLinkResponseDto
+POST /api/documents/link 400 -> none
+POST /api/documents/link 401 -> none
+POST /api/documents/link 403 -> none
+POST /api/documents/link 404 -> none
+POST /api/documents/link 409 -> none
+POST /api/documents/upload 201 -> application/json $ref DocumentResponseDto
+POST /api/documents/upload 400 -> none
+POST /api/documents/upload 401 -> none
+POST /api/documents/upload 403 -> none
+POST /api/documents/upload 413 -> none
+POST /api/documents/upload 422 -> none
+POST /api/documents/upload 500 -> none
+POST /api/documents/{id}/invoice 201 -> application/json $ref InvoiceDto
+POST /api/documents/{id}/invoice 400 -> none
+POST /api/documents/{id}/invoice 401 -> none
+POST /api/documents/{id}/invoice 403 -> none
+POST /api/documents/{id}/invoice 404 -> none
+POST /api/employee/info 201 -> application/json $ref EmployeeInfoResponseDto
+POST /api/employee/info 400 -> none
+POST /api/employee/info 401 -> none
+POST /api/employee/info 403 -> none
+POST /api/employee/info 409 -> none
+POST /api/employees 201 -> application/json $ref EmployeeResponseDto
+POST /api/employees 400 -> none
+POST /api/employees 401 -> none
+POST /api/employees 403 -> none
+POST /api/employees 409 -> none
+POST /api/employees/authenticate 200 -> application/json $ref EmployeeResponseDto
+POST /api/employees/authenticate 400 -> none
+POST /api/employees/authenticate 401 -> none
+POST /api/employees/{id}/reset-password 200 -> application/json "string"
+POST /api/employees/{id}/reset-password 400 -> none
+POST /api/employees/{id}/reset-password 401 -> none
+POST /api/employees/{id}/reset-password 403 -> none
+POST /api/employees/{id}/reset-password 404 -> none
+POST /api/employees/{id}/reset-pin 200 -> application/json "string"
+POST /api/employees/{id}/reset-pin 400 -> none
+POST /api/employees/{id}/reset-pin 401 -> none
+POST /api/employees/{id}/reset-pin 403 -> none
+POST /api/employees/{id}/reset-pin 404 -> none
+POST /api/finance/bookkeeping-start/acknowledge 200 -> application/json $ref org.example.project.core.domain.dto.finance.BookkeepingStartDto.ResponseDto
+POST /api/finance/bookkeeping-start/acknowledge 401 -> none
+POST /api/finance/bookkeeping-start/acknowledge 403 -> none
+POST /api/finance/bookkeeping-start/acknowledge 404 -> none
+POST /api/invoices/{id}/cancel 201 -> application/json $ref InvoiceDto
+POST /api/invoices/{id}/cancel 400 -> none
+POST /api/invoices/{id}/cancel 401 -> none
+POST /api/invoices/{id}/cancel 403 -> none
+POST /api/invoices/{id}/cancel 404 -> none
+POST /api/invoices/{id}/cancel 409 -> none
+POST /api/issue-reports 201 -> application/json $ref CreatedDto
+POST /api/issue-reports 400 -> none
+POST /api/issue-reports 401 -> none
+POST /api/issue-reports 403 -> none
+POST /api/issue-reports 409 -> none
+POST /api/issue-reports 429 -> none
+POST /api/issue-reports 502 -> none
+POST /api/issue-reports/preview 200 -> application/json $ref PreviewDto
+POST /api/issue-reports/preview 400 -> none
+POST /api/issue-reports/preview 401 -> none
+POST /api/issue-reports/preview 403 -> none
+POST /api/items/cancel/{sourceTableId} 200 -> application/json "string"
+POST /api/items/cancel/{sourceTableId} 202 -> application/json {data,message,success}
+POST /api/items/cancel/{sourceTableId} 400 -> none
+POST /api/items/cancel/{sourceTableId} 401 -> none
+POST /api/items/cancel/{sourceTableId} 403 -> application/json $ref ErrorResponse
+POST /api/items/cancel/{sourceTableId} 404 -> none
+POST /api/items/cancel/{sourceTableId} 409 -> none
+POST /api/items/cancel/{sourceTableId} 503 -> none
+POST /api/items/transfer/{currentTableId} 200 -> application/json "string"
+POST /api/items/transfer/{currentTableId} 202 -> application/json {data,message,success}
+POST /api/items/transfer/{currentTableId} 400 -> none
+POST /api/items/transfer/{currentTableId} 401 -> none
+POST /api/items/transfer/{currentTableId} 403 -> application/json $ref ErrorResponse
+POST /api/items/transfer/{currentTableId} 404 -> none
+POST /api/items/transfer/{currentTableId} 409 -> none
+POST /api/location-types 201 -> application/json $ref org.example.project.core.domain.dto.table.LocationTypeDto.ResponseDto
+POST /api/location-types 400 -> none
+POST /api/location-types 401 -> none
+POST /api/location-types 403 -> none
+POST /api/location-types 409 -> none
+POST /api/maintenance/login 200 -> application/json $ref LoginResponseDto
+POST /api/maintenance/login 401 -> none
+POST /api/maintenance/login 404 -> none
+POST /api/maintenance/login 429 -> none
+POST /api/opening-hours/overrides 201 -> application/json $ref OverrideResponseDto
+POST /api/opening-hours/overrides 400 -> none
+POST /api/opening-hours/overrides 401 -> none
+POST /api/opening-hours/overrides 403 -> none
+POST /api/opening-hours/overrides 409 -> none
+POST /api/orders 201 -> application/json $ref OrderResponseDto
+POST /api/orders 401 -> none
+POST /api/orders 403 -> none
+POST /api/orders 404 -> none
+POST /api/orders 409 -> none
+POST /api/orders 503 -> none
+POST /api/orders/reference-print 200 -> none
+POST /api/orders/reference-print 400 -> none
+POST /api/orders/reference-print 401 -> none
+POST /api/orders/reference-print 404 -> none
+POST /api/orders/reference-print 409 -> none
+POST /api/orders/reference-print 502 -> none
+POST /api/partners/merge 204 -> none
+POST /api/partners/merge 400 -> none
+POST /api/partners/merge 401 -> none
+POST /api/partners/merge 403 -> none
+POST /api/partners/merge 404 -> none
+POST /api/partners/merge 409 -> none
+POST /api/payment-types 201 -> application/json $ref PaymentTypeResponseDto
+POST /api/payment-types 400 -> none
+POST /api/payment-types 401 -> none
+POST /api/payment-types 403 -> none
+POST /api/payment-types 409 -> none
+POST /api/pfand-types 201 -> application/json $ref PfandTypeResponseDto
+POST /api/pfand-types 400 -> none
+POST /api/pfand-types 401 -> none
+POST /api/pfand-types 403 -> none
+POST /api/pfand-types 409 -> none
+POST /api/printer-discovery/print-pdf 200 -> application/json $ref PrintResponseDto
+POST /api/printer-discovery/print-pdf 400 -> application/json "string"
+POST /api/printer-discovery/print-pdf 401 -> none
+POST /api/printer-discovery/print-pdf 404 -> none
+POST /api/printer-discovery/print-pdf 503 -> none
+POST /api/printer-discovery/test-print/{printerLocationId} 200 -> application/json $ref PrintResponseDto
+POST /api/printer-discovery/test-print/{printerLocationId} 400 -> application/json "string"
+POST /api/printer-discovery/test-print/{printerLocationId} 401 -> none
+POST /api/printer-discovery/test-print/{printerLocationId} 404 -> none
+POST /api/printer-discovery/test-print/{printerLocationId} 503 -> none
+POST /api/printer-location 201 -> application/json $ref PrinterLocationResponseDto
+POST /api/printer-location 400 -> none
+POST /api/printer-location 401 -> none
+POST /api/product-categories 201 -> application/json $ref ProductCategoryResponseDto
+POST /api/product-categories 400 -> none
+POST /api/product-categories 401 -> none
+POST /api/product-categories 403 -> none
+POST /api/product-categories/import-csv/{overwrite} 200 -> application/json $ref CsvImportResultDto
+POST /api/product-categories/import-csv/{overwrite} 400 -> none
+POST /api/product-categories/import-csv/{overwrite} 401 -> none
+POST /api/product-categories/import-csv/{overwrite} 403 -> none
+POST /api/product-choice-groups 200 -> application/json $ref org.example.project.core.domain.dto.product.ProductChoiceGroupDto.ListResponseDto
+POST /api/product-choice-groups 400 -> none
+POST /api/product-choice-groups 401 -> none
+POST /api/product-choice-groups 403 -> none
+POST /api/product-choice-groups/bulk-category 200 -> application/json $ref BulkAttachResultDto
+POST /api/product-choice-groups/bulk-category 400 -> none
+POST /api/product-choice-groups/bulk-category 401 -> none
+POST /api/product-choice-groups/bulk-category 403 -> none
+POST /api/product-extras 201 -> application/json $ref ProductExtrasResponseDto
+POST /api/product-extras 400 -> none
+POST /api/product-extras 401 -> none
+POST /api/product-extras 403 -> none
+POST /api/product-extras-assignment 201 -> application/json array of $ref org.example.project.core.domain.dto.product.ProductExtrasAssignmentDto.ResponseDto
+POST /api/product-extras-assignment 400 -> none
+POST /api/product-extras-assignment 401 -> none
+POST /api/product-extras-assignment 403 -> none
+POST /api/product-extras-assignment/bulk-category 200 -> application/json $ref BulkAssignResultDto
+POST /api/product-extras-assignment/bulk-category 400 -> none
+POST /api/product-extras-assignment/bulk-category 401 -> none
+POST /api/product-extras-assignment/bulk-category 403 -> none
+POST /api/product-extras/import-csv/{overwrite} 200 -> application/json $ref CsvImportResultDto
+POST /api/product-extras/import-csv/{overwrite} 400 -> none
+POST /api/product-extras/import-csv/{overwrite} 401 -> none
+POST /api/product-extras/import-csv/{overwrite} 403 -> none
+POST /api/products 201 -> application/json $ref ProductResponseDto
+POST /api/products 400 -> none
+POST /api/products 401 -> none
+POST /api/products 403 -> none
+POST /api/products 409 -> none
+POST /api/products/import-csv/{overwrite} 200 -> application/json $ref CsvImportResultDto
+POST /api/products/import-csv/{overwrite} 400 -> none
+POST /api/products/import-csv/{overwrite} 401 -> none
+POST /api/products/import-csv/{overwrite} 403 -> none
+POST /api/products/upload-image 200 -> application/json $ref ImageUploadResponseDto
+POST /api/products/upload-image 400 -> none
+POST /api/products/upload-image 401 -> none
+POST /api/products/upload-image 403 -> none
+POST /api/products/upload-image 413 -> none
+POST /api/products/upload-image 415 -> none
+POST /api/products/upload-image 500 -> none
+POST /api/promotions 201 -> application/json $ref PromotionResponseDto
+POST /api/promotions 400 -> none
+POST /api/promotions 401 -> none
+POST /api/promotions 403 -> none
+POST /api/reservation-rules 201 -> application/json $ref org.example.project.core.domain.dto.reservation.ReservationRuleDto.ResponseDto
+POST /api/reservation-rules 400 -> none
+POST /api/reservation-rules 401 -> none
+POST /api/reservation-rules 403 -> none
+POST /api/reservations 201 -> application/json $ref org.example.project.core.domain.dto.reservation.ReservationDto.ResponseDto
+POST /api/reservations 400 -> none
+POST /api/reservations 401 -> none
+POST /api/reservations 409 -> none
+POST /api/reservations/bulk-auto-assign 200 -> application/json $ref BulkAutoAssignResponseDto
+POST /api/reservations/bulk-auto-assign 400 -> none
+POST /api/reservations/bulk-auto-assign 401 -> none
+POST /api/reservations/bulk-auto-assign 404 -> none
+POST /api/reservations/{id}/assign-tables 200 -> application/json array of $ref AssignmentDto
+POST /api/reservations/{id}/assign-tables 400 -> none
+POST /api/reservations/{id}/assign-tables 401 -> none
+POST /api/reservations/{id}/assign-tables 404 -> none
+POST /api/reservations/{id}/assign-tables 409 -> none
+POST /api/reservations/{id}/auto-assign 200 -> application/json $ref AutoAssignResponseDto
+POST /api/reservations/{id}/auto-assign 400 -> none
+POST /api/reservations/{id}/auto-assign 401 -> none
+POST /api/reservations/{id}/auto-assign 404 -> none
+POST /api/reservations/{id}/auto-assign 409 -> none
+POST /api/room-elements 201 -> application/json $ref RoomElementResponseDto
+POST /api/room-elements 400 -> none
+POST /api/room-elements 401 -> none
+POST /api/room-elements 403 -> none
+POST /api/scheduled-jobs/{id}/run 200 -> application/json $ref JobExecutionResponseDto
+POST /api/scheduled-jobs/{id}/run 400 -> none
+POST /api/scheduled-jobs/{id}/run 401 -> none
+POST /api/scheduled-jobs/{id}/run 403 -> none
+POST /api/scheduled-jobs/{id}/run 404 -> none
+POST /api/scheduled-jobs/{id}/run 409 -> none
+POST /api/setup/initialize 201 -> application/json $ref InitialSetupResponseDto
+POST /api/setup/initialize 400 -> none
+POST /api/setup/initialize 409 -> none
+POST /api/setup/restore-backup 200 -> application/json $ref RestoreResultDto
+POST /api/setup/restore-backup 400 -> none
+POST /api/setup/restore-backup 409 -> none
+POST /api/setup/restore-backup 413 -> none
+POST /api/shop-info 201 -> application/json $ref ShopInfoResponseDto
+POST /api/shop-info 400 -> none
+POST /api/shop-info 401 -> none
+POST /api/shop-info 403 -> none
+POST /api/shop-info 409 -> none
+POST /api/shop-info/upload-logo 200 -> application/json $ref LogoUploadResponseDto
+POST /api/shop-info/upload-logo 400 -> none
+POST /api/shop-info/upload-logo 401 -> none
+POST /api/shop-info/upload-logo 403 -> none
+POST /api/shop-info/upload-logo 413 -> none
+POST /api/shop-info/upload-logo 415 -> none
+POST /api/shop-info/upload-logo 500 -> none
+POST /api/suppliers 201 -> application/json $ref org.example.project.core.domain.dto.supplier.SupplierDto.ResponseDto
+POST /api/suppliers 400 -> none
+POST /api/suppliers 401 -> none
+POST /api/suppliers 403 -> none
+POST /api/suppliers 409 -> none
+POST /api/tables 201 -> application/json $ref RTableResponseDto
+POST /api/tables 400 -> none
+POST /api/tables 401 -> none
+POST /api/tables 403 -> none
+POST /api/tables 409 -> none
+POST /api/tables/batch-update-positions 200 -> application/json $ref BatchUpdatePositionsResponseDto
+POST /api/tables/batch-update-positions 400 -> none
+POST /api/tables/batch-update-positions 401 -> none
+POST /api/tables/batch-update-positions 403 -> none
+POST /api/tables/import-csv/{overwrite} 200 -> application/json $ref CsvImportResultDto
+POST /api/tables/import-csv/{overwrite} 400 -> none
+POST /api/tables/import-csv/{overwrite} 401 -> none
+POST /api/tables/import-csv/{overwrite} 403 -> none
+POST /api/tables/repair-completed-sessions 200 -> application/json $ref SessionRepairResultDto
+POST /api/tables/repair-completed-sessions 401 -> none
+POST /api/tables/repair-completed-sessions 403 -> none
+POST /api/tables/sessions/{sessionId}/assign-customer 200 -> application/json $ref TableSessionResponseDto
+POST /api/tables/sessions/{sessionId}/assign-customer 400 -> none
+POST /api/tables/sessions/{sessionId}/assign-customer 401 -> none
+POST /api/tables/sessions/{sessionId}/assign-customer 404 -> none
+POST /api/tables/{id}/request-billing 200 -> none
+POST /api/tables/{id}/request-billing 400 -> none
+POST /api/tables/{id}/request-billing 401 -> application/json "string"
+POST /api/tables/{id}/request-billing 403 -> none
+POST /api/tables/{id}/request-billing 404 -> none
+POST /api/tables/{id}/request-billing 409 -> none
+POST /api/tables/{id}/transfer 200 -> application/json $ref TransferTableResponseDto
+POST /api/tables/{id}/transfer 400 -> none
+POST /api/tables/{id}/transfer 401 -> none
+POST /api/tables/{id}/transfer 403 -> none
+POST /api/tables/{id}/transfer 404 -> none
+POST /api/tables/{id}/transfer 409 -> none
+POST /api/tse/admin/lock 200 -> application/json $ref TseAdminSessionStatusDto
+POST /api/tse/admin/lock 401 -> none
+POST /api/tse/admin/lock 403 -> none
+POST /api/tse/admin/unlock 200 -> application/json $ref TseAdminSessionStatusDto
+POST /api/tse/admin/unlock 400 -> none
+POST /api/tse/admin/unlock 401 -> none
+POST /api/tse/admin/unlock 403 -> none
+POST /api/tse/admin/unlock 422 -> none
+POST /api/tse/admin/unlock 424 -> none
+POST /api/tse/archives 201 -> application/json $ref ExportArchiveDto
+POST /api/tse/archives 400 -> none
+POST /api/tse/archives 401 -> none
+POST /api/tse/archives 403 -> none
+POST /api/tse/archives 404 -> none
+POST /api/tse/archives 409 -> none
+POST /api/tse/archives 422 -> none
+POST /api/tse/csp-export/disable 200 -> application/json $ref AdminResultDto
+POST /api/tse/csp-export/disable 401 -> none
+POST /api/tse/csp-export/disable 403 -> none
+POST /api/tse/csp-export/disable 423 -> none
+POST /api/tse/csp-export/disable 424 -> none
+POST /api/tse/csp-export/disable 500 -> none
+POST /api/tse/decommission 200 -> application/json $ref AdminResultDto
+POST /api/tse/decommission 401 -> none
+POST /api/tse/decommission 403 -> none
+POST /api/tse/decommission 423 -> none
+POST /api/tse/decommission 424 -> none
+POST /api/tse/decommission 500 -> none
+POST /api/tse/entries/browse 200 -> application/json $ref LogEntryBrowseResultDto
+POST /api/tse/entries/browse 400 -> none
+POST /api/tse/entries/browse 401 -> none
+POST /api/tse/entries/browse 403 -> none
+POST /api/tse/entries/browse 424 -> none
+POST /api/tse/entries/browse 500 -> none
+POST /api/tse/explanations 201 -> application/json $ref ExplanationDto
+POST /api/tse/explanations 400 -> none
+POST /api/tse/explanations 401 -> none
+POST /api/tse/explanations 403 -> none
+POST /api/tse/export/full 200 -> application/json $ref ExportResultDto
+POST /api/tse/export/full 401 -> none
+POST /api/tse/export/full 403 -> none
+POST /api/tse/export/full 424 -> none
+POST /api/tse/export/full 500 -> none
+POST /api/tse/export/incremental 200 -> application/json $ref ExportResultDto
+POST /api/tse/export/incremental 400 -> none
+POST /api/tse/export/incremental 401 -> none
+POST /api/tse/export/incremental 403 -> none
+POST /api/tse/export/incremental 424 -> none
+POST /api/tse/export/incremental 500 -> none
+POST /api/tse/export/lcm 200 -> application/json $ref LcmExportResultDto
+POST /api/tse/export/lcm 401 -> none
+POST /api/tse/export/lcm 403 -> none
+POST /api/tse/export/lcm 424 -> none
+POST /api/tse/export/lcm 500 -> none
+POST /api/tse/export/time-filtered 200 -> application/json $ref ExportResultDto
+POST /api/tse/export/time-filtered 400 -> none
+POST /api/tse/export/time-filtered 401 -> none
+POST /api/tse/export/time-filtered 403 -> none
+POST /api/tse/export/time-filtered 404 -> none
+POST /api/tse/export/time-filtered 424 -> none
+POST /api/tse/export/time-filtered 500 -> none
+POST /api/tse/export/transaction-filtered 200 -> application/json $ref ExportResultDto
+POST /api/tse/export/transaction-filtered 400 -> none
+POST /api/tse/export/transaction-filtered 401 -> none
+POST /api/tse/export/transaction-filtered 403 -> none
+POST /api/tse/export/transaction-filtered 404 -> none
+POST /api/tse/export/transaction-filtered 424 -> none
+POST /api/tse/export/transaction-filtered 500 -> none
+POST /api/tse/factory-reset 200 -> application/json $ref AdminResultDto
+POST /api/tse/factory-reset 401 -> none
+POST /api/tse/factory-reset 403 -> none
+POST /api/tse/factory-reset 424 -> none
+POST /api/tse/factory-reset 500 -> none
+POST /api/tse/firmware-apply-bundled 200 -> application/json $ref FirmwareApplyResultDto
+POST /api/tse/firmware-apply-bundled 401 -> none
+POST /api/tse/firmware-apply-bundled 403 -> none
+POST /api/tse/firmware-apply-bundled 423 -> none
+POST /api/tse/firmware-apply-bundled 424 -> none
+POST /api/tse/firmware-apply-bundled 500 -> none
+POST /api/tse/queue/cleanup 200 -> application/json $ref CleanupResultDto
+POST /api/tse/queue/cleanup 400 -> none
+POST /api/tse/queue/cleanup 401 -> none
+POST /api/tse/queue/cleanup 403 -> none
+POST /api/tse/queue/entries/{id}/cancel 200 -> application/json $ref QueueEntryResponseDto
+POST /api/tse/queue/entries/{id}/cancel 400 -> none
+POST /api/tse/queue/entries/{id}/cancel 401 -> none
+POST /api/tse/queue/entries/{id}/cancel 403 -> none
+POST /api/tse/queue/entries/{id}/cancel 404 -> none
+POST /api/tse/queue/entries/{id}/retry 200 -> application/json $ref QueueEntryResponseDto
+POST /api/tse/queue/entries/{id}/retry 400 -> none
+POST /api/tse/queue/entries/{id}/retry 401 -> none
+POST /api/tse/queue/entries/{id}/retry 403 -> none
+POST /api/tse/queue/entries/{id}/retry 404 -> none
+POST /api/tse/queue/entries/{id}/retry 424 -> none
+POST /api/tse/queue/entries/{id}/retry 500 -> none
+POST /api/tse/queue/pause 200 -> application/json $ref ServiceControlResponseDto
+POST /api/tse/queue/pause 401 -> none
+POST /api/tse/queue/pause 403 -> none
+POST /api/tse/queue/pause 503 -> application/json $ref ServiceControlResponseDto
+POST /api/tse/queue/resume 200 -> application/json $ref ServiceControlResponseDto
+POST /api/tse/queue/resume 401 -> none
+POST /api/tse/queue/resume 403 -> none
+POST /api/tse/queue/resume 503 -> application/json $ref ServiceControlResponseDto
+POST /api/tse/queue/trigger 200 -> application/json $ref TriggerRetryResponseDto
+POST /api/tse/queue/trigger 401 -> none
+POST /api/tse/queue/trigger 403 -> none
+POST /api/tse/queue/trigger 503 -> none
+POST /api/tse/restart 200 -> application/json $ref AdminResultDto
+POST /api/tse/restart 401 -> none
+POST /api/tse/restart 403 -> none
+POST /api/tse/restart 500 -> application/json $ref AdminResultDto
+POST /api/tse/selftest 200 -> application/json $ref SelfTestResultDto
+POST /api/tse/selftest 401 -> none
+POST /api/tse/selftest 403 -> none
+POST /api/tse/selftest 409 -> none
+POST /api/tse/selftest 424 -> none
+POST /api/tse/selftest 500 -> none
+POST /api/tse/setup 200 -> application/json $ref AdminResultDto
+POST /api/tse/setup 400 -> none
+POST /api/tse/setup 401 -> none
+POST /api/tse/setup 403 -> none
+POST /api/tse/setup 404 -> none
+POST /api/tse/setup 409 -> none
+POST /api/tse/setup 424 -> none
+POST /api/tse/setup 500 -> none
+POST /api/tse/setup 503 -> none
+POST /api/tse/updatetime 200 -> application/json $ref TimeUpdateResultDto
+POST /api/tse/updatetime 401 -> none
+POST /api/tse/updatetime 403 -> none
+POST /api/tse/updatetime 424 -> none
+POST /api/tse/updatetime 500 -> none
+POST /api/tse/verify 200 -> application/json $ref ReportDto
+POST /api/tse/verify 400 -> none
+POST /api/tse/verify 401 -> none
+POST /api/tse/verify 403 -> none
+POST /api/tse/verify 404 -> none
+POST /api/update/apply 200 -> application/json $ref ApplyStartedDto
+POST /api/update/apply 401 -> none
+POST /api/update/apply 403 -> none
+POST /api/update/apply 409 -> none
+POST /api/update/apply 500 -> none
+POST /api/update/check 200 -> application/json $ref CheckResultDto
+POST /api/update/check 401 -> none
+POST /api/update/check 403 -> none
+POST /api/update/stage 200 -> application/json $ref CheckResultDto
+POST /api/update/stage 401 -> none
+POST /api/update/stage 403 -> none
+POST /api/update/stage 502 -> none
+POST /api/v1/backup/create 200 -> application/zip none
+POST /api/v1/backup/create 401 -> none
+POST /api/v1/backup/create 403 -> none
+POST /api/v1/backup/create 500 -> none
+POST /api/v1/backup/create-to-server 200 -> application/json $ref BackupToServerResultDto
+POST /api/v1/backup/create-to-server 400 -> none
+POST /api/v1/backup/create-to-server 401 -> none
+POST /api/v1/backup/create-to-server 403 -> none
+POST /api/v1/backup/create-to-server 500 -> none
+POST /api/v1/backup/restore 200 -> application/json $ref RestoreResultDto
+POST /api/v1/backup/restore 400 -> none
+POST /api/v1/backup/restore 401 -> none
+POST /api/v1/backup/restore 403 -> none
+POST /api/v1/backup/restore 413 -> none
+POST /api/v1/backup/restore 422 -> none
+POST /api/v1/backup/restore 500 -> none
+POST /api/v1/backup/restore-from-server 200 -> application/json $ref RestoreResultDto
+POST /api/v1/backup/restore-from-server 400 -> none
+POST /api/v1/backup/restore-from-server 401 -> none
+POST /api/v1/backup/restore-from-server 403 -> none
+POST /api/v1/backup/restore-from-server 404 -> none
+POST /api/v1/backup/restore-from-server 422 -> none
+POST /api/v1/backup/restore-from-server 500 -> none
+POST /api/v1/backup/restored-paths 200 -> application/json $ref ReviewDto
+POST /api/v1/backup/restored-paths 400 -> none
+POST /api/v1/backup/restored-paths 401 -> none
+POST /api/v1/backup/restored-paths 403 -> none
+POST /api/v1/bills 201 -> application/json $ref BillResponseDto
+POST /api/v1/bills 400 -> none
+POST /api/v1/bills 401 -> none
+POST /api/v1/bills 403 -> none
+POST /api/v1/bills 404 -> none
+POST /api/v1/bills 409 -> none
+POST /api/v1/bills 422 -> none
+POST /api/v1/bills 503 -> none
+POST /api/v1/bills/{billId}/print 200 -> none
+POST /api/v1/bills/{billId}/print 400 -> none
+POST /api/v1/bills/{billId}/print 401 -> none
+POST /api/v1/bills/{billId}/print 403 -> none
+POST /api/v1/bills/{billId}/print 404 -> none
+POST /api/v1/bills/{billId}/print 409 -> none
+POST /api/v1/bills/{billId}/print 502 -> none
+POST /api/v1/bills/{id}/rebook 200 -> application/json $ref BillResponseDto
+POST /api/v1/bills/{id}/rebook 400 -> none
+POST /api/v1/bills/{id}/rebook 401 -> none
+POST /api/v1/bills/{id}/rebook 403 -> none
+POST /api/v1/bills/{id}/rebook 404 -> none
+POST /api/v1/bills/{id}/rebook 409 -> none
+POST /api/v1/bills/{id}/rebook 422 -> none
+POST /api/v1/bills/{id}/rebook 503 -> none
+POST /api/v1/client-errors 200 -> application/json $ref ReportResponseDto
+POST /api/v1/client-errors 400 -> none
+POST /api/v1/client-errors 401 -> none
+POST /api/v1/datev/export/catchup 200 -> application/json $ref CatchupResultDto
+POST /api/v1/datev/export/catchup 400 -> none
+POST /api/v1/datev/export/catchup 401 -> none
+POST /api/v1/datev/export/catchup 403 -> none
+POST /api/v1/datev/export/catchup 409 -> none
+POST /api/v1/dsfinvk/export 200 -> application/zip none
+POST /api/v1/dsfinvk/export 400 -> none
+POST /api/v1/dsfinvk/export 401 -> none
+POST /api/v1/dsfinvk/export 403 -> none
+POST /api/v1/dsfinvk/export 500 -> none
+POST /api/v1/kassenbuch 201 -> application/json $ref CreateKassenbuchEntryGroupResponseDto
+POST /api/v1/kassenbuch 202 -> application/json {data,message,success}
+POST /api/v1/kassenbuch 400 -> none
+POST /api/v1/kassenbuch 401 -> none
+POST /api/v1/kassenbuch 403 -> application/json $ref ErrorResponse
+POST /api/v1/kassenbuch 404 -> none
+POST /api/v1/kassenbuch 409 -> none
+POST /api/v1/kassenbuch/books 201 -> application/json $ref org.example.project.core.domain.dto.kassenbuch.CashBookDto.ResponseDto
+POST /api/v1/kassenbuch/books 400 -> none
+POST /api/v1/kassenbuch/books 401 -> none
+POST /api/v1/kassenbuch/books 403 -> none
+POST /api/v1/kassenbuch/books 409 -> none
+POST /api/v1/kassenbuch/books/{bookId}/close 201 -> application/json $ref CloseResponseDto
+POST /api/v1/kassenbuch/books/{bookId}/close 400 -> none
+POST /api/v1/kassenbuch/books/{bookId}/close 401 -> none
+POST /api/v1/kassenbuch/books/{bookId}/close 403 -> none
+POST /api/v1/kassenbuch/books/{bookId}/close 404 -> none
+POST /api/v1/kassenbuch/books/{bookId}/close 422 -> none
+POST /api/v1/kassenbuch/cash-count 200 -> application/json $ref CashCountResponseDto
+POST /api/v1/kassenbuch/cash-count 400 -> none
+POST /api/v1/kassenbuch/cash-count 401 -> none
+POST /api/v1/kassenbuch/cash-count 403 -> none
+POST /api/v1/kassenbuch/entries/{headerId}/correct 201 -> application/json $ref KassenbuchGroupedDetailDto
+POST /api/v1/kassenbuch/entries/{headerId}/correct 400 -> none
+POST /api/v1/kassenbuch/entries/{headerId}/correct 401 -> none
+POST /api/v1/kassenbuch/entries/{headerId}/correct 403 -> none
+POST /api/v1/kassenbuch/entries/{headerId}/correct 404 -> none
+POST /api/v1/kassenbuch/entries/{headerId}/correct 409 -> none
+POST /api/v1/kassenbuch/transfers 201 -> application/json $ref TransferResponseDto
+POST /api/v1/kassenbuch/transfers 400 -> none
+POST /api/v1/kassenbuch/transfers 401 -> none
+POST /api/v1/kassenbuch/transfers 403 -> none
+POST /api/v1/kassenbuch/transfers 404 -> none
+POST /api/v1/kassenbuch/transfers 409 -> none
+POST /api/v1/kassenbuch/transfers/{transferId}/reverse 201 -> application/json $ref TransferResponseDto
+POST /api/v1/kassenbuch/transfers/{transferId}/reverse 400 -> none
+POST /api/v1/kassenbuch/transfers/{transferId}/reverse 401 -> none
+POST /api/v1/kassenbuch/transfers/{transferId}/reverse 403 -> none
+POST /api/v1/kassenbuch/transfers/{transferId}/reverse 404 -> none
+POST /api/v1/kassenbuch/transfers/{transferId}/reverse 422 -> none
+POST /api/v1/sales-invoices/from-bill 201 -> application/json $ref org.example.project.core.domain.dto.salesinvoice.SalesInvoiceDto.ResponseDto
+POST /api/v1/sales-invoices/from-bill 400 -> none
+POST /api/v1/sales-invoices/from-bill 401 -> none
+POST /api/v1/sales-invoices/from-bill 403 -> none
+POST /api/v1/sales-invoices/from-bill 404 -> none
+POST /api/v1/sales-invoices/from-bill 409 -> none
+POST /api/v1/sales-invoices/standalone 201 -> application/json $ref org.example.project.core.domain.dto.salesinvoice.SalesInvoiceDto.ResponseDto
+POST /api/v1/sales-invoices/standalone 400 -> none
+POST /api/v1/sales-invoices/standalone 401 -> none
+POST /api/v1/sales-invoices/standalone 403 -> none
+POST /api/v1/sales-invoices/standalone 409 -> none
+POST /api/v1/sales-invoices/{id}/cancel 200 -> application/json $ref org.example.project.core.domain.dto.salesinvoice.SalesInvoiceDto.ResponseDto
+POST /api/v1/sales-invoices/{id}/cancel 400 -> none
+POST /api/v1/sales-invoices/{id}/cancel 401 -> none
+POST /api/v1/sales-invoices/{id}/cancel 403 -> none
+POST /api/v1/sales-invoices/{id}/cancel 404 -> none
+POST /api/v1/sales-invoices/{id}/cancel 409 -> none
+POST /api/v1/sales-invoices/{id}/issue 200 -> application/json $ref org.example.project.core.domain.dto.salesinvoice.SalesInvoiceDto.ResponseDto
+POST /api/v1/sales-invoices/{id}/issue 400 -> none
+POST /api/v1/sales-invoices/{id}/issue 401 -> none
+POST /api/v1/sales-invoices/{id}/issue 403 -> none
+POST /api/v1/sales-invoices/{id}/issue 404 -> none
+POST /api/v1/sales-invoices/{id}/issue 409 -> none
+POST /api/v1/sales-invoices/{id}/issue 422 -> none
+POST /api/v1/sales-invoices/{id}/settle-at-till 200 -> application/json $ref org.example.project.core.domain.dto.salesinvoice.SalesInvoiceDto.ResponseDto
+POST /api/v1/sales-invoices/{id}/settle-at-till 400 -> none
+POST /api/v1/sales-invoices/{id}/settle-at-till 401 -> none
+POST /api/v1/sales-invoices/{id}/settle-at-till 403 -> none
+POST /api/v1/sales-invoices/{id}/settle-at-till 404 -> none
+POST /api/v1/sales-invoices/{id}/settle-at-till 409 -> none
+POST /api/v1/terminals 201 -> application/json $ref TerminalResponseDto
+POST /api/v1/terminals 400 -> none
+POST /api/v1/terminals 401 -> none
+POST /api/v1/terminals 403 -> none
+POST /api/v1/terminals 409 -> none
+POST /api/v1/terminals/pair 200 -> application/json $ref PairDeviceResponseDto
+POST /api/v1/terminals/pair 400 -> none
+POST /api/v1/terminals/pair 403 -> none
+POST /api/v1/terminals/pair 409 -> none
+POST /api/v1/terminals/pair 424 -> none
+POST /api/v1/terminals/pair 429 -> none
+POST /api/v1/terminals/register 200 -> application/json $ref TerminalResponseDto
+POST /api/v1/terminals/register 400 -> none
+POST /api/v1/terminals/register 401 -> none
+POST /api/v1/terminals/register 403 -> none
+POST /api/v1/terminals/session 200 -> application/json $ref StationSessionResponseDto
+POST /api/v1/terminals/session 401 -> none
+POST /api/v1/terminals/session 403 -> none
+POST /api/v1/terminals/session 409 -> none
+POST /api/v1/terminals/session 424 -> none
+POST /api/v1/terminals/session 500 -> none
+POST /api/v1/terminals/sync-tse 200 -> application/json array of $ref TerminalSummaryDto
+POST /api/v1/terminals/sync-tse 401 -> none
+POST /api/v1/terminals/sync-tse 403 -> none
+POST /api/v1/terminals/sync-tse 409 -> none
+POST /api/v1/terminals/sync-tse 423 -> none
+POST /api/v1/terminals/sync-tse 424 -> none
+POST /api/v1/terminals/sync-tse 500 -> none
+POST /api/v1/terminals/sync-tse 503 -> none
+POST /api/v1/terminals/{id}/pairing-code 201 -> application/json $ref PairingCodeResponseDto
+POST /api/v1/terminals/{id}/pairing-code 400 -> none
+POST /api/v1/terminals/{id}/pairing-code 401 -> none
+POST /api/v1/terminals/{id}/pairing-code 403 -> none
+POST /api/v1/terminals/{id}/pairing-code 404 -> none
+POST /api/v1/terminals/{id}/pairing-code 409 -> none
+POST /api/v1/terminals/{id}/pairing-code 423 -> none
+POST /api/v1/terminals/{id}/reactivate 200 -> application/json $ref TerminalSummaryDto
+POST /api/v1/terminals/{id}/reactivate 400 -> none
+POST /api/v1/terminals/{id}/reactivate 401 -> none
+POST /api/v1/terminals/{id}/reactivate 403 -> none
+POST /api/v1/terminals/{id}/reactivate 404 -> none
+POST /api/v1/terminals/{id}/revoke 200 -> application/json $ref TerminalSummaryDto
+POST /api/v1/terminals/{id}/revoke 400 -> none
+POST /api/v1/terminals/{id}/revoke 401 -> none
+POST /api/v1/terminals/{id}/revoke 403 -> none
+POST /api/v1/terminals/{id}/revoke 404 -> none
+POST /api/v1/terminals/{id}/tse-deregister 200 -> application/json $ref TerminalSummaryDto
+POST /api/v1/terminals/{id}/tse-deregister 400 -> none
+POST /api/v1/terminals/{id}/tse-deregister 401 -> none
+POST /api/v1/terminals/{id}/tse-deregister 403 -> none
+POST /api/v1/terminals/{id}/tse-deregister 404 -> none
+POST /api/v1/terminals/{id}/tse-deregister 409 -> none
+POST /api/v1/terminals/{id}/tse-deregister 422 -> none
+POST /api/v1/terminals/{id}/tse-deregister 423 -> none
+POST /api/v1/terminals/{id}/tse-deregister 424 -> none
+POST /api/v1/terminals/{id}/tse-register 200 -> application/json $ref TerminalSummaryDto
+POST /api/v1/terminals/{id}/tse-register 400 -> none
+POST /api/v1/terminals/{id}/tse-register 401 -> none
+POST /api/v1/terminals/{id}/tse-register 403 -> none
+POST /api/v1/terminals/{id}/tse-register 404 -> none
+POST /api/v1/terminals/{id}/tse-register 409 -> none
+POST /api/v1/terminals/{id}/tse-register 423 -> none
+POST /api/v1/terminals/{id}/tse-register 424 -> none
+POST /api/v1/terminals/{id}/tse-register 500 -> none
+POST /api/vat 201 -> application/json $ref VatResponseDto
+POST /api/vat 400 -> none
+POST /api/vat 401 -> none
+POST /api/vat 403 -> none
+POST /api/vat 409 -> none
+POST /api/vouchers 201 -> application/json $ref VoucherResponseDto
+POST /api/vouchers 400 -> none
+POST /api/vouchers 401 -> none
+POST /api/vouchers 409 -> none
+POST /api/vouchers/validate 200 -> application/json $ref ValidateVoucherResponseDto
+POST /api/vouchers/validate 400 -> none
+POST /api/vouchers/validate 401 -> none
+POST /api/vouchers/validate 404 -> none
+POST /api/z-bon 201 -> application/json $ref ZBonResponseDto
+POST /api/z-bon 400 -> none
+POST /api/z-bon 401 -> none
+POST /api/z-bon 403 -> none
+POST /api/z-bon 409 -> none
+POST /api/z-bon 503 -> none
+POST /api/z-bon/{id}/print 200 -> application/json $ref PrintResponseDto
+POST /api/z-bon/{id}/print 400 -> none
+POST /api/z-bon/{id}/print 401 -> none
+POST /api/z-bon/{id}/print 403 -> none
+POST /api/z-bon/{id}/print 404 -> none
+POST /api/z-bon/{id}/print 502 -> none
+POST /api/z-bon/{id}/print 503 -> none
+POST /api/z-bon/{id}/tip-payouts 201 -> application/json $ref TipPayoutResponseDto
+POST /api/z-bon/{id}/tip-payouts 400 -> none
+POST /api/z-bon/{id}/tip-payouts 401 -> none
+POST /api/z-bon/{id}/tip-payouts 403 -> none
+POST /api/z-bon/{id}/tip-payouts 404 -> none
+POST /api/z-bon/{id}/tip-payouts 409 -> none
+POST /api/z-bon/{id}/tip-payouts/settlements/{payoutId}/reverse 201 -> application/json $ref TipPayoutResponseDto
+POST /api/z-bon/{id}/tip-payouts/settlements/{payoutId}/reverse 400 -> none
+POST /api/z-bon/{id}/tip-payouts/settlements/{payoutId}/reverse 401 -> none
+POST /api/z-bon/{id}/tip-payouts/settlements/{payoutId}/reverse 403 -> none
+POST /api/z-bon/{id}/tip-payouts/settlements/{payoutId}/reverse 404 -> none
+POST /api/z-bon/{id}/tip-payouts/settlements/{payoutId}/reverse 409 -> none
+POST /api/z-bon/{id}/tip-payouts/{payoutHeaderId}/reverse 201 -> application/json $ref TipPayoutResponseDto
+POST /api/z-bon/{id}/tip-payouts/{payoutHeaderId}/reverse 400 -> none
+POST /api/z-bon/{id}/tip-payouts/{payoutHeaderId}/reverse 401 -> none
+POST /api/z-bon/{id}/tip-payouts/{payoutHeaderId}/reverse 403 -> none
+POST /api/z-bon/{id}/tip-payouts/{payoutHeaderId}/reverse 404 -> none
+POST /api/z-bon/{id}/tip-payouts/{payoutHeaderId}/reverse 409 -> none
+POST /start-page 303 -> none
+POST /start-page 400 -> none
+PUT /api/admin/permission-groups/{code} 200 -> application/json $ref PermissionGroupResponseDto
+PUT /api/admin/permission-groups/{code} 400 -> none
+PUT /api/admin/permission-groups/{code} 401 -> none
+PUT /api/admin/permission-groups/{code} 403 -> none
+PUT /api/admin/permission-groups/{code} 404 -> none
+PUT /api/auth/sessions/policy 200 -> application/json $ref Policy
+PUT /api/auth/sessions/policy 400 -> none
+PUT /api/auth/sessions/policy 401 -> none
+PUT /api/auth/sessions/policy 403 -> none
+PUT /api/auth/temporary-session/{sessionId}/extend 200 -> application/json $ref TemporarySessionResponseDto
+PUT /api/auth/temporary-session/{sessionId}/extend 401 -> none
+PUT /api/auth/temporary-session/{sessionId}/extend 403 -> none
+PUT /api/auth/temporary-session/{sessionId}/extend 404 -> none
+PUT /api/auth/temporary-session/{sessionId}/extend 409 -> none
+PUT /api/bank-statements/{id}/account 200 -> application/json $ref org.example.project.core.domain.dto.bank.BankAccountDto.ResponseDto
+PUT /api/bank-statements/{id}/account 400 -> none
+PUT /api/bank-statements/{id}/account 401 -> none
+PUT /api/bank-statements/{id}/account 403 -> none
+PUT /api/bank-statements/{id}/account 404 -> none
+PUT /api/card-terminals/{id} 200 -> application/json $ref CardTerminalResponseDto
+PUT /api/card-terminals/{id} 400 -> none
+PUT /api/card-terminals/{id} 401 -> none
+PUT /api/card-terminals/{id} 403 -> none
+PUT /api/card-terminals/{id} 404 -> none
+PUT /api/choice-groups/{id} 200 -> application/json $ref ChoiceGroupResponseDto
+PUT /api/choice-groups/{id} 400 -> none
+PUT /api/choice-groups/{id} 401 -> none
+PUT /api/choice-groups/{id} 403 -> none
+PUT /api/choice-groups/{id} 404 -> none
+PUT /api/contracts/{id} 200 -> application/json $ref org.example.project.core.domain.dto.contract.ContractDto.ResponseDto
+PUT /api/contracts/{id} 400 -> none
+PUT /api/contracts/{id} 401 -> none
+PUT /api/contracts/{id} 403 -> none
+PUT /api/contracts/{id} 404 -> none
+PUT /api/custom-exports/{id} 200 -> application/json $ref DefinitionDto
+PUT /api/custom-exports/{id} 400 -> none
+PUT /api/custom-exports/{id} 401 -> none
+PUT /api/custom-exports/{id} 403 -> none
+PUT /api/custom-exports/{id} 404 -> none
+PUT /api/debtors/{id} 200 -> application/json $ref org.example.project.core.domain.dto.debtor.DebtorDto.ResponseDto
+PUT /api/debtors/{id} 400 -> none
+PUT /api/debtors/{id} 401 -> none
+PUT /api/debtors/{id} 403 -> none
+PUT /api/debtors/{id} 404 -> none
+PUT /api/debtors/{id} 409 -> none
+PUT /api/documents/{id}/bank-statement-metadata 200 -> application/json $ref DocumentResponseDto
+PUT /api/documents/{id}/bank-statement-metadata 400 -> none
+PUT /api/documents/{id}/bank-statement-metadata 401 -> none
+PUT /api/documents/{id}/bank-statement-metadata 403 -> none
+PUT /api/documents/{id}/bank-statement-metadata 404 -> none
+PUT /api/documents/{id}/metadata 200 -> application/json $ref DocumentResponseDto
+PUT /api/documents/{id}/metadata 400 -> none
+PUT /api/documents/{id}/metadata 401 -> none
+PUT /api/documents/{id}/metadata 404 -> none
+PUT /api/documents/{id}/status 200 -> application/json $ref DocumentResponseDto
+PUT /api/documents/{id}/status 400 -> none
+PUT /api/documents/{id}/status 401 -> none
+PUT /api/documents/{id}/status 403 -> none
+PUT /api/documents/{id}/status 404 -> none
+PUT /api/employee/info/by-employee/{employeeId} 200 -> application/json $ref EmployeeInfoResponseDto
+PUT /api/employee/info/by-employee/{employeeId} 400 -> none
+PUT /api/employee/info/by-employee/{employeeId} 401 -> none
+PUT /api/employee/info/by-employee/{employeeId} 403 -> none
+PUT /api/employee/info/by-employee/{employeeId} 404 -> none
+PUT /api/employee/info/me 200 -> application/json $ref EmployeeInfoResponseDto
+PUT /api/employee/info/me 400 -> none
+PUT /api/employee/info/me 401 -> none
+PUT /api/employee/info/me 403 -> none
+PUT /api/employee/info/me 404 -> none
+PUT /api/employees/{employeeId}/schedule 200 -> application/json $ref WeeklyScheduleResponseDto
+PUT /api/employees/{employeeId}/schedule 400 -> none
+PUT /api/employees/{employeeId}/schedule 401 -> none
+PUT /api/employees/{employeeId}/schedule 403 -> none
+PUT /api/employees/{employeeId}/schedule 404 -> none
+PUT /api/employees/{employeeId}/schedule/day 200 -> application/json $ref WeeklyScheduleResponseDto
+PUT /api/employees/{employeeId}/schedule/day 400 -> none
+PUT /api/employees/{employeeId}/schedule/day 401 -> none
+PUT /api/employees/{employeeId}/schedule/day 403 -> none
+PUT /api/employees/{employeeId}/schedule/day 404 -> none
+PUT /api/employees/{id} 200 -> application/json $ref EmployeeResponseDto
+PUT /api/employees/{id} 400 -> none
+PUT /api/employees/{id} 401 -> none
+PUT /api/employees/{id} 403 -> none
+PUT /api/employees/{id} 404 -> none
+PUT /api/employees/{id} 409 -> none
+PUT /api/employees/{id}/permission-group 200 -> application/json $ref PermissionGroupAssignmentDto
+PUT /api/employees/{id}/permission-group 400 -> none
+PUT /api/employees/{id}/permission-group 401 -> none
+PUT /api/employees/{id}/permission-group 403 -> none
+PUT /api/employees/{id}/permission-group 404 -> none
+PUT /api/finance/bookkeeping-start 200 -> application/json $ref org.example.project.core.domain.dto.finance.BookkeepingStartDto.ResponseDto
+PUT /api/finance/bookkeeping-start 400 -> none
+PUT /api/finance/bookkeeping-start 401 -> none
+PUT /api/finance/bookkeeping-start 403 -> none
+PUT /api/finance/bookkeeping-start 404 -> none
+PUT /api/invoices/{id} 200 -> application/json $ref InvoiceDto
+PUT /api/invoices/{id} 400 -> none
+PUT /api/invoices/{id} 401 -> none
+PUT /api/invoices/{id} 403 -> none
+PUT /api/invoices/{id} 404 -> none
+PUT /api/invoices/{id} 409 -> none
+PUT /api/invoices/{id}/booking 200 -> application/json $ref InvoiceDto
+PUT /api/invoices/{id}/booking 400 -> none
+PUT /api/invoices/{id}/booking 401 -> none
+PUT /api/invoices/{id}/booking 403 -> none
+PUT /api/invoices/{id}/booking 404 -> none
+PUT /api/invoices/{id}/review 200 -> application/json $ref RowDto
+PUT /api/invoices/{id}/review 400 -> none
+PUT /api/invoices/{id}/review 401 -> none
+PUT /api/invoices/{id}/review 403 -> none
+PUT /api/invoices/{id}/review 404 -> none
+PUT /api/issue-reports/settings 200 -> application/json $ref org.example.project.core.domain.dto.issuereport.IssueReportDto.SettingsDto
+PUT /api/issue-reports/settings 400 -> none
+PUT /api/issue-reports/settings 401 -> none
+PUT /api/issue-reports/settings 403 -> none
+PUT /api/issue-reports/token 200 -> application/json $ref org.example.project.core.domain.dto.issuereport.IssueReportDto.SettingsDto
+PUT /api/issue-reports/token 400 -> none
+PUT /api/issue-reports/token 401 -> none
+PUT /api/issue-reports/token 403 -> none
+PUT /api/issue-reports/token 409 -> none
+PUT /api/location-types/{id} 200 -> application/json $ref org.example.project.core.domain.dto.table.LocationTypeDto.ResponseDto
+PUT /api/location-types/{id} 400 -> none
+PUT /api/location-types/{id} 401 -> none
+PUT /api/location-types/{id} 403 -> none
+PUT /api/location-types/{id} 404 -> none
+PUT /api/opening-hours 200 -> application/json array of $ref WeeklyResponseDto
+PUT /api/opening-hours 400 -> none
+PUT /api/opening-hours 401 -> none
+PUT /api/opening-hours 403 -> none
+PUT /api/opening-hours/overrides/{id} 200 -> application/json $ref OverrideResponseDto
+PUT /api/opening-hours/overrides/{id} 400 -> none
+PUT /api/opening-hours/overrides/{id} 401 -> none
+PUT /api/opening-hours/overrides/{id} 403 -> none
+PUT /api/opening-hours/overrides/{id} 404 -> none
+PUT /api/payment-types/{id} 200 -> application/json $ref PaymentTypeResponseDto
+PUT /api/payment-types/{id} 400 -> none
+PUT /api/payment-types/{id} 401 -> none
+PUT /api/payment-types/{id} 403 -> none
+PUT /api/payment-types/{id} 404 -> none
+PUT /api/pfand-types/{id} 200 -> application/json $ref PfandTypeResponseDto
+PUT /api/pfand-types/{id} 400 -> none
+PUT /api/pfand-types/{id} 401 -> none
+PUT /api/pfand-types/{id} 403 -> none
+PUT /api/pfand-types/{id} 404 -> none
+PUT /api/printer-location/{id} 200 -> application/json $ref PrinterLocationResponseDto
+PUT /api/printer-location/{id} 400 -> none
+PUT /api/printer-location/{id} 401 -> none
+PUT /api/printer-location/{id} 404 -> none
+PUT /api/product-categories/positions 200 -> application/json $ref BulkOperationResponse
+PUT /api/product-categories/positions 400 -> application/json $ref BulkOperationResponse
+PUT /api/product-categories/positions 401 -> none
+PUT /api/product-categories/positions 403 -> none
+PUT /api/product-categories/{id} 200 -> application/json $ref ProductCategoryResponseDto
+PUT /api/product-categories/{id} 400 -> none
+PUT /api/product-categories/{id} 401 -> none
+PUT /api/product-categories/{id} 403 -> none
+PUT /api/product-categories/{id} 404 -> none
+PUT /api/product-extras/{id} 200 -> application/json $ref ProductExtrasResponseDto
+PUT /api/product-extras/{id} 400 -> none
+PUT /api/product-extras/{id} 401 -> none
+PUT /api/product-extras/{id} 403 -> none
+PUT /api/product-extras/{id} 404 -> none
+PUT /api/products/{id} 200 -> application/json $ref ProductResponseDto
+PUT /api/products/{id} 400 -> none
+PUT /api/products/{id} 401 -> none
+PUT /api/products/{id} 403 -> none
+PUT /api/products/{id} 404 -> none
+PUT /api/promotions/{id} 200 -> application/json $ref PromotionResponseDto
+PUT /api/promotions/{id} 400 -> none
+PUT /api/promotions/{id} 401 -> none
+PUT /api/promotions/{id} 403 -> none
+PUT /api/promotions/{id} 404 -> none
+PUT /api/reservation-rules/{id} 200 -> application/json $ref org.example.project.core.domain.dto.reservation.ReservationRuleDto.ResponseDto
+PUT /api/reservation-rules/{id} 400 -> none
+PUT /api/reservation-rules/{id} 401 -> none
+PUT /api/reservation-rules/{id} 403 -> none
+PUT /api/reservation-rules/{id} 404 -> none
+PUT /api/reservations/{id} 200 -> application/json $ref org.example.project.core.domain.dto.reservation.ReservationDto.ResponseDto
+PUT /api/reservations/{id} 400 -> none
+PUT /api/reservations/{id} 401 -> none
+PUT /api/reservations/{id} 404 -> none
+PUT /api/reservations/{id} 409 -> none
+PUT /api/reservations/{id}/status 200 -> application/json $ref org.example.project.core.domain.dto.reservation.ReservationDto.ResponseDto
+PUT /api/reservations/{id}/status 400 -> none
+PUT /api/reservations/{id}/status 401 -> none
+PUT /api/reservations/{id}/status 404 -> none
+PUT /api/reservations/{id}/status 409 -> none
+PUT /api/room-elements/{id} 200 -> application/json $ref RoomElementResponseDto
+PUT /api/room-elements/{id} 400 -> none
+PUT /api/room-elements/{id} 401 -> none
+PUT /api/room-elements/{id} 403 -> none
+PUT /api/room-elements/{id} 404 -> none
+PUT /api/scheduled-jobs/{id}/enabled 200 -> application/json $ref ScheduledJobResponseDto
+PUT /api/scheduled-jobs/{id}/enabled 400 -> none
+PUT /api/scheduled-jobs/{id}/enabled 401 -> none
+PUT /api/scheduled-jobs/{id}/enabled 403 -> none
+PUT /api/scheduled-jobs/{id}/enabled 404 -> none
+PUT /api/shop-info/{id} 200 -> application/json $ref ShopInfoResponseDto
+PUT /api/shop-info/{id} 400 -> none
+PUT /api/shop-info/{id} 401 -> none
+PUT /api/shop-info/{id} 403 -> none
+PUT /api/shop-info/{id} 404 -> none
+PUT /api/suppliers/{id} 200 -> application/json $ref org.example.project.core.domain.dto.supplier.SupplierDto.ResponseDto
+PUT /api/suppliers/{id} 400 -> none
+PUT /api/suppliers/{id} 401 -> none
+PUT /api/suppliers/{id} 403 -> none
+PUT /api/suppliers/{id} 404 -> none
+PUT /api/suppliers/{id} 409 -> none
+PUT /api/tables/combinable 200 -> application/json array of $ref CombinablePairDto
+PUT /api/tables/combinable 400 -> none
+PUT /api/tables/combinable 401 -> none
+PUT /api/tables/combinable 403 -> none
+PUT /api/tables/{id} 200 -> application/json $ref RTableResponseDto
+PUT /api/tables/{id} 400 -> none
+PUT /api/tables/{id} 401 -> none
+PUT /api/tables/{id} 403 -> none
+PUT /api/tables/{id} 404 -> none
+PUT /api/tables/{id} 409 -> none
+PUT /api/tables/{id}/combinable 200 -> application/json array of "integer"
+PUT /api/tables/{id}/combinable 400 -> none
+PUT /api/tables/{id}/combinable 401 -> none
+PUT /api/tables/{id}/combinable 403 -> none
+PUT /api/tables/{id}/combinable 404 -> none
+PUT /api/tse/config 200 -> application/json $ref TseConfigUpdateResultDto
+PUT /api/tse/config 400 -> none
+PUT /api/tse/config 401 -> none
+PUT /api/tse/config 403 -> none
+PUT /api/update/settings 200 -> application/json $ref SettingsDto
+PUT /api/update/settings 400 -> none
+PUT /api/update/settings 401 -> none
+PUT /api/update/settings 403 -> none
+PUT /api/update/token 200 -> application/json $ref SettingsDto
+PUT /api/update/token 400 -> none
+PUT /api/update/token 401 -> none
+PUT /api/update/token 403 -> none
+PUT /api/update/token 409 -> none
+PUT /api/v1/backup/config 200 -> application/json $ref BackupConfigDto
+PUT /api/v1/backup/config 400 -> none
+PUT /api/v1/backup/config 401 -> none
+PUT /api/v1/backup/config 403 -> none
+PUT /api/v1/config/{shopId}/billing-rules 200 -> application/json $ref BillingRulesResponseDto
+PUT /api/v1/config/{shopId}/billing-rules 400 -> application/json "object"
+PUT /api/v1/config/{shopId}/billing-rules 401 -> none
+PUT /api/v1/config/{shopId}/billing-rules 403 -> none
+PUT /api/v1/config/{shopId}/billing-rules 500 -> application/json "object"
+PUT /api/v1/config/{shopId}/break-rules 200 -> application/json $ref BreakRulesConfigResponseDto
+PUT /api/v1/config/{shopId}/break-rules 400 -> application/json "object"
+PUT /api/v1/config/{shopId}/break-rules 401 -> none
+PUT /api/v1/config/{shopId}/break-rules 403 -> none
+PUT /api/v1/config/{shopId}/break-rules 500 -> application/json "object"
+PUT /api/v1/config/{shopId}/browser-stations 200 -> application/json $ref BrowserStationsResponseDto
+PUT /api/v1/config/{shopId}/browser-stations 400 -> none
+PUT /api/v1/config/{shopId}/browser-stations 401 -> none
+PUT /api/v1/config/{shopId}/browser-stations 403 -> none
+PUT /api/v1/config/{shopId}/cash-book-transfer-target 200 -> application/json $ref CashBookTransferTargetResponseDto
+PUT /api/v1/config/{shopId}/cash-book-transfer-target 400 -> none
+PUT /api/v1/config/{shopId}/cash-book-transfer-target 401 -> none
+PUT /api/v1/config/{shopId}/cash-book-transfer-target 403 -> none
+PUT /api/v1/config/{shopId}/cash-book-transfer-target 404 -> none
+PUT /api/v1/config/{shopId}/cash-book-transfer-target 422 -> none
+PUT /api/v1/config/{shopId}/datev-account-mapping 200 -> application/json $ref MappingResponseDto
+PUT /api/v1/config/{shopId}/datev-account-mapping 400 -> none
+PUT /api/v1/config/{shopId}/datev-account-mapping 401 -> none
+PUT /api/v1/config/{shopId}/datev-account-mapping 403 -> none
+PUT /api/v1/config/{shopId}/datev-account-mapping 500 -> none
+PUT /api/v1/config/{shopId}/datev-xml 200 -> application/json $ref DatevXmlConfigResponseDto
+PUT /api/v1/config/{shopId}/datev-xml 400 -> none
+PUT /api/v1/config/{shopId}/datev-xml 401 -> none
+PUT /api/v1/config/{shopId}/datev-xml 403 -> none
+PUT /api/v1/config/{shopId}/datev-xml 500 -> none
+PUT /api/v1/config/{shopId}/document-storage 200 -> application/json $ref DocumentStorageConfigResponseDto
+PUT /api/v1/config/{shopId}/document-storage 400 -> application/json "object"
+PUT /api/v1/config/{shopId}/document-storage 401 -> none
+PUT /api/v1/config/{shopId}/document-storage 403 -> none
+PUT /api/v1/config/{shopId}/document-storage 500 -> application/json "object"
+PUT /api/v1/config/{shopId}/kassenbuch-beleg-age 200 -> application/json $ref KassenbuchBelegAgeResponseDto
+PUT /api/v1/config/{shopId}/kassenbuch-beleg-age 400 -> none
+PUT /api/v1/config/{shopId}/kassenbuch-beleg-age 401 -> none
+PUT /api/v1/config/{shopId}/kassenbuch-beleg-age 403 -> none
+PUT /api/v1/config/{shopId}/kassenbuch-beleg-age 422 -> none
+PUT /api/v1/config/{shopId}/order-rules 200 -> application/json $ref OrderRulesResponseDto
+PUT /api/v1/config/{shopId}/order-rules 400 -> application/json "object"
+PUT /api/v1/config/{shopId}/order-rules 401 -> none
+PUT /api/v1/config/{shopId}/order-rules 403 -> none
+PUT /api/v1/config/{shopId}/order-rules 500 -> application/json "object"
+PUT /api/v1/config/{shopId}/print-settings 200 -> application/json $ref PrintSettingsResponseDto
+PUT /api/v1/config/{shopId}/print-settings 400 -> application/json "object"
+PUT /api/v1/config/{shopId}/print-settings 401 -> none
+PUT /api/v1/config/{shopId}/print-settings 403 -> none
+PUT /api/v1/config/{shopId}/print-settings 500 -> application/json "object"
+PUT /api/v1/config/{shopId}/vat-mapping 200 -> application/json $ref VatMappingResponseDto
+PUT /api/v1/config/{shopId}/vat-mapping 400 -> application/json "object"
+PUT /api/v1/config/{shopId}/vat-mapping 401 -> none
+PUT /api/v1/config/{shopId}/vat-mapping 403 -> none
+PUT /api/v1/config/{shopId}/vat-mapping 500 -> application/json "object"
+PUT /api/v1/config/{shopId}/voucher-config 204 -> none
+PUT /api/v1/config/{shopId}/voucher-config 400 -> application/json "object"
+PUT /api/v1/config/{shopId}/voucher-config 401 -> none
+PUT /api/v1/config/{shopId}/voucher-config 403 -> none
+PUT /api/v1/config/{shopId}/voucher-config 500 -> application/json "object"
+PUT /api/v1/config/{shopId}/web-access 200 -> application/json $ref WebAccessResponseDto
+PUT /api/v1/config/{shopId}/web-access 400 -> none
+PUT /api/v1/config/{shopId}/web-access 401 -> none
+PUT /api/v1/config/{shopId}/web-access 403 -> none
+PUT /api/v1/config/{shopId}/web-access 503 -> none
+PUT /api/v1/kassenbuch/books/{bookId} 200 -> application/json $ref org.example.project.core.domain.dto.kassenbuch.CashBookDto.ResponseDto
+PUT /api/v1/kassenbuch/books/{bookId} 400 -> none
+PUT /api/v1/kassenbuch/books/{bookId} 401 -> none
+PUT /api/v1/kassenbuch/books/{bookId} 403 -> none
+PUT /api/v1/kassenbuch/books/{bookId} 404 -> none
+PUT /api/v1/kassenbuch/books/{bookId} 409 -> none
+PUT /api/v1/kassenbuch/books/{bookId}/signing-terminal 200 -> application/json $ref org.example.project.core.domain.dto.kassenbuch.CashBookDto.ResponseDto
+PUT /api/v1/kassenbuch/books/{bookId}/signing-terminal 400 -> none
+PUT /api/v1/kassenbuch/books/{bookId}/signing-terminal 401 -> none
+PUT /api/v1/kassenbuch/books/{bookId}/signing-terminal 403 -> none
+PUT /api/v1/kassenbuch/books/{bookId}/signing-terminal 404 -> none
+PUT /api/v1/kassenbuch/books/{bookId}/signing-terminal 409 -> none
+PUT /api/v1/kassenbuch/entries/{headerId}/link-document 200 -> application/json $ref KassenbuchGroupedDetailDto
+PUT /api/v1/kassenbuch/entries/{headerId}/link-document 400 -> none
+PUT /api/v1/kassenbuch/entries/{headerId}/link-document 401 -> none
+PUT /api/v1/kassenbuch/entries/{headerId}/link-document 403 -> none
+PUT /api/v1/kassenbuch/entries/{headerId}/link-document 404 -> none
+PUT /api/v1/kassenbuch/entries/{headerId}/link-document 409 -> none
+PUT /api/v1/kassenbuch/entries/{headerId}/replace-document 200 -> application/json $ref KassenbuchGroupedDetailDto
+PUT /api/v1/kassenbuch/entries/{headerId}/replace-document 400 -> none
+PUT /api/v1/kassenbuch/entries/{headerId}/replace-document 401 -> none
+PUT /api/v1/kassenbuch/entries/{headerId}/replace-document 403 -> none
+PUT /api/v1/kassenbuch/entries/{headerId}/replace-document 404 -> none
+PUT /api/v1/sales-invoices/{id} 200 -> application/json $ref org.example.project.core.domain.dto.salesinvoice.SalesInvoiceDto.ResponseDto
+PUT /api/v1/sales-invoices/{id} 400 -> none
+PUT /api/v1/sales-invoices/{id} 401 -> none
+PUT /api/v1/sales-invoices/{id} 403 -> none
+PUT /api/v1/sales-invoices/{id} 404 -> none
+PUT /api/v1/sales-invoices/{id} 409 -> none
+PUT /api/v1/terminals/{id} 200 -> application/json $ref TerminalResponseDto
+PUT /api/v1/terminals/{id} 400 -> none
+PUT /api/v1/terminals/{id} 401 -> none
+PUT /api/v1/terminals/{id} 403 -> none
+PUT /api/v1/terminals/{id} 404 -> none
+PUT /api/vat/{id} 200 -> application/json $ref VatResponseDto
+PUT /api/vat/{id} 400 -> none
+PUT /api/vat/{id} 401 -> none
+PUT /api/vat/{id} 403 -> none
+PUT /api/vat/{id} 404 -> none
+components.schemas AccessExplanationDto
+components.schemas AccountCell
+components.schemas AccountingInfoDto
+components.schemas AdminPinRequestDto
+components.schemas AdminResetPasswordRequestDto
+components.schemas AdminResetPinRequestDto
+components.schemas AdminResultDto
+components.schemas AlertDto
+components.schemas AllocationRowDto
+components.schemas AllowanceChargeDto
+components.schemas AndroidClientDto
+components.schemas ApExportStatisticsDto
+components.schemas ApplyStartedDto
+components.schemas ApprovalRequestDto
+components.schemas ApprovalResponseDto
+components.schemas ArExportStatisticsDto
+components.schemas AssignCustomerAndAddressRequestDto
+components.schemas AssignPermissionGroupRequestDto
+components.schemas AssignRequestDto
+components.schemas AssignStatementRequestDto
+components.schemas AssignmentDto
+components.schemas AttachRequestDto
+components.schemas AuthenticationRequestDto
+components.schemas AutoAssignResponseDto
+components.schemas AvailabilityResponseDto
+components.schemas AvailableCashDto
+components.schemas AvailableTableDto
+components.schemas BackupConfigDto
+components.schemas BackupCopyTargetDto
+components.schemas BackupFileDto
+components.schemas BackupListDto
+components.schemas BackupToServerResultDto
+components.schemas BankStatementMetadataDto
+components.schemas BankStatementTransactionDto
+components.schemas BatchTablePositionUpdateDto
+components.schemas BatchUpdatePositionsResponseDto
+components.schemas BestSellersResponseDto
+components.schemas BillLinkDto
+components.schemas BillPromotionResponseDto
+components.schemas BillRelationsDto
+components.schemas BillResponseDto
+components.schemas BillStatisticsDto
+components.schemas BillSummaryDto
+components.schemas BillVatDetailDto
+components.schemas BillingRulesResponseDto
+components.schemas BreakRuleEntry
+components.schemas BreakRulesConfig
+components.schemas BreakRulesConfigResponseDto
+components.schemas BrowserStationsResponseDto
+components.schemas BulkAssignResult
+components.schemas BulkAssignResultDto
+components.schemas BulkAttachResultDto
+components.schemas BulkAutoAssignRequestDto
+components.schemas BulkAutoAssignResponseDto
+components.schemas BulkCategoryAssignRequestDto
+components.schemas BulkCategoryAttachRequestDto
+components.schemas BulkOperationResponse
+components.schemas BulkUpdateRequestDto
+components.schemas CancelEntryRequestDto
+components.schemas CancelInvoiceRequestDto
+components.schemas CancelOrderItemsRequestDto
+components.schemas CancelRequestDto
+components.schemas CanceledItemDto
+components.schemas CanceledItemsResponseDto
+components.schemas CancellationResponseDto
+components.schemas CapabilityCatalogDto
+components.schemas CapabilityInfoDto
+components.schemas CardSettlementDetailDto
+components.schemas CardSettlementResponseDto
+components.schemas CardTerminalResponseDto
+components.schemas CardTypeTotalsDto
+components.schemas CashBookTransferTargetResponseDto
+components.schemas CashCountExpectationDto
+components.schemas CashCountRequestDto
+components.schemas CashCountResponseDto
+components.schemas CashFlowDto
+components.schemas CatalogBreakdownResponseDto
+components.schemas CatchupFailureDto
+components.schemas CatchupPeriodDto
+components.schemas CatchupPreviewDto
+components.schemas CatchupResultDto
+components.schemas CategoryMetricsDto
+components.schemas CategoryPerformanceResponseDto
+components.schemas CellRef
+components.schemas CheckResultDto
+components.schemas ChecklistItemDto
+components.schemas ChoiceGroupResponseDto
+components.schemas CleanupRequestDto
+components.schemas CleanupResultDto
+components.schemas ClientListResultDto
+components.schemas ClosePreviewDto
+components.schemas CloseRequestDto
+components.schemas CloseResponseDto
+components.schemas ClosingReadinessDto
+components.schemas ClosingTopUpRequestDto
+components.schemas CombinablePairDto
+components.schemas CompleteSetupRequestDto
+components.schemas CorrectEntryRequestDto
+components.schemas CreateBackupRequestDto
+components.schemas CreateBackupToServerRequestDto
+components.schemas CreateBillRequestDto
+components.schemas CreateCardTerminalRequestDto
+components.schemas CreateChoiceGroupRequestDto
+components.schemas CreateCustomerAddressRequestDto
+components.schemas CreateCustomerRequestDto
+components.schemas CreateDocumentLinkRequestDto
+components.schemas CreateEmployeeInfoRequestDto
+components.schemas CreateEmployeeRequestDto
+components.schemas CreateFromBillRequestDto
+components.schemas CreateGroupRequestDto
+components.schemas CreateKassenbuchEntryGroupResponseDto
+components.schemas CreateKassenbuchEntryRequestDto
+components.schemas CreateOrderItemRequestDto
+components.schemas CreateOrderRequestDto
+components.schemas CreateOverrideRequestDto
+components.schemas CreatePaymentTypeRequestDto
+components.schemas CreatePfandTypeRequestDto
+components.schemas CreatePrinterLocationRequestDto
+components.schemas CreatePrinterSetupRequestDto
+components.schemas CreateProductCategoryRequestDto
+components.schemas CreateProductExtrasRequestDto
+components.schemas CreateProductRequestDto
+components.schemas CreatePromotionRequestDto
+components.schemas CreateRTableRequestDto
+components.schemas CreateRequestDto
+components.schemas CreateResponseDto
+components.schemas CreateRoomElementRequestDto
+components.schemas CreateShopInfoRequestDto
+components.schemas CreateStandaloneRequestDto
+components.schemas CreateTerminalRequestDto
+components.schemas CreateTipPayoutRequestDto
+components.schemas CreateTransferRequestDto
+components.schemas CreateVatRequestDto
+components.schemas CreateVoucherRequestDto
+components.schemas CreateZBonRequestDto
+components.schemas CreatedDto
+components.schemas CsvImportResultDto
+components.schemas CustomerAddressResponseDto
+components.schemas CustomerAddressSummaryDto
+components.schemas CustomerResponseDto
+components.schemas CustomerSummaryDto
+components.schemas DailyFinancialDto
+components.schemas DatevExportLogDto
+components.schemas DatevXmlConfigResponseDto
+components.schemas DaySchedule
+components.schemas DayScheduleDto
+components.schemas DecisionDto
+components.schemas DefinitionDto
+components.schemas DefinitionFieldDto
+components.schemas DiagnosisResponseDto
+components.schemas DirectoryEntryDto
+components.schemas DirectoryListingDto
+components.schemas DiscoveredPrinterDto
+components.schemas DiscrepancyDto
+components.schemas DocumentLinkResponseDto
+components.schemas DocumentListItemDto
+components.schemas DocumentListResponseDto
+components.schemas DocumentMetadataDto
+components.schemas DocumentResponseDto
+components.schemas DocumentStorageConfigResponseDto
+components.schemas DocumentStorageStatisticsDto
+components.schemas DocumentSummaryDto
+components.schemas DocumentTypesResponseDto
+components.schemas DownloadProgressDto
+components.schemas DuplicateGroupDto
+components.schemas DuplicateListResponseDto
+components.schemas EffectiveAccessDto
+components.schemas EmployeeGroupDto
+components.schemas EmployeeInfo
+components.schemas EmployeeInfoDto
+components.schemas EmployeeInfoResponseDto
+components.schemas EmployeeRefDto
+components.schemas EmployeeResponseDto
+components.schemas EmployeeSummaryResponseDto
+components.schemas EmployeeTipPayoutStatusDto
+components.schemas EmployeeZBonPaymentBreakdownResponseDto
+components.schemas EmployeeZBonSummaryResponseDto
+components.schemas EntryDto
+components.schemas EntryLineDto
+components.schemas EntryLogResponseDto
+components.schemas ErrorResponse
+components.schemas ExceptionDto
+components.schemas ExplanationDto
+components.schemas ExportAndDeleteResultDto
+components.schemas ExportArchiveDto
+components.schemas ExportRequestDto
+components.schemas ExportResultDto
+components.schemas ExportSizeDto
+components.schemas ExportStatisticsDto
+components.schemas ExportStatusDto
+components.schemas ExtraOptionStatDto
+components.schemas FavouriteProductAnalyticsDto
+components.schemas FavouriteProductListResponseDto
+components.schemas FieldDto
+components.schemas FilterInfo
+components.schemas FinancialOverviewResponseDto
+components.schemas FindingDto
+components.schemas FindingsResponseDto
+components.schemas FirmwareApplyResultDto
+components.schemas FirmwareUpdateCheckResultDto
+components.schemas FlashHealthResultDto
+components.schemas HealthCheckResultDto
+components.schemas ImageUploadResponseDto
+components.schemas IncrementalExportRequestDto
+components.schemas InitialSetupResponseDto
+components.schemas InitialSetupStatusDto
+components.schemas InstalmentDto
+components.schemas InstalmentListDto
+components.schemas InvoiceBookingDto
+components.schemas InvoiceContentRequestDto
+components.schemas InvoiceDto
+components.schemas InvoiceLineDto
+components.schemas InvoiceMetadataDto
+components.schemas InvoiceStornoDto
+components.schemas ItemDto
+components.schemas ItemTransferHistoryResponseDto
+components.schemas JobExecutionPageDto
+components.schemas JobExecutionResponseDto
+components.schemas JobTypeInfoDto
+components.schemas KassenMeldungResponseDto
+components.schemas KassenbuchBelegAgeResponseDto
+components.schemas KassenbuchEntryLineItemDto
+components.schemas KassenbuchEntryResponseDto
+components.schemas KassenbuchGroupedDetailDto
+components.schemas KassenbuchGroupedSummaryDto
+components.schemas KassenbuchLineItemDetailDto
+components.schemas KassenbuchRollupDto
+components.schemas KassenbuchRollupGroupDto
+components.schemas KpiMetricDto
+components.schemas LastTransactionResultDto
+components.schemas LcmExportResultDto
+components.schemas LineDto
+components.schemas LineItemDto
+components.schemas LinkDocumentRequestDto
+components.schemas LinkedBankStatementSummary
+components.schemas LinkedDocumentSummary
+components.schemas LinkedKassenbuchSummary
+components.schemas ListItemDto
+components.schemas ListResponseDto
+components.schemas LogEntryBrowseRequestDto
+components.schemas LogEntryBrowseResultDto
+components.schemas LogEntryDto
+components.schemas LogSearchResponseDto
+components.schemas LoginRequest
+components.schemas LoginRequestDto
+components.schemas LoginResponse
+components.schemas LoginResponseDto
+components.schemas LogoUploadResponseDto
+components.schemas ManualAssignRequestDto
+components.schemas MappingDto
+components.schemas MappingResponseDto
+components.schemas MergeRequestDto
+components.schemas MonthlyCloseResponseDto
+components.schemas NextSnapshotDto
+components.schemas OpenInstalmentDto
+components.schemas OpenInstalmentListDto
+components.schemas OpenInvoiceDto
+components.schemas OpenInvoiceListDto
+components.schemas OpenPeriodTipDto
+components.schemas OpenSalesInvoiceDto
+components.schemas OpenSalesInvoiceListDto
+components.schemas OptionRequestDto
+components.schemas OptionResponseDto
+components.schemas OrderItemProductDto
+components.schemas OrderItemResponseDto
+components.schemas OrderResponseDto
+components.schemas OrderRulesResponseDto
+components.schemas OverrideResponseDto
+components.schemas OwnerSetupRequestDto
+components.schemas PaginatedBillsResponseDto
+components.schemas PaginatedChangelogResponseDto
+components.schemas PaginatedEmployeeGroupsResponseDto
+components.schemas PaginatedEntryLogResponseDto
+components.schemas PaginatedPaymentsResponseDto
+components.schemas PaginatedSessionsResponseDto
+components.schemas PaginatedTableCardsResponseDto
+components.schemas PaginatedTransactionAuditResponseDto
+components.schemas PaginationInfo
+components.schemas PairDeviceRequestDto
+components.schemas PairDeviceResponseDto
+components.schemas PairingCodeResponseDto
+components.schemas ParsedLogMessageDto
+components.schemas PasswordChangeRequestDto
+components.schemas PathDto
+components.schemas PaymentMethodSummaryDto
+components.schemas PaymentRecordDto
+components.schemas PaymentRequest
+components.schemas PaymentResponse
+components.schemas PaymentSummary
+components.schemas PaymentTypeListResponseDto
+components.schemas PaymentTypeResponseDto
+components.schemas PaymentTypeStatisticsDto
+components.schemas PaymentTypeSummaryDto
+components.schemas PaymentsSummaryResponseDto
+components.schemas PeriodComparisonDto
+components.schemas PermissionGroupAssignmentDto
+components.schemas PermissionGroupResponseDto
+components.schemas PfandTypeResponseDto
+components.schemas PingResponse
+components.schemas Policy
+components.schemas PreviewDto
+components.schemas PrintJobHistoryDto
+components.schemas PrintResponseDto
+components.schemas PrintSettingsResponseDto
+components.schemas PrinterLocationResponseDto
+components.schemas PrinterSetupResponseDto
+components.schemas ProductCategoryResponseDto
+components.schemas ProductExtrasResponseDto
+components.schemas ProductGroupsResponseDto
+components.schemas ProductPerformanceDto
+components.schemas ProductResponseDto
+components.schemas PromotionApplyRequestDto
+components.schemas PromotionBreakdownDto
+components.schemas PromotionBreakdownResponseDto
+components.schemas PromotionResponseDto
+components.schemas PromotionStatDto
+components.schemas PromotionUsageDto
+components.schemas QueueEntryResponseDto
+components.schemas QueueResponseDto
+components.schemas QueueRowDto
+components.schemas QueueStatusDto
+components.schemas RTableListResponseDto
+components.schemas RTableResponseDto
+components.schemas RebookRequestDto
+components.schemas ReconciliationReportDto
+components.schemas RedeemVoucherRequestDto
+components.schemas RedeemVoucherResponse
+components.schemas ReferencePrintRequestDto
+components.schemas RefreshTokenRequest
+components.schemas RegisterExportArchiveRequestDto
+components.schemas RegisterTerminalRequestDto
+components.schemas ReplaceDocumentRequestDto
+components.schemas ReportDto
+components.schemas ReportRequestDto
+components.schemas ReportResponseDto
+components.schemas RequestStatusDto
+components.schemas ResolveRequestDto
+components.schemas ResolveResponseDto
+components.schemas ResponseDto
+components.schemas RestoreFromServerRequest
+components.schemas RestoreResultDto
+components.schemas ReverseTipPayoutRequestDto
+components.schemas ReverseTransferRequestDto
+components.schemas ReviewDto
+components.schemas RoomElementListResponseDto
+components.schemas RoomElementResponseDto
+components.schemas RotationPoolUpdateRequestDto
+components.schemas RouteAccessDto
+components.schemas RowDto
+components.schemas SalesOverviewResponseDto
+components.schemas SalesTrendsResponseDto
+components.schemas SaveDefinitionRequestDto
+components.schemas ScheduledJobDetailDto
+components.schemas ScheduledJobResponseDto
+components.schemas SelectedOptionDto
+components.schemas SelectedOptionRequestDto
+components.schemas SelfTestResultDto
+components.schemas ServiceControlResponseDto
+components.schemas SessionCustomerDto
+components.schemas SessionRepairResultDto
+components.schemas SessionSummaryDto
+components.schemas SetCombinablePairsRequestDto
+components.schemas SetJobEnabledRequestDto
+components.schemas SetTokenRequestDto
+components.schemas SettingsDto
+components.schemas SettleAtTillRequestDto
+components.schemas SettlementPreviewDto
+components.schemas SetupCredentialsRequestDto
+components.schemas SetupReadinessDto
+components.schemas SetupSummaryDto
+components.schemas ShiftDto
+components.schemas ShopInfoResponseDto
+components.schemas ShopInfoSyncResponseDto
+components.schemas ShopSetupRequestDto
+components.schemas SigningTerminalCandidateDto
+components.schemas SigningTerminalRequestDto
+components.schemas StandaloneLineInputDto
+components.schemas StatementDto
+components.schemas StatementListResponseDto
+components.schemas StatementTransactionDto
+components.schemas StatementTransactionListResponseDto
+components.schemas StationSessionResponseDto
+components.schemas StatusDto
+components.schemas StatusInfoDto
+components.schemas SubjectDto
+components.schemas SystemStateDto
+components.schemas TableAssignment
+components.schemas TableCardDto
+components.schemas TablePositionUpdate
+components.schemas TableSessionResponseDto
+components.schemas TableSessionSummaryDto
+components.schemas TableSessionsResponseDto
+components.schemas TaxLineItemDto
+components.schemas TemporarySessionRequestDto
+components.schemas TemporarySessionResponseDto
+components.schemas TerminalResponseDto
+components.schemas TerminalSummaryDto
+components.schemas TimeFilteredExportRequestDto
+components.schemas TimeUpdateResultDto
+components.schemas TipPayoutRecordDto
+components.schemas TipPayoutResponseDto
+components.schemas ToggleDto
+components.schemas TokenResponse
+components.schemas TransactionAuditLogDto
+components.schemas TransactionFilteredExportRequestDto
+components.schemas TransactionListResultDto
+components.schemas TransferOrderItemsRequestDto
+components.schemas TransferResponseDto
+components.schemas TransferTableRequestDto
+components.schemas TransferTableResponseDto
+components.schemas TriggerRetryResponseDto
+components.schemas TseAdminSessionStatusDto
+components.schemas TseConfig
+components.schemas TseConfigUpdateResultDto
+components.schemas TseInfoDto
+components.schemas TsePairingStatusDto
+components.schemas TseReceiptDataDto
+components.schemas TseSigningNoteDto
+components.schemas UnassignedBooking
+components.schemas UnassignedStatementDto
+components.schemas UnassignedSummary
+components.schemas UnresolvedInvoiceDto
+components.schemas UpdateBackupConfigDto
+components.schemas UpdateBankStatementMetadataRequestDto
+components.schemas UpdateBillingRulesRequestDto
+components.schemas UpdateBrowserStationsRequestDto
+components.schemas UpdateCardTerminalRequestDto
+components.schemas UpdateCashBookTransferTargetRequestDto
+components.schemas UpdateChoiceGroupRequestDto
+components.schemas UpdateDatevXmlConfigRequestDto
+components.schemas UpdateDayRequestDto
+components.schemas UpdateDocumentStatusRequestDto
+components.schemas UpdateDocumentStorageConfigRequestDto
+components.schemas UpdateEmployeeInfoRequestDto
+components.schemas UpdateEmployeeRequestDto
+components.schemas UpdateGroupRequestDto
+components.schemas UpdateInvoiceBookingRequestDto
+components.schemas UpdateKassenbuchBelegAgeRequestDto
+components.schemas UpdateOrderRulesRequestDto
+components.schemas UpdateOverrideRequestDto
+components.schemas UpdatePaymentTypeRequestDto
+components.schemas UpdatePfandTypeRequestDto
+components.schemas UpdatePolicyRequest
+components.schemas UpdatePrintSettingsRequestDto
+components.schemas UpdatePrinterLocationRequestDto
+components.schemas UpdatePrinterSetupRequestDto
+components.schemas UpdateProductCategoryPositionRequestDto
+components.schemas UpdateProductCategoryRequestDto
+components.schemas UpdateProductExtrasRequestDto
+components.schemas UpdateProductRequestDto
+components.schemas UpdatePromotionRequestDto
+components.schemas UpdateRTableRequestDto
+components.schemas UpdateRequestDto
+components.schemas UpdateRoomElementDimensionsRequestDto
+components.schemas UpdateRoomElementPositionRequestDto
+components.schemas UpdateRoomElementRequestDto
+components.schemas UpdateSettingsRequestDto
+components.schemas UpdateShopInfoRequestDto
+components.schemas UpdateStandaloneRequestDto
+components.schemas UpdateStatusRequestDto
+components.schemas UpdateTerminalRequestDto
+components.schemas UpdateTseConfigRequest
+components.schemas UpdateVatMappingRequestDto
+components.schemas UpdateVatRequestDto
+components.schemas UpdateVoucherConfigRequestDto
+components.schemas UpdateWebAccessRequestDto
+components.schemas UpdateWeekRequestDto
+components.schemas ValidateVoucherRequestDto
+components.schemas ValidateVoucherResponseDto
+components.schemas ValidationResponse
+components.schemas ValidationResultDto
+components.schemas VatBreakdownDto
+components.schemas VatGroupResponseDto
+components.schemas VatMappingConfig
+components.schemas VatMappingResponseDto
+components.schemas VatResponseDto
+components.schemas VatRowDto
+components.schemas VatRules
+components.schemas VatSummaryDto
+components.schemas VerifyRequestDto
+components.schemas VoucherConfig
+components.schemas VoucherConfigResponseDto
+components.schemas VoucherRedemptionEntryDto
+components.schemas VoucherRedemptionHistoryDto
+components.schemas VoucherRedemptionSummaryDto
+components.schemas VoucherResponseDto
+components.schemas VoucherSource
+components.schemas VoucherStatisticsDto
+components.schemas VoucherSummeryDto
+components.schemas WebAccessResponseDto
+components.schemas WeeklyResponseDto
+components.schemas WeeklyScheduleResponseDto
+components.schemas ZBonChainGapDto
+components.schemas ZBonResponseDto
+components.schemas ZBonRollupDto
+components.schemas ZBonRollupRowDto
+components.schemas ZBonSummeryDto
+components.schemas billing_request
+components.schemas org.example.project.core.domain.dto.allocation.AllocationDto.CreateRequestDto
+components.schemas org.example.project.core.domain.dto.allocation.SuggestionDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.bank.BankAccountDto.CreateRequestDto
+components.schemas org.example.project.core.domain.dto.bank.BankAccountDto.ListResponseDto
+components.schemas org.example.project.core.domain.dto.bank.BankAccountDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.changelog.ChangelogDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.contract.ContractAlertDto.ListResponseDto
+components.schemas org.example.project.core.domain.dto.contract.ContractDto.CreateRequestDto
+components.schemas org.example.project.core.domain.dto.contract.ContractDto.ListResponseDto
+components.schemas org.example.project.core.domain.dto.contract.ContractDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.contract.ContractDto.UpdateRequestDto
+components.schemas org.example.project.core.domain.dto.debtor.DebtorDto.CreateRequestDto
+components.schemas org.example.project.core.domain.dto.debtor.DebtorDto.ListResponseDto
+components.schemas org.example.project.core.domain.dto.debtor.DebtorDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.debtor.DebtorDto.UpdateRequestDto
+components.schemas org.example.project.core.domain.dto.document.DocumentDto.AllowanceChargeDto
+components.schemas org.example.project.core.domain.dto.document.InvoiceListDto.ListResponseDto
+components.schemas org.example.project.core.domain.dto.dsfinvk.DsfinvkExportDto.ExportStatisticsDto
+components.schemas org.example.project.core.domain.dto.finance.BookkeepingStartDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.finance.BookkeepingStartDto.UpdateRequestDto
+components.schemas org.example.project.core.domain.dto.issuereport.IssueReportDto.ReportRequestDto
+components.schemas org.example.project.core.domain.dto.issuereport.IssueReportDto.SetTokenRequestDto
+components.schemas org.example.project.core.domain.dto.issuereport.IssueReportDto.SettingsDto
+components.schemas org.example.project.core.domain.dto.issuereport.IssueReportDto.UpdateSettingsRequestDto
+components.schemas org.example.project.core.domain.dto.kassenbuch.CashBookDto.CreateRequestDto
+components.schemas org.example.project.core.domain.dto.kassenbuch.CashBookDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.kassenbuch.CashBookDto.UpdateRequestDto
+components.schemas org.example.project.core.domain.dto.matching.MatchTelemetryDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.partner.BusinessPartnerDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.product.ChoiceGroupDto.ListResponseDto
+components.schemas org.example.project.core.domain.dto.product.ProductChoiceGroupDto.ListResponseDto
+components.schemas org.example.project.core.domain.dto.product.ProductChoiceGroupDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.product.ProductExtrasAssignmentDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.reservation.ReservationDto.CreateRequestDto
+components.schemas org.example.project.core.domain.dto.reservation.ReservationDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.reservation.ReservationDto.UpdateRequestDto
+components.schemas org.example.project.core.domain.dto.reservation.ReservationRuleDto.CreateRequestDto
+components.schemas org.example.project.core.domain.dto.reservation.ReservationRuleDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.reservation.ReservationRuleDto.UpdateRequestDto
+components.schemas org.example.project.core.domain.dto.salesinvoice.SalesInvoiceDto.ListResponseDto
+components.schemas org.example.project.core.domain.dto.salesinvoice.SalesInvoiceDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.supplier.SupplierDto.CreateRequestDto
+components.schemas org.example.project.core.domain.dto.supplier.SupplierDto.ListResponseDto
+components.schemas org.example.project.core.domain.dto.supplier.SupplierDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.supplier.SupplierDto.UpdateRequestDto
+components.schemas org.example.project.core.domain.dto.table.LocationTypeDto.ListResponseDto
+components.schemas org.example.project.core.domain.dto.table.LocationTypeDto.ResponseDto
+components.schemas org.example.project.core.domain.dto.table.RoomElementDto.FilterInfo
+components.schemas org.example.project.core.domain.dto.tse.TseDto.LogEntryDto
+components.schemas org.example.project.core.domain.dto.tse.TseExplanationDto.CreateRequestDto
+components.schemas org.example.project.core.domain.dto.tse.TseExplanationDto.FindingDto

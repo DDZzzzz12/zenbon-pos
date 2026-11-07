@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 13 – Einstellungen – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 13 – Einstellungen</h2>
+
+    <p>
+        Der Einstellungsbereich der Kasse ist in drei Registerkarten (Tabs) unterteilt.
+        Das Layout passt sich automatisch an die Bildschirmgröße an: Auf Telefonen werden
+        horizontale, scrollbare Tabs angezeigt; auf Tablets und Desktops steht eine
+        Seitennavigation mit Inhaltsbereich zur Verfügung. Der Tab <em>Allgemein</em> steht jedem
+        angemeldeten Mitarbeiter zur Verfügung; <em>Drucker</em> und <em>TSE</em> erscheinen nur, wenn die
+        Berechtigungsgruppe die Fähigkeit <code>CONFIG_WRITE</code> (Systemkonfiguration) enthält. Die
+        TSE-Admin-Operationen verlangen zusätzlich <code>TSE_ADMIN</code>.
+    </p>
+
+    <div class="alert alert-warning">
+        <strong>Die Kasse führt nur noch die gerätegebundenen Einstellungen.</strong> Die Einstellungen
+        der Kasse haben statt früher neun nur noch drei Tabs: <em>Allgemein</em>, <em>Drucker</em> und
+        <em>TSE</em> &ndash; also alles, was das jeweilige Gerät selbst betrifft. Alles andere wird im
+        <strong>Web-Admin</strong> (Backoffice) gepflegt, den der Server unter <code>/admin</code> ausliefert
+        (z.&nbsp;B. <code>http://192.168.1.20:8080/admin</code>; an der Kasse über
+        <a href="#kap-13-backoffice">Backoffice öffnen</a>). Die Tabelle unten nennt für jeden
+        früheren Tab den neuen Ort im Menü des Web-Admin (<em>Gruppe &rarr; Eintrag</em>). Die
+        entsprechenden Abschnitte unten beschreiben daher den Web-Admin. DSFinV-K- und TSE-Export
+        bleiben zusätzlich an der Kasse unter dem Tab <em>TSE</em> verfügbar.
+    </div>
+
+    <h3>Tab-Übersicht</h3>
+    <table>
+        <thead>
+            <tr><th>Früherer Tab</th><th>Bezeichnung</th><th>Heute</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>GENERAL</td><td>Allgemein</td><td><strong>An der Kasse</strong>: Darstellung, Tischplan-Modus, Produktdaten synchronisieren, Hilfe &amp; Support</td></tr>
+            <tr><td>PRINTER</td><td>Drucker</td><td><strong>An der Kasse</strong> und im Web-Admin unter <em>Geräte &rarr; Drucker</em>: Druckerstandorte, Druckaufträge</td></tr>
+            <tr><td>TSE</td><td>TSE</td><td><strong>An der Kasse</strong> und im Web-Admin unter <em>Geräte &rarr; TSE</em>: TSE-Konfiguration, -Verwaltung und -Export</td></tr>
+            <tr><td>BUSINESS</td><td>Geschäft</td><td><strong>Nur im Web-Admin</strong>: <em>System &rarr; Einstellungen</em> (Geschäftsregeln, MwSt-Sätze, MwSt-Zuordnung, Zahlungsarten, Belegablage), <em>Betrieb &rarr; Gutscheine</em> und <em>Betrieb &rarr; Tische</em>; Aktionen in der Werkzeugleiste unter <em>Betrieb &rarr; Produkte</em></td></tr>
+            <tr><td>SHOP_INFO</td><td>Geschäftsinformationen</td><td><strong>Nur im Web-Admin</strong>: <em>System &rarr; Einstellungen &rarr; Geschäftsdaten</em></td></tr>
+            <tr><td>SYSTEM</td><td>System</td><td><strong>Nur im Web-Admin</strong>: <em>Geräte &rarr; Terminals</em></td></tr>
+            <tr><td>DATA_EXPORT</td><td>Datenexport</td><td><strong>Nur im Web-Admin</strong>: <em>Compliance &rarr; Datenexport</em></td></tr>
+            <tr><td>&ndash;</td><td>Sicherheit &amp; Sitzungen, Was ist neu</td><td><strong>Nur im Web-Admin</strong>: <em>System &rarr; Einstellungen</em></td></tr>
+            <tr><td>&ndash;</td><td>Geplante Aufgaben</td><td><strong>Nur im Web-Admin</strong>: <em>System &rarr; Geplante Aufgaben</em></td></tr>
+<!-- DISABLED 2026-05-07 (timetracking): integration removed — feature code preserved
+            <tr><td>TIME_TRACKING</td><td>Zeiterfassung</td><td>Einstellungen zur Arbeitszeiterfassung</td></tr>
+-->
+            <tr><td>AUDIT_LOG</td><td>Prüfprotokoll</td><td><strong>Nur im Web-Admin</strong>: <em>Compliance &rarr; Audit-Log</em></td></tr>
+        </tbody>
+    </table>
+    <p>
+        Die frühere Einstellung zur KI-gestützten Dokumentenerkennung (LLM/OCR) ist ersatzlos entfallen.
+    </p>
+
+    <!-- ===== ALLGEMEIN ===== -->
+    <h3 id="kap-13-allgemein">Allgemein (GENERAL)</h3>
+
+    <p>Grundlegende Darstellungs- und Bedienungseinstellungen. Diese werden lokal auf dem jeweiligen Gerät gespeichert und gelten nicht systemweit.</p>
+
+    <h4>Darstellung</h4>
+    <table>
+        <thead>
+            <tr><th>Einstellung</th><th>Beschreibung</th><th>Optionen</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Farbschema (Theme)</strong></td>
+                <td>Steuert das Erscheinungsbild der gesamten Anwendung.</td>
+                <td>Hell, Dunkel, System (folgt dem Betriebssystem)</td>
+            </tr>
+            <tr>
+                <td><strong>UI-Dichte</strong> (nur Desktop)</td>
+                <td>Skalierungsfaktor der Oberfläche. Höhere Werte vergrößern alle UI-Elemente proportional.</td>
+                <td>Schieberegler: 100&nbsp;% bis 500&nbsp;%</td>
+            </tr>
+            <tr>
+                <td><strong>Scroll-Empfindlichkeit</strong> (nur Desktop)</td>
+                <td>Regelt die Scrollgeschwindigkeit. Niedrige Werte sind für Touchscreen-Geräte empfohlen.</td>
+                <td>Schieberegler: 10&nbsp;% bis 100&nbsp;%</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>Tischplan-Modus</h4>
+    <p>
+        Aktiviert oder deaktiviert den grafischen Tischplan auf dem Dashboard.
+        Bei Deaktivierung wird das Dashboard im kompakten Listenmodus dargestellt.
+        Diese Einstellung ist besonders für Betriebe relevant, die keinen
+        Restaurantbetrieb mit Tischzuordnung nutzen.
+    </p>
+
+    <h4>Produktdaten synchronisieren</h4>
+    <p>
+        Auf Geräten mit lokalem Zwischenspeicher lädt <strong>Produktdaten synchronisieren</strong>
+        Produkte, Kategorien, Extras und Zuweisungen neu vom Server &ndash; etwa nachdem im
+        Web-Admin Artikel geändert wurden.
+    </p>
+
+    <h4>Hilfe &amp; Support</h4>
+    <p>
+        Direkte Links zum Online-Handbuch (<strong>Handbuch öffnen</strong>) sowie zur DSFinV-K- und
+        TSE-Dokumentation. Sie werden im Standardbrowser geöffnet; die URL wird automatisch aus der
+        Server-Adresse gebildet, mit der das Gerät gekoppelt ist.
+    </p>
+
+    <!-- ===== GESCHÄFT ===== -->
+    <h3 id="kap-13-geschaeft">Geschäft (BUSINESS)</h3>
+
+    <p>
+        Die geschäftlichen Kernfunktionen werden <strong>nur im Web-Admin</strong> konfiguriert;
+        an der Kasse gibt es diesen Tab nicht mehr. Die einzelnen Bereiche liegen heute unter
+        <em>System &rarr; Einstellungen</em> (Abschnitte <em>Geschäftsregeln</em>, <em>MwSt-Sätze</em>,
+        <em>MwSt-Zuordnung</em>, <em>Zahlungsarten</em>, <em>Belegablage</em>, <em>Öffnungszeiten</em>),
+        die Gutschein-Konfiguration unter <em>Betrieb &rarr; Gutscheine</em> und die Tischverwaltung
+        unter <em>Betrieb &rarr; Tische</em>. Der Menüpunkt <em>Einstellungen</em> erscheint nur mit der
+        Fähigkeit <code>CONFIG_WRITE</code>; bearbeiten lassen sich die Abschnitte mit
+        <code>CATALOG_MANAGE</code>, ohne diese Fähigkeit sind sie schreibgeschützt.
+    </p>
+
+    <h4>Gutschein-Konfiguration</h4>
+    <p>
+        Verwaltung des Gutscheinsystems (Web-Admin: <em>Betrieb &rarr; Gutscheine</em>). Das Gutscheinmodul kann zentral aktiviert oder
+        deaktiviert werden. Für jede Gutscheinquelle werden folgende Felder gepflegt:
+    </p>
+    <ul>
+        <li><strong>Typ</strong> – Art der Gutscheinquelle</li>
+        <li><strong>Name</strong> – Anzeigename; die Kasse zeigt ihn beim Einlösen. Beim Anlegen wird er mit der Vorgabe des gewählten Typs in der Sprache der Oberfläche vorbelegt (z.&nbsp;B. <em>Altgutscheine</em>) und so gespeichert, wie er im Feld steht.</li>
+        <li><strong>Aktiviert</strong> – Ob die Quelle aktiv ist</li>
+        <li><strong>Beschreibung</strong> – Optionale Beschreibung</li>
+    </ul>
+    <p>
+        Ändern lässt sich die Gutschein-Konfiguration nur mit der Fähigkeit <code>CONFIG_WRITE</code>.
+        Ohne sie ist der Hauptschalter gesperrt, und <em>Neu</em>, Bearbeiten und Löschen der Quellen
+        werden nicht angeboten; der Server lehnt die Änderung ohnehin ab.
+    </p>
+    <p>
+        Die Quelle <em>Intern</em> lässt sich nicht löschen, solange Gutscheine aktiviert sind: ihr
+        Löschen-Symbol ist dann ausgegraut, und die Karte nennt den Grund. Der Server weist eine
+        Konfiguration ohne interne Quelle bei aktivem Gutscheinsystem mit Fehler 400 ab.
+    </p>
+
+    <h4>Öffnungszeiten</h4>
+    <p>
+        Wochenplan mit einem oder mehreren Zeitfenstern je Tag sowie abweichende Tage
+        (<em>System &rarr; Einstellungen &rarr; Öffnungszeiten</em>). Die Seite scrollt, sodass alle
+        sieben Tage, die Ausnahmen und <em>Zeitplan speichern</em> auch auf kleineren Bildschirmen
+        erreichbar sind. Ein Zeitfenster muss vor seinem Ende beginnen: Liegt die Öffnungszeit gleich
+        oder nach der Schließzeit, wird das Fenster rot markiert und das Speichern gesperrt. Öffnungszeiten
+        über Mitternacht werden als zwei Fenster erfasst, z.&nbsp;B. 18:00–23:59 und am Folgetag 00:00–02:00.
+    </p>
+
+    <h4>Zahlungsarten</h4>
+    <p>
+        Verwaltung aller verfügbaren Zahlungsarten. Pro Zahlungsart werden erfasst:
+    </p>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Name</td><td>Primäre Bezeichnung (Deutsch)</td></tr>
+            <tr><td>Englischer Name</td><td>Übersetzung für EN-Sprache</td></tr>
+            <tr><td>Chinesischer Name</td><td>Übersetzung für ZH-Sprache</td></tr>
+            <tr><td>Barzahlung</td><td>Kennzeichnung als Bargeld (relevant für Kassenbuch und steuerliche Zuordnung)</td></tr>
+            <tr><td>Aktiv</td><td>Nur aktive Zahlungsarten stehen im Bezahlvorgang zur Verfügung</td></tr>
+        </tbody>
+    </table>
+    <p>Über den Sync-Button wird die Liste der Zahlungsarten neu vom Server geladen.</p>
+
+    <h4>MwSt.-Verwaltung</h4>
+    <p>
+        Anlage und Bearbeitung der Mehrwertsteuer-Sätze. Jeder Satz umfasst:
+    </p>
+    <ul>
+        <li><strong>MwSt.-ID</strong> – Eindeutige Kennung (nach Anlage nicht mehr änderbar)</li>
+        <li><strong>Steuerklasse</strong> – Kategorisierung (z.&nbsp;B. "Normalsatz", "Ermäßigt")</li>
+        <li><strong>Steuersatz</strong> – Prozentwert</li>
+    </ul>
+
+    <h4>MwSt.-Zuordnung (VAT Mapping)</h4>
+    <p>
+        Konfiguration der Zuordnung zwischen MwSt.-Kategorien und tatsächlichen
+        Steuersätzen. Hier wird festgelegt, welcher Satz für In-Haus-Verkäufe und
+        welcher für Außer-Haus-Verkäufe (Takeaway) gilt. Diese Zuordnung ist
+        insbesondere für den DSFinV-K-Export relevant.
+    </p>
+
+    <h4>Tischverwaltung</h4>
+    <p>
+        Anlage, Bearbeitung und Löschung von Tischen. Das Löschen eines Tisches deaktiviert
+        diesen per Soft Delete — der Tisch wird nicht dauerhaft entfernt, sondern ausgeblendet.
+        Deaktivierte Tische können über den Schalter <strong>Inaktive anzeigen</strong> wieder
+        sichtbar gemacht werden. Über den Sync-Button wird die Tischliste neu vom Server geladen.
+        Die Tischverwaltung liegt im Web-Admin unter <em>Betrieb &rarr; Tische</em>; dort
+        wird auch der Grundriss bearbeitet (an der Kasse ist der Tischplan nur noch zur Ansicht).
+        Einen CSV-Import für Tische bietet das Web-Admin nicht.
+    </p>
+
+    <h4>Bestellregeln</h4>
+    <p>
+        Verhaltensregeln beim Öffnen eines freien Tisches. Die beiden Regeln
+        <strong>Mitarbeiterauswahl bei freiem Tisch</strong> und
+        <strong>Reihum-Mitarbeiterzuweisung</strong> schließen sich gegenseitig aus —
+        nur eine der beiden kann gleichzeitig aktiv sein. Sind beide deaktiviert, wird
+        der angemeldete Benutzer automatisch dem Tisch zugewiesen.
+    </p>
+    <table>
+        <thead>
+            <tr><th>Regel</th><th>Verhalten beim Öffnen eines freien Tisches</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Mitarbeiterauswahl bei freiem Tisch</strong></td>
+                <td>
+                    Beim Öffnen eines freien Tisches wird ein Auswahldialog
+                    angezeigt, in dem der zuständige Mitarbeiter manuell ausgewählt
+                    werden muss.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Reihum-Mitarbeiterzuweisung</strong></td>
+                <td>
+                    Beim Öffnen eines freien Tisches wird automatisch der nächste
+                    Mitarbeiter aus dem <em>Rotationspool</em> zugewiesen. Der
+                    Server hält die Reihenfolge persistent fest, sodass aufeinander
+                    folgende Tischöffnungen die Mitarbeiter reihum verteilen.
+                    <em>Abholtische</em> (z.&nbsp;B. „Abholung“) und <em>virtuelle Tische</em>
+                    (z.&nbsp;B. Gutschein) sind von der Rotation ausgenommen und werden dem
+                    bedienenden Mitarbeiter zugewiesen; sie verbrauchen keinen Platz in der
+                    Reihenfolge. Lehnt der Server die Tischöffnung ab (z.&nbsp;B. weil der
+                    Schulungsmodus des nächsten Mitarbeiters nicht zu dem des Bestellenden
+                    passt), rückt die Rotation nicht weiter: Der nächste freie Tisch geht an
+                    denselben Mitarbeiter.
+                    Welcher Mitarbeiter als Nächster an der Reihe ist, zeigt die obere
+                    Leiste jeder Kasse als „Als Nächstes: &lt;Name&gt;“ (siehe Kapitel Tischverwaltung).
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h5>Rotationspool</h5>
+    <p>
+        Der Rotationspool definiert, welche Mitarbeiter in die Reihum-Verteilung
+        einbezogen werden. Der Pool ist nur für <strong>Manager und Administratoren</strong>
+        bearbeitbar und erscheint unterhalb des Reihum-Schalters, sobald die Regel
+        aktiviert wird. Pro Mitarbeiter steht ein Schalter zur Verfügung, der die
+        Aufnahme in oder den Ausschluss aus dem Pool steuert. Inaktive Mitarbeiter
+        werden vom Server stets übersprungen, auch wenn sie im Pool aktiviert sind.
+    </p>
+    <p>
+        Sind keine aktiven Mitarbeiter im Rotationspool, schlägt das Öffnen eines
+        freien Tisches fehl und es wird die Meldung
+        <em>„Keine Mitarbeiter im Rotationspool — bitte manuell auswählen"</em>
+        angezeigt. In diesem Fall muss entweder die Regel deaktiviert werden, oder
+        ein Manager fügt einen Mitarbeiter zum Pool hinzu.
+    </p>
+
+    <h4>Abrechnungsregeln</h4>
+    <p>
+        Regeln rund um die Rechnungserstellung. Über die Option
+        <strong>Abrechnung über Mitarbeitergrenzen hinweg erlauben</strong> können
+        Kassierer Rechnungen für Tischsessions erstellen, die ursprünglich von einem
+        anderen Mitarbeiter eröffnet wurden. Ist die Option deaktiviert, kann nur der
+        zugeordnete Mitarbeiter (oder ein Manager) den Tisch abrechnen.
+    </p>
+
+    <h4>Dokumentenablage</h4>
+    <p>
+        Konfiguration des Speicherpfads für PDF-Dokumente (Rechnungen, Belege, Berichte) &ndash; im
+        Web-Admin unter <em>System &rarr; Einstellungen &rarr; Belegablage</em>.
+        Der Pfad kann manuell eingegeben oder über einen integrierten Verzeichnis-Browser
+        ausgewählt werden. Der Browser zeigt den aktuellen Pfad, übergeordnete Verzeichnisse
+        und Schreibrechte an.
+    </p>
+    <p>
+        Neben den <strong>Standard-Dokumenttypen</strong> (z.&nbsp;B. Rechnungen, Belege)
+        können <strong>benutzerdefinierte Dokumenttypen</strong> als Chips hinzugefügt und
+        entfernt werden. Beim Speichern werden die entsprechenden Unterordner automatisch angelegt.
+    </p>
+
+    <!-- ===== DRUCKER ===== -->
+    <h3 id="kap-13-drucker">Drucker (PRINTER)</h3>
+
+    <p>
+        Verwaltung der Druckerkonfiguration mit adaptivem Layout:
+    </p>
+    <ul>
+        <li><strong>Telefon (COMPACT)</strong> – Einzelspalte mit Druckerstandort-Karten; ein Floating-Action-Button öffnet die globale Druckauftrags-Historie als modales Seitenpanel</li>
+        <li><strong>Tablet/Desktop (MEDIUM+)</strong> – Zwei-Spalten-Layout: links die Druckerstandorte (60&nbsp;%), rechts die Druckauftrags-Historie mit Filtern (40&nbsp;%)</li>
+    </ul>
+
+    <h4>Druck aktivieren/deaktivieren</h4>
+    <p>
+        Über einen zentralen Toggle kann das gesamte Drucksystem ein- und ausgeschaltet werden.
+        Die Toggle-Karte wechselt die Hintergrundfarbe je nach Zustand. Wenn deaktiviert,
+        werden Druckerstandorte ausgeblendet und keine Druckaufträge verarbeitet.
+        Den Schalter umlegen darf nur, wer die Fähigkeit <code>CONFIG_WRITE</code> hat (Manager,
+        Administrator): Ohne sie zeigt der Web-Admin den Schalter nur an (an der Kasse ist der Reiter dann ohnehin ausgeblendet), und der Server
+        lehnt <code>PUT /api/v1/config/{shopId}/print-settings</code> mit HTTP&nbsp;403 ab.
+        Druckerstandorte selbst kann dagegen jede Rolle mit <code>PRINTER_WRITE</code> pflegen.
+        Jede gespeicherte Änderung wird mit „Druckereinstellungen gespeichert“ bestätigt.
+    </p>
+    <p>
+        Ist das Drucken deaktiviert, werden <strong>Belegdruck</strong> und
+        <strong>Referenzdruck</strong> abgelehnt: Das Gerät meldet „Drucken ist deaktiviert“ mit dem
+        Hinweis, das Drucken unter <em>Einstellungen &rarr; Drucker</em> zu aktivieren. Die Schaltfläche
+        <strong>Referenzdruck</strong> im Tischfenster der Kasse und der Bestellstation wird dann gar
+        nicht erst angeboten; sie erscheint beim nächsten Öffnen des Tischfensters wieder, sobald das
+        Drucken eingeschaltet ist. Der Server lehnt einen Referenzdruck bei deaktiviertem Drucken
+        trotzdem selbst ab (HTTP&nbsp;409 <code>PRINTING_DISABLED</code>). Es wird dabei
+        kein Druckauftrag erzeugt, und der Vorgang selbst – Abrechnung wie Bestellung – bleibt davon
+        unberührt. Schalten Sie den Toggle in diesem Abschnitt wieder ein, damit Belege gedruckt
+        werden können.
+    </p>
+
+    <h4>Druckerstandorte</h4>
+    <p>
+        Jeder Druckerstandort repräsentiert einen physischen Drucker mit einer zugewiesenen
+        Kategorie (z.&nbsp;B. Küche, Bar, Kasse). Für jeden Standort stehen folgende
+        Aktionen zur Verfügung:
+    </p>
+    <ul>
+        <li><strong>Bearbeiten</strong> – Standortdetails und Druckerzuordnung ändern</li>
+        <li><strong>Aktivieren</strong> – Einen deaktivierten Standort wieder einschalten</li>
+        <li><strong>Deaktivieren</strong> – Standort vorübergehend außer Betrieb nehmen</li>
+    </ul>
+    <p>
+        Beim Hinzufügen eines neuen Standorts steht ein <strong>Drucker-Erkennungs-Dialog</strong>
+        zur Verfügung, der automatisch im Netzwerk nach verfügbaren Druckern sucht und die
+        gefundenen Geräte zur Auswahl auflistet.
+    </p>
+
+    <h4>Druckauftrags-Historie</h4>
+    <p>Zeigt alle Druckaufträge mit folgenden Filtermöglichkeiten:</p>
+    <table>
+        <thead>
+            <tr><th>Filter</th><th>Optionen</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Status</td><td><code>SUCCESS</code>, <code>FAILED</code>, <code>PENDING</code></td><td>Ergebnis des Druckauftrags</td></tr>
+            <tr><td>Drucktyp</td><td>Rechnung, Bestellung, Bon, etc.</td><td>Art des gedruckten Dokuments</td></tr>
+            <tr><td>Datumsbereich</td><td>Von/Bis</td><td>Einschränkung auf einen bestimmten Zeitraum</td></tr>
+        </tbody>
+    </table>
+    <p>Über den Aktualisieren-Button wird die Historie neu vom Server geladen.</p>
+
+    <!-- ===== DATENEXPORT ===== -->
+    <h3 id="kap-13-export">Datenexport</h3>
+
+    <p>
+        Der frühere Tab <em>Datenexport (DATA_EXPORT)</em> ist an der Kasse entfallen.
+        Die Export- und Sicherungsfunktionen sind nun im <strong>Web-Admin</strong> zu Hause:
+    </p>
+    <ul>
+        <li>
+            <strong>Compliance &rarr; Datenexport</strong> – DSFinV-K-Export, DATEV-XML-Konfiguration
+            (Kassenbuch und Eingangsrechnungen inklusive automatischem Export), Kassenbuch-Export
+            sowie Backup &amp; Wiederherstellung inklusive automatischer Sicherung.
+            Der DATEV-Exportpfad und der Sicherungsordner müssen <strong>absolute</strong> Ordnerpfade sein
+            (z.&nbsp;B. <code>/var/lib/zenbon/backups</code> bzw. <code>D:\Zenbon\Sicherungen</code>); ein
+            relativer Pfad oder der Pfad einer Datei wird beim Speichern mit einer Fehlermeldung (400)
+            abgelehnt. Ein noch nicht vorhandener Ordner wird angelegt, er muss für den Server beschreibbar sein.
+            Die DATEV-Konfiguration dürfen Manager ändern (<code>CONFIG_WRITE</code>), die
+            Sicherungseinstellungen nur der Admin (<code>BACKUP_CREATE</code>).
+            Ohne <code>BACKUP_CREATE</code> wird der Bereich <em>Backup &amp; Wiederherstellung</em> nicht
+            angezeigt und auch nicht geladen &ndash; es erscheint also keine Fehlermeldung beim Öffnen der Seite.
+            <br><strong>Zweite Kopie:</strong> Im Feld <em>Kopie speichern in</em> kann ein absoluter Ordner auf einem
+            eingehängten Datenträger stehen (z.&nbsp;B. <code>/media/pos/ZEN_BACKUP</code>, siehe
+            <a href="kap-02-ersteinrichtung.html#kap-02-backup-stick"><code>--backup-device</code></a>); leer lassen heißt keine Kopie.
+            Nach jeder Sicherung, die der Server selbst anlegt (zeitgesteuert oder per
+            <em>Backup erstellen</em>), kopiert er die Datei zusätzlich dorthin &ndash; als <code>.part</code>-Datei, die erst
+            nach dem Prüfen der Größe ihren Namen erhält &ndash; und behält dort die unter <em>Kopien behalten</em>
+            (1&ndash;365, Standard 7) eingestellte Zahl neuester Sicherungen; <code>pre-restore_*</code>-Dateien und fremde
+            Dateien auf dem Stick löscht er nie. Zwei Sicherungen in derselben Sekunde erhalten verschiedene Namen
+            (<code>&hellip;_2.zip</code>); die frühere wird nicht überschrieben. Der Ordner darf nicht der lokale
+            Backup-Ordner oder darin liegen.
+            Die Statuszeile zeigt <em>Letzte Kopie</em> mit Zeit und Ergebnis; sie gilt für das eingestellte Ziel und
+            wird zurückgesetzt, sobald das Ziel geändert oder geleert wird. <strong>Die Kopie ersetzt nie die lokale
+            Sicherung:</strong> Fehlt der Stick (oder ist nur der leere Einhängeordner auf der Systemplatte da, was der
+            Server erkennt und nie beschreibt), bleibt die lokale Sicherung vollständig; der Lauf wird als
+            <em>fehlgeschlagen</em> mit dem Grund <code>copy: device not mounted</code> geführt, und neben den Einstellungen
+            erscheint die Warnung &bdquo;Die zweite Kopie fehlt&ldquo;. Ein aus einer Sicherung wiederhergestelltes
+            Kopie-Ziel einer anderen Maschine pausiert die Kopie, bis es unter <em>Wiederhergestellte Pfade</em> geprüft ist;
+            &bdquo;Standard verwenden&ldquo; löscht das Ziel.
+        </li>
+        <li>
+            <strong>Geräte &rarr; TSE</strong> – TSE-Datenexport (Vollexport, inkrementell, zeit- oder
+            transaktionsgefiltert); bereits exportierte Daten können mit Bestätigung von der TSE
+            gelöscht werden. Dieselben TSE-Exportfunktionen stehen weiterhin an der Kasse unter dem
+            Tab <em>TSE</em> zur Verfügung (siehe <a href="#kap-13-tse">TSE (TSE)</a>).
+        </li>
+    </ul>
+    <p>
+        Ausführliche Details zu den Exportformaten finden Sie in
+        <a href="kap-14-compliance.html">Kapitel 14 – Compliance (TSE, DSFinV-K, DATEV)</a>.
+    </p>
+
+    <!-- ===== SYSTEM ===== -->
+    <h3>System (SYSTEM)</h3>
+
+    <p>Systemweite Einstellungen und Geräteverwaltung. <strong>Nur im Web-Admin</strong> unter <strong>Geräte &rarr; Terminals</strong> (Fähigkeit <code>TERMINAL_MANAGE</code>); an der Kasse gibt es diesen Tab nicht mehr.</p>
+
+    <h4 id="kap-13-terminalliste">Terminalliste im Web-Admin (breite Fenster, Tablet und Smartphone)</h4>
+    <p>Unter der Überschrift steht die <strong>Statusleiste</strong>: <em>Alle</em>, <em>Aktiv</em>, <em>TSE fehlt</em>
+    (fiskalisches Terminal ohne TSE-Client), <em>Kopplung offen</em> und <em>Inaktiv</em>, jeweils mit der Anzahl über
+    <em>alle</em> Terminals. Ein Tipp auf eine Kachel filtert die Liste, ein weiterer auf dieselbe Kachel hebt den
+    Filter wieder auf; er wirkt zusammen mit der Suche und der Sortierung. Jede Zeile zeigt das Rollensymbol,
+    <code>TER-003 · Name</code>, darunter Standort und Gerät sowie die Hinweise <em>Kopplung offen</em> (blau) und
+    <em>inaktiv: Browser-Stationen aus</em> (rot); Status und TSE stehen immer als Punkt und Wort da
+    (<em>Registriert</em>, <em>Nicht registriert</em> nur bei fiskalischen Terminals, <em>Nicht fiskalisch</em>).</p>
+    <ul>
+        <li><strong>Breites Fenster:</strong> Tabelle mit dem Detailbereich (360 Pixel) daneben, Lesen und Bearbeiten im
+        selben Bereich. Die Zeile über der Tabelle nennt „9 von 9 · sortiert nach Terminal“ und öffnet beim Antippen die
+        Sortierung (Terminal, Name, Rolle, Zuletzt gesehen); zusätzlich sortiert ein Klick auf die Spaltenköpfe.</li>
+        <li><strong>Mittleres Fenster (Tablet):</strong> nur die Tabelle; ein Tipp auf eine Zeile öffnet die Details in einer
+        Schublade von rechts, ein Tipp auf den abgedunkelten Rest oder <strong>×</strong> schließt sie.</li>
+        <li><strong>Schmales Fenster und Smartphone:</strong> <strong>Terminal erstellen</strong> oben (mit dem Symbol zum
+        Neuladen), darunter die Statusleiste mit vier Kacheln, das Suchfeld mit der Schaltfläche <strong>Filter</strong> und
+        die Terminalzeilen. Im Filter wählen Sie <strong>Status</strong> (hier auch <em>Inaktiv</em>) und <strong>Sortierung</strong>
+        (aufsteigend oder absteigend) und übernehmen sie mit <strong>Anwenden</strong>. <strong>Zurücksetzen</strong> hebt Status
+        und Sortierung auf, nicht den Suchtext. Ein Tipp auf eine Zeile öffnet die Details als eigene Seite (Pfeil zurück,
+        Stift zum Bearbeiten); <strong>Bearbeiten</strong> ist wiederum eine eigene Seite mit der Leiste
+        <em>Geändert</em> · <strong>Abbrechen</strong> · <strong>Speichern</strong>. Bei ungespeicherten Änderungen fragt die Seite
+        vor dem Verlassen nach.</li>
+    </ul>
+    <p>Der Detailbereich zeigt zuerst, was der Zustand des Terminals verlangt: Fehlt der TSE-Client, steht oben ein gelber
+    Hinweis und <strong>Bei TSE registrieren</strong> ist die Hauptaktion; ein deaktiviertes Terminal bietet
+    <strong>Reaktivieren</strong>; sonst führt <strong>Bearbeiten</strong>. Darunter folgt der Abschnitt
+    <strong>Außerbetriebnahme</strong> mit <strong>Deaktivieren</strong>, <strong>Gerätebindung widerrufen</strong> und
+    <strong>TSE-Client abmelden</strong> (nur bei registriertem Client, ausgegraut mit Begründung, bis das Terminal
+    deaktiviert und die Kopplung widerrufen ist).</p>
+
+    <h4 id="kap-13-web-zugang">Startseite und API-Dokumentation</h4>
+    <p>
+        Im Web-Admin finden Sie diese beiden Einstellungen unter <strong>Einstellungen &rarr; System</strong>
+        (Fähigkeit <code>CONFIG_WRITE</code> zum Ändern).
+    </p>
+
+    <p><strong>Startseite</strong></p>
+    <p>
+        Die Serveradresse (<code>http://&lt;Server&gt;:8080/</code>) öffnet eine Startseite mit Links zum
+        Web-Admin, zur Browser-Kasse bzw. Bestellstation (nur wenn unter <em>Browser-Stationen</em> eine Rolle
+        eingeschaltet ist), zum Handbuch und &ndash; wenn eingeschaltet &ndash; zur API-Dokumentation. Die Sprache
+        richtet sich nach dem Browser (Deutsch, Englisch, Chinesisch).
+    </p>
+    <ul>
+        <li>
+            <strong>Standard für den ganzen Betrieb:</strong> Unter <strong>Startseite unter der Serveradresse</strong>
+            wählen Sie <em>Startseite anzeigen</em>, <em>Web-Admin</em> oder <em>Browser-Kasse / Bestellstation</em>.
+            Die Einstellung gilt für alle Browser ohne eigene Auswahl. Die Browser-Kasse lässt sich nur wählen,
+            solange Browser-Stationen eingeschaltet sind; ist eine gespeicherte Startseite nicht mehr verfügbar,
+            weist die Einstellung darauf hin und die Startseite wird angezeigt.
+        </li>
+        <li>
+            <strong>Standard für einen Browser:</strong> Auf der Startseite legt die Schaltfläche
+            <strong>Als Standard für diesen Browser</strong> eine Seite für genau diesen Browser fest
+            (Cookie <code>pos_start</code>). Diese Auswahl gilt vor dem Standard des Betriebs.
+        </li>
+        <li>
+            <strong>Startseite erzwingen:</strong> <code>/?start</code> zeigt die Startseite immer. Dort entfernt
+            <strong>zur&uuml;cksetzen</strong> die Auswahl dieses Browsers.
+        </li>
+        <li>
+            Solange der Server noch nicht eingerichtet ist, leitet die Serveradresse immer zur Ersteinrichtung
+            im Web-Admin weiter (siehe <a href="kap-02-ersteinrichtung.html">Kapitel 02</a>).
+        </li>
+    </ul>
+    <div class="hint">
+        <strong>Kiosk-Kassen:</strong> Fest eingerichtete Kassen rufen weiterhin direkt
+        <code>/pos/?kiosk=1</code> auf; die Startseite spielt dort keine Rolle.
+    </div>
+
+    <p><strong>API-Dokumentation</strong></p>
+    <p>
+        Der Schalter <strong>API-Dokumentation (/swagger) anbieten</strong> ist standardmäßig <em>aus</em>, auch
+        nach einem Update. Solange er aus ist, antworten <code>/swagger</code>, <code>/openapi</code> und
+        <code>/openapi-generated.json</code> mit 404; nach dem Einschalten sind sie ohne Neustart erreichbar.
+    </p>
+    <ul>
+        <li>
+            Die Serverkonfiguration <code>POS_API_DOCS=true</code> bzw. <code>false</code> (Umgebungsvariable)
+            erzwingt den Zustand; der Schalter ist dann gesperrt (&bdquo;Durch die Serverkonfiguration festgelegt
+            (POS_API_DOCS).&ldquo;).
+        </li>
+        <li>Im Entwicklungsmodus (JWT-Entwicklungsmodus) ist die API-Dokumentation an, sofern nicht <code>POS_API_DOCS=false</code> gesetzt ist.</li>
+    </ul>
+    <div class="hint">
+        <strong>Nur bei Bedarf einschalten:</strong> Die API-Dokumentation listet alle Endpunkte ohne Anmeldung.
+        Schalten Sie sie nur für Entwicklung und Anbindungen ein.
+    </div>
+    <p>Jede Änderung wird im Prüfprotokoll festgehalten (<code>UPDATE_WEB_ACCESS</code>).</p>
+
+<!-- DISABLED 2026-05-07 (proxy): embedded remote-order server removed — feature code preserved
+    <h4>Fernbestellungs-Server</h4>
+    <p>
+        Startet einen eingebetteten HTTP-Server, über den andere Geräte im lokalen Netzwerk
+        Bestellungen aufgeben können. Diese Funktion ist nur im gebündelten Modus verfügbar
+        (Server und Client auf demselben Gerät).
+    </p>
+    <table>
+        <thead>
+            <tr><th>Funktion</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Server-Toggle</td><td>Ein-/Ausschalten des HTTP-Servers</td></tr>
+            <tr><td>Autostart nach Anmeldung</td><td>Server wird automatisch nach dem Login gestartet</td></tr>
+            <tr><td>Status-Anzeige</td><td>Laufend (mit IP und Port), Startend, Stoppend, Fehler oder Gestoppt</td></tr>
+            <tr><td>Server-URL</td><td>Wird bei laufendem Server angezeigt (z.&nbsp;B. <code>https://kasse.example.de</code> oder <code>https://192.168.1.100</code>). Adressen mit <code>http://</code> werden abgelehnt.</td></tr>
+        </tbody>
+    </table>
+-->
+
+    <h4 id="kap-13-terminalverwaltung">Terminalverwaltung</h4>
+    <p>
+        Übersicht und Verwaltung aller Terminals (Kassen, Bestellstationen und Anzeigegeräte).
+        Jedes Gerät wird einmal an ein Terminal gekoppelt und arbeitet danach unter dessen Rolle.
+    </p>
+
+    <p><strong>Terminal-Rollen</strong></p>
+    <table>
+        <thead>
+            <tr><th>Rolle</th><th>Anmeldung</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Kasse</strong></td>
+                <td>Mitarbeiter meldet sich an</td>
+                <td>Vollständige Kasse: bestellen, abrechnen, Berichte. Signiert fiskalisch.</td>
+            </tr>
+            <tr>
+                <td><strong>Bestellstation</strong></td>
+                <td>Keine – läuft nach der Kopplung sofort</td>
+                <td>Fester Bestellpunkt an Theke oder Bar; nimmt Bestellungen und Reservierungen auf, rechnet nicht ab. Öffnet freie Tische nur mit Reihum-Mitarbeiterzuweisung – der Tisch gehört dann dem zugewiesenen Mitarbeiter –, nie Abhol- oder virtuelle Tische. Signiert die Bestellungen fiskalisch. Siehe <a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a>.</td>
+            </tr>
+            <tr>
+                <td><strong>Küchendisplay</strong></td>
+                <td>Keine</td>
+                <td>Vorgemerkt. Das Gerät zeigt derzeit nur einen Platzhalter.</td>
+            </tr>
+            <tr>
+                <td><strong>Kundendisplay</strong></td>
+                <td>Keine</td>
+                <td>Vorgemerkt. Das Gerät zeigt derzeit nur einen Platzhalter.</td>
+            </tr>
+            <tr>
+                <td><strong>Kiosk</strong></td>
+                <td>Keine</td>
+                <td>Vorgemerkt. Das Gerät zeigt derzeit nur einen Platzhalter.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><strong>Aktionen</strong></p>
+    <ul>
+        <li><strong>Terminal anlegen</strong> – Name, Standort und <strong>Rolle</strong> festlegen. Das Terminal ist zunächst ungekoppelt; erst der Kopplungscode verbindet ein Gerät damit. Der Dialog bietet nur die Rollen der Tabelle oben an; eine unbekannte Rolle lehnt der Server mit Fehler 400 (<code>VALIDATION_FAILED</code>, Feld <code>role</code>) ab, statt still eine Kasse anzulegen. Ohne Rollenangabe (ältere Clients) entsteht wie bisher eine Kasse.</li>
+        <li><strong>Bearbeiten</strong> – Name, Standort und Rolle eines bestehenden Terminals ändern. Ein <strong>Rollenwechsel wirkt sofort</strong>: Der Server verwirft die zwischengespeicherte Berechtigung des Geräts und meldet die Änderung dem gekoppelten Gerät. Das Gerät verwirft daraufhin nur seine Sitzung – die <strong>Kopplung bleibt bestehen</strong> – und meldet sich in der neuen Rolle neu an; eine Bestellstation holt sich dabei selbständig ihre Stations-Sitzung. Ein neuer Kopplungscode ist dafür nicht nötig.</li>
+        <li><strong>Kopplungscode erzeugen</strong> – Erzeugt einen Code samt QR-Code, der <strong>10 Minuten</strong> gültig ist. Das Gerät gibt den Code auf dem Kopplungsbildschirm ein oder scannt den QR-Code und ist danach fest an dieses Terminal gebunden. Über dem QR-Code steht im Feld <strong>Server-Adresse im QR-Code</strong> die Adresse, mit der sich das Gerät verbindet – vorbelegt mit der Adresse, unter der Sie den Web-Admin geöffnet haben. Der Server kennt seine Adresse im Netzwerk nicht selbst: Haben Sie den Web-Admin am Server über <code>localhost</code> oder <code>127.0.0.1</code> geöffnet, erscheint ein Warnhinweis. Tragen Sie dann die IP-Adresse des Servers ein (z.&nbsp;B. <code>http://192.168.1.20:8080</code>); der QR-Code wird sofort neu erzeugt. Eine ungültige Eingabe wird angemerkt, der QR-Code behält dann die zuletzt gültige Adresse. Dasselbe Feld zeigt der Assistent „Erstes Terminal einrichten“ beim Kopplungscode.<br>
+            Vor dem Erzeugen fragt ein Dialog, ob das Gerät <strong>beim Koppeln an der TSE registriert</strong> werden soll. Das Kästchen ist nur wählbar – und dann vorausgewählt –, wenn das Terminal fiskalisch und noch nicht an der TSE registriert ist und die TSE im Modus NORMAL in Betrieb ist. Andernfalls ist es abgewählt und gesperrt; ein Hinweis nennt den Grund (TSE im Simulationsmodus, deaktiviert oder nicht in Betrieb genommen, Terminal bereits registriert oder nicht fiskalisch). Ist es angehakt, braucht das Erzeugen die entsperrte TSE-Administration (Sie werden nach der Admin-PIN gefragt), und der Code gilt nur, solange diese Admin-Sitzung offen ist. Beim Koppeln prüft der Server die Client-Liste der TSE: Kennt sie das Terminal bereits, wird es nur als registriert vermerkt, sonst wird es registriert. Schlägt die Registrierung fehl, wird das Gerät <strong>nicht</strong> gekoppelt, und der Code bleibt gültig; die Kasse zeigt einen Hinweis, sich an einen Administrator zu wenden. Ohne Haken koppelt das Gerät wie bisher, ohne die TSE zu berühren – etwa für Tests ohne Admin-PIN –, und das Terminal bleibt unregistriert.</li>
+        <li><strong>Gerätebindung widerrufen</strong> – Trennt das gekoppelte Gerät vom Terminal, z.&nbsp;B. bei Verlust oder Gerätetausch. Das Terminal kann anschließend mit einem neuen Code erneut gekoppelt werden.</li>
+        <li><strong>Aktualisieren</strong> – Terminal-Liste vom Server neu laden</li>
+        <li><strong>Deaktivieren</strong> – Sperrt den Zugang eines Geräts zum Server (mit Bestätigungsdialog und Warnung, dass eine erneute Registrierung erforderlich ist)</li>
+        <li><strong>Reaktivieren</strong> – Schaltet ein deaktiviertes Terminal wieder frei (mit Bestätigungsdialog). Dabei wird der TSE-Registrierungsstatus des Geräts erneut geprüft und abgeglichen; ist die TSE deaktiviert oder nicht erreichbar, wird die Reaktivierung trotzdem ausgeführt. Deaktivieren und Reaktivieren werden im Prüfprotokoll festgehalten (<code>DEACTIVATE_TERMINAL</code>, <code>REACTIVATE_TERMINAL</code>) und ändern <em>nicht</em> „Zuletzt gesehen“ – das zeigt nur den letzten Kontakt des Geräts.</li>
+        <li><strong>TSE registrieren</strong> – Ordnet ein Terminal der TSE zu. Seit die Registrierung beim Koppeln gewählt werden kann, dient diese Aktion vor allem der Reparatur und für Terminals, die ohne Registrierung gekoppelt wurden. Bei deaktivierter TSE lehnt der Server dies mit der Meldung „Die TSE ist deaktiviert, daher ist dieser Vorgang nicht möglich.“ ab; nehmen Sie die TSE zuerst in Betrieb. Ob ein Terminal registriert ist, entscheidet die angeschlossene TSE, nicht der gespeicherte Vermerk: Nach einer Wiederherstellung oder einem TSE-Tausch wird ein Terminal, das die TSE nicht kennt, erneut registriert (dafür muss die TSE-Administration entsperrt sein).</li>
+        <li><strong>TSE synchronisieren</strong> – Gleicht den TSE-Status aller Terminals ab (bei deaktivierter TSE ebenfalls abgelehnt)</li>
+        <li><strong>TSE-Client abmelden</strong> – Entfernt die Client-ID eines ausgemusterten Terminals von der TSE und gibt so einen Platz unter der Client-Obergrenze der TSE frei (<code>POST /api/v1/terminals/{id}/tse-deregister</code>). Die Schaltfläche erscheint nur für ein an der TSE registriertes Terminal und ist erst wählbar, wenn das Terminal <strong>deaktiviert</strong> und seine <strong>Kopplung widerrufen</strong> ist; sonst nennt ein Hinweis, was noch fehlt. Ein Bestätigungsdialog weist darauf hin, dass das für diese Client-ID endgültig ist, bis das Terminal erneut mit <strong>TSE registrieren</strong> angemeldet wird; bereits signierte Belege bleiben unberührt. Der Server lehnt zusätzlich ab (HTTP&nbsp;409), wenn das Terminal noch unfertige TSE-Transaktionen hat oder der letzte registrierte Client einer TSE im Modus NORMAL ist (deren Selbsttest einen registrierten Client braucht). Bei gesperrter TSE-Administration wird nach der Admin-PIN gefragt. Jede Abmeldung – auch eine abgelehnte – wird im Prüfprotokoll als <code>DEREGISTER_TSE_CLIENT</code> festgehalten.<br>
+            <strong>Finanzamt:</strong> Wird das Terminal endgültig ausgemustert, ist das eine Außerbetriebnahme. Melden Sie sie innerhalb eines Monats über Mein ELSTER („Mitteilung über elektronische Aufzeichnungssysteme“, § 146a Abs.&nbsp;4 AO); jede Mitteilung enthält alle Kassen der Betriebsstätte. Ein nur vorübergehend deaktiviertes Terminal ist keine Außerbetriebnahme. Welche Angaben wo stehen, steht in der <a href="tse-dokumentation.html#mitteilungspflicht">TSE-Dokumentation</a>.</li>
+    </ul>
+
+    <div class="alert alert-warning">
+        <strong>Die Rolle ist änderbar, die Fiskalisierung nicht.</strong> Ob ein Terminal fiskalisch
+        arbeitet, also Vorgänge über die TSE signiert, wird beim Anlegen festgelegt und lässt sich
+        später nicht mehr umstellen – daran hängen die TSE-Registrierung und die Zuordnung in der
+        DSFinV-K. Soll ein Gerät von fiskalisch auf nicht fiskalisch wechseln (oder umgekehrt),
+        legen Sie ein neues Terminal an und koppeln das Gerät neu. Eine <strong>Bestellstation muss
+        fiskalisch sein</strong> – sie signiert ihre Bestellungen selbst. Eine nicht fiskalisch
+        angelegte Bestellstation lässt sich zwar koppeln, kehrt danach aber sofort wieder zum
+        Kopplungsbildschirm zurück; legen Sie sie in diesem Fall als fiskalisches Terminal neu an.
+    </div>
+
+    <h4 id="kap-13-browser-stationen">Browser-Stationen</h4>
+    <p>
+        Kasse und Bestellstation können statt in der installierten App in einem Browser-Tab laufen, unter
+        <code>http://&lt;Server-Adresse&gt;:8080/pos/</code>. Die frühere Adresse <code>/pos-preview</code>
+        leitet dauerhaft dorthin weiter. Eine Installation ist nicht nötig; der Server liefert die Oberfläche
+        selbst aus.
+    </p>
+    <h5>Aktivieren</h5>
+    <p>
+        Im Web-Admin unter <strong>Einstellungen &rarr; Browser-Stationen</strong> wird pro Rolle
+        (<em>Kasse</em>, <em>Bestellstation</em>) festgelegt, ob Browser-Stationen erlaubt sind. Ändern
+        darf das, wer die Fähigkeit <code>CONFIG_WRITE</code> hat; ansehen darf es, wer <code>CONFIG_READ</code>
+        hat. Die Einstellung ist eine <strong>Vorgabe für den Betrieb, keine Sicherheitsgrenze</strong>:
+        der Zugriff selbst bleibt durch Gerätetoken, Berechtigungen und das Sperren von Terminals geschützt.
+    </p>
+    <ul>
+        <li>Solange <strong>keine</strong> Rolle aktiviert ist, antwortet <code>/pos/</code> mit 404.</li>
+        <li>Kopplung, Anmeldung und Sitzung einer Browser-Station einer nicht aktivierten Rolle werden vom Server abgelehnt. Die Kopplungsseite meldet dann: „Browser-Stationen sind für diesen Betrieb deaktiviert. Bitte eine Leitung, sie zu aktivieren.“</li>
+        <li>Wird eine Rolle <strong>deaktiviert</strong>, trennt der Server die gerade verbundenen Browser-Stationen dieser Rolle sofort (über die Live-Verbindung). Die Terminals werden weder gelöscht noch gesperrt: Sie bleiben gekoppelt, behalten ihren TSE-Client und ihre DSFinV-K-Zuordnung und erscheinen in der Terminalliste als <em>inaktiv: Browser-Stationen aus</em>. Nach dem erneuten Aktivieren arbeiten sie <strong>ohne neue Kopplung</strong> weiter.</li>
+        <li>Ein Zugriffstoken, das die Station vor dem Deaktivieren erhalten hat, wird sofort auf allen Routen abgewiesen (<code>403</code>, <em>BROWSER_STATION_DISABLED</em>). Erreichbar bleiben nur die Abmeldung, die Statusabfrage der Station selbst und die Live-Verbindung, die bis zum Ablauf des Tokens (standardmäßig 15 Minuten) noch geöffnet werden kann; eine Erneuerung des Tokens ist nicht möglich.</li>
+        <li>Die Terminalliste kennzeichnet Browser-Terminals mit <em>Browser</em>. Der Kopplungscode wird zusätzlich als <strong>Link für den Browser</strong> angeboten.</li>
+    </ul>
+    <p>
+        Wird der Web-Admin über unverschlüsseltes HTTP geöffnet, weist die Einstellung darauf hin, dass
+        Browser-Stationen PINs und Umsätze über das Netzwerk senden.
+    </p>
+    <h5>Kiosk-Betrieb</h5>
+    <p>Für einen Tresenbildschirm den Browser im Kiosk-Modus starten, zum Beispiel:</p>
+    <pre><code>chromium --kiosk "http://&lt;Server&gt;:8080/pos/?kiosk=1"</code></pre>
+    <p>
+        Der Parameter <code>?kiosk=1</code> schaltet beim ersten Tippen oder Klicken auf Vollbild (der Browser
+        erlaubt Vollbild nur nach einer Eingabe; F11 funktioniert ebenfalls). Die Zurück-Taste des Browsers
+        ist gesperrt, und solange jemand angemeldet ist, fragt der Browser beim Verlassen der Seite nach.
+    </p>
+    <h5>Einschränkungen</h5>
+    <ul>
+        <li><strong>Nur online:</strong> Browser-Stationen arbeiten ohne Server nicht; eine Offline-Funktion gibt es nur in der Android-App.</li>
+        <li><strong>Druck nur über den Server:</strong> Bons und Küchenbelege druckt der Server. Drucker-Standorte im Modus <em>TERMINAL</em> gelten für Browser-Stationen nicht. Schlägt ein Bon-Druck fehl, zeigt die Kasse jetzt den Druckerfehler (der Server antwortet mit 502 <code>PRINTER_UNAVAILABLE</code>), statt „gedruckt“ zu melden. Wo die Kasse ein PDF selbst ausgibt (Systemdruck), öffnet die Browser-Station es in einem neuen Tab, und dort druckt die Druckfunktion des Browsers; dafür müssen Pop-ups für die Seite erlaubt sein.</li>
+        <li><strong>Eine Station pro Browserprofil:</strong> Die Gerätekennung liegt im Speicher des Browserprofils. Ein zweiter Tab zeigt einen Hinweis; mehrere Stationen auf einem Rechner brauchen getrennte Profile.</li>
+        <li><strong>Leerlauf-Sperre:</strong> Nach 10 Minuten ohne Eingabe wird die angemeldete Person abgemeldet; das Gerät bleibt gekoppelt. Der Wert ist fest.</li>
+        <li><strong>Neue Serverversion:</strong> Hat der Server eine andere Version als die geöffnete Seite, erscheint ein Banner „Eine neue Version ist verfügbar“ mit <strong>Neu laden</strong>. Eine ruhende Station (Startansicht, nichts in Arbeit) lädt selbst neu. Nach dem Neuladen meldet sich die Mitarbeiterin bzw. der Mitarbeiter neu an; die Kopplung bleibt erhalten.</li>
+        <li><strong>Kassenschublade:</strong> Die Schublade wird auf <strong>keiner</strong> Plattform geöffnet, auch nicht in der Android-App; das ist eine eigene, noch nicht umgesetzte Funktion.</li>
+        <li><strong>Ladezeit:</strong> Die Oberfläche umfasst rund 25&nbsp;MB (größte Datei 13&nbsp;MB). Der Browser lädt sie beim ersten Aufruf und danach aus dem Zwischenspeicher. Nicht mitgezählt ist die PDF-Anzeige: Sie wird erst beim ersten Öffnen eines PDFs nachgeladen, rund 1,7&nbsp;MB (über das Netz komprimiert etwa 530&nbsp;KB). Enthält ein PDF gescannte Bilder in einem besonderen Format (CCITT-Fax oder JBIG2 bzw. JPEG&nbsp;2000), kommen beim ersten solchen Dokument noch rund 100&nbsp;KB bzw. 250&nbsp;KB hinzu.</li>
+        <li><strong>Tische:</strong> Auf belegten Tischen zeigt die Tischkarte eine sichtbare Schaltfläche <strong>Abrechnen</strong> (Details und Rechnung); der lange Druck ist nicht mehr nötig. Das gilt für alle Plattformen.</li>
+    </ul>
+    <h5>Sicherheitshinweise (HTTP im lokalen Netz)</h5>
+    <div class="alert alert-warning">
+        <strong>Nur in einem vertrauenswürdigen Netzwerk betreiben</strong> oder den Server hinter HTTPS stellen.
+        Unverschlüsseltes HTTP ist erlaubt, hat aber diese Restrisiken:
+        <ul>
+            <li>Gerätetoken, PINs und Sitzungs-Token sind im lokalen Netz mitlesbar.</li>
+            <li>Das Gerätetoken liegt im lokalen Speicher des Browsers (<code>localStorage</code>) und ist für jedes Skript derselben Adresse lesbar &ndash; dieselbe Adresse bedient auch <code>/admin</code>.</li>
+            <li>Ein entwendetes oder geliehenes Browserprofil bleibt eine gekoppelte Kasse, bis eine Leitung das Terminal unter <strong>Geräte &rarr; Terminals</strong> sperrt.</li>
+            <li>Ein ungekoppelter Browser erreicht nur Kopplung und Anmeldung; alle anderen Routen sind ihm verwehrt.</li>
+        </ul>
+        Zusätzlich sendet der Server für <code>/pos/</code> eine Content-Security-Policy, die Skripte und Verbindungen auf die eigene Adresse beschränkt.
+    </div>
+    <h5>Optional: Desktop-PC als Browser-Station betreiben</h5>
+    <p>
+        Browser-Stationen sind eine zusätzliche Möglichkeit neben den Android- und Linux-Desktop-Clients;
+        der Desktop-Client wird weiterhin ausgeliefert und läuft unverändert. Wer einen bisherigen
+        Desktop-PC stattdessen als Browser-Station nutzen möchte:
+    </p>
+    <ol class="steps">
+        <li>Die Rolle des Terminals unter <strong>Einstellungen &rarr; Browser-Stationen</strong> aktivieren.</li>
+        <li>Unter <strong>Geräte &rarr; Terminals</strong> für <strong>dasselbe Terminal</strong> (z.&nbsp;B. TER-001) einen neuen Kopplungscode erzeugen &ndash; kein neues Terminal anlegen.</li>
+        <li>Auf dem bisherigen Desktop-PC im Browser <code>/pos/</code> öffnen und mit dem Code koppeln (oder den Link für den Browser verwenden).</li>
+    </ol>
+    <p>
+        Die neue Kopplung überschreibt das alte Gerätetoken; die Desktop-App ist damit abgemeldet. Der
+        TSE-Client und die DSFinV-K-Zuordnung des Terminals bleiben erhalten &ndash; es entsteht weder ein
+        neuer TSE-Client noch ein neues Terminal.
+    </p>
+
+    <h4 id="kap-13-backoffice">Backoffice öffnen</h4>
+    <p>
+        Kasse und Bestellstation bieten im Menü die Aktion <strong>Backoffice öffnen</strong>. Sie öffnet
+        den Web-Admin dieses Servers im Browser des Geräts. Die Aktion ist an keine Rolle gebunden –
+        der Web-Admin verlangt seine eigene Anmeldung. Lässt sich auf dem Gerät kein Browser öffnen
+        (z.&nbsp;B. auf einem Android-Gerät im Kiosk-Modus), wird stattdessen die Adresse angezeigt,
+        damit sie an einem anderen Gerät aufgerufen werden kann.
+    </p>
+
+    <!-- ===== SHOP_INFO ===== -->
+    <h3>Geschäftsinformationen (SHOP_INFO)</h3>
+
+    <p>
+        Zentrale Stammdaten des Geschäfts. <strong>Nur im Web-Admin</strong> unter
+        <strong>System &rarr; Einstellungen &rarr; Geschäftsdaten</strong>; an der Kasse gibt es
+        diesen Tab nicht mehr. Bearbeiten kann nur, wessen Berechtigungsgruppe die Fähigkeit
+        <code>CATALOG_MANAGE</code> enthält; für alle anderen sind die Felder schreibgeschützt.
+        Der Abschnitt selbst erscheint nur mit der Fähigkeit <code>SHOP_INFO_MANAGE</code>, die der Server
+        schon für das Lesen der Geschäftsdaten verlangt; ohne sie fehlt er im Menü.
+    </p>
+
+    <h4>Geschäftslogo</h4>
+    <p>
+        Upload und Verwaltung des Geschäftslogos. Unterstützte
+        Formate: JPEG, PNG, WebP. Das Logo wird auf Belegen und in der Anwendung angezeigt (an der Kasse oben links im Dashboard; ein Tipp darauf aktualisiert die Ansicht und lädt ein neu hochgeladenes Logo).
+        Ein bestehendes Logo kann entfernt werden.
+    </p>
+
+    <h4>Grunddaten</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Pflicht</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Geschäftsname</td><td>Ja</td><td>Wird auf Belegen, Rechnungen und im System angezeigt</td></tr>
+            <tr><td>Firmenname</td><td>Nein</td><td>Offizieller Firmenname (für rechtliche Dokumente)</td></tr>
+            <tr><td>Adresse</td><td>Ja</td><td>Straße und Hausnummer</td></tr>
+            <tr><td>Stadt</td><td>Ja</td><td>Ort</td></tr>
+            <tr><td>PLZ</td><td>Nein</td><td>Postleitzahl</td></tr>
+            <tr><td>Land</td><td>Nein</td><td>Länderkürzel (z.&nbsp;B. DE, AT, CH)</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Kontaktdaten</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Telefon</td><td>Telefonnummer des Geschäfts</td></tr>
+            <tr><td>E-Mail</td><td>Kontakt-E-Mail-Adresse</td></tr>
+            <tr><td>Website</td><td>URL der Geschäftswebsite</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Finanzdaten</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Steuernummer</td><td>Finanzamt-Steuernummer (erscheint auf Belegen und in Exporten)</td></tr>
+            <tr><td>USt-IdNr.</td><td>Umsatzsteuer-Identifikationsnummer (DSFinV-K-Feld <code>USTID</code>); nicht mit der Steuernummer verwechseln</td></tr>
+            <tr><td>Bankname</td><td>Name des Kreditinstituts</td></tr>
+            <tr><td>BIC</td><td>Bank Identifier Code</td></tr>
+            <tr><td>IBAN</td><td>Internationale Bankkontonummer</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Betriebsmodus</h4>
+    <ul>
+        <li><strong>Restaurantmodus</strong> – Aktiviert Tischverwaltung und Etagenplan sowie die Tischzuordnung bei Bestellungen.</li>
+    </ul>
+
+    <!-- ===== TSE ===== -->
+
+    <h3 id="kap-13-tse">TSE (TSE)</h3>
+
+    <p>
+        Konfiguration und Verwaltung der Technischen Sicherheitseinrichtung (TSE).
+        Dieser Tab bietet Zugriff auf alle TSE-bezogenen Einstellungen und Verwaltungsfunktionen.
+        Die Konfiguration bearbeiten und Admin-Operationen durchführen kann nur, wessen
+        Berechtigungsgruppe die reservierte Fähigkeit <code>TSE_ADMIN</code> enthält (vorgegeben:
+        Gruppe <code>ADMIN</code>).
+    </p>
+
+    <p>Die TSE-Einstellungen umfassen folgende Bereiche:</p>
+    <ul>
+        <li><strong>Verbindungsstatus</strong> – Aktueller TSE-Verbindungszustand mit Aktualisieren- und Neustart-Funktionen</li>
+        <li><strong>Konfiguration</strong> – Betriebsmodus (NORMAL/SIMULATION/DISABLED), TimeAdmin-PIN, Keep-Alive-Einstellungen und Fehlerverhalten (QUEUE oder FAIL). Admin-PIN, Admin-PUK und Credential Seed werden <em>nicht</em> gespeichert – siehe <a href="#kap-13-tse-admin-pin">TSE-Administration entsperren</a></li>
+        <li><strong>TSE-Informationen</strong> – Seriennummer, Firmware-Version, Zertifikatsdaten, Health-Check und Flash-Speicher-Zustand. Zusätzlich bei TSE&nbsp;2.0: <em>TSE-Generation</em>, <em>Angemeldeter Benutzer</em> und <em>Freier Speicher</em> (siehe unten)</li>
+        <li><strong>Admin-Operationen</strong> – Selbsttest, Zeitsynchronisation, Firmware-Prüfung und -Anwendung, CSP-Export deaktivieren, LCM-Diagnose exportieren, Außerbetriebnahme, Werksreset</li>
+        <li><strong>Log-Einträge</strong> – Browser für TSE-Log-Einträge (erste, letzte Einträge oder Suche nach ID)</li>
+        <li><strong>Signatur-Warteschlange</strong> – Überwachung und Verwaltung der Nachsignier-Warteschlange (Queue-Status, Einträge filtern, Pause/Fortsetzen, manueller Retry, Cleanup) – „Erneut versuchen“ wartet die Wartezeit zwischen zwei Versuchen nicht ab: Wer die Ursache gerade behoben hat, etwa die Station registriert, sieht die Einträge sofort signiert.</li>
+    </ul>
+
+    <p>
+        <strong>Auch im Web-Admin verfügbar.</strong> Sämtliche hier beschriebenen Bereiche –
+        einschließlich der DSFinV-K- und TSE-TAR-Exporte – stehen identisch im Web-Administrations­panel
+        unter <strong>Geräte &rarr; TSE</strong> zur Verfügung. Beide Oberflächen verwenden dieselbe
+        Implementierung, können also nicht auseinanderlaufen. Der Menüpunkt ist nur mit der
+        Fähigkeit <code>TSE_ADMIN</code> sichtbar; für alle anderen wird er ausgeblendet, und der
+        Server weist die zugehörigen Operationen unabhängig davon ab. Daneben listet
+        <strong>Geräte &rarr; TSE-Befunde</strong> fehlende oder doppelt erfasste TSE-Transaktionsnummern
+        auf (siehe <a href="kap-14-compliance.html">Kapitel 14</a>).
+        Exporte werden im Browser als Download ausgeliefert statt in einem Dateidialog gespeichert.
+    </p>
+
+    <h4 id="kap-13-tse-admin-pin">TSE-Administration entsperren</h4>
+
+    <p>
+        Die <strong>Admin-PIN</strong> und die <strong>Admin-PUK</strong> werden nicht gespeichert.
+        Das ist eine Vorgabe des Swissbit-Handbuchs zur sicheren Verwendung (Abschnitt&nbsp;2.5):
+        Das Kassensystem darf diese Zugangsdaten nicht dauerhaft aufbewahren. Die
+        <strong>TimeAdmin-PIN</strong> ist davon ausdrücklich ausgenommen (Abschnitt&nbsp;2.4) und
+        wird weiterhin gespeichert – nur deshalb kann die Zeitsynchronisation unbeaufsichtigt
+        laufen.
+    </p>
+
+    <p>
+        Für den laufenden Betrieb ändert sich dadurch nichts. Das Signieren von Belegen meldet
+        überhaupt keinen Benutzer an, der geplante Selbsttest benötigt keine Anmeldung, und die
+        Zeitsynchronisation läuft über die TimeAdmin-PIN. Ein Neustart der Kasse fragt daher
+        <em>keine</em> Admin-PIN ab.
+    </p>
+
+    <p>
+        Erst bei einer bewussten Verwaltungsaktion – etwa Kunden registrieren, Werksreset,
+        Außerbetriebnahme oder PIN-Wechsel – erscheint der Dialog
+        <strong>TSE-Administration entsperren</strong>. Nach Eingabe der Admin-PIN bleibt die
+        Sitzung 15&nbsp;Minuten aktiv und verlängert sich bei jeder weiteren Verwaltungsaktion; das
+        Anzeigen des Sperrstatus verlängert sie nicht. Sie endet
+        automatisch, spätestens jedoch beim Beenden des Servers. Die PIN wird ausschließlich im
+        Arbeitsspeicher gehalten und niemals protokolliert.
+    </p>
+
+    <p>
+        Die eingegebene PIN wird <strong>sofort an der TSE geprüft</strong>. Lehnt die TSE sie ab,
+        bleibt die Administration gesperrt und der Dialog meldet die falsche PIN. Jede falsche
+        Eingabe zählt zur Sperre des Geräts; eine gesperrte Admin-PIN lässt sich nur mit der PUK
+        entsperren. Ist die TSE gerade nicht erreichbar oder noch nicht in Betrieb genommen, kann die
+        PIN nicht geprüft werden – die Sitzung wird dann trotzdem geöffnet, und die nächste Aktion
+        meldet den eigentlichen Grund.
+    </p>
+
+    <div class="alert alert-info">
+        <strong>Inbetriebnahme:</strong> Beim erstmaligen Einrichten einer TSE werden Admin-PIN,
+        Admin-PUK und der aufgedruckte <em>Credential Seed</em> direkt im Einrichtungsformular
+        eingegeben. Sie werden nur für diesen einen Vorgang übertragen. Der Credential Seed ist
+        ohnehin einmalig verwendbar und danach verbraucht. Die Werks-Platzhalter (PIN
+        <code>12345</code>/<code>23456</code>, PUK <code>123456</code>) werden abgelehnt – auch eine
+        noch auf dem Platzhalter stehende TimeAdmin-PIN –, bevor irgendetwas auf die TSE geschrieben
+        wird. Eine bereits in Betrieb genommene TSE wird nicht erneut eingerichtet: Der Vorgang wird
+        mit dem Hinweis abgelehnt, dass nichts geschrieben und die eingegebenen Zugangsdaten nicht
+        übernommen wurden.
+    </div>
+
+    <h4 id="kap-13-tse-generation">TSE 1.x und TSE 2.0</h4>
+
+    <p>
+        Swissbit liefert seit August&nbsp;2026 ausschließlich TSE&nbsp;2.0-Geräte aus, die nach der
+        neuen Technischen Richtlinie zertifiziert sind. Beide Generationen werden unterstützt; die
+        Software erkennt beim Verbinden automatisch, welche Generation steckt. Die Zeile
+        <strong>TSE-Generation</strong> in den TSE-Informationen zeigt das Ergebnis an.
+    </p>
+
+    <p>Zwei Anzeigen erscheinen nur bei TSE&nbsp;2.0, weil sie dort betrieblich relevant sind:</p>
+    <ul>
+        <li>
+            <strong>Angemeldeter Benutzer</strong> – Eine TSE&nbsp;2.0 erlaubt immer nur
+            <em>einen</em> angemeldeten Benutzer, und nach 40&nbsp;Minuten ohne Aktivität wird
+            dieser automatisch abgemeldet. Bleibt versehentlich der Benutzer
+            <code>WORM_USER_TIME_ADMIN</code> angemeldet, schlagen sämtliche Exporte fehl – dieser
+            Benutzer darf auf einer TSE&nbsp;2.0 weder exportieren noch Einträge lesen. Im
+            Normalbetrieb steht hier <code>WORM_USER_UNAUTHENTICATED</code> oder
+            <code>WORM_USER_LOGGER</code>.
+        </li>
+        <li>
+            <strong>Freier Speicher</strong> – Eine TSE&nbsp;2.0 nimmt bereits <em>vor</em> dem
+            vollständigen Befüllen keine Transaktionen mehr an: Sie meldet „Speicher voll“, sobald
+            weniger als etwa 1&nbsp;MB frei ist, und reserviert diesen Rest für die Anmeldung und
+            Zeitsetzung, die ein Export mit anschließendem Löschen benötigt. Die Software warnt
+            daher bereits <strong>ab weniger als 50&nbsp;MB freiem Speicher</strong>. Exportieren
+            und löschen Sie die TSE-Daten dann zeitnah.
+        </li>
+    </ul>
+
+    <div class="alert alert-warning">
+        <strong>Hinweis zum Löschen der TSE-Daten:</strong> Das Löschen entfernt die auf der TSE
+        gespeicherten Transaktionsprotokolle unwiderruflich. Die Software schreibt dabei zuerst ein
+        vollständiges Archiv (<code>tse_export_before_delete_&lt;Zeitstempel&gt;.tar</code> im
+        TSE-Exportordner) und löscht erst, wenn diese Datei vollständig geschrieben ist. Diese Datei
+        ist danach die <strong>einzige</strong> Kopie der gelöschten Einträge – sichern Sie sie
+        außerhalb des Servers und lassen Sie sie unverändert im TSE-Exportordner: Sie wird automatisch
+        im Archivregister erfasst, und der DSFinV-K-Export liefert sie für den gelöschten Zeitraum mit.
+        Ein älteres, nicht erfasstes Archiv erfassen Sie unter <strong>Archiv registrieren</strong>.
+        Vom Gerät lassen sich die Daten nicht mehr wiederherstellen. Ein Firmware-Update kann eine TSE&nbsp;1.x <em>nicht</em> in
+        eine TSE&nbsp;2.0 verwandeln; ein Generationswechsel bedeutet immer einen Gerätetausch.
+    </div>
+
+
+
+    <p>
+        Eine ausführliche Beschreibung aller TSE-Funktionen finden Sie in
+        <a href="kap-14-compliance.html">Kapitel 14 – Compliance</a>.
+    </p>
+
+<!-- DISABLED 2026-05-07 (timetracking): integration removed — feature code preserved
+    <h4 id="kap-13-tse-geraetetausch">TSE austauschen (z.&nbsp;B. TSE 1.x auf TSE 2.0)</h4>
+
+    <p>
+        Ein Generationswechsel ist immer ein <strong>Ger&auml;tetausch</strong> &mdash; eine
+        TSE&nbsp;1.x l&auml;sst sich nicht per Firmware-Update in eine TSE&nbsp;2.0 verwandeln.
+        Der Tausch ist ein steuerlich relevanter Vorgang: Die Daten der alten TSE m&uuml;ssen
+        vollst&auml;ndig gesichert sein, bevor sie au&szlig;er Betrieb genommen wird.
+    </p>
+
+    <p>Gehen Sie in dieser Reihenfolge vor:</p>
+    <ol>
+        <li>
+            <strong>Exportieren</strong> &mdash; Vollst&auml;ndigen Export der alten TSE
+            durchf&uuml;hren (Einstellungen&nbsp;&rarr;&nbsp;TSE&nbsp;&rarr;&nbsp;Datenexport).
+        </li>
+        <li>
+            <strong>Export pr&uuml;fen und sichern</strong> &mdash; Die Exportdatei an einem
+            sicheren Ort ablegen und in Ihre Datensicherung aufnehmen. Nach dem n&auml;chsten
+            Schritt lassen sich die Daten nicht mehr vom Ger&auml;t wiederherstellen.
+        </li>
+        <li>
+            <strong>Alte TSE au&szlig;er Betrieb nehmen</strong> &mdash; &Uuml;ber die
+            Admin-Operationen. Eine au&szlig;er Betrieb genommene TSE nimmt keine Transaktionen
+            mehr an.
+        </li>
+        <li>
+            <strong>Neue TSE einsetzen und einrichten</strong> &mdash; Ger&auml;t anschlie&szlig;en
+            und die Einrichtung durchf&uuml;hren. Dabei werden Admin-PIN, Admin-PUK und
+            Credential Seed ben&ouml;tigt; diese werden nur f&uuml;r die Einrichtung verwendet und
+            nicht gespeichert (siehe
+            <a href="#kap-13-tse-admin-pin">TSE-Administration entsperren</a>).
+        </li>
+        <li>
+            <strong>Kasse registrieren</strong> &mdash; Die Kasse (Client-ID) an der neuen TSE
+            registrieren, damit wieder signiert werden kann.
+        </li>
+    </ol>
+
+    <div class="alert alert-warning">
+        <strong>Aufbewahrungspflicht:</strong> Die exportierten Daten der alten TSE unterliegen
+        weiterhin der gesetzlichen Aufbewahrungsfrist und m&uuml;ssen auch nach dem Tausch
+        verf&uuml;gbar bleiben. Das System ordnet die Aufzeichnungen anhand der
+        TSE-Seriennummer zu, sodass Auswertungen &uuml;ber den Ger&auml;tewechsel hinweg korrekt
+        bleiben &mdash; sofern der Export gesichert wurde.
+    </div>
+
+    <h3>Zeiterfassung (TIME_TRACKING)</h3>
+
+    <p>
+        Einstellungen zur Arbeitszeiterfassung der Mitarbeiter. Über diesen Tab werden
+        die Parameter für Ein- und Ausstempeln sowie Pausenregelungen konfiguriert.
+        Die Zeiterfassung ist in das Mitarbeitermanagement integriert und ermöglicht
+        die Auswertung der Arbeitszeiten über den Berichtsbereich.
+    </p>
+-->
+
+    <!-- ===== AUDIT_LOG ===== -->
+    <h3>Prüfprotokoll (AUDIT_LOG)</h3>
+
+    <p>
+        Zugriff auf das Prüfprotokoll (Audit Log). <strong>Nur im Web-Admin</strong> unter
+        <strong>Compliance &rarr; Audit-Log</strong> (Fähigkeit <code>AUDIT_READ</code>); an der Kasse
+        gibt es diesen Tab nicht mehr.
+        Hier werden alle sicherheitsrelevanten Systemereignisse protokolliert, z.&nbsp;B.
+        Anmeldeversuche, Konfigurationsänderungen, Administrationsvorgänge und
+        Berechtigungsprüfungen.
+    </p>
+    <p>
+        Weitere Details finden Sie in <a href="kap-15-pruefprotokoll.html">Kapitel 15 – Prüfprotokoll</a>.
+    </p>
+
+    <div class="alert alert-info">
+        <strong>Hinweis:</strong> Während aller Speicher- und Exportvorgänge wird ein Ladeindikator
+        in der Benachrichtigungsleiste angezeigt. Fehler- und Erfolgsmeldungen erscheinen als
+        Dialog oder Toast-Nachricht je nach Schweregrad.
+    </div>
+
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-12-finanzdokumente.html">&larr; Vorheriges: Finanzdokumente</a>
+    <a href="kap-14-compliance.html">Nächstes: Compliance &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

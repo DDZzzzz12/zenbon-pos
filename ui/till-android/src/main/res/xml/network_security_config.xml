@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    HTTPS-only (docs/superpowers/plans/2026-09-12-https-caddy-reverse-proxy.md).
+    user: Caddy's local CA, installed by the operator on shops without a domain.
+    Cleartext stays allowed for loopback only, for development via `adb reverse tcp:8080 tcp:8080`.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">localhost</domain>
+        <domain includeSubdomains="false">127.0.0.1</domain>
+    </domain-config>
+</network-security-config>

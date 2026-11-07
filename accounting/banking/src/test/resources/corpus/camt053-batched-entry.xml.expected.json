@@ -1,0 +1,21 @@
+{
+  "_note": "Hand-authored. One Ntry with two TxDtls. Balance: 0.00 + 300.00 = 300.00",
+  "outcome": "Success",
+  "format": "CAMT053",
+  "transactionCount": 1,
+  "currency": "EUR",
+  "openingBalance": "0.00",
+  "closingBalance": "300.00",
+  "accountIban": "DE02120300000000202051",
+  "statementNumber": "STMT-2026-075",
+  "firstAmount": "300.00",
+  "firstCreditDebit": "CREDIT",
+  "firstBookingDate": "2026-04-15",
+  "firstValueDate": "2026-04-15",
+  "firstCounterpartyName": null,
+  "firstCounterpartyIban": null,
+  "firstCounterpartyBic": null,
+  "firstRemittance": null,
+  "firstEndToEndId": null,
+  "firstAccountServicerReference": "2026041500042"
+}

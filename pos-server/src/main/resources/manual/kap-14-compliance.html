@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 14 – Compliance – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 14 – Compliance (TSE, DSFinV-K, DATEV)</h2>
+
+    <p>
+        Dieses Kapitel beschreibt alle Compliance-relevanten Funktionen des POS-Systems
+        im Zusammenhang mit der deutschen Kassensicherungsverordnung (KassenSichV).
+        Hierzu gehören die Technische Sicherheitseinrichtung (TSE), die Digitale
+        Schnittstelle der Finanzverwaltung (DSFinV-K) und der DATEV-Datenexport.
+        Der Zugriff richtet sich nach Befugnissen (Berechtigungsgruppen), nicht mehr nach
+        Rollenstufen: Die TSE-Verwaltung einschließlich TSE-Export erfordert
+        <code>TSE_ADMIN</code>, die Signatur-Warteschlange <code>TSE_QUEUE_ADMIN</code> &ndash;
+        beide hält standardmäßig nur die Gruppe <strong>ADMIN</strong>. Der DSFinV-K-Export
+        ist an <code>DSFINVK_EXPORT</code> gebunden (MANAGER, ADMIN, Prüfer, Buchhaltung) und
+        dafür im Web-Backoffice unter <strong>Compliance &rarr; Datenexport</strong> erreichbar,
+        ohne TSE-Verwaltungsrecht; die DATEV-Exporte an die Befugnisse des jeweiligen Bereichs
+        (z.&nbsp;B. <code>CASHBOOK_READ</code>, <code>ACCOUNTING_READ</code>).
+    </p>
+    <p>
+        Die TSE-Einstellungen gibt es an zwei Stellen mit identischem Inhalt: an der Kasse unter
+        <strong>Einstellungen &rarr; TSE</strong> und im Web-Backoffice (<code>/admin</code>) unter
+        <strong>Geräte &rarr; TSE</strong>. Die DATEV-Konfiguration, die Kontenzuordnung und die
+        DATEV-Exporte liegen ausschließlich im Web-Backoffice unter
+        <strong>Compliance &rarr; Datenexport</strong>.
+    </p>
+
+    <p>
+        Die TSE stellt die Unveränderbarkeit aller Kassendaten sicher, indem jede Transaktion
+        kryptografisch signiert wird. Das POS-System kommuniziert direkt mit der
+        TSE-Hardware; der TSE-Treiber läuft im selben Prozess wie der Server.
+    </p>
+
+    <!-- ===== TSE ERSTEINRICHTUNG ===== -->
+    <h3 id="kap-14-setup">TSE Ersteinrichtung</h3>
+
+    <h4>Anbindung der TSE</h4>
+    <p>
+        Der TSE-Treiber läuft im selben Prozess wie der POS-Server. Der Kommunikationsweg ist
+        <code>Server &rarr; WormAPI &rarr; TSE-Hardware</code> — es gibt keinen separaten
+        TSE-Connector-Server und keinen Netzwerkweg zur TSE. Das ergibt minimale Latenz und
+        keine Netzwerkabhängigkeit; Voraussetzung sind die nativen Swissbit-Bibliotheken
+        (<code>WormAPI.jar</code> nebst JNI-Bibliotheken) auf dem Server.
+    </p>
+    <div class="alert alert-warning">
+        <strong>Entfernt in v1.1.0:</strong> Der Verbindungsmodus <code>REMOTE</code> und der
+        eigenständige TSE-Connector (TSE an einem anderen Rechner, per Netzwerk angesprochen) gibt es
+        nicht mehr; ebenso entfallen die zugehörigen Einstellungen (TSE-URL, Connector-Port). Die TSE
+        muss am Rechner stecken, auf dem der POS-Server läuft. Wer den Connector auf einem eigenen
+        Rechner betrieben hat, zieht die TSE vor dem Update an den Server-Rechner um.
+    </div>
+    <p>
+        Fehlt die Swissbit-SDK, startet der Server dennoch: die Signierung schaltet auf einen
+        inaktiven Treiber um und folgt dem konfigurierten Fehlerverhalten
+        (<code>QUEUE</code> = Nachsignieren, <code>FAIL</code> = Abweisen).
+    </p>
+
+    <h4>Betriebsarten (TSE-Modus)</h4>
+    <table>
+        <thead>
+            <tr><th>Modus</th><th>Beschreibung</th><th>Verwendung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>NORMAL</code></td><td>Echte kryptografische Signaturen über TSE-Hardware</td><td>Produktivbetrieb (gesetzlich vorgeschrieben in Deutschland)</td></tr>
+            <tr><td><code>SIMULATION</code></td><td>Erzeugt simulierte Signaturen ohne Hardware</td><td>Entwicklung, Tests und Schulungen</td></tr>
+            <tr><td><code>DISABLED</code></td><td>Keine TSE-Funktionalität aktiv</td><td>Nicht-deutsche Märkte ohne TSE-Pflicht</td></tr>
+        </tbody>
+    </table>
+    <div class="alert alert-danger">
+        <strong>&#x26A0; NORMAL ohne erreichbare TSE signiert nie.</strong> Ist <code>NORMAL</code>
+        konfiguriert und die Hardware fehlt oder ist nicht erreichbar, bleibt der Modus
+        <code>NORMAL</code> und jeder Vorgang folgt dem Fehlerverhalten (<code>QUEUE</code> &rarr;
+        Nachsignieren, <code>FAIL</code> &rarr; Abweisen). Simulierte Signaturen entstehen nur, wenn
+        <code>SIMULATION</code> der konfigurierte Modus ist. Vor dem 2026-09-19 erhielten solche Vorgänge
+        eine simulierte Signatur (Seriennummer <code>SIM-TSE-001</code>) und wurden trotzdem als
+        <code>SIGNED</code> gespeichert. Der Monatsabschluss meldet sie mit dem Prüfpunkt
+        <code>no_simulated_signatures</code> (&bdquo;Keine simulierten TSE-Signaturen&ldquo;) als
+        <strong>FEHLGESCHLAGEN</strong>, mit der Anzahl betroffener Vorgänge. WORM-Daten lassen sich nicht
+        korrigieren: Zeitraum dokumentieren (z.&nbsp;B. per Eigenbeleg) und den Support kontaktieren. Ein
+        erneutes Einreihen zum Nachsignieren ist ein eigener, vom Betreiber freizugebender Schritt.
+    </div>
+
+    <div class="alert alert-info">
+        <strong>Weitere TSE-Pr&uuml;fpunkte im Monatsabschluss.</strong> Zwei zus&auml;tzliche Pr&uuml;fpunkte
+        melden <strong>WARNUNG</strong>, nicht FEHLGESCHLAGEN &ndash; beide sind erkl&auml;rbar und nicht per se
+        falsch:
+        <ul>
+            <li><code>tse_tanr_continuity</code> listet je TSE (nach Hex-Seriennummer) Transaktionsnummern, zu
+            denen die Kasse keinen Datensatz h&auml;lt (L&uuml;cken und doppelt vergebene Nummern), sofern kein
+            Eintrag im Erkl&auml;rungsregister sie bereits abdeckt. Erkl&auml;rt wird unter
+            <strong>adminApp &rarr; Ger&auml;te &rarr; TSE-Befunde</strong>.</li>
+            <li><code>no_possible_double_sign</code> meldet Vorg&auml;nge, bei denen die TSE-Antwort nach dem
+            Absenden verloren ging und die Nachsignier-Warteschlange den Vorgang unter neuer TANR erneut
+            signiert hat &ndash; die TSE kann dadurch dauerhaft zwei Signaturen f&uuml;r denselben Vorgang
+            enthalten. Dieser Pr&uuml;fpunkt existiert bereits l&auml;nger, erh&auml;lt aber erst seit der
+            Zeitfehlerbehandlung aus Kapitel 15 (2026-09) eigene Fehlercodes und damit belastbare Zeilen.</li>
+        </ul>
+        Details siehe <code>manual/tse-dokumentation.html</code>, Abschnitt 17 (&bdquo;TSE-Befunde &amp;
+        Erl&auml;uterungen&ldquo;), und <code>manual/monthly-close.html#checklist</code>.
+    </div>
+
+    <h4>Einrichtungsschritte</h4>
+    <ol class="steps">
+        <li>Navigieren Sie zu <strong>Einstellungen &rarr; TSE</strong> (Kasse) bzw.
+            <strong>Geräte &rarr; TSE</strong> (Web-Backoffice)</li>
+        <li>Den <strong>TSE-Modus</strong> müssen Sie dafür nicht umstellen: Die Inbetriebnahme nimmt die
+            TSE immer im Modus <code>NORMAL</code> in Betrieb und speichert ihn danach als konfigurierten
+            Modus &ndash; auch auf einer frischen Installation, die auf <code>DISABLED</code> steht (vorher
+            schlug die Inbetriebnahme dort immer fehl, gefunden an der echten Swissbit-TSE). Nur
+            <code>SIMULATION</code> wird abgelehnt: Stellen Sie den Modus dann zuerst auf
+            <code>NORMAL</code> oder <code>DISABLED</code>, die Inbetriebnahme beendet eine bewusst
+            gewählte Simulation nicht von sich aus. Scheitert die Inbetriebnahme, bleibt der
+            konfigurierte Modus unverändert.</li>
+        <li>Tragen Sie die <strong>Zeit-Admin-PIN</strong> ein (Schaltfläche
+            &bdquo;Zugangsdaten anzeigen&ldquo;). Sie ist die einzige TSE-Zugangsangabe, die gespeichert
+            wird &ndash; der Server braucht sie für den unbeaufsichtigten Zeitabgleich. Angezeigt wird
+            sie danach nie wieder: das Feld bleibt leer, und ein leeres Feld behält beim Speichern die
+            gespeicherte PIN.</li>
+        <li>Aktivieren Sie <strong>Keep-Alive</strong> (empfohlen: 30 Sekunden Intervall)</li>
+        <li>Wählen Sie das <strong>Ausfallverhalten</strong>:
+            <ul>
+                <li><code>QUEUE</code> / &bdquo;Nachsignieren&ldquo; (empfohlen) – Transaktion wird fortgesetzt; Signatur wird nachgeholt</li>
+                <li><code>FAIL</code> – Transaktion wird bei TSE-Fehler abgebrochen</li>
+            </ul>
+        </li>
+        <li>Klicken Sie auf <strong>Speichern</strong></li>
+        <li>Klicken Sie auf <strong>TSE initialisieren</strong>. Die Schaltfläche erscheint, solange die TSE nicht
+            in Betrieb ist &ndash; auch im TSE-Modus <em>Deaktiviert</em> (Auslieferungszustand), in dem die TSE
+            noch nicht antwortet: Die Inbetriebnahme öffnet sie selbst und speichert den Modus danach als
+            <em>Normal</em>. Im Modus <em>Simulation</em> erklärt der Dialog, dass zuerst auf <em>Normal</em> oder
+            <em>Deaktiviert</em> umzustellen ist, und sendet nichts. Im Dialog
+            <strong>&bdquo;TSE in Betrieb nehmen&ldquo;</strong> geben Sie ein:
+            <ul>
+                <li><strong>Admin-PIN</strong> – für administrative TSE-Operationen</li>
+                <li><strong>Admin-PUK</strong> – zum Entsperren bei PIN-Sperre</li>
+                <li><strong>Zeit-Admin-PIN</strong> – für den automatischen Zeitabgleich; sie wird
+                    (als einziger dieser Werte) in der TSE-Konfiguration gespeichert. Ohne sie lässt sich
+                    die TSE nicht in Betrieb nehmen &ndash; die Schaltfläche bleibt gesperrt, und der Server
+                    lehnt jede Konfiguration ohne Zeit-Admin-PIN ab, in jedem TSE-Modus (HTTP&nbsp;400,
+                    <code>TSE_TIME_ADMIN_PIN_REQUIRED</code>). Ist noch keine gespeichert, weist das Speichern
+                    der Konfiguration &ndash; an der Kasse wie im Web-Admin &ndash; schon vor dem Senden darauf hin,
+                    die Zeit-Admin-PIN unter <strong>Zugangsdaten anzeigen</strong> einzutragen.</li>
+                <li><strong>Credential Seed</strong> – das mit dem Gerät gelieferte Initialisierungsgeheimnis</li>
+            </ul>
+            Werks-Platzhalterwerte werden abgelehnt (die Inbetriebnahme schreibt die Werte dauerhaft
+            in die TSE). Eine bereits in Betrieb genommene TSE wird nicht erneut eingerichtet (HTTP&nbsp;409);
+            die eingegebenen Werte werden dann nicht übernommen.
+            <br>Außerdem wählen Sie im Feld <strong>Als erster TSE-Client registriertes Terminal</strong>,
+            welches Terminal die Inbetriebnahme auf der TSE registriert (Anzeige: Name und Terminal-ID,
+            z.&nbsp;B. &bdquo;Bar (TER-001)&ldquo;). Angeboten werden nur aktive Fiskal-Terminals; gekoppelt
+            muss das Terminal noch nicht sein &ndash; so lässt sich die TSE auch aus dem Web-Admin in Betrieb
+            nehmen, der selbst kein Terminal ist. An einer Kasse ist die Kasse selbst vorausgewählt, im
+            Web-Admin das erste Fiskal-Terminal. Gibt es noch keines, steht dort statt der Auswahl der
+            Hinweis, zuerst unter <strong>Geräte → Terminals</strong> ein Terminal anzulegen oder ein Gerät
+            zu koppeln (im Web-Admin mit der Schaltfläche <strong>Terminals öffnen</strong>), und
+            <strong>TSE initialisieren</strong> bleibt gesperrt. Nach erfolgreicher Inbetriebnahme gilt das
+            gewählte Terminal als TSE-registriert; eine eigene Registrierung unter Terminals entfällt.</li>
+        <li>Warten Sie auf die Bestätigung (kann bis zu 60 Sekunden dauern)</li>
+        <li>Prüfen Sie die TSE-Informationen: Seriennummer, Firmware-Version, verbleibende Kapazität</li>
+    </ol>
+
+    <div class="alert alert-danger">
+        <strong>Admin-PIN, PUK und Credential Seed werden nirgends gespeichert.</strong> Sie werden
+        nur für die Inbetriebnahme verwendet &ndash; weder in der Datenbank noch in einer
+        Konfigurationsdatei noch im Protokoll. Die PINs und PUKs sind danach fest mit der
+        TSE-Hardware verknüpft. Bewahren Sie sie sicher auf (z.&nbsp;B. im Tresor oder beim
+        Steuerberater): <strong>Jemand vor Ort muss die Admin-PIN kennen</strong>, sonst lassen sich
+        die PIN-pflichtigen Verwaltungsaufgaben (siehe <a href="#kap-14-admin">TSE Admin</a>) nicht
+        mehr ausführen. Jede falsche PIN zählt zur Sperre des Geräts (die verbleibenden Versuche
+        meldet die TSE selbst); eine gesperrte PIN lässt sich nur mit der PUK entsperren.
+    </div>
+
+    <!-- ===== TSE STATUS ===== -->
+    <h3 id="kap-14-status">TSE Status</h3>
+
+    <p>
+        Die Statusüberwachung bietet eine Echtzeitansicht des TSE-Zustands und wird über
+        den Verbindungsstatus-Bereich im TSE-Tab angezeigt. Ein Aktualisieren-Button
+        lädt den Status neu; ein Neustart-Button initiiert einen vollständigen TSE-Neustart.
+    </p>
+
+    <h4>Verbindungsstatus</h4>
+    <p>
+        Zeigt an, ob die TSE erreichbar ist und korrekt funktioniert. Der Status wird
+        durch Farbcodierung visualisiert: Grün = verbunden und betriebsbereit,
+        Gelb = Übergang (Starten/Stoppen), Rot = Fehler oder nicht erreichbar.
+    </p>
+
+    <h4>TSE-Informationen</h4>
+    <p>
+        Detaillierte Geräteinformationen werden angezeigt, sobald die TSE verfügbar ist:
+    </p>
+    <ul>
+        <li><strong>Seriennummer</strong> – Eindeutige Kennung der TSE-Hardware</li>
+        <li><strong>Firmware-Version</strong> – Installierte Softwareversion</li>
+        <li><strong>Formfaktor</strong> – Bauform der TSE (z.&nbsp;B. USB, SD-Karte)</li>
+        <li><strong>Zertifikatsinformationen</strong> – Gültigkeit und Ablaufdatum des TSE-Zertifikats</li>
+        <li><strong>Signaturkapazität</strong> – Verbleibende und genutzte Signaturen (als Fortschrittsbalken)</li>
+        <li><strong>Speicherplatz</strong> – Verfügbarer Speicher auf der TSE</li>
+        <li><strong>TSE-Generation</strong> – TSE 1.x oder TSE 2.0 (Swissbit-SDK&nbsp;6); bei TSE 2.0
+            zusätzlich der angemeldete Benutzer mit Zeit bis zur automatischen Abmeldung und der
+            freie Speicher (Warnung unter 50&nbsp;MB)</li>
+    </ul>
+
+    <h4>Health-Check</h4>
+    <p>
+        Führt eine Integritätsprüfung der TSE durch, die Uhrzeitabweichung und allgemeine
+        Funktionsfähigkeit überprüft. Das Ergebnis wird in einer expandierbaren Karte
+        dargestellt.
+    </p>
+
+    <h4>Flash-Speicher-Zustand</h4>
+    <p>
+        Zeigt den Zustand des Flash-Speichers der TSE-Hardware:
+    </p>
+    <ul>
+        <li><strong>Ersatzblöcke</strong> – Anzahl der verfügbaren Reserveblöcke (farbcodiert nach Restmenge)</li>
+        <li><strong>Löschzyklen</strong> – Anzahl der durchgeführten Flash-Löschzyklen</li>
+        <li><strong>Datenerhalt-Prognose</strong> – Erwartete Lebensdauer der gespeicherten Daten</li>
+    </ul>
+
+    <!-- ===== TSE ADMIN ===== -->
+    <h3 id="kap-14-admin">TSE Admin</h3>
+
+    <p>
+        Administrative Operationen für die TSE-Verwaltung. Alle Operationen erfordern
+        die Befugnis <code>TSE_ADMIN</code> (standardmäßig nur Gruppe <strong>ADMIN</strong>) und werden
+        vom Server direkt an die TSE-Hardware weitergeleitet.
+    </p>
+
+    <h4 id="kap-14-admin-unlock">TSE-Administration entsperren</h4>
+    <p>
+        Weil die Admin-PIN nicht gespeichert wird, zeigt der Bereich <strong>Admin-Operationen</strong>
+        an, ob die TSE-Administration <em>gesperrt</em> oder <em>entsperrt</em> ist. Über
+        <strong>Entsperren</strong> geben Sie die Admin-PIN ein; der Server prüft sie mit einem
+        lesenden Aufruf an der TSE und hält sie nur im Arbeitsspeicher. Die Sitzung endet nach
+        15&nbsp;Minuten ohne Verwaltungsaktion (das bloße Anzeigen des Sperrstatus zählt nicht als
+        Aktivität) oder über <strong>Sperren</strong> (meldet den Admin auch an
+        der TSE ab) und nach jedem Serverneustart. Lehnt die TSE die PIN ab, bleibt die Administration
+        gesperrt, und der Fehlversuch zählt zur PIN-Sperre.
+    </p>
+    <p>
+        <strong>PIN erforderlich</strong> (ohne Entsperren: HTTP&nbsp;423 &bdquo;TSE administration is
+        locked&ldquo;): Exportierte Daten löschen, Gebündelte Firmware anwenden, CSP-Export deaktivieren,
+        Werksreset, Außerbetriebnahme, die Liste der registrierten Clients sowie die Terminal-Registrierung als TSE-Client.
+        <strong>Ohne PIN</strong> laufen: Selbsttest, Zeitsynchronisation (meldet sich als Zeit-Admin
+        an), Health-Check, Flash-Health, Firmware prüfen, Log-Einträge durchsuchen, LCM-Export, alle
+        TSE-Datenexporte (voll, inkrementell, zeit- und transaktionsgefiltert) samt
+        Größenabschätzung sowie <strong>Export prüfen</strong>.
+    </p>
+
+    <h4>Wartungsoperationen</h4>
+    <table>
+        <thead>
+            <tr><th>Operation</th><th>Beschreibung</th><th>Hinweis</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Selbsttest</strong></td>
+                <td>Führt einen manuellen Selbsttest der TSE durch</td>
+                <td>Wird automatisch alle 25 Stunden ausgeführt; manuell bei Verdacht auf Störung</td>
+            </tr>
+            <tr>
+                <td><strong>Zeitsynchronisation</strong></td>
+                <td>Gleicht die TSE-interne Uhr mit der Systemzeit ab</td>
+                <td>Erforderlich bei Uhrzeitabweichung &gt;&nbsp;5 Minuten</td>
+            </tr>
+            <tr>
+                <td><strong>Health-Check</strong></td>
+                <td>Prüft die allgemeine Funktionsfähigkeit der TSE</td>
+                <td>Ergebnis wird im Informationsbereich angezeigt</td>
+            </tr>
+            <tr>
+                <td><strong>Flash-Health</strong></td>
+                <td>Prüft den Zustand des Flash-Speichers</td>
+                <td>Wichtig für die Einschätzung der Geräte-Lebensdauer</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>Firmware-Management</h4>
+    <table>
+        <thead>
+            <tr><th>Aktion</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Firmware prüfen</strong></td>
+                <td>Prüft auf verfügbare Firmware-Updates (gebündelte Offline-Version und Online-Version)</td>
+            </tr>
+            <tr>
+                <td><strong>Gebündelte Firmware anwenden</strong></td>
+                <td>Installiert das mitgelieferte Firmware-Update auf der TSE. Erfordert einen Bestätigungsdialog.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-danger">
+        <strong>Warnung:</strong> Während eines Firmware-Updates darf die Stromversorgung nicht
+        unterbrochen werden. Ein Stromausfall während des Updates kann die TSE-Hardware
+        dauerhaft beschädigen.
+    </div>
+
+    <h4>Log-Einträge durchsuchen</h4>
+    <p>
+        Browser für die TSE-Transaktionslogs. Dieser Bereich ist aufklappbar und bietet
+        drei Navigationsmodi:
+    </p>
+    <ul>
+        <li><strong>Erste Einträge</strong> – Zeigt die ältesten Log-Einträge an</li>
+        <li><strong>Letzte Einträge</strong> – Zeigt die neuesten Log-Einträge an</li>
+        <li><strong>Nach ID suchen</strong> – Springt zu einem bestimmten Log-Eintrag anhand seiner ID</li>
+    </ul>
+    <p>
+        Über <strong>Protokoll zur Analyse exportieren</strong> lassen sich die geladenen Einträge
+        als JSON-Datei für die Auswertung außerhalb des Systems speichern.
+    </p>
+
+    <h4>Client- und Transaktionsübersicht</h4>
+    <ul>
+        <li><strong>Registrierte Clients</strong> – Liste aller bei der TSE angemeldeten Terminals (Client-IDs)</li>
+        <li><strong>Offene Transaktionen</strong> – Nicht abgeschlossene Signiervorgänge (sollte im Normalbetrieb leer sein)</li>
+        <li><strong>Letzte Transaktion</strong> – Details der zuletzt durchgeführten Signatur zur Überprüfung</li>
+    </ul>
+
+    <h4>Erweiterte Operationen</h4>
+    <table>
+        <thead>
+            <tr><th>Operation</th><th>Beschreibung</th><th>Hinweis</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>CSP-Export deaktivieren</strong></td>
+                <td>Deaktiviert den Export, falls der CSP-Selbsttest fehlschlägt</td>
+                <td>Spezialfunktion für bestimmte TSE-Hardware</td>
+            </tr>
+            <tr>
+                <td><strong>LCM-Diagnose exportieren</strong></td>
+                <td>Exportiert Diagnosedaten im LCM-Format</td>
+                <td>Für Support und Fehleranalyse</td>
+            </tr>
+            <tr>
+                <td><strong>TSE neu starten</strong></td>
+                <td>Initialisiert den TSE-Treiber neu und stellt die Verbindung zur Hardware wieder her</td>
+                <td>Bei Verbindungsproblemen; Wartezeit ca. 10 Sekunden</td>
+            </tr>
+            <tr>
+                <td><strong>Werksreset</strong></td>
+                <td>Löscht alle Daten auf der TSE</td>
+                <td>Nur bei Entwicklungs-TSEs verfügbar; in Produktion gesperrt</td>
+            </tr>
+            <tr>
+                <td><strong>Außerbetriebnahme (Decommission)</strong></td>
+                <td>Nimmt die TSE dauerhaft außer Betrieb</td>
+                <td>Erfordert die Eingabe eines Bestätigungstexts; <strong>IRREVERSIBEL</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-danger">
+        <strong>Achtung:</strong> Die Außerbetriebnahme einer TSE ist unwiderruflich. Stellen Sie
+        sicher, dass vor der Außerbetriebnahme ein vollständiger TSE-Datenexport erstellt und
+        sicher archiviert wurde. Der Bestätigungsdialog erfordert die manuelle Eingabe eines
+        Sicherheitstexts.
+    </div>
+
+    <div class="alert alert-warning">
+        <strong>Mitteilung an das Finanzamt:</strong> Ein TSE-Tausch und die Außerbetriebnahme einer TSE
+        ändern die „Art der TSE“ (BSI-Zertifizierungs-ID und Seriennummer der TSE). Melden Sie das innerhalb
+        eines Monats über Mein ELSTER („Mitteilung über elektronische Aufzeichnungssysteme“, § 146a Abs.&nbsp;4 AO;
+        AEAO zu § 146a Nr.&nbsp;1.16.1.2 und 1.16.2.2), mit allen Kassen der Betriebsstätte. Beide Angaben zeigt der
+        Web-Admin unter <em>Compliance → Datenexport</em>, Karte <strong>Kassenmeldung</strong>: die
+        TSE-Seriennummer in Hexadezimal-Darstellung, wie im TSE-Export, und die BSI-Zertifizierungs-ID. Lesen Sie
+        sie für die neue TSE erst nach deren Inbetriebnahme ab. Einzelheiten:
+        <a href="tse-dokumentation.html#mitteilungspflicht">TSE-Dokumentation, Mitteilungspflicht</a>.
+    </div>
+
+    <!-- ===== SIGNATUR-WARTESCHLANGE ===== -->
+    <h3 id="kap-14-queue">Signatur-Warteschlange</h3>
+
+    <p>
+        Die Signatur-Warteschlange implementiert das "Nachsignieren" gemäß KassenSichV.
+        Wenn die TSE vorübergehend nicht erreichbar ist und das Fehlerverhalten auf
+        <code>QUEUE</code> eingestellt ist, werden Transaktionen zunächst ohne Signatur
+        gespeichert und automatisch nachsigniert, sobald die TSE wieder verfügbar ist.
+        Die Verwaltung der Warteschlange erfordert die Befugnis <code>TSE_QUEUE_ADMIN</code>
+        (standardmäßig nur Gruppe ADMIN).
+    </p>
+
+    <p>
+        <strong>TSE abgezogen und wieder eingesteckt:</strong> Nach dem Wiedereinstecken findet der Server
+        die TSE von selbst wieder &ndash; auch eine TSE, die erst bei laufendem Server eingesteckt wird.
+        Eine TSE, die stromlos war, verlangt danach einen Selbsttest und einen Zeitabgleich &ndash; beides
+        führt der Server selbst aus (bis zu etwa einer Minute, die TSE zeigt so lange <em>Wartung</em>);
+        danach wird die Warteschlange automatisch nachsigniert. Ein Neustart des Servers oder
+        <em>TSE neu starten</em> ist dafür seit v1.1.2 nicht mehr nötig. Bei einer TSE&nbsp;1.x muss dazu
+        mindestens eine aktive Kasse bei der TSE registriert sein (Geräte &rarr; Terminals); fehlt sie,
+        meldet der Selbsttest das und die TSE bleibt <em>nicht betriebsbereit</em>, bis eine Kasse registriert ist.
+        Voraussetzung ist, dass das Betriebssystem den Stick wieder unter dem gewohnten Pfad einhängt:
+        auf einem Linux-Server ohne Desktop dafür einen festen Eintrag (fstab oder udev-Regel) einrichten,
+        siehe <a href="tse-dokumentation.html#s11-replug">TSE-Dokumentation</a>. Lehnt die TSE die gespeicherte
+        TimeAdmin-PIN ab, versucht der Server es nicht erneut; dann die PIN prüfen und Selbsttest und
+        Zeitabgleich in den TSE-Einstellungen auslösen.
+    </p>
+
+    <h4>Queue-Überwachung</h4>
+    <p>
+        Der Queue-Status zeigt Statistiken und Gesundheitsmetriken der Warteschlange.
+        Der Bereich ist aufklappbar und wird bei Bedarf automatisch aktualisiert.
+    </p>
+
+    <h4>Eintragsfilterung</h4>
+    <p>
+        Die Queue-Einträge können nach Status gefiltert werden:
+    </p>
+    <table>
+        <thead>
+            <tr><th>Status</th><th>Bedeutung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>PENDING</code></td><td>Warten auf Signierung</td></tr>
+            <tr><td><code>QUEUED</code></td><td>Eingereiht, n&auml;chster Versuch geplant</td></tr>
+            <tr><td><code>PROCESSING</code></td><td>Wird gerade signiert</td></tr>
+            <tr><td><code>SIGNED</code></td><td>Erfolgreich nachsigniert</td></tr>
+            <tr><td><code>FAILED</code></td><td>Signierung fehlgeschlagen; wird erneut versucht</td></tr>
+            <tr><td><code>CANCELLED</code></td><td>Manuell abgebrochen</td></tr>
+        </tbody>
+    </table>
+    <p>
+        Zusätzlich kann nach Entitätstyp gefiltert werden (z.&nbsp;B. Bestellungen,
+        Rechnungen). Die Ergebnisse sind paginiert (Standard: 100 Einträge, maximal 1000).
+    </p>
+
+    <h4>Service-Steuerung</h4>
+    <table>
+        <thead>
+            <tr><th>Aktion</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Pausieren</strong></td>
+                <td>Hält den Hintergrund-Retry-Service an. Die geplante Aufgabe läuft weiter, überspringt aber die Verarbeitung.</td>
+            </tr>
+            <tr>
+                <td><strong>Fortsetzen</strong></td>
+                <td>Nimmt die automatische Nachsignierung wieder auf.</td>
+            </tr>
+            <tr>
+                <td><strong>Manuell auslösen</strong></td>
+                <td>Startet sofort einen Nachsignier-Zyklus, ohne auf den nächsten geplanten Durchlauf zu warten.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>Einzeleintragsverwaltung</h4>
+    <ul>
+        <li><strong>Eintrag wiederholen</strong> – Setzt den Retry-Status eines fehlgeschlagenen oder wartenden Eintrags zurück und versucht die Signierung sofort erneut</li>
+        <li><strong>Eintrag abbrechen</strong> – Markiert einen Eintrag als <code>CANCELLED</code>; er wird nicht mehr nachsigniert</li>
+    </ul>
+    <div class="alert alert-danger">
+        <strong>&#x26A0; Abbrechen ist endgültig.</strong> Ein abgebrochener Eintrag bedeutet, dass der
+        Vorgang <strong>dauerhaft unsigniert</strong> bleibt &ndash; ein Zustand, den &sect;&nbsp;146a AO
+        gerade verhindern soll. Deshalb gilt:
+        <ul>
+            <li>Ein <strong>Grund ist Pflichtfeld</strong>; ohne Begründung wird der Abbruch abgelehnt.</li>
+            <li>Der Abbruch wird als <code>TSE_QUEUE_CANCELLED</code> im Transaktions-Audit-Log
+                festgehalten &ndash; mit angemeldetem Benutzer, betroffenem Vorgang und Begründung.</li>
+            <li>Der <strong>Monatsabschluss weist den Vorgang als unsigniert aus</strong>
+                (Prüfpunkt &bdquo;Unsignierte TSE-Vorgänge&ldquo;). Der Abschluss meldet ihn also,
+                statt ihn stillschweigend durchzuwinken.</li>
+        </ul>
+        Abbrechen ist damit die dokumentierte Ausnahme (z.&nbsp;B. defekte, ausgetauschte TSE, deren
+        Vorgänge sich nicht mehr nachsignieren lassen) &ndash; nicht das Aufräumen einer störenden Liste.
+    </div>
+
+    <h4>Bereinigung (Cleanup)</h4>
+    <p>
+        Löscht alte abgeschlossene, fehlgeschlagene oder abgebrochene Einträge, um ein
+        unbegrenztes Wachstum der Warteschlange zu verhindern. Der Zeitraum ist konfigurierbar
+        (Standard: 30 Tage, Bereich: 1–365 Tage).
+    </p>
+
+    <!-- ===== TSE-DATENEXPORT ===== -->
+    <h3 id="kap-14-export">TSE-Datenexport</h3>
+
+    <p>
+        Der TSE-Datenexport ermöglicht die Extraktion signierter Transaktionsdaten
+        aus der TSE-Hardware. Diese Daten werden für Betriebsprüfungen und die
+        Langzeitarchivierung benötigt. In den TSE-Einstellungen (Abschnitt
+        <strong>TSE-Datenexport</strong>) stehen die Typen <em>Vollexport</em>, <em>Inkrementell</em>
+        und <em>Zeitgefiltert</em> zur Wahl; der transaktionsgefilterte Export ist nur über die API
+        erreichbar, der LCM-Export liegt bei den Admin-Operationen.
+    </p>
+    <p>
+        Die TAR-Datei wird auf dem <strong>Server</strong> abgelegt, im Unterordner <code>tse/</code>
+        des DATEV-Exportpfads (ohne konfigurierten Pfad: <code>exports/tse</code> im Arbeitsverzeichnis
+        des Servers). Die Exporte benötigen <strong>keine</strong> Admin-PIN und funktionieren auch bei
+        gesperrter TSE-Administration; nur <em>Exportierte Daten löschen</em> verlangt die entsperrte
+        Administration.
+    </p>
+
+    <h4>Exporttypen</h4>
+    <table>
+        <thead>
+            <tr><th>Typ</th><th>API-Endpunkt</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Vollexport</strong></td>
+                <td><code>POST /api/tse/export/full</code></td>
+                <td>Exportiert alle auf der TSE gespeicherten Transaktionsdaten als TAR-Archiv. Größter Export, aber vollständig.</td>
+            </tr>
+            <tr>
+                <td><strong>Inkrementeller Export</strong></td>
+                <td><code>POST /api/tse/export/incremental</code></td>
+                <td>Exportiert nur neue Daten seit dem letzten Export. Verwendet einen <code>lastState</code>-Parameter und unterstützt <code>maxExportSize</code> zur Begrenzung.</td>
+            </tr>
+            <tr>
+                <td><strong>Zeitgefilterter Export</strong></td>
+                <td><code>POST /api/tse/export/time-filtered</code></td>
+                <td>Exportiert Daten eines bestimmten Zeitraums (Start- und Enddatum). Parameter werden vor dem Export validiert. Siehe Hinweis zur Zeitzone unten.</td>
+            </tr>
+            <tr>
+                <td><strong>Transaktionsgefilterter Export</strong></td>
+                <td><code>POST /api/tse/export/transaction-filtered</code></td>
+                <td>Exportiert Daten eines bestimmten Transaktionsnummern-Bereichs (Start- und End-Transaktion).</td>
+            </tr>
+            <tr>
+                <td><strong>LCM-Diagnose</strong></td>
+                <td><code>POST /api/tse/export/lcm</code></td>
+                <td>Exportiert LCM-Diagnosedaten für Support-Zwecke.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <strong>Zeitgefilterter Export &ndash; Zeitzone und Enddatum:</strong> Start- und Enddatum
+        werden als Kalendertage an den Server geschickt und dort in der <em>Zeitzone des Betriebs</em>
+        ausgelegt &ndash; nicht in der des bedienenden Geräts. Beide Tage sind <strong>vollständig</strong>
+        enthalten: vom Starttag 00:00&nbsp;Uhr bis zum Ende des Endtags. Für einen einzelnen Tag wählen
+        Sie Start- und Enddatum gleich. Das ist derselbe Zeitraum, den der DSFinV-K-Export verwendet;
+        das dem DSFinV-K-Paket beigefügte TSE-TAR ist ohnehin immer ein Vollexport.
+    </div>
+
+    <div class="alert alert-warning">
+        <strong>Gefilterte Exporte auf TSE 1.x:</strong> Der zeit- und der transaktionsgefilterte
+        Export enthalten derzeit nur die Transaktionen <em>eines</em> Terminals, nicht aller Kassen
+        und Bestellterminals. Für eine Prüfung daher den <strong>Vollexport</strong> verwenden.
+        <strong>Export prüfen</strong> meldet ein unvollständiges Archiv als <em>Fehlgeschlagen</em>.
+        Hat die TSE im gewählten Bereich keine Daten, antwortet der Export mit 404 und hinterlässt
+        keine leere Datei.
+    </div>
+
+    <div class="alert alert-info">
+        <strong>TSE 2.0:</strong> Eine TSE der Generation 2.0 (Swissbit-SDK&nbsp;6) bietet keine
+        gefilterten Exporte mehr in der Hardware. Der zeit- und der transaktionsgefilterte Export
+        erzeugen dort einen Vollexport und filtern ihn anschließend in der Software; sie dauern daher
+        so lange wie ein Vollexport. Außerdem nimmt eine TSE 2.0 schon vor dem vollständigen
+        Befüllen keine Transaktionen mehr an &ndash; unter 50&nbsp;MB freiem Speicher warnt die
+        Oberfläche; dann exportieren und die exportierten Daten löschen.
+    </div>
+
+    <h4>Größenabschätzung</h4>
+    <p>
+        Über <code>GET /api/tse/export/size</code> kann die erwartete Exportgröße vorab
+        berechnet werden, ohne den eigentlichen Export durchzuführen. Dies ist nützlich,
+        um den benötigten Speicherplatz einzuschätzen.
+    </p>
+
+    <h4>Exportierte Daten löschen (Exportieren und Löschen)</h4>
+    <p>
+        Über <code>DELETE /api/tse/export</code> (in den TSE-Einstellungen
+        <em>Exportierte Daten löschen</em>) wird die TSE in <strong>einem</strong> Vorgang
+        exportiert und anschließend gelöscht, um Speicherplatz freizugeben. Das erfordert die
+        <a href="#kap-14-admin-unlock">entsperrte TSE-Administration</a> (Admin-PIN) und ist
+        unwiderruflich. Ablauf:
+    </p>
+    <ol>
+        <li>Der Server prüft, dass der TSE-Exportordner (<code>&lt;DATEV-Exportpfad&gt;/tse</code>)
+            beschreibbar ist (sonst HTTP&nbsp;409) und genug freien Platz für das Archiv hat
+            (sonst HTTP&nbsp;507) &ndash; bevor die TSE berührt wird.</li>
+        <li>Anmeldung als <em>Admin</em> an der TSE.</li>
+        <li>Vollständiger TAR-Export aller Daten &ndash; einschließlich des Protokolleintrags,
+            den diese Anmeldung selbst erzeugt &ndash; in eine neue Datei
+            <code>tse_export_before_delete_&lt;Zeitstempel&gt;.tar</code> im Exportordner.</li>
+        <li>Prüfung der geschriebenen Datei (nicht leer, vollständige TAR-Blöcke, so groß wie von
+            der TSE geliefert und gemeldet).</li>
+        <li>Erst dann Löschen auf der TSE, danach Abmelden.</li>
+    </ol>
+    <p>
+        Die Antwort nennt Name, Pfad und Größe der Archivdatei sowie den belegten Speicher vorher
+        und nachher. Schlägt ein Schritt fehl, wird <strong>nichts gelöscht</strong>; die
+        Fehlermeldung nennt den Schritt (<code>LOGIN</code>, <code>PRECHECK</code>,
+        <code>EXPORT</code>, <code>WRITE</code>, <code>VERIFY</code>, <code>DELETE</code>).
+        Eine TSE&nbsp;2.0 ohne gültige Zeit wird vor dem Export abgewiesen; stellen Sie zuerst die
+        Zeit.
+    </p>
+    <div class="alert alert-warning">
+        <strong>Die Archivdatei aufbewahren:</strong> Sie ist nach dem Löschen die
+        <strong>einzige</strong> Kopie der gelöschten TSE-Einträge. Sichern Sie sie für die
+        gesetzliche Aufbewahrungsfrist (§&nbsp;147 AO) außerhalb des Servers. Danach ist der Stand
+        für den inkrementellen Export zurückgesetzt.
+    </div>
+    <p>
+        <strong>Archivregister:</strong> Das Archiv wird automatisch im Archivregister der Kasse
+        erfasst (Seriennummer, TANR- und Zeitspanne, SHA-256). Der DSFinV-K-Export mit TSE-Daten
+        nimmt es für einen Zeitraum, der in die gelöschten Einträge reicht, unverändert in den
+        Ordner <code>tse/</code> der ZIP auf &ndash; neben dem TAR der TSE selbst. Dafür muss die Datei
+        <strong>unverändert im TSE-Exportordner bleiben</strong>: Der Export prüft vor jeder
+        Verwendung ihren SHA-256. Fehlt sie oder wurde sie verändert, lehnt der DSFinV-K-Export
+        den Zeitraum ab und nennt den fehlenden TANR- und Zeitbereich. Ein Archiv, das noch nicht
+        erfasst ist (z.&nbsp;B. aus einer Version vor dem Archivregister oder aus einer Sicherung
+        zurückgelegt), erfassen Sie in den TSE-Einstellungen unter <strong>Archiv registrieren</strong>
+        mit seinem Dateinamen.
+    </p>
+    <p>
+        <em>Warum ein Vorgang:</em> Die TSE löscht nur, wenn seit dem letzten Export keine neuen
+        Daten entstanden sind. Die Admin-Anmeldung, die das Löschen verlangt, ist selbst ein neuer
+        signierter Protokolleintrag. Ein getrennter Export ohne Anmeldung mit anschließendem
+        Löschen scheiterte daher an einer echten Swissbit-TSE immer mit
+        <code>WORM_ERROR_EXPORT_UNACKNOWLEDGED_DATA</code>.
+    </p>
+
+    <h4 id="kap-14-export-verify">Export prüfen</h4>
+    <p>
+        Nach einem Export steht in den TSE-Einstellungen die Schaltfläche
+        <strong>„Export prüfen“</strong> zur Verfügung (<code>POST /api/tse/verify</code>).
+        Sie liest die zuletzt exportierte TAR-Datei erneut ein und bewertet die enthaltenen
+        Protokollnachrichten anhand dieser Kriterien:
+    </p>
+    <ul>
+        <li><strong>Lückenlose Transaktionsnummern</strong> – keine fehlenden Nummern innerhalb des exportierten Bereichs. Bei einem Export für <em>eine</em> Kasse entfällt diese Prüfung (und die der Signaturzählerlücken): Die TSE nummeriert alle Kassen in einer Folge, die Lücken sind die Transaktionen der anderen Kassen. Den Filter liest die Prüfung aus der Datei <code>&lt;Exportdatei&gt;.json</code>, die jeder gefilterte Export daneben ablegt, und nennt ihn im Ergebnis.</li>
+        <li><strong>Eindeutige Signaturzähler</strong> – kein Signaturzähler darf doppelt vorkommen.</li>
+        <li><strong>Vollständigkeit gegenüber der Kasse</strong> – jede Transaktion, die die Kasse auf dieser TSE im Bereich des Exports signiert hat, muss enthalten sein; sonst <em>Fehlgeschlagen</em>. Bei einem Export für eine Kasse sind das deren Transaktionen im angeforderten Bereich. Eine Datei ohne jede TSE-Protokollnachricht (z.&nbsp;B. 0&nbsp;Byte) besteht nie.</li>
+        <li><strong>Plausible Zeitstempel</strong> – keine unbegründeten Rückwärtssprünge. Ausgenommen sind die Zeitstellung selbst (die TSE stempelt ihre Protokollmeldung bereits mit der korrigierten, ggf. früheren Zeit) und die unmittelbar folgende Meldung.</li>
+    </ul>
+    <p>
+        Das Ergebnis wird als Status (<em>Bestanden</em>, <em>Bestanden mit Warnungen</em> oder
+        <em>Fehlgeschlagen</em>) mit den einzelnen Befunden angezeigt. Diese Prüfung deckt die
+        Plausibilität der Protokollsequenz ab (AGD &sect;5.2); die kryptographische
+        Signaturverifikation (AGD &sect;5.1) ist nicht Teil dieser Funktion.
+    </p>
+
+    <div class="alert alert-warning">
+        <strong>Wichtig:</strong> Bei einer Kassennachschau müssen TSE-Daten innerhalb von
+        72 Stunden bereitgestellt werden können. Stellen Sie sicher, dass ein aktueller
+        TSE-Export jederzeit verfügbar ist.
+    </div>
+
+    <!-- ===== DSFinV-K ===== -->
+    <h3 id="kap-14-dsfinvk">DSFinV-K</h3>
+
+    <p>
+        Die DSFinV-K (Digitale Schnittstelle der Finanzverwaltung für Kassensysteme) ist
+        das standardisierte Exportformat für Betriebsprüfungen. Der Export erzeugt eine
+        ZIP-Datei mit allen vorgeschriebenen CSV-Dateien und einer XML-Beschreibungsdatei.
+        Die Endpunkte erfordern die Befugnis <code>DSFINVK_EXPORT</code>. Die Bedienoberfläche
+        dafür liegt im Web-Backoffice unter <strong>Compliance &rarr; Datenexport</strong>
+        (sichtbar mit <code>DSFINVK_EXPORT</code>, also auch für Prüfer und Buchhaltung) und
+        zusätzlich in den TSE-Einstellungen (Kasse: <strong>Einstellungen &rarr; TSE</strong>,
+        Web-Backoffice: <strong>Geräte &rarr; TSE</strong>), die nur mit <code>TSE_ADMIN</code>
+        sichtbar sind. Ausgewählt werden die Kassenabschlüsse (Z-Bons), die im
+        gewählten Zeitraum erstellt wurden; Start- und Endtag zählen beide mit, gerechnet in der
+        Zeitzone des Betriebs.
+    </p>
+
+    <h4>Validierung</h4>
+    <p>
+        Vor dem eigentlichen Export kann eine Validierung durchgeführt werden. Sie unterscheidet
+        <strong>Fehler</strong>, die den Export verhindern, von <strong>Warnungen</strong>, die ihn
+        erlauben (&bdquo;Export trotz Warnungen möglich&ldquo;):
+    </p>
+    <table>
+        <thead>
+            <tr><th>Befund</th><th>Art</th><th>Lösung</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Keine Kassenabschlüsse (Z-Bons) im gewählten Zeitraum</td>
+                <td>Fehler</td>
+                <td>Zeitraum anpassen oder den Tagesabschluss durchführen</td>
+            </tr>
+            <tr>
+                <td>Kassenabschluss ohne Steuernummer <em>und</em> ohne USt-IdNr (die betroffenen <code>Z_NR</code> werden genannt)</td>
+                <td>Fehler &ndash; der Export antwortet mit HTTP&nbsp;422</td>
+                <td>Für künftige Abschlüsse Steuernummer oder USt-IdNr im Web-Backoffice unter
+                    <strong>Einstellungen &rarr; Geschäftsdaten</strong> eintragen. Ein bereits
+                    geschlossener Abschluss behält seinen Stammdaten-Stand und lässt sich dadurch
+                    nicht nachträglich reparieren.</td>
+            </tr>
+            <tr>
+                <td>Vorgänge ohne TSE-Signatur (Belege, Bestellungen, Kassenbuch-Einträge, Stornos)</td>
+                <td>Warnung</td>
+                <td>Signatur-Warteschlange prüfen und ausstehende Nachsignierungen abarbeiten;
+                    unsignierte Vorgänge werden mit <code>TSE_TA_FEHLER</code> exportiert</td>
+            </tr>
+            <tr>
+                <td>Belege ohne USt-Aufschlüsselung (nur Belege, die planmäßig USt-Zeilen tragen: ein Forderungsausgleich an der Kasse &ndash; die Umsatzsteuer stand auf der Rechnung &ndash; und der Storno eines solchen Belegs tragen keine und werden deshalb nicht mitgezählt; Storno und Neubuchung eines Zahlartwechsels tragen USt-Zeilen wie jeder Verkauf und werden geprüft)</td>
+                <td>Warnung</td>
+                <td>Support kontaktieren</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-warning">
+        <strong>Nach dem Update auf v1.1.0 neu exportieren:</strong> Der DSFinV-K-Export wurde in
+        dieser Version umfassend korrigiert. Die gespeicherten Belege waren richtig, die daraus
+        erzeugten Pakete teilweise nicht. Exportieren Sie jeden bereits abgegebenen Zeitraum neu.
+        <code>Z_NR</code> ist jetzt die auf dem Z-Bon gedruckte, lückenlose Abschlussnummer, nicht
+        mehr die Datenbank-ID &ndash; ein neu erzeugtes Paket kann denselben Abschluss daher unter
+        einer anderen <code>Z_NR</code> führen als das früher abgegebene. Weisen Sie Steuerberater
+        bzw. Prüfer darauf hin. Details:
+        <a href="dsfinvk-export.html#s7" target="_blank">DSFinV-K Export, Abschnitt 7</a>.
+    </div>
+
+    <h4>Statistiken</h4>
+    <p>
+        Vor dem Export können Statistiken geladen werden, die eine Vorschau des erwarteten
+        Datenumfangs zeigen (Anzahl Transaktionen, Belege, Z-Bons im gewählten Zeitraum).
+        <em>Gesamtumsatz</em> und <em>MwSt. gesamt</em> sind die Summen der gespeicherten Z-Bons dieses
+        Zeitraums &ndash; derselbe Umsatz wie auf den Z-Bons (nach Rabatten, inklusive Inhabertrinkgeld,
+        ohne Stornos und Schulungsbelege). Sie dienen der Kontrolle und werden nicht in die Exportdateien
+        geschrieben.
+    </p>
+
+    <h4>Export-Ablauf</h4>
+    <ol class="steps">
+        <li>Öffnen Sie die TSE-Einstellungen und dort den Abschnitt <strong>DSFinV-K Export</strong></li>
+        <li>Wählen Sie den Exportzeitraum (Start- und Enddatum)</li>
+        <li>Optional: Aktivieren Sie <strong>TSE-TAR-Archiv einschließen</strong>. Beigefügt wird
+            immer der <em>vollständige</em> TAR-Export der TSE (Ordner <code>tse/</code> in der ZIP),
+            nicht ein Ausschnitt; schlägt er fehl, bricht der Export ab. Enthält das Archiv nicht alle
+            signierten Transaktionen des Zeitraums (andere, getauschte oder leere TSE), bricht der Export
+            mit <strong>TSE-Archiv unvollständig</strong> ab und nennt die fehlende TSE-Seriennummer.</li>
+        <li>Optional: Klicken Sie auf <strong>Validieren</strong>, um die Datenintegrität zu prüfen</li>
+        <li>Optional: Klicken Sie auf <strong>Vorschau</strong> für die erwarteten Mengen</li>
+        <li>Klicken Sie auf <strong>ZIP-Archiv exportieren</strong></li>
+        <li>Die ZIP-Datei wird generiert und zum Download bereitgestellt</li>
+    </ol>
+
+    <p>
+        Technische Details zum DSFinV-K-Exportformat finden Sie in der
+        <a href="dsfinvk-export.html" target="_blank">Technischen Dokumentation – DSFinV-K Export</a>.
+    </p>
+
+    <!-- ===== DATEV ===== -->
+    <h3 id="kap-14-datev">DATEV</h3>
+
+    <p>
+        Das System unterstützt den Export von Finanzdaten im DATEV-kompatiblen
+        XML-Format für die Übergabe an den Steuerberater oder die direkte Einspielung
+        in die DATEV-Software.
+    </p>
+
+    <p>
+        Alle DATEV-Einstellungen und -Exporte liegen im Web-Backoffice unter
+        <strong>Compliance &rarr; Datenexport</strong> (die Kasse hat keinen Datenexport-Reiter mehr).
+        Der Abschnitt <strong>DATEV-Export</strong> bietet:
+    </p>
+    <ul>
+        <li><strong>Kassenbuch (DATEV-XML)</strong> &ndash; ZIP im Format <em>einzelDateien</em>:
+            je Kassenbuch-Eintrag eine Ledger-Datei <code>Kasse_JJJJMMTT_N.xml</code> mit allen Zeilen
+            dieses Eintrags (<code>N</code> zählt die Einträge eines Tages) plus
+            <code>document.xml</code> und die verknüpften PDF-Belege</li>
+        <li><strong>Eingangsrechnungen (DATEV-XML)</strong> &ndash; Kreditoren-Buchungen, je Rechnung
+            eine Ledger-Datei mit Rechnungsbild</li>
+        <li><strong>Buchungsstapel (CSV)</strong> &ndash; <code>EXTF_Buchungsstapel.csv</code></li>
+        <li><strong>Buchungsstapel + Belege (ZIP)</strong> &ndash; Buchungsstapel mit
+            <code>document.xml</code> und Beleg-PDFs, Belegverknüpfung bereits gesetzt</li>
+        <li><strong>Alle drei exportieren</strong></li>
+        <li><strong>Ausgangsrechnungen (DATEV Debitoren)</strong> &ndash; Debitoren-Buchungsstapel</li>
+    </ul>
+
+    <div class="alert alert-warning">
+        <strong>Kontenzuordnung ist Pflicht für den Buchungsstapel.</strong> Beide
+        Buchungsstapel-Exporte (mit und ohne Belege) verweigern ohne gespeicherte
+        <strong>DATEV-Kontenzuordnung</strong> den Lauf mit HTTP&nbsp;409
+        (<code>DATEV_ACCOUNT_MAPPING_REQUIRED</code>): Ohne sie wurden Barausgaben verkehrt herum
+        gebucht, jeder Steuersatz auf das 19-%-Automatikkonto gelegt und unbare Einnahmen vom Umsatz
+        abgezogen. Ebenso bricht der Export ab, wenn eine einzelne Kassenbuch-Zeile keiner Zelle der
+        Zuordnung zugeordnet werden kann. Die Zuordnung pflegen Sie im selben Bildschirm unter
+        <strong>DATEV-Kontenzuordnung</strong>; <strong>Standardkonten übernehmen</strong> befüllt sie
+        mit SKR03- bzw. SKR04-Vorschlagswerten &ndash; bitte mit dem Steuerberater abstimmen. Gespeichert
+        wird erst, wenn auch alle neun <em>Sonderbuchungen</em> ein Konto haben oder ihr Schalter
+        <strong>Konto automatisch zuordnen</strong> ausgeschaltet ist; beide Kontenrahmen belegen alle
+        neun vor. Eine Zelle mit ausgeschaltetem Schalter wird ohne Gegenkonto exportiert &ndash; der
+        Steuerberater importiert dann mit <em>Buchungen trotz Fehler importieren</em> und ergänzt das
+        Konto in DATEV; der Export nennt die betroffenen Zeilen. Der
+        Kassenbuch-XML-Export läuft auch ohne Zuordnung (er übernimmt dann Gegenkonto und BU des
+        Eintrags unverändert). Details:
+        <a href="datev-xml-export.html#s12" target="_blank">DATEV XML Export, Abschnitt 12</a>.
+    </div>
+
+    <h4>DATEV-Konfiguration</h4>
+    <p>
+        Die globale DATEV-Konfiguration wird im selben Bildschirm unter
+        <strong>DATEV XML Konfiguration</strong> verwaltet:
+    </p>
+    <ul>
+        <li><strong>Kassen-Name</strong> – Bezeichnung der Kasse im DATEV-System</li>
+        <li><strong>Server-Exportpfad</strong> – Zielverzeichnis auf dem Server</li>
+        <li><strong>Beraternummer</strong> und <strong>Mandantennummer</strong></li>
+        <li><strong>Sammeldebitor</strong> für den Debitoren-Export</li>
+        <li><strong>Eingangsrechnungen Exportmodus</strong> – Minimal (nur Pflichtfelder) oder Vollständig</li>
+    </ul>
+
+    <h4>Automatischer DATEV-Export</h4>
+    <p>
+        Der wiederkehrende DATEV-Export wird ebenfalls in der
+        <strong>DATEV XML-Konfiguration</strong> eingestellt. Ein Master-Schalter
+        <em>Aktiviert</em> schaltet den Auftrag insgesamt ein bzw. aus, und pro Exporttyp
+        l&auml;sst sich eine eigene Frequenz w&auml;hlen:
+    </p>
+    <ul>
+        <li><strong>Kassenbuch</strong> – <em>Aus</em> / <em>W&ouml;chentlich</em> / <em>Monatlich</em></li>
+        <li><strong>Eingangsrechnungen</strong> – <em>Aus</em> / <em>W&ouml;chentlich</em> / <em>Monatlich</em></li>
+        <li><strong>Buchungsstapel</strong> – <em>Aus</em> / <em>W&ouml;chentlich</em> / <em>Monatlich</em></li>
+        <li><strong>Stunde (0–23)</strong> – gemeinsame Tageszeit f&uuml;r alle drei Typen</li>
+    </ul>
+    <p>
+        Verpasste Perioden werden automatisch nachgeholt: pro Typ wird die n&auml;chste offene
+        Woche bzw. der n&auml;chste offene Monat ermittelt und ausgef&uuml;hrt, bis alle R&uuml;ckst&auml;nde
+        aufgeholt sind. Status und Verlauf des Auftrags sind im Web-Backoffice unter
+        <em>System &rarr; Geplante Aufgaben</em> einsehbar; siehe
+        <a href="scheduled-tasks.html" target="_blank">Geplante Aufgaben</a>.
+    </p>
+    <p>
+        <strong>Achtung:</strong> Fehlt die Kontenzuordnung, bricht der automatische Lauf
+        <em>nicht</em> ab &ndash; er vermerkt den fehlgeschlagenen Buchungsstapel in seinem Ergebnis,
+        und der Lauf gilt trotzdem als erfolgreich. Prüfen Sie deshalb nach dem Update das Ergebnis
+        des Auftrags, bis die Zuordnung gespeichert ist.
+    </p>
+    <p>
+        Technische Details zum DATEV-XML-Format finden Sie in der
+        <a href="datev-xml-export.html" target="_blank">Technischen Dokumentation – DATEV XML Export</a>.
+    </p>
+
+    <!-- ===== AUFBEWAHRUNGSPFLICHTEN ===== -->
+    <h3 id="kap-14-aufbewahrung">Aufbewahrungspflichten</h3>
+
+    <p>
+        Gemäß &sect;&nbsp;147 AO (Abgabenordnung) und der KassenSichV bestehen umfassende
+        Aufbewahrungspflichten für Kassendaten. Die folgenden Daten unterliegen einer
+        <strong>10-jährigen Aufbewahrungspflicht</strong>:
+    </p>
+
+    <table>
+        <thead>
+            <tr><th>Datentyp</th><th>Beschreibung</th><th>Exportfunktion</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>TSE-Daten</td>
+                <td>Kryptografische Signaturen und Transaktionsprotokolle</td>
+                <td>TSE-Einstellungen &rarr; TSE-Datenexport</td>
+            </tr>
+            <tr>
+                <td>Kassenbuch</td>
+                <td>Vollständige Aufzeichnung aller Ein- und Auszahlungen</td>
+                <td>Web-Backoffice: Compliance &rarr; Datenexport &rarr; Kassenbuch (DATEV-XML)</td>
+            </tr>
+            <tr>
+                <td>Belege und Rechnungen</td>
+                <td>Alle ausgestellten Belege, Rechnungen und Quittungen</td>
+                <td>Dokumentenablage (PDF-Speicher)</td>
+            </tr>
+            <tr>
+                <td>DSFinV-K Exporte</td>
+                <td>Standardisierte Kassendaten für die Finanzverwaltung</td>
+                <td>TSE-Einstellungen &rarr; DSFinV-K Export</td>
+            </tr>
+            <tr>
+                <td>Z-Bon-Dokumentationen</td>
+                <td>Tagesabschlussberichte mit Umsatz- und Steuerauswertung</td>
+                <td>Kasse: Berichte &rarr; Z-Bon; Web-Backoffice: Kasse &amp; Abschluss &rarr; Z-Bons</td>
+            </tr>
+            <tr>
+                <td>Eingangsrechnungen</td>
+                <td>Alle Lieferantenrechnungen und Kreditoren-Buchungen</td>
+                <td>Web-Backoffice: Compliance &rarr; Datenexport &rarr; Eingangsrechnungen (DATEV-XML)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <strong>Empfehlung:</strong> Führen Sie regelmäßig (mindestens monatlich) vollständige
+        Datensicherungen durch, einschließlich TSE-Export, DSFinV-K-Export und Datenbank-Backup.
+        Archivieren Sie die Exporte an einem sicheren Ort außerhalb des Kassensystems, um die
+        Aufbewahrungspflicht auch bei Hardwareausfall lückenlos zu erfüllen.
+    </div>
+
+    <div class="alert alert-warning">
+        <strong>Hinweis zur TSE-Lebensdauer:</strong> Die TSE-Hardware hat eine begrenzte
+        Signaturkapazität und Zertifikatslaufzeit. Überwachen Sie regelmäßig den
+        <a href="#kap-14-status">TSE-Status</a>, um rechtzeitig einen Austausch planen zu können.
+        Vor dem Austausch muss ein vollständiger TSE-Datenexport erstellt werden.
+    </div>
+
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-13-einstellungen.html">&larr; Vorheriges: Einstellungen</a>
+    <a href="kap-15-pruefprotokoll.html">Nächstes: Prüfprotokoll &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

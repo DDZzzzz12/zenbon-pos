@@ -1,0 +1,44 @@
+# gradle-path<TAB>area<TAB>tier.
+# Tiers: kernel, api, data, server (area modules <area>-api/-data/-server; rank kernel < api < data < server,
+# layering rules R6, R7: api/contract depend only on kernel/api/contract), contract (alias of api), feature (alias of server), client-lib/app/shell (ui area,
+# rules R2/R5, unranked), host. Existing `data` modules (:platform-server-common, :accounting-einvoice,
+# :accounting-banking, :fiscal-export, :fiscal-process-data, :ecr-receipt, :pos-tse) are ranked as `data`; R6 found no violation among current modules.
+# R6 cross-area: another area's `server` tier is off limits, except `platform` (the foundation area every server may use, spec section 15).
+# The former :core-data and :shared blobs were split into the <area>-data / <area>-api modules (Stages B2-1b..B2-5) and dissolved in B2-5 C2 / C3.
+:platform-money	platform	kernel
+:platform-secure-xml	platform	kernel
+:platform-server-common	platform	data
+:platform-audit	platform	feature
+:platform-api	platform	api
+:platform-data	platform	data
+:platform-server	platform	server
+:ecr-api	ecr	api
+:ecr-data	ecr	data
+:ecr-server	ecr	server
+:fiscal-api	fiscal	api
+:fiscal-data	fiscal	data
+:fiscal-server	fiscal	server
+:accounting-api	accounting	api
+:accounting-data	accounting	data
+:accounting-server	accounting	server
+:backoffice-api	backoffice	api
+:backoffice-data	backoffice	data
+:backoffice-server	backoffice	server
+:ecr-printer	ecr	feature
+:ecr-printer-core	ecr	data
+:ecr-reservation	ecr	feature
+:ecr-voucher	ecr	feature
+:ecr-receipt	ecr	data
+:ecr-customer	ecr	feature
+:backoffice-timetracking	backoffice	feature
+:accounting-document	accounting	feature
+:accounting-einvoice	accounting	data
+:accounting-banking	accounting	data
+:fiscal-export	fiscal	data
+:fiscal-process-data	ecr	data
+:pos-tse	fiscal	data
+:ui-shared	ui	client-lib
+:ui-till	ui	app
+:ui-backoffice	ui	app
+:ui-till-android	ui	shell
+:pos-server	host	host

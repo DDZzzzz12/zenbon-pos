@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 05 – Bestellungen – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 05 – Bestellungen aufnehmen</h2>
+
+    <p>Nach dem Antippen eines Tisches können Bestellungen aufgenommen werden. Ein freier Tisch wird erst mit dem
+    Senden der ersten Bestellung belegt (siehe <a href="kap-04-tischverwaltung.html">Kapitel 04</a>). Produkte
+    werden über das Suchfeld (Artikelcode) oder über das Produktraster erfasst.</p>
+
+    <h3 id="kap-05-tastatur">Produkt-Tastatur-Modus</h3>
+    <p>Für erfahrene Bediener: Produkte über Suche oder Artikelcodes eingeben.</p>
+    <ul>
+        <li>Code direkt eingeben, z.&nbsp;B. <code>P01</code></li>
+        <li>Mengenangaben voranstellen: <code>2*P01</code> für 2 Stück</li>
+        <li>Bestätigung mit <strong>Enter</strong> oder dem <strong>Hinzufügen</strong>-Button</li>
+    </ul>
+
+    <h3 id="kap-05-grid">Produkt-Raster-Modus</h3>
+    <p>Visuelles Grid mit Kategorie-Auswahl:</p>
+    <ol class="steps">
+        <li>Kategorie aus oberer Leiste wählen</li>
+        <li>Produkt im Raster antippen</li>
+        <li>Bei Mehrfachauswahl wird die Menge automatisch erhöht</li>
+    </ol>
+
+    <h3>Optionen / Zusätze hinzufügen</h3>
+    <ul>
+        <li>Optionen werden über <strong>Auswahlgruppen</strong> (Choice Groups) am Produkt konfiguriert &ndash; siehe <a href="choice-groups.html" target="_blank">Choice Groups</a></li>
+        <li>Erscheinen im Konfigurator nach Produktauswahl; Pflichtgruppen öffnen ihn automatisch</li>
+        <li>Mehrfachauswahl je nach Min/Max-Regel der Gruppe möglich</li>
+        <li>Nachträglich über die Bestellposition bearbeitbar</li>
+        <li>Der Preis-Aufschlag hängt an der <em>Platzierung</em> (Gruppe&nbsp;&times;&nbsp;Option), nicht am Extra selbst</li>
+    </ul>
+
+    <div class="alert alert-info">
+        <strong>Frühere flache Extras:</strong> Die alte Direktzuweisung (<code>ProductExtrasAssignmentTable</code>) ist im Bestellschirm nicht mehr auswählbar. Migration <code>V84</code> (Update auf v1.1.0) hat die betroffenen Produkte auf eigene &bdquo;Extras&nbsp;-&nbsp;&lt;Produkt&gt;&ldquo;-Gruppen mit unveränderten Preisen umgestellt. Historische Bestellungen bleiben durch die Snapshots exakt erhalten.
+    </div>
+
+    <h3>Bestellposition bearbeiten</h3>
+    <p>Über das Fenster <strong>Artikel bearbeiten</strong> können einzelne Positionen angepasst werden.
+        An einer <a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a> fehlen
+        <em>Individueller Preis</em> und <em>Rabatt</em>; dort wird zum Listenpreis gebucht.</p>
+    <table>
+        <thead>
+            <tr><th>Aktion</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Menge ändern</td><td>Neuen Wert eingeben</td></tr>
+            <tr><td>Individueller Preis</td><td>Eigenen Einzelpreis setzen &ndash; wenn das Produkt einen freien Preis erlaubt
+                (<code>allowCustomPrice</code>) oder der Mitarbeiter die Berechtigung <em>Preis überschreiben</em>
+                (<code>PRICE_OVERRIDE</code>) hält</td></tr>
+            <tr><td>Rabatt</td><td>Prozentrabatt in ganzen Prozent. Bis 20&nbsp;% darf jeder Mitarbeiter gewähren; ein
+                höherer Rabatt erfordert die Berechtigung <em>Rabatt gewähren</em> (<code>DISCOUNT_GRANT</code>).
+                Ein ungültiger Wert wird rot markiert, <strong>Speichern</strong> bleibt gesperrt und der
+                Gesamtpreis zeigt die Position ohne Rabatt</td></tr>
+            <tr><td>Zum Mitnehmen</td><td>Außer-Haus-Kennzeichen für die MwSt.-Berechnung</td></tr>
+            <tr><td>Notiz</td><td>Freitext, z.&nbsp;B. &bdquo;ohne Zwiebeln&ldquo;</td></tr>
+            <tr><td>Optionen ändern</td><td>Auswahlgruppen-Optionen hinzufügen oder entfernen</td></tr>
+            <tr><td>Stornieren</td><td>Position stornieren (Grund erforderlich)</td></tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <strong>Manager-Freigabe:</strong> Fehlt eine dieser Berechtigungen, kann ein Manager per PIN aushelfen. Die PIN
+        leiht nur die eine benötigte Berechtigung, nur auf diesem Gerät und nur für den anfragenden Mitarbeiter
+        &ndash; nicht alles, was der Manager darf. Ein geliehenes <em>Rabatt gewähren</em> oder <em>Preis
+        überschreiben</em> gilt dabei nicht nur für die Kasse, sondern auch für die Prüfung des Servers beim
+        Absenden der Bestellung; im Prüfprotokoll steht die Bestellung unter dem Namen des Kassierers, mit dem
+        freigebenden Manager als zweitem Namen. Einzelheiten in
+        <a href="kap-06-abrechnung.html#kap-06-manager-pin">Kapitel 06</a>.
+    </div>
+
+    <h3>Bestellstatus</h3>
+    <table>
+        <thead>
+            <tr><th>Status</th><th>Bedeutung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>DRAFT</code></td><td>Entwurf, noch nicht bestätigt</td></tr>
+            <tr><td><code>CONFIRMED</code></td><td>Bestätigt, an Küche gesendet</td></tr>
+            <tr><td><code>IN_PREPARATION</code></td><td>In Zubereitung</td></tr>
+            <tr><td><code>READY</code></td><td>Fertig zur Ausgabe</td></tr>
+            <tr><td><code>SERVED</code></td><td>Serviert</td></tr>
+            <tr><td><code>COMPLETED</code></td><td>Abgeschlossen</td></tr>
+            <tr><td><code>CANCELLED</code></td><td>Storniert</td></tr>
+            <tr><td><code>REFUNDED</code></td><td>Erstattet</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Positionsstatus</h3>
+    <table>
+        <thead>
+            <tr><th>Status</th><th>Bedeutung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>OPEN</code></td><td>Offen – noch nicht bezahlt</td></tr>
+            <tr><td><code>PAID</code></td><td>Bezahlt</td></tr>
+            <tr><td><code>CANCELLED</code></td><td>Storniert</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Stornierung</h3>
+    <p>Die Stornierung einer Bestellposition erfordert die Angabe von Artikel-IDs und einer Begründung. Stornierungen werden in der <code>CancellationTable</code> protokolliert und mit der TSE verknüpft.</p>
+    <p>Wer die Berechtigung <em>Position stornieren</em> (<code>ORDER_ITEM_CANCEL</code>) hält oder sie per Manager-PIN
+    geliehen hat, storniert sofort. Alle anderen lösen eine <strong>Genehmigungsanfrage</strong> aus: Die Stornierung
+    wird erst ausgeführt, wenn ein Manager sie bestätigt.</p>
+    <p><strong>Grund (Pflicht):</strong> Die Kasse verlangt für jede Stornierung einen Grund. Er wird per Antippen gewählt
+    &ndash; <em>Falscher Artikel erfasst</em>, <em>Gast hat es sich anders überlegt</em>, <em>Küchenfehler</em>,
+    <em>Nicht vorrätig</em>, <em>Doppelt erfasst</em> &ndash; oder unter <em>Sonstiges</em> frei eingegeben. Gespeichert wird immer
+    der deutsche Text, unabhängig von der Sprache der Kasse; bei <em>Sonstiges</em> der eingegebene Text (höchstens 500 Zeichen).
+    Ohne Grund lehnt auch der Server die Anfrage ab (400).</p>
+
+    <div class="alert alert-info">
+        <strong>Hinweis:</strong> Jede Stornierung wird im Prüfprotokoll festgehalten und ist für die steuerliche Nachvollziehbarkeit nicht löschbar.
+    </div>
+
+    <h3>Transfer</h3>
+    <p>Bestellpositionen können zwischen Tischen verschoben werden. Dazu werden die gewünschten Artikel-IDs sowie der Zieltisch angegeben.
+    Wie bei der Stornierung wird sofort ausgeführt, wer die Berechtigung <em>Tischsitzung übersteuern</em>
+    (<code>TABLE_SESSION_OVERRIDE</code>) hält oder geliehen hat; sonst entsteht eine Genehmigungsanfrage. Ein freier
+    Zieltisch wird durch den Transfer geöffnet.</p>
+    <p><strong>Grund (Pflicht):</strong> Auch für das Übertragen von Positionen wird ein Grund gewählt:
+    <em>Auf richtigen Tisch verschoben</em>, <em>Rechnung getrennt / getrennte Zahlung</em>, <em>Gast hat Platz gewechselt</em>,
+    <em>Kellnerwechsel</em> oder <em>Sonstiges</em> mit Freitext. Der Grund wird beim Transfer gespeichert
+    (<code>item_transfer.reason</code>, bei älteren Transfers leer) und steht in der Genehmigungsanfrage und im Prüfprotokoll.
+    Ohne Grund antwortet der Server mit 400.</p>
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-04-tischverwaltung.html">&larr; Vorheriges: Tischverwaltung</a>
+    <a href="kap-06-abrechnung.html">Nächstes: Abrechnung &amp; Bezahlung &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

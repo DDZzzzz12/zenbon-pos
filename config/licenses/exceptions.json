@@ -1,0 +1,53 @@
+{
+  "_comment": [
+    "Documented exceptions to config/licenses/allowed-licenses.json. Each entry lets a dependency whose",
+    "license is NOT on the allowlist ship anyway, but only in the listed scopes: 'server' (pos-server.jar,",
+    "including the /admin and /pos browser bundles), 'apk' (the Android client), 'deb' (the Linux desktop",
+    "client) or 'private-only'. A matching dependency that also reaches another scope still fails.",
+    "'dependency' is 'group:name' (maven) or 'npm:name', and may use * as a wildcard. Every entry needs a",
+    "reason, an owner and a date; an entry that matches nothing is reported as stale and fails the check,",
+    "so this file cannot quietly outlive the dependency it was written for. Process: docs/claude/deployment.md."
+  ],
+  "exceptions": [
+    {
+      "dependency": "com.google.android.gms:play-services-mlkit-document-scanner",
+      "license": "ML Kit Terms of Service (proprietary, Google)",
+      "reason": "The Android client's document scanner (Google ML Kit document scanning). QR scanning via qr-kit (network.chaintech) uses Google ML Kit barcode scanning, and the document scanner uses ML Kit document scanning; proprietary Google terms; accepted by the owner 2026-10-09; replacement with an open-source scanner, e.g. ZXing (already a dependency), tracked as one follow-up covering both scanners.",
+      "scope": [
+        "apk"
+      ],
+      "owner": "dz",
+      "date": "2026-10-09"
+    },
+    {
+      "dependency": "com.google.android.gms:play-services-*",
+      "license": "Android Software Development Kit License / ML Kit Terms of Service (proprietary, Google)",
+      "reason": "Google Play services runtime (base, basement, tasks, mlkit-barcode-scanning) required by both ML Kit scanners. QR scanning via qr-kit (network.chaintech) uses Google ML Kit barcode scanning, and the document scanner uses ML Kit document scanning; proprietary Google terms; accepted by the owner 2026-10-09; replacement with an open-source scanner, e.g. ZXing (already a dependency), tracked as one follow-up covering both scanners.",
+      "scope": [
+        "apk"
+      ],
+      "owner": "dz",
+      "date": "2026-10-09"
+    },
+    {
+      "dependency": "com.google.mlkit:*",
+      "license": "ML Kit Terms of Service (proprietary, Google)",
+      "reason": "ML Kit common/vision libraries and barcode-scanning(-common); barcode-scanning arrives through network.chaintech:qr-kit-android, the till's QR scanner. QR scanning via qr-kit (network.chaintech) uses Google ML Kit barcode scanning, and the document scanner uses ML Kit document scanning; proprietary Google terms; accepted by the owner 2026-10-09; replacement with an open-source scanner, e.g. ZXing (already a dependency), tracked as one follow-up covering both scanners.",
+      "scope": [
+        "apk"
+      ],
+      "owner": "dz",
+      "date": "2026-10-09"
+    },
+    {
+      "dependency": "com.google.android.odml:image",
+      "license": "Android Software Development Kit License (proprietary, Google)",
+      "reason": "On-device ML image wrapper pulled in by ML Kit vision-common. QR scanning via qr-kit (network.chaintech) uses Google ML Kit barcode scanning, and the document scanner uses ML Kit document scanning; proprietary Google terms; accepted by the owner 2026-10-09; replacement with an open-source scanner, e.g. ZXing (already a dependency), tracked as one follow-up covering both scanners.",
+      "scope": [
+        "apk"
+      ],
+      "owner": "dz",
+      "date": "2026-10-09"
+    }
+  ]
+}

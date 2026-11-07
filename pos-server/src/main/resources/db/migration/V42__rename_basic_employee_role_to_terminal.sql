@@ -1,0 +1,2 @@
+-- Rename BASIC_EMPLOYEE role to TERMINAL
+UPDATE employees SET role = 'TERMINAL' WHERE role = 'BASIC_EMPLOYEE';

@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 17 – Softwareaktualisierung – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 17 &ndash; Softwareaktualisierung</h2>
+
+    <p>
+        Ihre Kasse kann sich selbst auf neue Programmversionen hinweisen und diese vorbereiten.
+        Jede Nacht um <strong>03:00&nbsp;Uhr</strong> schaut der Server nach, ob eine neuere Version
+        ver&ouml;ffentlicht wurde (geplante Aufgabe <em>Update Check</em>). Bedient wird das Ganze im
+        <strong>Web-Admin</strong> unter <strong>System &rarr; Software-Update</strong>.
+    </p>
+
+    <div class="alert alert-info">
+        <strong>Nachsehen ist eingeschaltet, Installieren nicht.</strong> Die n&auml;chtliche
+        Pr&uuml;fung l&auml;uft ab Werk &ndash; sie liest nur nach, was ver&ouml;ffentlicht wurde,
+        und legt die Datei gepr&uuml;ft auf der Festplatte bereit. <em>Installiert</em> wird nichts,
+        solange Sie den Schalter <strong>Updates automatisch installieren</strong> nicht selbst
+        einschalten. So erfahren Sie von jeder neuen Version, ohne dass sich Ihre Kasse
+        &uuml;ber Nacht ungefragt ver&auml;ndert.
+    </div>
+
+    <h3>Die drei Schritte</h3>
+    <table>
+        <thead>
+            <tr><th>Schritt</th><th>Was passiert</th><th>Wer l&ouml;st ihn aus</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Pr&uuml;fen</strong></td>
+                <td>Der Server fragt nach der neuesten ver&ouml;ffentlichten Version. Es wird nichts heruntergeladen.</td>
+                <td>Jede Nacht um 03:00&nbsp;Uhr &ndash; oder per Schaltfl&auml;che <em>Jetzt pr&uuml;fen</em>.</td>
+            </tr>
+            <tr>
+                <td><strong>Bereitlegen</strong></td>
+                <td>Die neue Version wird heruntergeladen und ihre Pr&uuml;fsumme kontrolliert. Stimmt sie nicht, wird die Datei verworfen.
+                    W&auml;hrend des Ladens zeigt die Karte einen <strong>Fortschrittsbalken</strong> mit den geladenen Megabyte,
+                    erst f&uuml;r das Server-Update, danach f&uuml;r die Kassen-App (Android). Der Balken erscheint auch dann, wenn
+                    der Download in der Nacht oder von einer anderen Seite aus gestartet wurde, und er endet von selbst &ndash;
+                    danach wird <em>Jetzt installieren</em> freigegeben. Ist die Gesamtgr&ouml;&szlig;e nicht bekannt, l&auml;uft der Balken ohne Prozentangabe.</td>
+                <td>Automatisch im Anschluss an die n&auml;chtliche Pr&uuml;fung &ndash; oder per <em>Jetzt herunterladen</em>.</td>
+            </tr>
+            <tr>
+                <td><strong>Installieren</strong></td>
+                <td>Die bereitliegende Version wird eingespielt. Der Server startet dabei neu.</td>
+                <td>Sie selbst per <em>Jetzt installieren</em> &ndash; nur mit eingeschaltetem
+                    <em>Updates automatisch installieren</em> auch nachts.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        Die Karte oben auf der Seite sagt Ihnen jederzeit in einem Satz, wo Sie gerade stehen:
+        aktuell, neue Version verf&uuml;gbar, bereitgelegt, oder es gibt ein Problem. Darunter
+        stehen die laufende Version, die verf&uuml;gbare Version und der Zeitpunkt der letzten
+        Pr&uuml;fung.
+    </p>
+
+    <!-- ===== DOWNLOAD-UMFANG ===== -->
+    <h3 id="kap-17-download">Wie viel wird heruntergeladen?</h3>
+
+    <p>
+        Beim Bereitlegen wird in der Regel nur ein Bruchteil der neuen Programmdatei
+        &uuml;bertragen. Der Server setzt die neue Datei gr&ouml;&szlig;tenteils aus der bereits
+        installierten zusammen und l&auml;dt nur die Teile nach, die sich tats&auml;chlich
+        ge&auml;ndert haben.
+    </p>
+
+    <p>
+        Bevor die Datei bereitgelegt wird, pr&uuml;ft der Server die zusammengesetzte Datei gegen
+        die ver&ouml;ffentlichte Pr&uuml;fsumme. Nur wenn diese exakt stimmt, wird sie
+        &uuml;bernommen.
+    </p>
+
+    <p>
+        Klappt einer dieser Schritte nicht &ndash; etwa weil die Verbindung den teilweisen Abruf
+        nicht unterst&uuml;tzt &ndash; l&auml;dt der Server automatisch die vollst&auml;ndige
+        Programmdatei und legt sie wie bisher bereit. Sie m&uuml;ssen dazu nichts tun; das
+        Bereitlegen dauert dann nur l&auml;nger.
+    </p>
+
+    <p>
+        Am ben&ouml;tigten Speicherplatz &auml;ndert das <strong>nichts</strong>: Auch bei einem
+        kleinen Download wird am Ende eine vollst&auml;ndige Programmdatei geschrieben &ndash;
+        dazu die Sicherungskopie der bisherigen Version und die Datenbanksicherung.
+    </p>
+
+    <!-- ===== KANAL & TOKEN ===== -->
+    <h3 id="kap-17-kanal">Kanal und Zugangstoken</h3>
+
+    <p>
+        Es gibt zwei Bezugsquellen f&uuml;r neue Versionen. Welche f&uuml;r Sie die richtige ist,
+        h&auml;ngt davon ab, wie Ihre Kasse geliefert wurde &ndash; im Zweifel fragen Sie Ihren
+        Betreuer, bevor Sie hier etwas umstellen.
+    </p>
+
+    <table>
+        <thead>
+            <tr><th>Kanal</th><th>Programmarchiv</th><th>F&uuml;r wen</th><th>Zugangstoken</th><th>TSE-Baustein enthalten</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>&Ouml;ffentlich</strong></td>
+                <td><code>DDZzzzz12/zenbon-pos</code></td>
+                <td>Die frei verf&uuml;gbare Ausgabe des Programms.</td>
+                <td>Wird nicht ben&ouml;tigt.</td>
+                <td><strong>Nein</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Intern</strong></td>
+                <td><code>DDZzzzz12/POS-KMP</code></td>
+                <td>Die interne Ausgabe f&uuml;r betreute Installationen.</td>
+                <td><strong>Erforderlich</strong> &ndash; ohne Token findet der Server nichts.</td>
+                <td>Ja</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-warning">
+        <strong>Die &ouml;ffentliche Ausgabe enth&auml;lt den TSE-Baustein nicht.</strong> Der
+        Hersteller-Baustein Ihrer technischen Sicherheitseinrichtung darf nicht frei weitergegeben
+        werden und fehlt dort deshalb. Er wird bei einer Aktualisierung <em>nie</em> &uuml;berschrieben
+        &ndash; eingespielt wird ausschlie&szlig;lich das Programm selbst. Wenn Sie eine betreute
+        Installation haben, bleiben Sie trotzdem auf dem <strong>internen</strong> Kanal: nur dort
+        bekommen Sie die Ausgabe, die zu Ihrer Einrichtung geh&ouml;rt.
+    </div>
+
+    <h4>Ein Zugangstoken f&uuml;r den internen Kanal beschaffen</h4>
+
+    <p>
+        Das Token ist eine Art Ausweis, mit dem sich Ihre Kasse bei GitHub ausweist, um die interne
+        Ausgabe lesen zu d&uuml;rfen. Sie erstellen es einmalig im GitHub-Konto, das Zugriff auf das
+        interne Programmarchiv hat:
+    </p>
+
+    <ol>
+        <li>Bei GitHub anmelden und &uuml;ber das eigene Profilbild
+            <em>Settings &rarr; Developer settings &rarr; Personal access tokens &rarr;
+            Fine-grained tokens</em> &ouml;ffnen.</li>
+        <li><em>Generate new token</em> w&auml;hlen und einen Namen vergeben, an dem Sie sp&auml;ter
+            erkennen, wozu es geh&ouml;rt &ndash; z.&nbsp;B. den Namen Ihres Betriebs.</li>
+        <li>Als Geltungsbereich <strong>nur das eine Programmarchiv</strong> ausw&auml;hlen, nicht
+            alle Archive des Kontos.</li>
+        <li>Als Berechtigung ausschlie&szlig;lich <strong>Contents: Read</strong> vergeben. Mehr
+            braucht die Kasse nicht, und mehr sollte sie auch nicht bekommen.</li>
+        <li>Eine Laufzeit w&auml;hlen und das Token erzeugen. Es wird <strong>nur ein einziges
+            Mal</strong> angezeigt.</li>
+        <li>Im Web-Admin unter <em>Software-Update &rarr; GitHub-Token</em> in das Feld
+            <em>Neues Token</em> einf&uuml;gen und <em>Token speichern</em> anklicken.</li>
+    </ol>
+
+    <div class="alert alert-warning">
+        <strong>Ein Token l&auml;uft ab.</strong> Notieren Sie sich das Ablaufdatum. Danach kann
+        Ihre Kasse die interne Ausgabe nicht mehr lesen, und Sie sehen auf der Seite die Meldung,
+        dass der Zugang abgelehnt wurde. Das ist ausdr&uuml;cklich <em>nicht</em> dasselbe wie
+        &bdquo;alles aktuell&ldquo;: ein abgelaufenes Token w&uuml;rde sonst jahrelang so aussehen,
+        als g&auml;be es keine neuen Versionen. Legen Sie in diesem Fall einfach ein neues Token an
+        und tragen Sie es ein.
+    </div>
+
+    <p>
+        Das gespeicherte Token wird nie wieder angezeigt &ndash; die Seite zeigt nur die letzten
+        vier Zeichen, damit Sie erkennen, <em>welches</em> Token hinterlegt ist. In der Datenbank
+        liegt es verschl&uuml;sselt.
+    </p>
+
+    <!-- ===== BLOCKIERT ===== -->
+    <h3 id="kap-17-blockiert">Wenn die Installation abgelehnt wird</h3>
+
+    <p>
+        Vor jeder Installation pr&uuml;ft der Server, ob der Betrieb sie gerade vertr&auml;gt.
+        Ist das nicht der Fall, passiert nichts &ndash; und die Seite nennt Ihnen den Grund. Das
+        gilt f&uuml;r beide Wege: f&uuml;r Ihren Klick auf <em>Jetzt installieren</em> ebenso wie
+        f&uuml;r den n&auml;chtlichen Versuch. Nach einer abgelehnten Nacht steht am n&auml;chsten
+        Morgen <strong>&bdquo;N&auml;chtliche Installation abgelehnt&ldquo;</strong> auf der Karte,
+        mit dem jeweiligen Grund. Solange sich daran nichts &auml;ndert, wird auch die n&auml;chste
+        Nacht abgelehnt.
+    </p>
+
+    <table>
+        <thead>
+            <tr><th>Grund</th><th>Was dahintersteckt</th><th>Was zu tun ist</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Offene Gesch&auml;ftsvorf&auml;lle</strong></td>
+                <td>Seit dem letzten Kassenabschluss sind noch Rechnungen oder Eintr&auml;ge im Kassenbuch einer fiskalen Kasse (Ladenkasse) offen. Nicht-fiskale B&uuml;cher, z.&nbsp;B. ein Tresor, z&auml;hlen nicht.</td>
+                <td>Tagesabschluss (Z-Bon) machen.</td>
+            </tr>
+            <tr>
+                <td><strong>Offener Tisch</strong></td>
+                <td>Mindestens ein Tisch ist noch nicht abgerechnet.</td>
+                <td>Alle Tische abrechnen oder stornieren.</td>
+            </tr>
+            <tr>
+                <td><strong>Offener TSE-Vorgang</strong></td>
+                <td>Die technische Sicherheitseinrichtung hat noch eine nicht abgeschlossene Transaktion.</td>
+                <td>Den zugeh&ouml;rigen Vorgang an der Kasse beenden. Bleibt es dabei, siehe
+                    <a href="kap-14-compliance.html">Kapitel 14 &ndash; Compliance</a>.</td>
+            </tr>
+            <tr>
+                <td><strong>Ein anderer Auftrag l&auml;uft</strong></td>
+                <td>Zeitgleich l&auml;uft z.&nbsp;B. eine Datensicherung oder ein Export.</td>
+                <td>Nichts &ndash; einfach etwas sp&auml;ter erneut versuchen.</td>
+            </tr>
+            <tr>
+                <td><strong>Zu wenig Speicherplatz</strong></td>
+                <td>Auf der Festplatte ist nicht genug Platz f&uuml;r Programm und Sicherung.</td>
+                <td>Platz schaffen &ndash; alte Sicherungen und Exporte auslagern &ndash; und es dann
+                    erneut versuchen.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <strong>Die bereitgelegte Datei bleibt liegen.</strong> Eine abgelehnte Installation wirft
+        den Download nicht weg. Ein Betrieb, der abends sp&auml;t schlie&szlig;t, l&auml;dt also
+        nicht jede Nacht dieselben Daten erneut herunter &ndash; sobald der Grund wegf&auml;llt,
+        kann sofort installiert werden.
+    </div>
+
+    <!-- ===== INSTALLATION ===== -->
+    <h3 id="kap-17-installation">Was bei der Installation passiert</h3>
+
+    <ol>
+        <li>Die bereitgelegte Datei wird ge&ouml;ffnet und das neue Programm entnommen.</li>
+        <li>Es wird eine <strong>Sicherung der Datenbank</strong> angelegt &ndash; immer, ohne
+            Ausnahme. L&auml;sst sie sich nicht schreiben, bricht die Installation ab und es wird
+            nichts ver&auml;ndert.</li>
+        <li>Das alte Programm wird beiseitegelegt, das neue eingesetzt.</li>
+        <li>Der Server <strong>startet neu</strong>. Das dauert typischerweise unter einer Minute;
+            in dieser Zeit sind Kassen und Web-Admin nicht erreichbar.</li>
+        <li>Nach dem Neustart pr&uuml;ft der Server selbst, ob die neue Version sauber
+            hochgekommen ist, und vermerkt das Ergebnis.</li>
+    </ol>
+
+    <div class="alert alert-warning">
+        <strong>Der Neustart ist der Grund f&uuml;r die ganze Vorsicht.</strong> Deshalb wird
+        w&auml;hrend des laufenden Betriebs nicht installiert, deshalb l&auml;uft die
+        n&auml;chtliche Automatik um 03:00&nbsp;Uhr, und deshalb wird bei offenen Tischen oder
+        offenem Kassenbuch abgelehnt. Installieren Sie von Hand daher am besten nach dem
+        Tagesabschluss und nicht mitten im Service.
+    </div>
+
+    <p>
+        Bricht die Verbindung genau in dem Moment ab, in dem Sie <em>Jetzt installieren</em>
+        gedr&uuml;ckt haben, ist das <strong>kein Fehler</strong>: der Server beendet sich in
+        genau diesem Augenblick. Warten Sie den Neustart ab und laden Sie die Seite neu.
+    </p>
+
+    <!-- ===== HTTPS ===== -->
+    <h3 id="kap-17-https">Verschl&uuml;sselte Verbindung (HTTPS)</h3>
+
+    <p>
+        Kassen, Bestellstationen und Browser erreichen den Server nur &uuml;ber <strong>HTTPS</strong>.
+        Davor l&auml;uft <strong>Caddy</strong> (ein vorgeschaltetes Programm, das die Verschl&uuml;sselung
+        &uuml;bernimmt), das das Installationsskript mit einrichtet. Der
+        POS-Server selbst lauscht nur noch auf dem Serverrechner (<code>127.0.0.1:8080</code> bzw. dem im
+        Einrichtungsassistenten gew&auml;hlten Port).
+    </p>
+
+    <h4>Ablauf</h4>
+    <ol class="steps">
+        <li>Das vollst&auml;ndige Server-Paket dieser Version herunterladen und entpacken.</li>
+        <li>Nach dem Tagesabschluss das Installationsskript auf dem Server ausf&uuml;hren und die Frage
+            <code>Start now? (y/N)</code> mit <code>y</code> beantworten.</li>
+        <li>Das Stammzertifikat auf alle Ger&auml;te verteilen und dabei den Fingerabdruck
+            vergleichen.</li>
+        <li>Die Kassen aktualisieren.</li>
+        <li>An jeder Kasse die neue <code>https://</code>-Adresse eintragen. Die vorbelegte Adresse
+            <strong>vor dem Speichern</strong> pr&uuml;fen: die IP-Adresse ohne Port oder einen lokalen Namen (falls eingerichtet)
+            verwenden (siehe <a href="kap-16-fehlerbehebung.html#kap-16-https">Kapitel&nbsp;16</a>). Bereits gekoppelte Android-/Linux-Kassen m&uuml;ssen dabei nicht neu gekoppelt werden: Im selben Bildschirm
+            (&bdquo;Serveradresse muss HTTPS verwenden&ldquo;) den <strong>Zertifikat-Pr&uuml;fcode</strong> aus dem Back Office eingeben (Terminals &rsaquo; Kopplungscode erzeugen); die Kasse
+            l&auml;dt das Zertifikat, pr&uuml;ft es und beh&auml;lt ihre Kopplung. Zeigt eine Kasse sp&auml;ter &bdquo;Server nicht erreichbar&ldquo; mit dem Feld
+            &bdquo;Zertifikat-Pr&uuml;fcode&ldquo;, gen&uuml;gt dort dieselbe Eingabe (&bdquo;Zertifikat vertrauen&ldquo;).</li>
+    </ol>
+
+    <div class="alert alert-warning">
+        <strong>Reihenfolge beim Update auf diese Version:</strong> zuerst das Installationsskript auf
+        dem Server erneut ausf&uuml;hren, <em>danach</em> die Kassen aktualisieren. Die automatische
+        Aktualisierung tauscht nur das Serverprogramm und kann Caddy nicht einrichten. Laden Sie dazu das
+        vollst&auml;ndige Server-Paket dieser Version herunter und starten Sie das Skript aus dem entpackten
+        Ordner (er enth&auml;lt den Unterordner <code>caddy</code>). Daten, Schl&uuml;ssel und Zertifikate
+        bleiben dabei erhalten. Kassen dieser
+        Version akzeptieren keine <code>http://</code>-Adresse mehr: sie zeigen
+        &bdquo;Serveradresse muss HTTPS verwenden&ldquo; und erreichen den Server erst, wenn Caddy dort l&auml;uft.
+        <br><br>
+        <strong>Zwischen beiden Schritten arbeitet keine Kasse.</strong> Sobald das Skript gelaufen ist,
+        erreichen noch nicht aktualisierte Kassen den Server nicht mehr. F&uuml;hren Sie das Skript deshalb
+        nach dem Tagesabschluss aus und aktualisieren Sie die Kassen direkt danach.
+    </div>
+
+    <div class="alert alert-info">
+        <strong>Port angeben, falls ge&auml;ndert.</strong> Caddy leitet an <code>127.0.0.1:&lt;Port&gt;</code>
+        weiter. Haben Sie im Einrichtungsassistenten einen anderen Port als den Standard gew&auml;hlt, geben
+        Sie genau diesen dem Skript mit &ndash; als zweites Argument nach dem
+        Installationsverzeichnis. Die Ports 80 und 443 sind daf&uuml;r
+        nicht zul&auml;ssig, sie belegt Caddy.
+    </div>
+    <p>Beispiel f&uuml;r Port 8090:</p>
+    <pre><code>sudo ./install-service.sh /opt/pos-server 8090</code></pre>
+
+    <h4>Zertifikate (lokale Zertifizierungsstelle)</h4>
+    <pre><code>sudo ./install-service.sh</code></pre>
+    <p>
+        Caddy stellt die Zertifikate selbst aus &ndash; f&uuml;r <code>https://localhost</code>, die aktuellen
+        IPv4-Adressen des Servers, <code>https://&lt;Rechnername&gt;.local</code> und die lokalen Namen (siehe
+        <a href="#kap-17-lokaler-name">Lokaler Name</a>). Der Server braucht daf&uuml;r keinen Internetzugang. Das Skript legt das
+        Stammzertifikat als <code>pos-root-ca.crt</code> ab (Ablageort siehe Tabelle unten) und zeigt seinen
+        SHA-256-Fingerabdruck.
+    </p>
+    <p>Beantworten Sie am Ende die Frage <code>Start now? (y/N)</code> mit <code>y</code>. Erst beim ersten Start erzeugt Caddy das Stammzertifikat; sonst fehlen Datei und Fingerabdruck, bis Sie das Skript erneut ausf&uuml;hren und mit <code>y</code> antworten.</p>
+    <p>Die Adressen f&uuml;r die Kassen stehen in der Zeile <code>Local-CA sites:</code> der Skriptausgabe (z.&nbsp;B. <code>https://192.168.1.10</code>). Die IP-Adresse zeigt auch <code>hostname -I</code>. Auf Android-Kassen die IP-Adresse oder einen lokalen Namen statt des <code>.local</code>-Namens verwenden.</p>
+    <p>
+        <strong>Download-Seite:</strong> Im Browser (Adressleiste, ohne <code>https</code>) <code>http://&lt;Server-IP&gt;/ca</code> &ouml;ffnen. Die Seite
+        l&auml;dt <code>pos-root-ca.crt</code> herunter und zeigt den SHA-256-Fingerabdruck; vergleichen Sie ihn mit der Ausgabe des Installationsskripts,
+        bevor Sie das Zertifikat installieren. Die Seite gibt es nur auf Port&nbsp;80; alles andere dort wird auf HTTPS umgeleitet.
+        Alternativ kopieren Sie <code>pos-root-ca.crt</code> per USB-Stick, Netzwerkfreigabe oder E-Mail auf jedes Ger&auml;t.
+        Installieren Sie es dort einmalig als vertrauensw&uuml;rdig &ndash; auf <strong>jedem</strong> Ger&auml;t &ndash;
+        und vergleichen Sie dabei den Fingerabdruck (siehe unten):
+    </p>
+    <ul>
+        <li><strong>Linux-Kasse:</strong> <code>sudo cp pos-root-ca.crt /usr/local/share/ca-certificates/ &amp;&amp; sudo update-ca-certificates</code>. Danach die Kassen-App neu starten.</li>
+        <li><strong>Android:</strong> <em>Einstellungen &rsaquo; Sicherheit &rsaquo; Verschl&uuml;sselung und
+            Anmeldedaten &rsaquo; Zertifikat installieren &rsaquo; CA-Zertifikat</em>. Unter Android&nbsp;12&ndash;15
+            (Pixel): <em>Sicherheit &amp; Datenschutz &rsaquo; Weitere Sicherheitseinstellungen &rsaquo;
+            Verschl&uuml;sselung und Anmeldedaten &rsaquo; &hellip;</em>. Bei Samsung und anderen Herstellern
+            weicht der Weg ab &ndash; alternativ in den Einstellungen nach &bdquo;CA-Zertifikat&ldquo; suchen.
+            Der anschlie&szlig;ende Hinweis &bdquo;Netzwerk wird m&ouml;glicherweise &uuml;berwacht&ldquo; ist
+            normal. Danach die Kassen-App neu starten.</li>
+        <li><strong>Browser f&uuml;r den Web-Admin:</strong> Firefox (und Chrome unter Linux) im Browser importieren &ndash; in Firefox unter
+            <em>Einstellungen &rsaquo; Datenschutz &amp; Sicherheit &rsaquo; Zertifikate anzeigen &rsaquo;
+            Zertifizierungsstellen &rsaquo; Importieren</em>.</li>
+    </ul>
+    <p>Fingerabdruck pr&uuml;fen (muss mit der Ausgabe des Installationsskripts &uuml;bereinstimmen): <code>openssl x509 -in pos-root-ca.crt -noout -fingerprint -sha256</code> (nur den Teil nach <code>=</code> vergleichen). Unter Android wird der SHA-256-Fingerabdruck nach dem Import in den Zertifikatsdetails angezeigt (<em>Vertrauensw&uuml;rdige Anmeldedaten &rsaquo; Nutzer</em>), sofern das Ger&auml;t ihn anzeigt.</p>
+
+    <h4 id="kap-17-pruefcode">Kassen ohne Zertifikat-Installation (Pr&uuml;fcode)</h4>
+    <p>
+        Android- und Linux-Kassen m&uuml;ssen das Stammzertifikat <strong>nicht</strong> von Hand installieren. Beim Koppeln
+        pr&uuml;fen sie es selbst: Im Back Office (Terminals &rsaquo; Kopplungscode erzeugen) zeigt der Kopplungsdialog
+        neben dem QR-Code einen <strong>Zertifikat-Pr&uuml;fcode</strong> (z.&nbsp;B. <code>K7QF-3MXA-9TD2-P8WC-4HNB-6R</code>).
+    </p>
+    <ul>
+        <li><strong>Mit Kamera:</strong> den QR-Code scannen. Er enth&auml;lt Serveradresse, Kopplungscode und Pr&uuml;fcode; die Kasse
+            l&auml;dt das Stammzertifikat vom Server, vergleicht es mit dem Pr&uuml;fcode und koppelt erst danach.</li>
+        <li><strong>Ohne Kamera:</strong> die <code>https://</code>-Adresse eintragen und im Kopplungsbildschirm Kopplungscode und
+            Pr&uuml;fcode eintippen. Der Pr&uuml;fcode ist unabh&auml;ngig von Gro&szlig;-/Kleinschreibung und Bindestrichen.</li>
+    </ul>
+    <p>
+        Eine neu eingerichtete Kasse, die dem Zertifikat noch nicht vertraut, meldet nicht &bdquo;Server nicht erreichbar&ldquo;, sondern
+        zeigt nach Eingabe der <code>https://</code>-Adresse direkt den Kopplungsbildschirm &ndash; dort Kopplungscode und Pr&uuml;fcode
+        eingeben (oder den QR-Code scannen). Ist der Server wirklich nicht erreichbar, bleibt es bei der Meldung &bdquo;Server nicht erreichbar&ldquo;.
+    </p>
+    <p>
+        Passt das heruntergeladene Zertifikat nicht zum Pr&uuml;fcode, bricht die Kasse ab und sendet den Kopplungscode nicht.
+        Der Pr&uuml;fcode erscheint nur, wenn der Server hinter Caddy mit lokaler Zertifizierungsstelle l&auml;uft
+        (Datei <code>/etc/pos-caddy/pos-root-ca.crt</code> vorhanden); ohne ihn koppelt die Kasse wie bisher und verlangt, dass das
+        Zertifikat auf dem Ger&auml;t installiert ist. Erzeugt der Server eine <em>neue</em> Zertifizierungsstelle (z.&nbsp;B. nach
+        L&ouml;schen von <code>/var/lib/pos-caddy</code>), m&uuml;ssen die Kassen mit dem neuen Pr&uuml;fcode neu gekoppelt werden.
+        <strong>Browser</strong> (Web-Admin, Browser-Kasse) sind davon nicht betroffen &ndash; sie brauchen weiterhin das installierte Zertifikat.
+    </p>
+
+    <div class="alert alert-warning">
+        <strong>Feste IP-Adresse und richtige Uhrzeit.</strong> Die Zertifikate enthalten nur die
+        IP-Adressen, die der Server bei der Installation hatte. Geben Sie ihm eine feste IP-Adresse oder eine
+        DHCP-Reservierung (im Router fest zugewiesene Adresse). &Auml;ndert sich die IP-Adresse des Servers, f&uuml;hren Sie das
+        Installationsskript erneut aus. Das Stammzertifikat bleibt dabei gleich &ndash; die Ger&auml;te m&uuml;ssen
+        es nicht neu installieren. Kassen, die bereits die alte IP-Adresse gespeichert haben, zeigen danach
+        &bdquo;Server nicht erreichbar&ldquo; und lassen sich an der Kasse derzeit nicht umstellen &ndash; geben Sie
+        dem Server in diesem Fall seine bisherige IP-Adresse zur&uuml;ck (z.&nbsp;B. per DHCP-Reservierung) und
+        f&uuml;hren Sie das Skript erneut aus. Richten Sie neue Kassen deshalb m&ouml;glichst mit einem
+        <a href="#kap-17-lokaler-name">lokalen Namen</a> statt der IP-Adresse ein. Au&szlig;erdem sind diese Zertifikate nur wenige Stunden g&uuml;ltig und
+        werden laufend automatisch erneuert &ndash; Ger&auml;te mit falsch gehender Uhr lehnen sie ab. Lassen Sie
+        die Uhrzeit auf allen Ger&auml;ten automatisch stellen.
+    <br>
+        Das Installationsskript pr&uuml;ft die Systemuhr und warnt (ohne abzubrechen), wenn sie nicht mit einem Zeitserver abgeglichen ist oder vor dem
+        Erstellungsdatum des Pakets liegt. Zertifikate, die auf einer falschen Uhr erstellt wurden, lehnen Ger&auml;te mit richtiger Uhr ab. Stellen Sie die Zeit zuerst
+        richtig (<code>sudo timedatectl set-ntp true</code>) und f&uuml;hren Sie das Skript erneut aus. Wurde die Zertifizierungsstelle schon mit falscher Uhr
+        erzeugt, l&ouml;schen Sie <code>/var/lib/pos-caddy</code> und starten Sie das Skript neu; alle Kassen m&uuml;ssen dann mit dem neuen Pr&uuml;fcode neu gekoppelt werden.
+    </div>
+
+    <h4 id="kap-17-lokaler-name">Lokaler Name (optional)</h4>
+    <p>
+        Zus&auml;tzlich kann das Zertifikat lokale Namen enthalten, z.&nbsp;B. <code>kasse.fritz.box</code>. Die
+        Kassen verwenden dann <code>https://kasse.fritz.box</code> statt einer IP-Adresse. Die Adresse an der
+        Kasse enth&auml;lt keinen Port. Haben Sie im Einrichtungsassistenten einen anderen Port gew&auml;hlt, geben
+        Sie ihn dem Skript wie oben beschrieben zus&auml;tzlich mit, z.&nbsp;B.
+        <code>sudo ./install-service.sh /opt/pos-server 8090 --local-name kasse.fritz.box</code>.
+    </p>
+    <p>Den Schalter f&uuml;r jeden Namen wiederholen:</p>
+    <pre><code>sudo ./install-service.sh --local-name kasse.fritz.box --local-name pos.lan</code></pre>
+    <ul>
+        <li><strong>Gespeichert:</strong> Das Skript merkt sich die Namen (Ablageort siehe Tabelle unten). Ein
+            erneuter Aufruf ohne <code>--local-name</code> beh&auml;lt sie bei. Ein
+            Aufruf mit dem Schalter ersetzt die gespeicherte Liste vollst&auml;ndig &ndash; geben Sie also alle
+            Namen an, die erhalten bleiben sollen. <code>--clear-local-names</code> entfernt alle Namen und l&auml;sst sich nicht mit
+            <code>--local-name</code> kombinieren.</li>
+        <li><strong>Erlaubte Namen:</strong> einfache Rechnernamen aus Buchstaben (a&ndash;z, ohne Umlaute), Ziffern,
+            Bindestrichen und Punkten, z.&nbsp;B. <code>kasse.fritz.box</code> oder <code>pos.lan</code> &ndash; ohne
+            <code>https://</code>, Port oder Pfad. H&ouml;chstens 253&nbsp;Zeichen, jeder Teil zwischen zwei Punkten
+            h&ouml;chstens 63&nbsp;Zeichen und ohne Bindestrich am Anfang oder Ende. Gro&szlig;buchstaben werden
+            in Kleinbuchstaben umgewandelt. IP-Adressen und <code>localhost</code> lehnt das Skript ab; sie stehen ohnehin im
+            Zertifikat. Namen m&uuml;ssen mindestens einen Punkt enthalten (z.&nbsp;B. <code>kasse.fritz.box</code>,
+            nicht <code>kasse</code>) &ndash; einteilige Namen kann die Kassen-App &uuml;ber HTTPS nicht verwenden.
+            Namen auf <code>.local</code> werden abgelehnt: Diese l&ouml;st der Router nicht auf;
+            <code>&lt;Rechnername&gt;.local</code> nimmt das Skript ohnehin auf. Enth&auml;lt die gespeicherte Datei einen ung&uuml;ltigen Eintrag (z.&nbsp;B. nach einer
+            Bearbeitung von Hand), bricht ein erneuter Aufruf ab, bis Sie die Datei korrigieren oder die Namen
+            mit dem Schalter neu setzen.</li>
+        <li><strong>Der Router muss den Namen kennen:</strong> Das Skript tr&auml;gt den Namen nur in das
+            Zertifikat ein. Der DNS-Server des Routers (oder eines lokalen DNS-Servers) muss jeden Namen in die
+            IP-Adresse des Servers aufl&ouml;sen. Beispiel <strong>FRITZ!Box:</strong> Sie l&ouml;st f&uuml;r Ger&auml;te
+            in ihrem Heimnetz den Namen <code>&lt;Ger&auml;tename&gt;.fritz.box</code> auf &ndash; ma&szlig;geblich ist
+            der Name, der unter <em>Heimnetz &rsaquo; Netzwerk</em> angezeigt wird (dort l&auml;sst er sich auch
+            &auml;ndern). Wird der Server dort als <code>kasse</code> angezeigt, verwenden Sie
+            <code>kasse.fritz.box</code>. Am zuverl&auml;ssigsten ist das, wenn der Server seine Adresse per DHCP
+            von der FRITZ!Box bezieht (mit fester Zuweisung, siehe oben). Andere Router verwenden eine andere
+            Endung oder erwarten einen Eintrag von Hand. Pr&uuml;fen k&ouml;nnen Sie das an einem PC im Ladennetz
+            mit <code>nslookup kasse.fritz.box</code> &ndash; die Antwort muss die IP-Adresse des Servers
+            enthalten. Android-Ger&auml;te, bei denen <em>Privates DNS</em> auf einen festen Anbieter eingestellt
+            ist, l&ouml;sen lokale Namen nicht auf &ndash; stellen Sie dort <em>Automatisch</em> oder <em>Aus</em>
+            ein oder verwenden Sie die IP-Adresse.</li>
+        <li><strong>Vorteil:</strong> Das Zertifikat f&uuml;r den Namen h&auml;ngt nicht von der IP-Adresse ab.
+            &Auml;ndert sich die IP-Adresse des Servers, arbeiten Kassen, die den Namen verwenden, weiter, sobald
+            der Router den Namen auf die neue Adresse aufl&ouml;st &ndash; ohne erneuten Aufruf des Skripts. F&uuml;r
+            Ger&auml;te, die die IP-Adresse verwenden (z.&nbsp;B. den Browser am Admin-PC), f&uuml;hren Sie es
+            trotzdem erneut aus. Den Namen selbst sollten Sie danach nicht mehr &auml;ndern (auch nicht den
+            Ger&auml;tenamen im Router oder den Rechnernamen des Servers):
+            Kassen mit dem alten Namen lassen sich an der Kasse derzeit nicht umstellen.</li>
+    </ul>
+
+    <h4>Wo liegt was</h4>
+    <table>
+        <thead>
+            <tr><th></th><th>Ort</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Konfiguration und lokale Namen</td>
+                <td><code>/etc/pos-caddy/</code> (<code>Caddyfile</code>, <code>local-names</code>)</td>
+            </tr>
+            <tr>
+                <td>Programm</td>
+                <td><code>/usr/local/lib/pos-caddy/caddy</code></td>
+            </tr>
+            <tr>
+                <td>Stammzertifikat zum Verteilen</td>
+                <td><code>/etc/pos-caddy/pos-root-ca.crt</code></td>
+            </tr>
+            <tr>
+                <td>Zertifikate, lokale Zertifizierungsstelle</td>
+                <td><code>/var/lib/pos-caddy</code></td>
+            </tr>
+            <tr>
+                <td>Start</td>
+                <td>systemd-Dienst <code>pos-caddy</code></td>
+            </tr>
+            <tr>
+                <td>Protokoll</td>
+                <td><code>sudo journalctl -u pos-caddy</code></td>
+            </tr>
+            <tr>
+                <td>Firewall</td>
+                <td>ufw (nur wenn ufw aktiv ist): TCP 80 und 443 freigegeben, die alte Regel f&uuml;r den Server-Port entfernt</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        HTTP/3 wird nicht verwendet; UDP muss nicht freigegeben werden. Verbindungsprobleme:
+        siehe <a href="kap-16-fehlerbehebung.html#kap-16-https">Kapitel&nbsp;16 &ndash; HTTPS-Verbindung</a>.
+    </p>
+
+    <!-- ===== WIEDERHERSTELLUNG ===== -->
+    <h3 id="kap-17-notfall">Wenn eine neue Version Probleme macht</h3>
+
+    <p>
+        Startet die neue Version nicht sauber, holt der Server nach <strong>drei</strong> fehlgeschlagenen
+        Starts in Folge von selbst das vorherige Programm zur&uuml;ck (die fehlerhafte Datei wird als
+        <code>pos-server.jar.failed-&hellip;</code> aufbewahrt). Sie m&uuml;ssen dazu nichts tun.
+    </p>
+    <p>
+        Diesen R&uuml;ckfall-W&auml;chter richtet unter Linux das Skript <code>install-service.sh</code> ein. Wurde die
+        Installation vor Version 1.1.0 eingerichtet, fehlt er, bis das Skript einmal erneut ausgef&uuml;hrt wurde
+        &ndash; siehe <a href="kap-16-fehlerbehebung.html#kap-16-update">Kapitel 16 &ndash; Nach dem Update auf v1.1.0</a>.
+    </p>
+
+    <div class="alert alert-danger">
+        <strong>Ein Zur&uuml;ckholen des Programms macht keine Daten&auml;nderungen
+        r&uuml;ckg&auml;ngig.</strong> Bringt eine neue Version die Datenbank auf einen neuen Stand
+        und geht danach etwas schief, l&auml;uft zwar wieder das alte Programm &ndash; aber auf
+        der bereits ver&auml;nderten Datenbank. Bitte betrachten Sie das Zur&uuml;ckholen deshalb
+        nicht als vollst&auml;ndige Umkehr. Genau daf&uuml;r wird vor jeder Installation die
+        Datenbanksicherung angelegt: sie ist der einzige Weg zur&uuml;ck auf den Stand von vorher.
+        Der Server notiert dabei in einer Datei im Installationsverzeichnis, <em>welche</em>
+        Sicherung zu diesem Versuch geh&ouml;rt, damit im Ernstfall nicht danach gesucht werden
+        muss. Rufen Sie in einem solchen Fall Ihren Betreuer an, bevor Sie weiterarbeiten.
+    </div>
+
+    <h4>Nach einer R&uuml;cksicherung auf einem anderen Rechner</h4>
+
+    <p>
+        Wenn Sie eine Sicherung auf einem <strong>anderen</strong> Rechner einspielen &ndash; nach
+        einem Hardwaretausch etwa &ndash;, meldet die Seite, dass das gespeicherte Zugangstoken
+        nicht mehr gelesen werden kann. Tragen Sie das Token dort einmal neu ein, dann ist wieder
+        alles in Ordnung.
+    </p>
+
+    <div class="alert alert-info">
+        <strong>Das ist Absicht, kein Fehler.</strong> Der Schl&uuml;ssel zum Entschl&uuml;sseln des
+        Tokens liegt auf dem Rechner selbst und nicht in der Datensicherung. W&uuml;rde das Token
+        eine Sicherung &uuml;berdauern, k&ouml;nnte jeder, der eine Kopie Ihrer Datensicherung in
+        die Finger bekommt, damit auf die internen Programmversionen zugreifen. Der kleine Aufwand
+        einer Neueingabe ist der Preis daf&uuml;r &ndash; und er f&auml;llt genau einmal an.
+    </div>
+
+    <div class="alert alert-warning">
+        <strong>Wenn sich gar kein Token speichern l&auml;sst.</strong> Meldet die Seite, auf diesem
+        Server sei kein Update-Schl&uuml;ssel eingerichtet, dann fehlt dem Rechner der Schl&uuml;ssel
+        <code>UPDATE_TOKEN_KEY</code>, mit dem das Token &uuml;berhaupt erst versiegelt werden kann.
+        Das betrifft &auml;ltere Installationen, die vor Version 1.1.0 eingerichtet wurden.
+        Der interne Kanal bleibt so lange gesperrt &ndash; das ist Absicht, denn ein Token im Klartext
+        abzulegen w&auml;re schlechter als gar keines.
+        <br><br>
+        Abhilfe: Ihr Betreuer f&uuml;hrt auf dem Server einmal
+        <code>install-service.sh</code> erneut aus. Das Skript legt den Schl&uuml;ssel an, falls er
+        fehlt, und <em>l&auml;sst einen vorhandenen unver&auml;ndert</em> &ndash; ein bereits
+        gespeichertes Token &uuml;berlebt die Neuinstallation also. <strong>Den Schl&uuml;ssel niemals von Hand
+        neu erzeugen</strong> &ndash; sonst l&auml;sst sich das gespeicherte Token nicht mehr lesen. Danach l&auml;sst sich das
+        Token wie oben beschrieben eintragen. Der &ouml;ffentliche Kanal funktioniert die ganze
+        Zeit &uuml;ber normal weiter, denn er braucht kein Token.
+    </div>
+
+    <h3 id="kap-17-reihenfolge">Server zuerst, dann die Ger&auml;te</h3>
+
+    <p>
+        Aktualisieren Sie immer zuerst den Server und danach Kassen, Bestellstationen und den Web-Admin. Der Web-Admin
+        wird vom Server selbst ausgeliefert und ist nach dem Neustart automatisch auf demselben Stand. Ein neuerer
+        Web-Admin gegen einen &auml;lteren Server f&auml;llt still auf die alten Rollenregeln zur&uuml;ck und sieht dabei
+        aus, als funktioniere alles.
+    </p>
+
+    <h3 id="kap-17-android">Android-Kassen aktualisieren</h3>
+
+    <p>
+        Android-Kassen holen ihre App direkt von Ihrem Server &ndash; ohne Internetzugang am Ger&auml;t und ohne Token.
+        Der Server legt die Android-App der Version, die er selbst installiert, beim Herunterladen im Ordner
+        <code>update-client/</code> neben dem Server ab, nachdem er sie gegen die ver&ouml;ffentlichte Pr&uuml;fsumme
+        gepr&uuml;ft hat. Dieser Ordner bleibt bei Server-Aktualisierungen erhalten.
+    </p>
+    <ol>
+        <li>Lassen Sie den Server die neue Version laden: durch die n&auml;chtliche Pr&uuml;fung oder mit <strong>Herunterladen</strong> auf dieser Seite.</li>
+        <li>Auf dem Anmeldebildschirm der Kasse erscheint &ndash; nur wenn sich die App selbst ge&auml;ndert hat &ndash; der Hinweis <em>App-Update verf&uuml;gbar</em>. Mit <strong>Nach Updates suchen</strong> k&ouml;nnen Sie jederzeit selbst nachsehen.</li>
+        <li>Wählen Sie <strong>Herunterladen und installieren</strong>. Die Kasse l&auml;dt die App herunter, pr&uuml;ft sie erneut und &uuml;bergibt sie an Android.</li>
+        <li>Android fragt selbst nach der Best&auml;tigung der Installation. Diese Abfrage l&auml;sst sich nicht umgehen. Beim ersten Mal m&uuml;ssen Sie au&szlig;erdem erlauben, dass die App Updates installieren darf.</li>
+    </ol>
+    <div class="info-box">
+        <strong>Warum erscheint nicht bei jeder Server-Version ein Hinweis?</strong> Die Kasse vergleicht nur die
+        interne Versionsnummer der App (<code>versionCode</code>), nicht die Versionsbezeichnung. Eine Server-Version
+        mit kleiner Korrektur, bei der die App unver&auml;ndert bleibt, l&ouml;st deshalb keine Nachfrage aus &ndash; die
+        Kasse kann dann eine &auml;ltere Versionsbezeichnung anzeigen als der Server, ohne dass etwas fehlt.
+    </div>
+    <p>
+        Ein Server, der nicht &uuml;ber diese Seite aktualisiert wurde, hat keine App zum Verteilen; die Kassen
+        melden dann einfach, dass kein Update vorliegt. Schl&auml;gt die Pr&uuml;fung der heruntergeladenen Datei fehl
+        oder wird die Installation abgebrochen, bleibt die installierte App unver&auml;ndert.
+    </p>
+
+    <h3 id="kap-17-problemmeldung">Problem melden (GitHub-Meldungen aus dem Backoffice)</h3>
+
+    <p>
+        Im Backoffice (Admin-Oberfl&auml;che) gibt es im Benutzermen&uuml; den Eintrag <strong>Problem melden</strong>.
+        Er legt aus dem Backoffice heraus eine Meldung (ein <em>Issue</em>) im GitHub-Repository an, das Ihr
+        Administrator daf&uuml;r festgelegt hat. Sie m&uuml;ssen dazu kein GitHub-Konto besitzen: Der Server sendet die
+        Meldung mit einem hinterlegten Zugangstoken. Die Kassenoberfl&auml;chen (Kasse, Bestellstation) bieten diese
+        Funktion derzeit nicht.
+    </p>
+
+    <h4>Wer darf was</h4>
+    <table>
+        <thead>
+            <tr><th>T&auml;tigkeit</th><th>Ben&ouml;tigt</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Problem melden (Men&uuml;eintrag und Dialog)</td><td>Recht zum Melden (<code>ISSUE_REPORT_CREATE</code>) &ndash; Manager und Administrator</td></tr>
+            <tr><td>Einstellungen &rarr; <strong>Problemmeldungen</strong>: Repository, Token, &ouml;ffentlich/privat</td><td><span class="badge badge-admin">Verwaltungsrecht f&uuml;r Problemmeldungen</span> (<code>ISSUE_REPORT_MANAGE</code>) &ndash; nur Administrator</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Einrichtung (Administrator)</h4>
+    <ol>
+        <li>
+            <strong>Serverschl&uuml;ssel:</strong> Auf dem Server muss <code>UPDATE_TOKEN_KEY</code> in der
+            Umgebungsdatei hinterlegt sein (derselbe Schl&uuml;ssel, der auch das Aktualisierungs-Token versiegelt).
+            Fehlt er, weist die Einstellungsseite darauf hin und das Token kann nicht gespeichert werden.
+            Nach dem Eintragen den Server neu starten.
+        </li>
+        <li>
+            <strong>Token erzeugen:</strong> Legen Sie bei GitHub ein <em>fein granuliertes pers&ouml;nliches
+            Zugriffstoken</em> (Fine-grained personal access token) an, beschr&auml;nkt auf <strong>genau das eine
+            Ziel-Repository</strong> und mit ausschlie&szlig;lich der Berechtigung <strong>Issues: Lesen &amp; Schreiben</strong>
+            (<em>Issues: Read and write</em>). Keine weiteren Berechtigungen, keine weiteren Repositories.
+        </li>
+        <li>
+            <strong>Eintragen:</strong> Unter <strong>Einstellungen &rarr; Problemmeldungen</strong> den
+            <em>Repository-Inhaber</em> und den <em>Repository-Namen</em> eintragen, mit <strong>Einstellungen speichern</strong>
+            sichern, dann das Token im Feld <em>Neues Token</em> einf&uuml;gen und <strong>Token speichern</strong> w&auml;hlen.
+            Inhaber und Name werden nur auf g&uuml;ltige Schreibweise gepr&uuml;ft, nicht gegen GitHub.
+        </li>
+    </ol>
+
+    <h4>Alternative: Update-Token verwenden</h4>
+    <p>
+        Statt eines eigenen Tokens k&ouml;nnen Sie &ndash; typischerweise auf einer privaten Installation, die ihre
+        Aktualisierungen ohnehin mit einem Zugangstoken bezieht (<a href="#kap-17-kanal">Kanal und Zugangstoken</a>) &ndash;
+        unter <strong>Einstellungen &rarr; Problemmeldungen</strong> den Schalter <strong>Update-Token f&uuml;r Meldungen
+        verwenden</strong> einschalten und mit <strong>Einstellungen speichern</strong> sichern. Das ist eine bewusste
+        Entscheidung des Administrators; ohne sie wird nie auf das Update-Token ausgewichen.
+    </p>
+    <ul>
+        <li><strong>Voraussetzung:</strong> Unter <em>Einstellungen &rarr; Aktualisierungen</em> ist ein lesbares Update-Token
+            hinterlegt. Fehlt es oder ist es auf diesem Server nicht lesbar, ist der Schalter gesperrt und die Seite nennt den Grund.</li>
+        <li><strong>Berechtigung:</strong> Das Update-Token braucht dann zus&auml;tzlich <strong>Issues: Lesen &amp; Schreiben</strong>
+            (<em>Issues: Read and write</em>) auf dem Ziel-Repository der Meldungen. Fehlt diese Berechtigung, weist GitHub die
+            Meldung ab und der Dialog meldet ein abgelehntes Token. Beachten Sie: Ein Token deckt dann das Installieren von
+            Aktualisierungen <em>und</em> das Anlegen von Meldungen ab.</li>
+        <li><strong>Host-Regel:</strong> Das Update-Token wird nur an den Host gesendet, f&uuml;r den die Aktualisierung
+            eingerichtet ist. Die <em>GitHub-API-Adresse</em> der Problemmeldungen muss deshalb mit der API-Adresse der
+            Aktualisierungsquelle &uuml;bereinstimmen (ein abschlie&szlig;ender Schr&auml;gstrich und Gro&szlig;-/Kleinschreibung des
+            Hosts spielen keine Rolle). Sonst wird das Speichern abgewiesen; der Grund steht dann direkt &uuml;ber
+            <strong>Einstellungen speichern</strong> (siehe <a href="#kap-17-problemmeldung-fehler">Fehlermeldungen</a>). Wird die Aktualisierungsquelle sp&auml;ter auf einen
+            anderen Host umgestellt, sendet der Server keine Meldung mehr, bis die Einstellungen der Problemmeldungen erneut
+            passend gespeichert sind.</li>
+        <li><strong>Das eigene Token bleibt unber&uuml;hrt:</strong> Ein bereits hinterlegtes eigenes Token wird beim Einschalten
+            weder gel&ouml;scht noch verwendet; das Eingabefeld daf&uuml;r ist gesperrt, solange der Schalter an ist. Nach dem
+            Ausschalten wird wieder das eigene Token verwendet. Ein- oder Ausschalten l&ouml;scht auch das Update-Token nie.</li>
+    </ul>
+
+    <div class="alert alert-info">
+        <strong>So wird das Token behandelt:</strong>
+        <ul>
+            <li>Es ist <strong>nur schreibbar</strong>: Nach dem Speichern zeigt die Seite nur eine maskierte Kennung (<em>Token hinterlegt</em>) und den Speicherzeitpunkt, nie das Token selbst. Zum Ersetzen einfach ein neues eintragen, zum L&ouml;schen <strong>Token entfernen</strong>.</li>
+            <li>Der Server speichert es <strong>verschl&uuml;sselt</strong>. Es taucht in keiner Antwort und in keinem Log auf.</li>
+            <li>Der verschl&uuml;sselte Wert ist <strong>Teil der Datenbanksicherungen</strong>, auf einem Rechner ohne denselben <code>UPDATE_TOKEN_KEY</code> aber nicht lesbar. Nach einer Wiederherstellung auf einem anderen Rechner meldet die Seite <em>Ein Token ist hinterlegt, kann auf diesem Server aber nicht gelesen werden</em> &ndash; tragen Sie das Token dann erneut ein.</li>
+            <li>Wenn Sie die <strong>GitHub-API-Adresse</strong> auf einen anderen Host &auml;ndern, wird das gespeicherte eigene Token <strong>gleichzeitig gel&ouml;scht</strong> (das Update-Token nie), damit es nie an einen fremden Host gesendet wird. Danach das Token neu eintragen.</li>
+        </ul>
+    </div>
+
+    <h4>Privates oder &ouml;ffentliches Repository</h4>
+    <p>
+        Der Schalter <strong>Repository ist &ouml;ffentlich</strong> ist Ihre <em>Erkl&auml;rung</em>. Standardm&auml;&szlig;ig folgt er
+        dem Aktualisierungskanal (<a href="#kap-17-kanal">Kanal und Zugangstoken</a>): beim &ouml;ffentlichen Kanal
+        &ouml;ffentlich, beim internen Kanal privat. <strong>Der Server pr&uuml;ft bei GitHub nicht nach, ob das stimmt.</strong>
+        Stellen Sie den Schalter deshalb nur auf <em>privat</em>, wenn das Repository wirklich privat ist.
+    </p>
+    <table>
+        <thead>
+            <tr><th></th><th>Privates Repository</th><th>&Ouml;ffentliches Repository</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Wer kann die Meldung lesen?</td><td>Nur Personen mit Zugriff auf das Repository</td><td><strong>Jeder</strong></td></tr>
+            <tr><td>Server-Log-Auszug</td><td>Optional</td><td><strong>Nie</strong> (Schalter gesperrt, vom Server zus&auml;tzlich abgewiesen)</td></tr>
+            <tr><td>Name des Betriebs in der Meldung</td><td>Ja</td><td><strong>Nein</strong></td></tr>
+            <tr><td>Warnhinweis im Dialog</td><td>&ndash;</td><td>Ja, vor dem Senden</td></tr>
+        </tbody>
+    </table>
+    <div class="alert alert-warning">
+        <strong>Titel und Beschreibung sind Ihr Text und Ihre Verantwortung.</strong> Bei einem &ouml;ffentlichen
+        Repository kann sie jeder lesen. Geben Sie dort keine Kunden-, Beleg-, Mitarbeiter- oder sonstigen
+        personenbezogenen Daten ein, keine Passw&ouml;rter und keine Zugangsdaten.
+    </div>
+
+    <h4>Was automatisch angeh&auml;ngt wird &ndash; und was nie</h4>
+    <ul>
+        <li><strong>Automatisch:</strong> App- und Server-Version, Plattform, meldende Oberfl&auml;che (Backoffice), aktuelle Ansicht (bereinigt und auf 100 Zeichen gek&uuml;rzt), Zeitpunkt, Rolle des Meldenden und &ndash; nur bei einem privaten Repository &ndash; der Name des Betriebs.</li>
+        <li><strong>Nie:</strong> Belege, Rechnungen, Kundendaten, Mitarbeiterdaten, Tokens oder Zugangsdaten. Diese Daten werden nicht gelesen und nicht angeh&auml;ngt.</li>
+    </ul>
+
+    <h4>Optionaler Log-Auszug</h4>
+    <p>
+        <strong>Auszug aus dem Server-Log anh&auml;ngen (bereinigt)</strong> ist <strong>standardm&auml;&szlig;ig aus</strong>. Wenn Sie ihn
+        einschalten, h&auml;ngt der Server <strong>nur WARN-/ERROR-Zeilen der letzten Logs, h&ouml;chstens 50 Zeilen</strong> an;
+        gew&ouml;hnliche INFO-Zeilen (etwa Anmeldeversuche mit Benutzernamen) werden nicht &uuml;bernommen. Enth&auml;lt
+        das Log keine solche Zeile, fehlt der Log-Block in der Vorschau einfach. Auch eine Fehlermeldung kann
+        Namen oder Kennungen von Mitarbeitern enthalten. Bekannte Muster (Tokens,
+        Zugangsdaten, E-Mail-Adressen und &auml;hnliches) werden zuvor entfernt, das ist aber nur ein
+        <strong>Bestm&uuml;hen</strong> und keine Garantie. Die eigentliche Absicherung ist die <strong>Vorschau</strong>:
+    </p>
+    <ol>
+        <li>Mit <strong>Vorschau</strong> zeigt der Dialog unter <em>Genau dieser Text wird ver&ouml;ffentlicht</em> den vollst&auml;ndigen Text samt Ziel-Repository.</li>
+        <li>Mit <strong>Meldung senden</strong> wird <strong>genau dieser Text</strong> ver&ouml;ffentlicht, unver&auml;ndert: Der Server h&auml;lt die Vorschau zwischen und sendet sie, er baut sie nicht neu. Wurde ein Log-Auszug gew&auml;hlt, ist das Senden ohne vorherige Vorschau nicht m&ouml;glich. Die Schaltfl&auml;che <strong>Meldung senden</strong> wird erst rund 1,5&nbsp;Sekunden nach dem Erscheinen der Vorschau aktiv, damit ein Doppelklick auf <strong>Vorschau</strong> nicht ungelesen sendet. Schl&auml;gt das Senden fehl, erscheint der Hinweis oben im Dialog; Ihr Text bleibt erhalten.</li>
+        <li>Eine Vorschau <strong>verf&auml;llt nach 15 Minuten</strong>, nach einmaligem Senden, bei einer &Auml;nderung des Ziels in den Einstellungen und bei jedem Neustart des Servers.</li>
+    </ol>
+    <p>
+        Lesen Sie den Auszug in der Vorschau durch und verzichten Sie im Zweifel auf ihn. Bei einer Meldung
+        ohne Log-Auszug kann der Text auch ohne Vorschau gesendet werden.
+    </p>
+
+    <h4>Grenzen</h4>
+    <ul>
+        <li>Titel: h&ouml;chstens <strong>200 Zeichen</strong>; Beschreibung: h&ouml;chstens <strong>10&nbsp;000 Zeichen</strong>.</li>
+        <li>H&ouml;chstens <strong>5 Meldungen pro Stunde</strong> und Installation (nicht pro Person). Auch fehlgeschlagene Sendeversuche z&auml;hlen, denn GitHub kann die Meldung trotz Fehlermeldung angelegt haben. Eine Ablehnung schon vor dem Senden (z.&nbsp;B. fehlendes Pflichtfeld) kostet nichts.</li>
+        <li>Erw&auml;hnungen mit &bdquo;@&ldquo; in Ihren Texten werden entsch&auml;rft, damit GitHub niemanden benachrichtigt.</li>
+    </ul>
+
+    <h4 id="kap-17-problemmeldung-fehler">Fehlermeldungen und was zu tun ist</h4>
+    <table>
+        <thead>
+            <tr><th>Meldung</th><th>Bedeutung und Abhilfe</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><em>Problemmeldungen sind noch nicht eingerichtet</em></td><td>Es ist kein nutzbares Token hinterlegt. Administrator: Einrichtung wie oben (auch nach einer Wiederherstellung auf einem anderen Rechner).</td></tr>
+            <tr><td><em>Meldungen werden mit dem Update-Token gesendet, aber es ist keines hinterlegt oder es kann auf diesem Server nicht gelesen werden</em></td><td>Der Schalter <strong>Update-Token f&uuml;r Meldungen verwenden</strong> ist an, das Update-Token fehlt aber oder ist nicht lesbar (etwa nach einer Wiederherstellung auf einem anderen Rechner). Administrator: das Token unter <strong>Einstellungen &rarr; Aktualisierungen</strong> (erneut) eintragen &ndash; oder den Schalter ausschalten und ein eigenes Token f&uuml;r Problemmeldungen hinterlegen.</td></tr>
+            <tr><td><em>Nicht gespeichert: Mit dem Update-Token muss die API-Adresse dieselbe sein wie unter Einstellungen &rarr; Aktualisierungen</em> (beim Speichern unter Einstellungen &rarr; Problemmeldungen)</td><td>Die <em>GitHub-API-Adresse</em> der Problemmeldungen weicht von der der Aktualisierungsquelle ab (<a href="#kap-17-problemmeldung">Host-Regel</a>). Es wurde nichts gespeichert. Dieselbe API-Adresse eintragen &ndash; oder den Schalter ausschalten und ein eigenes Token verwenden.</td></tr>
+            <tr><td><em>GitHub hat das hinterlegte Token abgelehnt</em></td><td>Token abgelaufen, widerrufen oder ohne <em>Issues: Lesen &amp; Schreiben</em> f&uuml;r das Ziel-Repository. Neues Token erzeugen und eintragen.</td></tr>
+            <tr><td><em>Zu viele Meldungen in kurzer Zeit</em></td><td>5-pro-Stunde-Grenze erreicht. Eine Weile warten und erneut senden.</td></tr>
+            <tr><td><em>GitHub konnte nicht erreicht werden</em></td><td>Internetverbindung des <em>Servers</em> pr&uuml;fen (nicht die des Ger&auml;ts, an dem Sie sitzen). Bei Zeit&uuml;berschreitung kann die Meldung dennoch angelegt worden sein &ndash; sehen Sie im Repository nach, bevor Sie erneut senden, um Doppelte zu vermeiden.</td></tr>
+            <tr><td><em>Die Vorschau ist abgelaufen oder passt nicht mehr zu den Einstellungen</em></td><td>Es wurde nichts gesendet. Ihr Text bleibt im Dialog erhalten: erneut <strong>Vorschau</strong>, dann senden.</td></tr>
+        </tbody>
+    </table>
+    <p>
+        Wurde eine Meldung nicht gesendet, bleibt Ihr Text im Dialog erhalten. Nach erfolgreichem Senden
+        meldet der Dialog <em>Meldung als Issue #&hellip; gesendet</em> mit dem Link <strong>Issue &ouml;ffnen</strong>.
+    </p>
+
+    <h4>Protokollierung</h4>
+    <p>
+        Jede gesendete Meldung wird als Vorgang <code>CREATE_ISSUE_REPORT</code> im Pr&uuml;fprotokoll festgehalten:
+        <strong>wer</strong> sie gesendet hat und die <strong>Issue-Nummer</strong>. Titel und Beschreibung werden
+        <strong>nie</strong> ins Protokoll geschrieben. Siehe <a href="kap-15-pruefprotokoll.html#kap-15-operationen">Protokollierte Operationen</a>.
+    </p>
+
+    <h3>Wer darf was</h3>
+    <table>
+        <thead>
+            <tr><th>T&auml;tigkeit</th><th>Ben&ouml;tigt</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Seite ansehen: Version, letzte Pr&uuml;fung, Zustand</td><td>Leserecht f&uuml;r Aktualisierungen (<code>UPDATE_READ</code>)</td></tr>
+            <tr><td>Pr&uuml;fen, Herunterladen, Installieren, Kanal, Token, Automatik</td><td><span class="badge badge-admin">Verwaltungsrecht f&uuml;r Aktualisierungen</span> (<code>UPDATE_MANAGE</code>)</td></tr>
+            <tr><td>Problem melden (siehe <a href="#kap-17-problemmeldung">oben</a>)</td><td><code>ISSUE_REPORT_CREATE</code> (Manager, Administrator); Einrichtung unter Einstellungen &rarr; Problemmeldungen: <code>ISSUE_REPORT_MANAGE</code> (Administrator)</td></tr>
+        </tbody>
+    </table>
+
+    <p>
+        Fehlt Ihnen das Verwaltungsrecht, sind alle Schaltfl&auml;chen ausgegraut und die Seite
+        sagt Ihnen das auch. Sie k&ouml;nnen dann weiterhin sehen, welche Version l&auml;uft.
+    </p>
+
+    <div class="alert alert-info">
+        <strong>Verwandte Kapitel:</strong>
+        <a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a> &ndash; die h&auml;ufigste
+        Voraussetzung f&uuml;r eine Installation.
+        <a href="kap-14-compliance.html">Kapitel 14 &ndash; Compliance</a> &ndash; offene TSE-Vorg&auml;nge.
+        <a href="scheduled-tasks.html" target="_blank">Geplante Aufgaben</a> &ndash; der n&auml;chtliche
+        Zeitplan und seine Verlaufsanzeige.
+    </div>
+
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-16-fehlerbehebung.html">&larr; Vorheriges: Fehlerbehebung</a>
+    <a href="index.html">Zur&uuml;ck zur &Uuml;bersicht &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

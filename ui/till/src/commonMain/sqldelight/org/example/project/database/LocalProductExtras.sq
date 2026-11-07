@@ -1,0 +1,36 @@
+-- Local product extras storage
+-- Stores synced product extras (add-ons, modifications) for offline access
+
+CREATE TABLE IF NOT EXISTS local_product_extras (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    en_name TEXT,
+    ch_name TEXT,
+    description TEXT,
+    price TEXT AS org.example.project.money.Decimal NOT NULL,
+    is_active INTEGER NOT NULL DEFAULT 1,
+    linked_product_id INTEGER
+);
+
+CREATE INDEX IF NOT EXISTS idx_local_product_extras_is_active ON local_product_extras(is_active);
+
+-- Insert or update a product extra
+insertOrUpdateProductExtra:
+INSERT OR REPLACE INTO local_product_extras(id, name, en_name, ch_name, description, price, is_active, linked_product_id)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+-- Get all active product extras ordered by name
+getAllProductExtras:
+SELECT * FROM local_product_extras WHERE is_active = 1 ORDER BY name;
+
+-- Get a specific product extra by ID
+getProductExtraById:
+SELECT * FROM local_product_extras WHERE id = ?;
+
+-- Delete a specific product extra
+deleteProductExtra:
+DELETE FROM local_product_extras WHERE id = ?;
+
+-- Clear all product extras
+clearAllProductExtras:
+DELETE FROM local_product_extras;

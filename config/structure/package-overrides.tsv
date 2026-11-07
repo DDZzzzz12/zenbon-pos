@@ -1,0 +1,8 @@
+# sub-package path -> area (spec section 12). Longest matching prefix wins over the feature row in package-areas.tsv.
+# sub-package	area	note
+tse.database.tables	ecr	TSE transaction data rows are ECR data, not fiscal behaviour
+tse.domain.models	ecr
+zBon.database.tables	ecr
+zBon.domain.models	ecr
+kassenbuch.database.tables	ecr	cash-book header/line rows are till records (spec section 13)
+kassenbuch.domain.models	ecr

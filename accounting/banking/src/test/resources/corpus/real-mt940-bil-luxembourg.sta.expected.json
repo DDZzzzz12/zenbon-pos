@@ -1,0 +1,14 @@
+{
+  "_source": "wolph/mt940 mt940_tests/self-provided/multiline.sta, BSD-3-Clause (c) 2014 Rick van Hattem.",
+  "_exercises": "A bare :28: instead of :28C:; :61: supplementary details on a second line (/OCMT/...), which must NOT reach the bank reference; a trailing '-' end-of-message marker followed by a fragment that must be ignored; ?60-?65 subfields; a statement-level :86: after :62F: that must not attach to an entry. Balance 16.40 - 5.00 = 11.40, verified by hand.",
+  "outcome": "Success",
+  "format": "MT940",
+  "transactionCount": 1,
+  "currency": "EUR",
+  "openingBalance": "16.40",
+  "closingBalance": "11.40",
+  "statementNumber": "00115",
+  "legalSequenceNumber": "001",
+  "firstAmount": "5",
+  "firstCreditDebit": "DEBIT"
+}

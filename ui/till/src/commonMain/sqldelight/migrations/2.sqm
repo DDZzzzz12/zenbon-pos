@@ -1,0 +1,9 @@
+-- Migration from version 2 to version 3: Replace category-extras with product-extras assignments
+DROP TABLE IF EXISTS local_product_category_extras;
+
+CREATE TABLE IF NOT EXISTS LocalProductExtrasAssignment (
+    productId INTEGER NOT NULL,
+    extrasId INTEGER NOT NULL,
+    updatedAt TEXT NOT NULL DEFAULT '',
+    PRIMARY KEY (productId, extrasId)
+);

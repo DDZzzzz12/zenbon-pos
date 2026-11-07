@@ -1,0 +1,91 @@
+<!-- === Rechnungsdaten_RE_INV-SINGLE-0002.xml === -->
+<?xml version="1.0" encoding="UTF-8"?>
+<LedgerImport xmlns="http://xml.datev.de/bedi/tps/ledger/v060" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xml.datev.de/bedi/tps/ledger/v060 Belegverwaltung_online_ledger_import_v060.xsd" version="6.0" generator_info="Test Shop" generating_system="POS-KMP" xml_data="Kopie nur zur Verbuchung berechtigt nicht zum Vorsteuerabzug">
+  <consolidate consolidatedAmount="238.00" consolidatedDate="2026-01-20" consolidatedInvoiceId="INV-SINGLE-0002" consolidatedCurrencyCode="EUR">
+    <accountsPayableLedger>
+      <date>2026-01-20</date>
+      <amount>238.00</amount>
+      <accountNo>70000</accountNo>
+      <buCode>9</buCode>
+      <costCategoryId>KOST-200</costCategoryId>
+      <tax>19.00</tax>
+      <information>Rechnung INV-SINGLE-0002</information>
+      <currencyCode>EUR</currencyCode>
+      <invoiceId>INV-SINGLE-0002</invoiceId>
+      <bookingText>Bueromaterial</bookingText>
+      <vatId>DE987654321</vatId>
+      <iban>DE12500105170648489890</iban>
+      <dueDate>2026-02-19</dueDate>
+      <bpAccountNo>70002</bpAccountNo>
+      <supplierName>Buero Partner AG</supplierName>
+      <supplierCity>Muenchen</supplierCity>
+    </accountsPayableLedger>
+  </consolidate>
+</LedgerImport>
+
+<!-- === Rechnungsdaten_RE_INV-SPLIT-0001.xml === -->
+<?xml version="1.0" encoding="UTF-8"?>
+<LedgerImport xmlns="http://xml.datev.de/bedi/tps/ledger/v060" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xml.datev.de/bedi/tps/ledger/v060 Belegverwaltung_online_ledger_import_v060.xsd" version="6.0" generator_info="Test Shop" generating_system="POS-KMP" xml_data="Kopie nur zur Verbuchung berechtigt nicht zum Vorsteuerabzug">
+  <consolidate consolidatedAmount="166.50" consolidatedDate="2026-01-15" consolidatedInvoiceId="INV-SPLIT-0001" consolidatedCurrencyCode="EUR">
+    <accountsPayableLedger>
+      <date>2026-01-15</date>
+      <amount>107.00</amount>
+      <accountNo>70000</accountNo>
+      <buCode>9</buCode>
+      <costCategoryId>KOST-100</costCategoryId>
+      <tax>7.00</tax>
+      <information>Bestellung 4711</information>
+      <currencyCode>EUR</currencyCode>
+      <invoiceId>INV-SPLIT-0001</invoiceId>
+      <bookingText>Speisen</bookingText>
+      <vatId>DE123456789</vatId>
+      <iban>DE89370400440532013000</iban>
+      <dueDate>2026-02-14</dueDate>
+      <bpAccountNo>70001</bpAccountNo>
+      <supplierName>Acme Wholesale GmbH</supplierName>
+      <supplierCity>Berlin</supplierCity>
+    </accountsPayableLedger>
+    <accountsPayableLedger>
+      <date>2026-01-15</date>
+      <amount>59.50</amount>
+      <accountNo>70000</accountNo>
+      <buCode>9</buCode>
+      <costCategoryId>KOST-100</costCategoryId>
+      <tax>19.00</tax>
+      <information>Bestellung 4711</information>
+      <currencyCode>EUR</currencyCode>
+      <invoiceId>INV-SPLIT-0001</invoiceId>
+      <bookingText>Getraenke</bookingText>
+      <vatId>DE123456789</vatId>
+      <iban>DE89370400440532013000</iban>
+      <dueDate>2026-02-14</dueDate>
+      <bpAccountNo>70001</bpAccountNo>
+      <supplierName>Acme Wholesale GmbH</supplierName>
+      <supplierCity>Berlin</supplierCity>
+    </accountsPayableLedger>
+  </consolidate>
+</LedgerImport>
+
+<!-- === document.xml === -->
+<?xml version="1.0" encoding="UTF-8"?>
+<archive xmlns="http://xml.datev.de/bedi/tps/document/v06.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xml.datev.de/bedi/tps/document/v06.0 Document_v060.xsd" version="6.0" generatingSystem="POS-KMP">
+  <header>
+    <date>REDACTED-GENERATION-TIMESTAMP</date>
+    <description>DATEV XML Eingangsrechnungen Export 2026-01-01 bis 2026-01-31</description>
+    <clientName>Test Shop</clientName>
+  </header>
+  <content>
+    <document>
+      <extension xsi:type="accountsPayableLedger" datafile="Rechnungsdaten_RE_INV-SPLIT-0001.xml">
+        <property key="1" value="2026-01"/>
+        <property key="3" value="Eingangsrechnungen"/>
+      </extension>
+    </document>
+    <document>
+      <extension xsi:type="accountsPayableLedger" datafile="Rechnungsdaten_RE_INV-SINGLE-0002.xml">
+        <property key="1" value="2026-01"/>
+        <property key="3" value="Eingangsrechnungen"/>
+      </extension>
+    </document>
+  </content>
+</archive>

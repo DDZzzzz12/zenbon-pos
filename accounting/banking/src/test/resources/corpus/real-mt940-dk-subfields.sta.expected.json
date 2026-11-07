@@ -1,0 +1,6 @@
+{
+  "_source": "wolph/mt940 mt940_tests/self-provided/details_60-63.sta, BSD-3-Clause (c) 2014 Rick van Hattem.",
+  "_exercises": "Real DK :86: shape — GVC 105, ?00/?10/?20/?30/?31/?32+?33 split name, ?34, ?60-?63 with an embedded ABWA+. Refused because the fixture's own arithmetic does not reconcile: 12345,12 - 233,15 = 12111,97, but it states 12345,98. wolph's parser performs no balance check, so its fixtures never had to add up. Refusing it is the point: a statement that does not reconcile is not stored.",
+  "outcome": "Failure",
+  "_note": "Before the end-of-message fix this failed for the WRONG reason — the trailing '-' was glued onto the closing balance, giving 'cannot read an amount from \"12345,98-\"'. It now fails on the real arithmetic."
+}

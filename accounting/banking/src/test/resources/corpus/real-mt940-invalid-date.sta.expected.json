@@ -1,0 +1,6 @@
+{
+  "_source": "wolph/mt940 mt940_tests/self-provided/transaction_details_wrapped.sta, BSD-3-Clause (c) 2014 Rick van Hattem.",
+  "_exercises": "A :61: value date of 160230 — 30 February. A clean refusal is the correct outcome: silently coercing it to 1 March or 28 February would put a booking on a day the bank did not state. Also contains a ':12:11' line inside :86: that looks like a tag.",
+  "outcome": "Failure",
+  "_note": "Fails with 'cannot read a YYMMDD date from \"160230\"'. Before the end-of-message fix it failed earlier and for the wrong reason, on the '-' glued to the closing balance."
+}

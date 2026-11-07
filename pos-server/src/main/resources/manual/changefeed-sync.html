@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Change-Feed Synchronisation &mdash; Dokumentation</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+    --code-bg: #f3f4f6;
+    --table-header: #f9fafb;
+    --blockquote-bg: #eff6ff;
+    --blockquote-border: #93c5fd;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.7;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.4rem; margin-top: 2.5rem; margin-bottom: 0.75rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.3rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.8rem; margin-bottom: 0.5rem; }
+  h4 { font-size: 1rem; margin-top: 1.2rem; margin-bottom: 0.4rem; }
+  p { margin-bottom: 0.75rem; }
+  a { color: var(--accent); }
+  code {
+    background: var(--code-bg);
+    padding: 0.15em 0.35em;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  pre {
+    background: var(--code-bg);
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  blockquote {
+    background: var(--blockquote-bg);
+    border-left: 4px solid var(--blockquote-border);
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+  }
+  blockquote p { margin-bottom: 0.4rem; }
+  blockquote p:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--table-header); font-weight: 600; }
+  tr:hover { background: #fafafa; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .meta { color: #6b7280; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .toc { background: var(--code-bg); padding: 1rem 1.5rem; border-radius: 6px; margin: 1rem 0 2rem; }
+  .toc ul { list-style: none; padding-left: 1.2rem; }
+  .toc > ul { padding-left: 0; }
+  .toc li { margin: 0.2rem 0; }
+  .toc a { text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .hint {
+    background: #fefce8;
+    border-left: 4px solid #facc15;
+    padding: 0.6rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  .note {
+    background: var(--blockquote-bg);
+    border-left: 4px solid var(--blockquote-border);
+    padding: 0.6rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  ul, ol { padding-left: 1.5rem; margin-bottom: 0.75rem; }
+  li { margin: 0.2rem 0; }
+</style>
+</head>
+<body>
+
+<h1>Change-Feed Synchronisation</h1>
+<div class="meta">
+  <strong>Implementiert:</strong> 2026-06-23 &mdash; Phase 9 des Change-Feed-Redesigns<br>
+  <strong>Server:</strong> <code>platform/audit/</code>, <code>platform/data/features/audit/</code><br>
+  <strong>Client:</strong> <code>ui/till/.../core/data/domain/impl/service/SyncServiceImpl.kt</code>, <code>ui/till/.../core/network/NotificationReconciler.kt</code>
+</div>
+
+<nav class="toc">
+<strong>Inhaltsverzeichnis</strong>
+<ul>
+  <li><a href="#s1">1. &Uuml;berblick</a></li>
+  <li><a href="#s2">2. Der globale Sequenz-Cursor</a></li>
+  <li><a href="#s3">3. API-Endpunkte</a></li>
+  <li><a href="#s4">4. SSE-Benachrichtigungen</a></li>
+  <li><a href="#s5">5. Reconnect &amp; Fallback</a></li>
+  <li><a href="#s6">6. Retention</a></li>
+  <li><a href="#s7">7. Gel&ouml;ste Probleme des alten Modells</a></li>
+</ul>
+</nav>
+
+<h2 id="s1">1. &Uuml;berblick</h2>
+<p>
+Das Change-Feed-Modell synchronisiert Referenz- und Konfigurationsdaten (Produkte,
+Kategorien, Extras, Choice Groups, Zahlungsarten, Tische und Raumelemente, Shop-Info,
+Shop-Konfiguration, &Ouml;ffnungszeiten) zwischen Server und Kassen bzw. Bestellstationen. Es ersetzt den alten Timestamp-basierten Sync-Pfad vollst&auml;ndig.
+</p>
+
+<blockquote>
+<p><strong>Kernprinzip:</strong> SSE <code>data_change</code> ist nur ein Hint &mdash; der
+autoritative Feed ist <code>GET /api/changes?since={seq}</code>. Clients verfolgen
+einen einzigen <code>lastSeenSeq</code>-Cursor. Deletes sind erstklassige Feed-Eintr&auml;ge.</p>
+</blockquote>
+
+<h2 id="s2">2. Der globale Sequenz-Cursor</h2>
+<p>
+Jede &Auml;nderung wird als Zeile in der <code>entry_log</code>-Tabelle gespeichert.
+Die Spalte <code>entry_log.id</code> (auto-increment <code>BIGINT</code>) fungiert als
+globale Sequenz. Clients speichern den zuletzt gesehenen <code>id</code>-Wert als
+<code>lastSeenSeq</code> und fragen den Server nach Eintr&auml;gen <em>gr&ouml;&szlig;er</em> als
+diesem Wert.
+</p>
+
+<div class="hint">
+<strong>Warum keine Zeitstempel?</strong> Der alte Pfad nutzte <code>WHERE updated_at &gt; lastSyncTime</code> mit Client-Uhrzeit als Cursor. Ist die Clientuhr schneller als der Server, werden Zeilen im Skew-Fenster dauerhaft &uuml;bersprungen (stille Datenverluste). Die id-basierte Selektion ist uhrzeitunabh&auml;ngig und korrekt.
+</div>
+
+<h3>Sichtbare Typen (clientSynced)</h3>
+<p>
+Nur Entit&auml;tstypen mit <code>clientSynced = true</code> in <code>ChangeEntityType</code>
+erscheinen im Feed. Audit-only-Typen (z.&nbsp;B. <code>EMPLOYEE</code>, <code>VAT</code>, <code>TERMINAL</code>)
+werden herausgefiltert.
+</p>
+
+<h2 id="s3">3. API-Endpunkte</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Endpunkt</th>
+      <th>Parameter</th>
+      <th>Beschreibung</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>GET /api/changes</code></td>
+      <td><code>since</code> (Long, default 0)<br><code>limit</code> (Int, default 500, max 1000)<br>Berechtigung <code>SYNC_READ</code></td>
+      <td>Gibt alle client-synced Eintr&auml;ge mit <code>id &gt; since</code> zur&uuml;ck, aufsteigend nach id. Enth&auml;lt auch <code>highWaterSeq</code> und <code>minAvailableSeq</code> f&uuml;r Cursor-Management und Fallback-Erkennung.</td>
+    </tr>
+    <tr>
+      <td><code>GET /api/entry-logs/paginated</code></td>
+      <td>Filterparameter (type, operation, entityId, fromDate, toDate, page, size)<br><code>cursor</code> (optional, opak) f&uuml;r Keyset-Pagination</td>
+      <td>Paginiertes Pr&uuml;fprotokoll f&uuml;r die Audit-Log-Ansicht im Web-Admin (Berechtigung <code>AUDIT_READ</code>). Separater Pfad &mdash; nicht f&uuml;r Sync-Zwecke verwendet. Antworten enthalten <code>nextCursor</code>; wird dieser als <code>cursor</code> zur&uuml;ckgegeben, ignoriert der Server <code>page</code> und bl&auml;ttert per <code>(created_at, id)</code>-Keyset (konstante Kosten auch bei tiefen Seiten).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Response-Format <code>GET /api/changes</code></h3>
+<pre><code>{
+  "entries": [
+    { "seq": 42, "entityType": "PRODUCT", "entityId": "17", "operation": "UPDATE" },
+    { "seq": 43, "entityType": "PRODUCT", "entityId": "5",  "operation": "DELETE" }
+  ],
+  "highWaterSeq": 43,
+  "minAvailableSeq": 1
+}</code></pre>
+
+<p>
+<code>highWaterSeq</code>: der neueste seq-Wert des Servers (nur client-synced, non-ERROR
+Zeilen). Der Client setzt <code>lastSeenSeq = highWaterSeq</code> nach einem vollst&auml;ndigen
+Full-Sync oder wenn <code>entries</code> geleert wurde.<br>
+<code>minAvailableSeq</code>: &auml;lteste noch vorhandene Zeile in der Tabelle. Ist
+<code>lastSeenSeq &lt; minAvailableSeq</code>, hat der Client History verloren und muss
+einen Full-Sync durchf&uuml;hren.
+</p>
+
+<h2 id="s4">4. SSE-Benachrichtigungen</h2>
+<p>
+Live-Daten laufen seit v1.1.0 &uuml;ber <strong>Server-Sent Events (SSE)</strong>; die fr&uuml;here
+WebSocket-Verbindung gibt es nicht mehr. Der Server sendet <code>data_change</code>-Ereignisse
+&uuml;ber den Kanal <code>GET /api/notifications/stream</code> (<code>text/event-stream</code>,
+Berechtigung <code>NOTIFICATION_READ</code>). Diese Ereignisse sind <em>nur Hints</em> &mdash; sie teilen
+dem Client mit, dass Daten ver&auml;ndert wurden. Der Client ruft daraufhin
+<code>GET /api/changes?since={lastSeenSeq}</code> auf, um das Delta zu laden. Die im Ereignis
+mitgeschickte <code>seq</code> ist derzeit immer 0; ma&szlig;geblich ist allein der Feed.
+</p>
+
+<ul>
+  <li><strong>Alle Clients</strong> erhalten das Ereignis, auch der Originator der &Auml;nderung &mdash;
+      er muss seinen lokalen Zwischenspeicher ebenfalls aktualisieren.</li>
+  <li>Alle 15&nbsp;Sekunden sendet der Server einen Ping-Kommentar, damit die Verbindung offen bleibt.</li>
+  <li>Beim Wiederverbinden schickt der Client den Header <code>Last-Event-ID</code>; der Server spielt
+      verpasste Ereignisse aus einem begrenzten Puffer nach, bevor der Live-Strom beginnt. Was &uuml;ber den
+      Puffer hinausgeht, holt der Client &uuml;ber den Feed nach (siehe <a href="#s5">Reconnect</a>).</li>
+  <li>Werden die Sitzungen eines Mitarbeiters widerrufen, schlie&szlig;t der Server dessen Strom.</li>
+</ul>
+
+<h2 id="s5">5. Reconnect &amp; Fallback</h2>
+<p>
+Beim Wiederverbinden sendet der Client seinen aktuellen <code>lastSeenSeq</code> und
+f&uuml;hrt einen Seq-Delta-Abruf durch:
+</p>
+<ol>
+  <li>Abrufen von <code>GET /api/changes?since={lastSeenSeq}</code></li>
+  <li>Wenn <code>minAvailableSeq &gt; lastSeenSeq</code>: History-L&uuml;cke erkannt &rarr; Full-Sync ausf&uuml;hren</li>
+  <li>Sonst: Delta anwenden (Upsert + Delete)</li>
+</ol>
+
+<div class="note">
+<strong>Full-Sync vs. Delta:</strong> Der Full-Sync l&auml;dt alle Entit&auml;ten neu und setzt
+<code>lastSeenSeq = highWaterSeq</code>. Der Delta-Pfad aktualisiert nur ge&auml;nderte
+Entit&auml;ten und setzt <code>lastSeenSeq</code> auf den gr&ouml;&szlig;ten seq-Wert im empfangenen Batch.
+</div>
+
+<h2 id="s6">6. Retention</h2>
+<p>
+Die <code>entry_log</code>-Tabelle w&auml;chst kontinuierlich. Der
+<code>EntryLogRetentionJob</code> l&ouml;scht Zeilen, die &auml;lter als das konfigurierte
+Retention-Fenster sind (Standard: 90 Tage). Die Retention ist opt-in und wird &uuml;ber
+den Scheduler-Mechanismus ausgel&ouml;st.
+</p>
+<p>
+Clients, deren <code>lastSeenSeq</code> unterhalb des <code>minAvailableSeq</code>-Wertes
+liegt (weil alte Zeilen gel&ouml;scht wurden), erhalten beim n&auml;chsten Reconnect ein
+Full-Sync-Signal.
+</p>
+
+<h2 id="s7">7. Gel&ouml;ste Probleme des alten Modells</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Problem</th>
+      <th>Altes Modell</th>
+      <th>Neues Modell</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Uhr-Skew (clock skew)</td>
+      <td><code>WHERE updated_at &gt; clientCursor</code> &mdash; Zeilen im Skew-Fenster werden dauerhaft &uuml;bersprungen</td>
+      <td><code>WHERE id &gt; sinceSeq</code> &mdash; Uhrzeit irrelevant, keine stillen Datenverluste</td>
+    </tr>
+    <tr>
+      <td>Deletes nicht propagiert</td>
+      <td>Nur via Full-Sync (<code>checkLogForDeletingData</code>)</td>
+      <td>Deletes sind erstklassige Feed-Eintr&auml;ge mit <code>operation=DELETE</code></td>
+    </tr>
+    <tr>
+      <td>Full-Sync bei jedem Reconnect</td>
+      <td>Flaky Wi-Fi &rarr; wiederholter Full-Sync aller Entit&auml;ten</td>
+      <td>Seq-Delta-Abruf; Full-Sync nur bei nachgewiesener History-L&uuml;cke</td>
+    </tr>
+    <tr>
+      <td>TOCTOU-Stempel</td>
+      <td>Cursor-Timestamp am Ende des Syncs gesetzt &mdash; &Auml;nderungen zwischen Query und Stempel werden &uuml;bersprungen</td>
+      <td>Cursor ist ein stabiler seq-Wert; atomare Zeilen k&ouml;nnen nicht &bdquo;zwischen&ldquo; zwei Abfragen fallen</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+<p class="meta">Zuletzt aktualisiert: 2026-09-24 (v1.1.0) &mdash; Change-Feed Redesign Phase 9, SSE-Transport</p>
+
+</body>
+</html>

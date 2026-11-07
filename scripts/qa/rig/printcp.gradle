@@ -1,0 +1,30 @@
+// Gradle init script: prints the pos-server run classpath into a file, so a QA server can be
+// started with plain `java -cp` from a snapshot (see snapcp.sh and qa-server.sh).
+//
+//   ./gradlew --no-configuration-cache -I scripts/qa/rig/printcp.gradle \
+//       -Dqa.cpout=$QA_DIR/cp.raw.txt :pos-server:printRvCp     # runVirtual classpath (dev builds)
+//   ./gradlew --no-configuration-cache -I scripts/qa/rig/printcp.gradle \
+//       -Dqa.cpout=$QA_DIR/cp.raw.txt :pos-server:printRunCp    # run classpath (old tags, e.g. v1.0.10)
+//
+// --no-configuration-cache is required: these tasks are not configuration-cache compatible, and a
+// cached configuration would also replay a previous run's environment.
+allprojects {
+    if (path == ":pos-server") {
+        afterEvaluate {
+            def register = { String taskName, String sourceTask ->
+                if (tasks.findByName(sourceTask) == null) return
+                tasks.register(taskName) {
+                    def src = tasks.named(sourceTask).get()
+                    dependsOn(src.classpath)
+                    doLast {
+                        def out = System.getProperty("qa.cpout")
+                        if (out == null) throw new GradleException("pass -Dqa.cpout=<file>")
+                        new File(out).text = src.classpath.files.collect { it.absolutePath }.join(":")
+                    }
+                }
+            }
+            register("printRvCp", "runVirtual")
+            register("printRunCp", "run")
+        }
+    }
+}

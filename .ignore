@@ -1,0 +1,22 @@
+# Read by ripgrep and fd (and the Grep/Glob tools built on them) in addition to .gitignore.
+# Keeps code search focused on code. Search these on purpose with `rg --no-ignore <pattern> <path>`.
+
+# Plans and specs quote code verbatim, so every symbol search hits them (557 files, ~430k lines).
+docs/superpowers/
+
+# Reference material, not source.
+docs/dsfinv_k_v_2_4/
+docs/datev/
+docs/pos-card-terminal/
+
+# Local data, build output and tool caches (untracked, several GB in total).
+.dev-data/
+.worktrees/
+.omo/
+node_modules/
+kotlin-js-store/
+exports/
+logs/
+
+# Stale build output that is tracked in git (inside the protected :pos-tse module; untracking is pending).
+pos-tse/bin/

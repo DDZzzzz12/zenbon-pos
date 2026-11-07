@@ -1,0 +1,265 @@
+package org.example.project.features.financialdocuments.viewmodel
+
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.example.project.core.domain.Result
+import org.example.project.core.domain.dto.kassenbuch.KassenbuchDto
+import org.example.project.core.domain.enums.kassenbuch.KassenbuchEntryType
+import org.example.project.core.domain.error.NetworkError
+import org.example.project.core.presentation.state.DateRange
+import org.example.project.features.financialdocuments.presentation.viewmodel.KassenbuchViewModel
+import org.example.project.testutils.fakes.FakeKassenbuchApiClient
+import org.example.project.testutils.fakes.FakeDocumentManagementApiClient
+import org.example.project.features.financialdocuments.presentation.state.FinancialDocumentsEventBus
+import org.example.project.testutils.fakes.FakeZBonApiClient
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
+
+@OptIn(ExperimentalCoroutinesApi::class)
+class KassenbuchViewModelTest {
+
+    private val testDispatcher = StandardTestDispatcher()
+
+    private lateinit var fakeKassenbuchApiClient: FakeKassenbuchApiClient
+    private lateinit var fakeZBonApiClient: FakeZBonApiClient
+    private lateinit var fakeDocumentManagementApiClient: FakeDocumentManagementApiClient
+    private lateinit var eventBus: FinancialDocumentsEventBus
+    private lateinit var viewModel: KassenbuchViewModel
+
+    @BeforeEach
+    fun setUp() {
+        Dispatchers.setMain(testDispatcher)
+        fakeKassenbuchApiClient = FakeKassenbuchApiClient()
+        fakeZBonApiClient = FakeZBonApiClient()
+        fakeDocumentManagementApiClient = FakeDocumentManagementApiClient()
+        eventBus = FinancialDocumentsEventBus()
+    }
+
+    @AfterEach
+    fun tearDown() {
+        Dispatchers.resetMain()
+    }
+
+    private fun createViewModel(): KassenbuchViewModel {
+        return KassenbuchViewModel(
+            kassenbuchApiClient = fakeKassenbuchApiClient,
+            zBonApiClient = fakeZBonApiClient,
+            documentManagementApiClient = fakeDocumentManagementApiClient,
+            eventBus = eventBus
+        )
+    }
+
+    @Nested
+    inner class InitialState {
+
+        @Test
+        fun `initial state has correct defaults`() = runTest(testDispatcher) {
+            viewModel = createViewModel()
+            advanceUntilIdle()
+
+            val state = viewModel.kassenbuchState.value
+            assertFalse(state.isVisible)
+            assertEquals(emptyList(), state.entries)
+            assertEquals("0,00", state.currentBalance)
+            assertNull(state.selectedEntryDetail)
+            assertFalse(state.isLoadingDetails)
+            assertFalse(state.showCreateDialog)
+            assertFalse(state.isLoading)
+            assertNull(state.error)
+            assertEquals(DateRange.THIS_WEEK, state.selectedDateRange)
+            assertNull(state.customDateRange)
+            assertEquals("0,00", state.totalIncome)
+            assertEquals("0,00", state.totalExpenses)
+        }
+    }
+
+    @Nested
+    inner class LoadKassenbuchData {
+
+        @Test
+        fun `loadKassenbuchData success populates entries and balance`() = runTest(testDispatcher) {
+            val testEntries = listOf(
+                KassenbuchDto.KassenbuchGroupedSummaryDto(
+                    headerId = 1L,
+                    belegNr = "KB-001",
+                    entryType = KassenbuchEntryType.CASH_SALE,
+                    belegtext = "Test Sale",
+                    belegDatum = "01.01.2026",
+                    waehrung = "EUR",
+                    totalAmount = 100.0,
+                    lineItems = emptyList(),
+                    currentBalance = 100.0,
+                    employeeNumber = "EMP001",
+                    createdAt = "2026-01-01T10:00:00"
+                )
+            )
+            fakeKassenbuchApiClient.getCurrentBalanceResult = Result.Success("500,00")
+            fakeKassenbuchApiClient.getEntryHistoryResult = Result.Success(testEntries)
+
+            viewModel = createViewModel()
+            viewModel.loadKassenbuchData()
+            advanceUntilIdle()
+
+            val state = viewModel.kassenbuchState.value
+            assertEquals(testEntries, state.entries)
+            assertEquals("500,00", state.currentBalance)
+            assertFalse(state.isLoading)
+            assertNull(state.error)
+            assertEquals("100,00", state.totalIncome)
+            assertEquals("0,00", state.totalExpenses)
+        }
+
+        @Test
+        fun `loadKassenbuchData balance error sets error state`() = runTest(testDispatcher) {
+            fakeKassenbuchApiClient.getCurrentBalanceResult = Result.Error(NetworkError.Network.ServerError())
+
+            viewModel = createViewModel()
+            viewModel.loadKassenbuchData()
+            advanceUntilIdle()
+
+            val state = viewModel.kassenbuchState.value
+            assertNotNull(state.error)
+            assertFalse(state.isLoading)
+        }
+
+        @Test
+        fun `loadKassenbuchData entry history error sets error with balance`() = runTest(testDispatcher) {
+            fakeKassenbuchApiClient.getCurrentBalanceResult = Result.Success("500,00")
+            fakeKassenbuchApiClient.getEntryHistoryResult = Result.Error(NetworkError.Network.ServerError())
+
+            viewModel = createViewModel()
+            viewModel.loadKassenbuchData()
+            advanceUntilIdle()
+
+            val state = viewModel.kassenbuchState.value
+            assertNotNull(state.error)
+            assertEquals("500,00", state.currentBalance)
+            assertEquals(emptyList(), state.entries)
+            assertFalse(state.isLoading)
+        }
+    }
+
+    @Nested
+    inner class ShowHidePanel {
+
+        @Test
+        fun `showPanel sets isVisible to true`() = runTest(testDispatcher) {
+            fakeKassenbuchApiClient.getCurrentBalanceResult = Result.Success("0,00")
+            fakeKassenbuchApiClient.getEntryHistoryResult = Result.Success(emptyList())
+
+            viewModel = createViewModel()
+            viewModel.showPanel()
+            advanceUntilIdle()
+
+            assertTrue(viewModel.kassenbuchState.value.isVisible)
+        }
+
+        @Test
+        fun `hidePanel sets isVisible to false and clears dialogs`() = runTest(testDispatcher) {
+            fakeKassenbuchApiClient.getCurrentBalanceResult = Result.Success("0,00")
+            fakeKassenbuchApiClient.getEntryHistoryResult = Result.Success(emptyList())
+
+            viewModel = createViewModel()
+            viewModel.showPanel()
+            advanceUntilIdle()
+
+            viewModel.hidePanel()
+            advanceUntilIdle()
+
+            val state = viewModel.kassenbuchState.value
+            assertFalse(state.isVisible)
+            assertFalse(state.showCreateDialog)
+        }
+    }
+
+    @Nested
+    inner class SelectDateRange {
+
+        @Test
+        fun `selectDateRange updates selectedDateRange`() = runTest(testDispatcher) {
+            fakeKassenbuchApiClient.getCurrentBalanceResult = Result.Success("0,00")
+            fakeKassenbuchApiClient.getEntryHistoryResult = Result.Success(emptyList())
+
+            viewModel = createViewModel()
+            viewModel.selectDateRange(DateRange.THIS_MONTH)
+            advanceUntilIdle()
+
+            assertEquals(DateRange.THIS_MONTH, viewModel.kassenbuchState.value.selectedDateRange)
+        }
+
+        @Test
+        fun `selectDateRange triggers data reload`() = runTest(testDispatcher) {
+            fakeKassenbuchApiClient.getCurrentBalanceResult = Result.Success("0,00")
+            fakeKassenbuchApiClient.getEntryHistoryResult = Result.Success(emptyList())
+
+            viewModel = createViewModel()
+            fakeKassenbuchApiClient.getCurrentBalanceCallCount = 0
+            fakeKassenbuchApiClient.getEntryHistoryCallCount = 0
+
+            viewModel.selectDateRange(DateRange.TODAY)
+            advanceUntilIdle()
+
+            assertTrue(fakeKassenbuchApiClient.getCurrentBalanceCallCount > 0)
+            assertTrue(fakeKassenbuchApiClient.getEntryHistoryCallCount > 0)
+        }
+    }
+
+    @Nested
+    inner class CreateDialog {
+
+        @Test
+        fun `showCreateDialog sets showCreateDialog to true`() = runTest(testDispatcher) {
+            viewModel = createViewModel()
+            viewModel.showCreateDialog()
+            advanceUntilIdle()
+
+            assertTrue(viewModel.kassenbuchState.value.showCreateDialog)
+        }
+
+        @Test
+        fun `hideCreateDialog sets showCreateDialog to false`() = runTest(testDispatcher) {
+            viewModel = createViewModel()
+            viewModel.showCreateDialog()
+            viewModel.hideCreateDialog()
+            advanceUntilIdle()
+
+            assertFalse(viewModel.kassenbuchState.value.showCreateDialog)
+        }
+    }
+
+    @Nested
+    inner class ClearError {
+
+        @Test
+        fun `clearError sets error to null`() = runTest(testDispatcher) {
+            fakeKassenbuchApiClient.getCurrentBalanceResult = Result.Error(NetworkError.Network.ServerError())
+
+            viewModel = createViewModel()
+            viewModel.loadKassenbuchData()
+            advanceUntilIdle()
+
+            assertNotNull(viewModel.kassenbuchState.value.error)
+
+            viewModel.clearError()
+            advanceUntilIdle()
+
+            assertNull(viewModel.kassenbuchState.value.error)
+        }
+    }
+
+    // SelectGroupedEntry tests removed: the production VM API
+    // (`selectGroupedEntry` / `state.selectedId`) was deleted in an earlier
+    // refactor.  Coverage of the replacement detail-fetch flow lives elsewhere.
+}

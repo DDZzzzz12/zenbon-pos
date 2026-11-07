@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DATEV XML Export-Modul — Dokumentation</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+    --code-bg: #f3f4f6;
+    --table-header: #f9fafb;
+    --blockquote-bg: #eff6ff;
+    --blockquote-border: #93c5fd;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.7;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.4rem; margin-top: 2.5rem; margin-bottom: 0.75rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.3rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.8rem; margin-bottom: 0.5rem; }
+  h4 { font-size: 1rem; margin-top: 1.2rem; margin-bottom: 0.4rem; }
+  p { margin-bottom: 0.75rem; }
+  a { color: var(--accent); }
+  code {
+    background: var(--code-bg);
+    padding: 0.15em 0.35em;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  pre {
+    background: var(--code-bg);
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  blockquote {
+    background: var(--blockquote-bg);
+    border-left: 4px solid var(--blockquote-border);
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-style: italic;
+  }
+  blockquote p { margin-bottom: 0.4rem; }
+  blockquote p:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--table-header); font-weight: 600; }
+  tr:hover { background: #fafafa; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .meta { color: #6b7280; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .toc { background: var(--code-bg); padding: 1rem 1.5rem; border-radius: 6px; margin: 1rem 0 2rem; }
+  .toc ul { list-style: none; padding-left: 1.2rem; }
+  .toc > ul { padding-left: 0; }
+  .toc li { margin: 0.2rem 0; }
+  .toc a { text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .hint {
+    background: #fefce8;
+    border-left: 4px solid #facc15;
+    padding: 0.6rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  .status-ok { color: #16a34a; font-weight: 600; }
+  .status-warn { color: #d97706; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<h1>DATEV XML Export-Modul &mdash; Dokumentation</h1>
+<div class="meta">
+  <strong>Referenz:</strong> DATEV XML-Schnittstelle online, XSD Version 6.0<br>
+  <strong>Modul:</strong> POS-KMP <code>server-export/</code> und <code>server/</code><br>
+  <strong>Erstellt:</strong> 2026-03-09
+</div>
+
+<nav class="toc">
+<strong>Inhaltsverzeichnis</strong>
+<ul>
+  <li><a href="#s1">1. Einleitung</a></li>
+  <li><a href="#s2">2. Zwei Export-Typen</a></li>
+  <li><a href="#s3">3. ZIP-Paket Struktur</a></li>
+  <li><a href="#s4">4. document.xml (Verwaltungsdatei)</a></li>
+  <li><a href="#s5">5. Kassenbuch Ledger XML</a></li>
+  <li><a href="#s6">6. Eingangsrechnungen Ledger XML</a></li>
+  <li><a href="#s7">7. Feldvalidierung</a></li>
+  <li><a href="#s8">8. Datenherkunft</a></li>
+  <li><a href="#s9">9. Konfiguration</a></li>
+  <li><a href="#s10">10. API-Endpunkte</a></li>
+  <li><a href="#s11">11. Architektur</a></li>
+  <li><a href="#s12">12. Kontenzuordnung</a></li>
+</ul>
+</nav>
+
+<hr>
+
+<h2 id="s1">1. Einleitung</h2>
+
+<p>Die <strong>DATEV XML-Schnittstelle online</strong> erm&ouml;glicht den Import von Kassenbuch- und Rechnungsdaten in <strong>DATEV Unternehmen online</strong>. Das POS-KMP-System unterst&uuml;tzt den Export in diesem Format auf Basis der <strong>XSD Version 6.0</strong>.</p>
+
+<p><strong>Spezifikation:</strong> <a href="https://developer.datev.de/de/file-format/details/datev-xml-interface-online" target="_blank">https://developer.datev.de/de/file-format/details/datev-xml-interface-online</a></p>
+
+<p>Zwei XML-Namensr&auml;ume werden verwendet:</p>
+<ul>
+  <li><code>http://xml.datev.de/bedi/tps/document/v06.0</code> &mdash; Verwaltungsdatei (document.xml)</li>
+  <li><code>http://xml.datev.de/bedi/tps/ledger/v060</code> &mdash; Buchungsdaten (Ledger-XMLs)</li>
+</ul>
+
+<hr>
+
+<h2 id="s2">2. Zwei Export-Typen</h2>
+
+<p>Das System unterst&uuml;tzt zwei verschiedene Export-Typen, die sich in Zweck, Struktur und Gruppierung unterscheiden:</p>
+
+<table>
+<tr><th>Aspekt</th><th>Kassenbuch (cashLedger)</th><th>Eingangsrechnungen (accountsPayableLedger)</th></tr>
+<tr><td><strong>Zweck</strong></td><td>T&auml;gliche Kasseneinnahmen/-ausgaben</td><td>Lieferantenrechnungen</td></tr>
+<tr><td><strong>Gruppierung</strong></td><td>Pro Kassenbuch-Eintrag (<em>einzelDateien</em>)</td><td>Pro Rechnung</td></tr>
+<tr><td><strong>Dateiname</strong></td><td><code>Kasse_YYYYMMDD_N.xml</code> (<code>N</code> = laufende Nummer des Eintrags an diesem Tag)</td><td><code>Rechnungsdaten_RE_{id}.xml</code></td></tr>
+<tr><td><strong>Split-Tax</strong></td><td>Nein</td><td>Ja (mehrere Steuers&auml;tze pro Rechnung)</td></tr>
+<tr><td><strong>API-Endpunkt</strong></td><td><code>/api/v1/kassenbuch/export/datev-xml</code></td><td><code>/api/documents/export/datev-ap</code></td></tr>
+<tr><td><strong>W&auml;hrung</strong></td><td>Nur EUR</td><td>EUR (Standard)</td></tr>
+</table>
+
+<p>
+  Der Export <strong>&bdquo;Buchungsstapel + Belege (ZIP)&ldquo;</strong> erzeugt eine
+  einzelne ZIP-Datei mit der Datei <code>EXTF_Buchungsstapel.csv</code>, einer
+  <code>document.xml</code> (Beleg-Manifest mit GUIDs) sowie den zugeh&ouml;rigen Beleg-PDFs.
+  In Spalte 20 (<code>Beleglink</code>) jeder Buchung steht <code>BEDI &quot;&lt;GUID&gt;&quot;</code>,
+  wodurch die Buchung beim Import &uuml;ber DATEV Belegtransfer in DATEV Unternehmen online
+  automatisch mit dem digitalen Beleg verkn&uuml;pft wird. Dieser Export umfasst nur
+  Kassenbuch-Buchungen; Eingangsrechnungen werden weiterhin &uuml;ber den AP-XML-Export ausgegeben.
+</p>
+
+<div class="hint">
+  <strong>Kontenzuordnung erforderlich:</strong> Beide Buchungsstapel-Exporte (<code>EXTF_Buchungsstapel.csv</code>
+  allein und &bdquo;Buchungsstapel + Belege&ldquo;) laufen nur mit einer gespeicherten Kontenzuordnung
+  (Abschnitt&nbsp;12); ohne sie antworten sie mit HTTP&nbsp;409
+  <code>DATEV_ACCOUNT_MAPPING_REQUIRED</code>. Der Kassenbuch-XML-Export (cashLedger) ist davon nicht betroffen.
+</div>
+
+<p>
+  <strong>Zeichensatz der <code>EXTF_Buchungsstapel.csv</code>:</strong> Die Datei wird in
+  <code>ISO-8859-1</code> (CodePage 1252) geschrieben &mdash; dem von DATEV dokumentierten
+  Standard-Zeichensatz f&uuml;r das DATEV-Format. UTF-8 akzeptiert DATEV nur mit BOM und nur
+  &uuml;ber den manuellen Import bzw. die Online-API, nicht &uuml;ber alle Importwege. Deutsche
+  Umlaute und &szlig; werden dadurch beim Steuerberater korrekt angezeigt.
+</p>
+<p>
+  Enth&auml;lt ein Belegtext ein Zeichen, das dieser Zeichensatz nicht darstellen kann
+  (z.&nbsp;B. ein t&uuml;rkisches <code>&#351;</code> in einem Lieferantennamen), <strong>bricht der
+  Export mit einer Fehlermeldung ab</strong>, die das Zeichen und den betroffenen Text nennt.
+  Das ist Absicht: ein stillschweigend ersetztes Zeichen w&uuml;rde als falsch geschriebener
+  Name in der Buchhaltung landen, ohne dass es jemand bemerken kann. Passen Sie den Belegtext
+  an und starten Sie den Export erneut. Typografische Zeichen mit eindeutiger Entsprechung
+  (Gedankenstrich, typografische Anf&uuml;hrungszeichen, <code>&euro;</code>) werden automatisch
+  umgesetzt und f&uuml;hren nicht zum Abbruch.
+</p>
+
+<hr>
+
+<h2 id="s3">3. ZIP-Paket Struktur</h2>
+
+<h3>Kassenbuch</h3>
+<pre><code>datev_xml_kassenbuch_2026-01-01_2026-01-31.zip
+&#9500;&#9472;&#9472; document.xml
+&#9500;&#9472;&#9472; Kasse_20260101_1.xml   (Z-Bon-Eintrag: alle USt-Zeilen in einem consolidate)
+&#9500;&#9472;&#9472; Kasse_20260102_1.xml   (einzelner manueller Eintrag)
+&#9500;&#9472;&#9472; Kasse_20260102_2.xml   (einzelner manueller Eintrag)
+&#9500;&#9472;&#9472; Invoice_001.pdf        (optional: verkn&uuml;pfte Belege)
+&#9492;&#9472;&#9472; Invoice_002.pdf</code></pre>
+
+<p>Das Paket folgt dem Format <strong>einzelDateien</strong>: Jeder Kassenbuch-Eintrag erh&auml;lt eine
+eigene Ledger-Datei; alle Zeilen desselben Eintrags (z.&nbsp;B. die USt-Zeilen eines Z-Bons) bleiben
+in einer Datei zusammen, und ein verkn&uuml;pfter Beleg wird dem Eintrag direkt zugeordnet.</p>
+
+<h3>Eingangsrechnungen</h3>
+<pre><code>datev_ap_export_2026-01-01_2026-01-31.zip
+&#9500;&#9472;&#9472; document.xml
+&#9500;&#9472;&#9472; Rechnungsdaten_RE_R2026001.xml
+&#9500;&#9472;&#9472; Rechnungsdaten_RE_R2026002.xml
+&#9500;&#9472;&#9472; Rechnungsbild_RE_R2026001.pdf
+&#9492;&#9472;&#9472; Rechnungsbild_RE_R2026002.pdf</code></pre>
+
+<hr>
+
+<h2 id="s4">4. document.xml (Verwaltungsdatei)</h2>
+
+<p>Die <code>document.xml</code> ist die zentrale Verwaltungsdatei im ZIP-Paket. Sie beschreibt den Inhalt des Archivs und verweist auf die enthaltenen Ledger-XML-Dateien und PDF-Belege.</p>
+
+<h3>Beispiel</h3>
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;archive xmlns="http://xml.datev.de/bedi/tps/document/v06.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xml.datev.de/bedi/tps/document/v06.0 Document_v060.xsd"
+         version="6.0"
+         generatingSystem="POS-KMP"&gt;
+  &lt;header&gt;
+    &lt;date&gt;2026-01-15T14:30:00&lt;/date&gt;
+    &lt;description&gt;DATEV XML Kassenbuch Export 2026-01-01 bis 2026-01-31&lt;/description&gt;
+    &lt;consultantNumber&gt;1234567&lt;/consultantNumber&gt;
+    &lt;clientNumber&gt;12345&lt;/clientNumber&gt;
+    &lt;clientName&gt;Musterrestaurant GmbH&lt;/clientName&gt;
+  &lt;/header&gt;
+  &lt;content&gt;
+    &lt;document&gt;
+      &lt;extension xsi:type="cashLedger" datafile="Kasse_20260115.xml"&gt;
+        &lt;property key="1" value="2026-01"/&gt;
+        &lt;property key="3" value="Kasse"/&gt;
+      &lt;/extension&gt;
+      &lt;extension xsi:type="File" name="Invoice_001.pdf"/&gt;
+    &lt;/document&gt;
+  &lt;/content&gt;
+&lt;/archive&gt;</code></pre>
+
+<h3>Feldreferenz</h3>
+<table>
+<tr><th>Element/Attribut</th><th>Pflicht</th><th>Beschreibung</th></tr>
+<tr><td><code>archive@version</code></td><td>Ja</td><td>Immer &bdquo;6.0&ldquo;</td></tr>
+<tr><td><code>archive@generatingSystem</code></td><td>Ja</td><td>Software-Name (z.B. &bdquo;POS-KMP&ldquo;)</td></tr>
+<tr><td><code>header/date</code></td><td>Ja</td><td>Erstellungszeitpunkt (ISO 8601)</td></tr>
+<tr><td><code>header/description</code></td><td>Nein</td><td>Beschreibung des Exports</td></tr>
+<tr><td><code>header/consultantNumber</code></td><td>Nein</td><td>DATEV Beraternummer (max 7 Zeichen)</td></tr>
+<tr><td><code>header/clientNumber</code></td><td>Nein</td><td>DATEV Mandantennummer (max 5 Zeichen)</td></tr>
+<tr><td><code>header/clientName</code></td><td>Ja</td><td>Gesch&auml;ftsname aus den Shop-Stammdaten (max 36 Zeichen) &ndash; derselbe Wert in Kassenbuch-, Eingangs- und Ausgangsrechnungs-Export, nicht der Kassen-Name</td></tr>
+<tr><td><code>extension@xsi:type</code></td><td>Ja</td><td>&bdquo;cashLedger&ldquo;, &bdquo;accountsPayableLedger&ldquo; oder &bdquo;File&ldquo;</td></tr>
+<tr><td><code>extension@datafile</code></td><td>Ja*</td><td>Verweis auf Ledger-XML-Datei (*nur bei Ledger-Typen)</td></tr>
+<tr><td><code>extension@name</code></td><td>Ja*</td><td>Dateiname des PDF-Belegs (*nur bei File-Typ)</td></tr>
+<tr><td><code>property@key="1"</code></td><td>Ja</td><td>Buchungsperiode (YYYY-MM)</td></tr>
+<tr><td><code>property@key="3"</code></td><td>Ja</td><td>Name des Kassenbuchs/Rechnungsbuchs</td></tr>
+</table>
+
+<hr>
+
+<h2 id="s5">5. Kassenbuch Ledger XML</h2>
+
+<p>Jede Kassenbuch-Ledger-Datei enth&auml;lt genau einen Kassenbuch-Eintrag mit allen seinen Zeilen, zusammengefasst in einem <code>&lt;consolidate&gt;</code>-Block.</p>
+
+<h3>Beispiel</h3>
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;LedgerImport xmlns="http://xml.datev.de/bedi/tps/ledger/v060"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xml.datev.de/bedi/tps/ledger/v060 Belegverwaltung_online_ledger_import_v060.xsd"
+              version="6.0"
+              generator_info="Musterrestaurant GmbH"
+              generating_system="POS-KMP"
+              xml_data="Kopie nur zur Verbuchung berechtigt nicht zum Vorsteuerabzug"&gt;
+  &lt;consolidate consolidatedAmount="6352.00" consolidatedDate="2026-01-15" consolidatedCurrencyCode="EUR"&gt;
+    &lt;cashLedger&gt;
+      &lt;date&gt;2026-01-15&lt;/date&gt;
+      &lt;amount&gt;5200.00&lt;/amount&gt;
+      &lt;accountNo&gt;8400&lt;/accountNo&gt;
+      &lt;tax&gt;19.00&lt;/tax&gt;
+      &lt;currencyCode&gt;EUR&lt;/currencyCode&gt;
+      &lt;bookingText&gt;TE19%&lt;/bookingText&gt;
+    &lt;/cashLedger&gt;
+    &lt;cashLedger&gt;
+      &lt;date&gt;2026-01-15&lt;/date&gt;
+      &lt;amount&gt;1152.00&lt;/amount&gt;
+      &lt;accountNo&gt;8300&lt;/accountNo&gt;
+      &lt;tax&gt;7.00&lt;/tax&gt;
+      &lt;currencyCode&gt;EUR&lt;/currencyCode&gt;
+      &lt;bookingText&gt;TE7%&lt;/bookingText&gt;
+    &lt;/cashLedger&gt;
+  &lt;/consolidate&gt;
+&lt;/LedgerImport&gt;</code></pre>
+
+<h3>LedgerImport-Attribute</h3>
+<table>
+<tr><th>Attribut</th><th>Pflicht</th><th>Beschreibung</th></tr>
+<tr><td><code>version</code></td><td>Ja</td><td>Immer &bdquo;6.0&ldquo;</td></tr>
+<tr><td><code>generator_info</code></td><td>Ja</td><td>Firmenname (max 40 Zeichen)</td></tr>
+<tr><td><code>generating_system</code></td><td>Nein</td><td>Software-Name</td></tr>
+<tr><td><code>xml_data</code></td><td>Ja</td><td>Fixer Rechtshinweis (siehe oben)</td></tr>
+</table>
+
+<h3>consolidate-Attribute</h3>
+<table>
+<tr><th>Attribut</th><th>Pflicht</th><th>Beschreibung</th></tr>
+<tr><td><code>consolidatedAmount</code></td><td>Ja</td><td>Summe aller Betr&auml;ge (2 Dezimalstellen)</td></tr>
+<tr><td><code>consolidatedDate</code></td><td>Ja</td><td>Datum aller Eintr&auml;ge (YYYY-MM-DD)</td></tr>
+<tr><td><code>consolidatedCurrencyCode</code></td><td>Ja</td><td>Immer &bdquo;EUR&ldquo; f&uuml;r Kassenbuch</td></tr>
+<tr><td><code>consolidatedInvoiceId</code></td><td>Nein</td><td>Nur bei Eingangsrechnungen</td></tr>
+</table>
+
+<h3>cashLedger-Elemente</h3>
+<table>
+<tr><th>Element</th><th>Pflicht</th><th>Max-L&auml;nge</th><th>XSD-Typ</th><th>Beschreibung</th></tr>
+<tr><td><code>date</code></td><td>Ja</td><td>&mdash;</td><td>p10029</td><td>Belegdatum (YYYY-MM-DD)</td></tr>
+<tr><td><code>amount</code></td><td>Ja</td><td>&mdash;</td><td>p7</td><td>Betrag (&ne; 0.00, positiv=Einnahme, negativ=Ausgabe)</td></tr>
+<tr><td><code>accountNo</code></td><td>Nein</td><td>9</td><td>p10039</td><td>Gegenkonto</td></tr>
+<tr><td><code>buCode</code></td><td>Nein</td><td>&mdash;</td><td>p10033</td><td>BU-Schl&uuml;ssel</td></tr>
+<tr><td><code>costCategoryId</code></td><td>Nein</td><td>36</td><td>p10041</td><td>Kostenstelle 1 (KOST1)</td></tr>
+<tr><td><code>costCategoryId2</code></td><td>Nein</td><td>36</td><td>p10041</td><td>Kostenstelle 2 (KOST2)</td></tr>
+<tr><td><code>tax</code></td><td>Nein</td><td>&mdash;</td><td>p33</td><td>Steuersatz (z.B. &bdquo;19.00&ldquo;)</td></tr>
+<tr><td><code>information</code></td><td>Nein</td><td>120</td><td>p30</td><td>Nachricht / Zusatzinfo</td></tr>
+<tr><td><code>currencyCode</code></td><td>Ja</td><td>&mdash;</td><td>p1</td><td>Immer &bdquo;EUR&ldquo;</td></tr>
+<tr><td><code>invoiceId</code></td><td>Nein</td><td>36</td><td>p10040</td><td>Rechnungsnummer</td></tr>
+<tr><td><code>bookingText</code></td><td>Ja</td><td>60</td><td>p10036</td><td>Buchungstext (erste 30 Zeichen relevant)</td></tr>
+</table>
+
+<h3>Buchungstext-Zuordnung</h3>
+<table>
+<tr><th>Kassenbuch-Typ</th><th>Buchungstext</th></tr>
+<tr><td>CASH_SALE (19%)</td><td><code>TE19%</code></td></tr>
+<tr><td>CASH_SALE (7%)</td><td><code>TE7%</code></td></tr>
+<tr><td>CASH_SALE (0%)</td><td><code>TE0%</code></td></tr>
+<tr><td>CASH_EXPENSE (19%)</td><td><code>Aufwand 19%</code></td></tr>
+<tr><td>CASH_EXPENSE (7%)</td><td><code>Aufwand 7%</code></td></tr>
+<tr><td>CASH_EXPENSE (0%)</td><td><code>Aufwand 0%</code></td></tr>
+<tr><td>PRIVATE_WITHDRAWAL</td><td><code>Privatentnahme</code></td></tr>
+<tr><td>CASH_SHORTAGE</td><td><code>Z&auml;hlprotokoll</code></td></tr>
+<tr><td>CASH_SURPLUS</td><td><code>Z&auml;hlprotokoll</code></td></tr>
+<tr><td>CASH_TRANSFER_IN</td><td><code>Geldtransit</code></td></tr>
+<tr><td>CASH_TRANSFER_OUT</td><td><code>Geldtransit</code></td></tr>
+<tr><td>OPENING_BALANCE</td><td><code>Anfangsbestand</code></td></tr>
+<tr><td>CLOSING_BALANCE</td><td><code>Endbestand</code></td></tr>
+<tr><td>REFUND</td><td><code>R&uuml;ckerstattung</code></td></tr>
+<tr><td>CORRECTION_IN</td><td><code>Korrektur</code></td></tr>
+<tr><td>CORRECTION_OUT</td><td><code>Korrektur</code></td></tr>
+<tr><td>CHANGE_FUND</td><td><code>Wechselgeld</code></td></tr>
+<tr><td>CASH_DEPOSIT</td><td><code>Bargeldeinlage</code></td></tr>
+<tr><td>CASH_WITHDRAWAL</td><td><code>Barentnahme</code></td></tr>
+<tr><td>CASH_PAYMENT</td><td><code>Barzahlung</code></td></tr>
+</table>
+
+<hr>
+
+<h2 id="s6">6. Eingangsrechnungen Ledger XML</h2>
+
+<p>F&uuml;r Eingangsrechnungen wird der Typ <code>accountsPayableLedger</code> verwendet. Jede Rechnung erzeugt eine eigene Ledger-XML-Datei.</p>
+
+<p>
+  Beim Ad-hoc-Export der Eingangsrechnungen steuert die Option
+  <strong>&bdquo;Barrechnungen aus dem Kassenbuch-Export ausschlie&szlig;en&ldquo;</strong>
+  (standardm&auml;&szlig;ig aktiviert), ob Rechnungen &uuml;bersprungen werden, die bereits mit
+  einem Kassenbuch-Eintrag verkn&uuml;pft sind. Diese Barrechnungen werden bereits &uuml;ber
+  den Kassenbuch-Export ausgegeben; deaktivieren Sie die Option nur, wenn Sie sie
+  bewusst erneut exportieren m&ouml;chten.
+</p>
+
+<h3>Beispiel (mit mehreren Steuers&auml;tzen)</h3>
+<pre><code>&lt;LedgerImport xmlns="http://xml.datev.de/bedi/tps/ledger/v060"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xml.datev.de/bedi/tps/ledger/v060 Belegverwaltung_online_ledger_import_v060.xsd"
+              version="6.0" generator_info="Musterrestaurant GmbH"
+              generating_system="POS-KMP"
+              xml_data="Kopie nur zur Verbuchung berechtigt nicht zum Vorsteuerabzug"&gt;
+  &lt;consolidate consolidatedAmount="2587.00" consolidatedDate="2026-02-05"
+               consolidatedInvoiceId="R2026x204" consolidatedCurrencyCode="EUR"
+               consolidatedDeliveryDate="2026-02-02"&gt;
+    &lt;accountsPayableLedger&gt;
+      &lt;date&gt;2026-02-05&lt;/date&gt;
+      &lt;amount&gt;1190.00&lt;/amount&gt;
+      &lt;accountNo&gt;3400&lt;/accountNo&gt;
+      &lt;tax&gt;19.00&lt;/tax&gt;
+      &lt;information&gt;Warenlieferung Getr&auml;nke&lt;/information&gt;
+      &lt;currencyCode&gt;EUR&lt;/currencyCode&gt;
+      &lt;invoiceId&gt;R2026x204&lt;/invoiceId&gt;
+      &lt;bookingText&gt;Getr&auml;nke brutto&lt;/bookingText&gt;
+      &lt;vatId&gt;DE111654321&lt;/vatId&gt;
+      &lt;iban&gt;DE38500700100087654321&lt;/iban&gt;
+      &lt;dueDate&gt;2026-02-19&lt;/dueDate&gt;
+      &lt;bpAccountNo&gt;70100&lt;/bpAccountNo&gt;
+      &lt;deliveryDate&gt;2026-02-02&lt;/deliveryDate&gt;
+      &lt;supplierName&gt;Musterlieferant&lt;/supplierName&gt;
+      &lt;supplierCity&gt;Musterort&lt;/supplierCity&gt;
+    &lt;/accountsPayableLedger&gt;
+    &lt;accountsPayableLedger&gt;
+      &lt;date&gt;2026-02-05&lt;/date&gt;
+      &lt;amount&gt;1290.00&lt;/amount&gt;
+      &lt;accountNo&gt;3400&lt;/accountNo&gt;
+      &lt;tax&gt;19.00&lt;/tax&gt;
+      &lt;currencyCode&gt;EUR&lt;/currencyCode&gt;
+      &lt;invoiceId&gt;R2026x204&lt;/invoiceId&gt;
+      &lt;bookingText&gt;Warenlieferung brutto&lt;/bookingText&gt;
+      ...
+    &lt;/accountsPayableLedger&gt;
+    &lt;accountsPayableLedger&gt;
+      &lt;date&gt;2026-02-05&lt;/date&gt;
+      &lt;amount&gt;107.00&lt;/amount&gt;
+      &lt;accountNo&gt;3300&lt;/accountNo&gt;
+      &lt;tax&gt;7.00&lt;/tax&gt;
+      &lt;currencyCode&gt;EUR&lt;/currencyCode&gt;
+      &lt;invoiceId&gt;R2026x204&lt;/invoiceId&gt;
+      &lt;bookingText&gt;Lebensmittel brutto&lt;/bookingText&gt;
+      ...
+    &lt;/accountsPayableLedger&gt;
+  &lt;/consolidate&gt;
+&lt;/LedgerImport&gt;</code></pre>
+
+<div class="hint">
+<strong>Split-Tax:</strong> Bei Rechnungen mit mehreren Steuers&auml;tzen werden mehrere <code>&lt;accountsPayableLedger&gt;</code>-Eintr&auml;ge innerhalb eines <code>&lt;consolidate&gt;</code>-Blocks erzeugt. Der <code>consolidatedAmount</code> ist die Summe aller Teilbetr&auml;ge.
+</div>
+
+<h3>accountsPayableLedger &mdash; Zus&auml;tzliche Felder (gegen&uuml;ber cashLedger)</h3>
+<table>
+<tr><th>Element</th><th>Pflicht</th><th>Max-L&auml;nge</th><th>XSD-Typ</th><th>Beschreibung</th></tr>
+<tr><td><code>invoiceId</code></td><td>Ja</td><td>36</td><td>p10040</td><td>Rechnungsnummer (Pflicht bei AP!)</td></tr>
+<tr><td><code>bookingText</code></td><td>Nein</td><td>60</td><td>p10036</td><td>Buchungstext</td></tr>
+<tr><td><code>partyId</code></td><td>Nein</td><td>15</td><td>p10011</td><td>Gesch&auml;ftspartner-ID</td></tr>
+<tr><td><code>vatId</code></td><td>Nein</td><td>15</td><td>p10027</td><td>USt-IdNr. des Lieferanten</td></tr>
+<tr><td><code>iban</code></td><td>Nein</td><td>34</td><td>p10010</td><td>IBAN des Lieferanten</td></tr>
+<tr><td><code>dueDate</code></td><td>Nein</td><td>&mdash;</td><td>p10029</td><td>F&auml;lligkeitsdatum</td></tr>
+<tr><td><code>bpAccountNo</code></td><td>Nein</td><td>9</td><td>p11</td><td>Kreditorenkonto (70000&ndash;999999999)</td></tr>
+<tr><td><code>deliveryDate</code></td><td>Nein</td><td>&mdash;</td><td>p10029</td><td>Liefer-/Leistungsdatum (&le; Rechnungsdatum)</td></tr>
+<tr><td><code>supplierName</code></td><td>Nein</td><td>50</td><td>p10012</td><td>Lieferantenname</td></tr>
+<tr><td><code>supplierCity</code></td><td>Nein</td><td>30</td><td>p10019</td><td>Lieferantenort</td></tr>
+</table>
+
+<hr>
+
+<h2 id="s7">7. Feldvalidierung</h2>
+
+<h3>7.1 Rechnungsnummer (invoiceId)</h3>
+
+<p>XSD-Typ <code>p10040</code> erlaubt nur die Zeichen <code>[a-zA-Z0-9$%&amp;*+\-/]</code>. Ung&uuml;ltige Zeichen (Punkte, Leerzeichen, Umlaute) werden automatisch entfernt. Maximale L&auml;nge: 36 Zeichen. Der Wert <code>"0"</code> wird als leer behandelt.</p>
+
+<h3>7.2 Betr&auml;ge</h3>
+
+<p>Betrag <code>0.00</code> ist nicht zul&auml;ssig &mdash; DATEV lehnt den Import ab. Punkt als Dezimaltrennzeichen. Immer 2 Dezimalstellen. Positive Betr&auml;ge = Einnahme/Rechnung, negative = Ausgabe/Rechnungskorrektur.</p>
+
+<div class="hint">
+<strong>Hinweis:</strong> Eintr&auml;ge mit Betrag <code>0.00</code> werden beim Export automatisch &uuml;bersprungen, da DATEV diese nicht akzeptiert.
+</div>
+
+<h3>7.3 Feldl&auml;ngen</h3>
+<table>
+<tr><th>Feld</th><th>Max-L&auml;nge</th><th>XSD-Typ</th><th>Verhalten bei &Uuml;berschreitung</th></tr>
+<tr><td><code>clientName</code></td><td>36</td><td>p10023</td><td>Abschneiden mit Warnung</td></tr>
+<tr><td><code>generator_info</code></td><td>40</td><td>p10040</td><td>Abschneiden mit Warnung</td></tr>
+<tr><td><code>invoiceId</code></td><td>36</td><td>p10040</td><td>Zeichen-Bereinigung + Abschneiden</td></tr>
+<tr><td><code>bookingText</code></td><td>60</td><td>p10036</td><td>Abschneiden (erste 30 relevant)</td></tr>
+<tr><td><code>information</code></td><td>120</td><td>p30</td><td>Abschneiden mit Warnung</td></tr>
+<tr><td><code>supplierName</code></td><td>50</td><td>p10012</td><td>Abschneiden mit Warnung</td></tr>
+<tr><td><code>supplierCity</code></td><td>30</td><td>p10019</td><td>Abschneiden mit Warnung</td></tr>
+<tr><td><code>partyId</code></td><td>15</td><td>p10011</td><td>Abschneiden mit Warnung</td></tr>
+<tr><td><code>vatId</code></td><td>15</td><td>p10027</td><td>Abschneiden mit Warnung</td></tr>
+<tr><td><code>IBAN</code></td><td>34</td><td>p10010</td><td>Abschneiden mit Warnung</td></tr>
+<tr><td><code>consultantNumber</code></td><td>7</td><td>p10049</td><td>Abschneiden</td></tr>
+<tr><td><code>clientNumber</code></td><td>5</td><td>p10050</td><td>Abschneiden</td></tr>
+<tr><td><code>costCategoryId</code></td><td>36</td><td>p10041</td><td>Abschneiden</td></tr>
+<tr><td><code>bpAccountNo</code></td><td>9</td><td>p10009</td><td>Abschneiden</td></tr>
+</table>
+
+<hr>
+
+<h2 id="s8">8. Datenherkunft</h2>
+
+<h3>Kassenbuch &rarr; DATEV XML</h3>
+<table>
+<tr><th>XML-Feld</th><th>POS-Datenquelle</th><th>Bemerkung</th></tr>
+<tr><td><code>date</code></td><td><code>KassenbuchHeader.date</code></td><td>Buchungsdatum</td></tr>
+<tr><td><code>amount</code></td><td><code>KassenbuchLineItem.amount</code></td><td>Betrag mit Vorzeichen</td></tr>
+<tr><td><code>accountNo</code></td><td>Kontenzuordnung (Abschnitt&nbsp;12), sonst Gegenkonto des Eintrags</td><td>Gegenkonto; ein am Eintrag gesetztes Gegenkonto hat Vorrang vor der Zuordnung</td></tr>
+<tr><td><code>buCode</code></td><td><code>KassenbuchLineItem.buCode</code></td><td>BU-Schl&uuml;ssel</td></tr>
+<tr><td><code>tax</code></td><td><code>KassenbuchLineItem.vatRate</code></td><td>Steuersatz</td></tr>
+<tr><td><code>information</code></td><td><code>KassenbuchHeader.description</code></td><td>Beschreibungstext</td></tr>
+<tr><td><code>currencyCode</code></td><td>&mdash;</td><td>Fest &bdquo;EUR&ldquo;</td></tr>
+<tr><td><code>invoiceId</code></td><td>Rechnungsnummer des verkn&uuml;pften Belegs, ersatzweise <code>KassenbuchHeader.belegNr</code></td><td>Belegnummer (bereinigt); bei Nicht-Fiskal-Kassen mit Kassen-Pr&auml;fix wie Belegfeld&nbsp;1 (Abschnitt&nbsp;12.6)</td></tr>
+<tr><td><code>bookingText</code></td><td><code>DatevXmlBookingTextMapper</code></td><td>Automatisch aus Eintragstyp + MwSt</td></tr>
+<tr><td><code>generator_info</code></td><td><code>ShopConfig.clientName</code></td><td>Firmenname</td></tr>
+<tr><td><code>generatingSystem</code></td><td>&mdash;</td><td>Fest &bdquo;POS-KMP&ldquo;</td></tr>
+<tr><td><code>consultantNumber</code></td><td><code>ShopConfig.datevXmlConsultantNumber</code></td><td>DATEV Beraternummer</td></tr>
+<tr><td><code>clientNumber</code></td><td><code>ShopConfig.datevXmlClientNumber</code></td><td>DATEV Mandantennummer</td></tr>
+<tr><td><code>kassenName</code></td><td><code>ShopConfig.datevXmlKassenName</code></td><td>property key=&bdquo;3&ldquo;</td></tr>
+</table>
+
+<h3>Eingangsrechnungen &rarr; DATEV XML</h3>
+<table>
+<tr><th>XML-Feld</th><th>POS-Datenquelle</th><th>Bemerkung</th></tr>
+<tr><td><code>date</code></td><td><code>invoice.issue_date</code></td><td>Rechnungsdatum</td></tr>
+<tr><td><code>amount</code></td><td><code>invoice_vat_breakdown.taxable_amount + .vat_amount</code></td><td>Bruttobetrag pro Steuersatz</td></tr>
+<tr><td><code>accountNo</code></td><td><code>invoice_booking.account_no</code></td><td>Sachkonto</td></tr>
+<tr><td><code>tax</code></td><td><code>invoice_vat_breakdown.vat_rate</code></td><td>Steuersatz</td></tr>
+<tr><td><code>invoiceId</code></td><td><code>invoice.invoice_number</code></td><td>Rechnungsnummer (bereinigt)</td></tr>
+<tr><td><code>bookingText</code></td><td><code>invoice_vat_breakdown.description</code></td><td>Buchungstext; f&auml;llt auf <code>invoice_booking.booking_text</code> zur&uuml;ck, wenn leer</td></tr>
+<tr><td><code>supplierName</code></td><td><code>invoice.seller_name</code></td><td>Lieferantenname</td></tr>
+<tr><td><code>supplierCity</code></td><td><code>invoice.seller_city</code></td><td>Lieferantenort</td></tr>
+<tr><td><code>vatId</code></td><td><code>invoice.seller_vat_id</code></td><td>USt-IdNr.</td></tr>
+<tr><td><code>iban</code></td><td><code>invoice.payment_iban</code></td><td>Zahlungs-IBAN</td></tr>
+<tr><td><code>dueDate</code></td><td><code>invoice.due_date</code></td><td>F&auml;lligkeitsdatum</td></tr>
+<tr><td><code>bpAccountNo</code></td><td><code>invoice_booking.bp_account_no</code></td><td>Kreditorenkonto</td></tr>
+<tr><td><code>deliveryDate</code></td><td><code>invoice.delivery_date</code></td><td>Liefer-/Leistungsdatum</td></tr>
+</table>
+
+<div class="hint">
+<strong>Datenmodell ge&auml;ndert (08.08.2026):</strong> Der Eingangsrechnungs-Export liest seit dieser
+&Auml;nderung die normalisierten Tabellen <code>invoice</code>, <code>invoice_vat_breakdown</code> und
+<code>invoice_booking</code> (Flyway&nbsp;V84) statt der alten Tabelle
+<code>document_invoice_metadata</code> mit ihren JSON-Spalten. Die alte Tabelle bleibt bestehen,
+wird seit dem 11.08.2026 aber nur noch gelesen: Rechnungen werden ausschlie&szlig;lich &uuml;ber das
+neue Modell erfasst und bearbeitet, eine Projektion beim Speichern gibt es nicht mehr.
+<br><br>
+Zwei Auswirkungen f&uuml;r die Buchhaltung:
+<ul>
+  <li>Die Felder <code>orderId</code>, <code>shipFromCountry</code> und <code>shipToCountry</code>
+      werden <strong>nicht mehr ausgegeben</strong>. Sie haben im neuen Modell keine Entsprechung und
+      werden seit dem 11.08.2026 auch nicht mehr erfasst; die Altbest&auml;nde bleiben in
+      <code>document_invoice_metadata</code> erhalten.</li>
+  <li><code>&lt;tax&gt;</code> stammt jetzt aus <code>invoice_vat_breakdown</code>. Wurde in einer
+      Installation eine <em>Vorabversion</em> dieser &Auml;nderung eingespielt, k&ouml;nnen
+      Rechnungen ohne Steueraufschl&uuml;sselung vorliegen und dann ohne <code>&lt;tax&gt;</code>
+      exportiert werden. In diesem Fall die Tabelle <code>invoice</code> leeren, damit die
+      &Uuml;bernahme erneut l&auml;uft. Neuinstallationen sind nicht betroffen.</li>
+</ul>
+</div>
+
+<hr>
+
+<h2 id="s9">9. Konfiguration</h2>
+
+<p>Die DATEV XML-Konfiguration ist im Web-Backoffice (<code>/admin</code>) unter <strong>Compliance &rarr; Datenexport &rarr; DATEV XML Konfiguration</strong> verf&uuml;gbar (die Kasse hat keinen Datenexport-Reiter mehr). Neben den unten genannten Feldern stehen dort Sammeldebitor, Exportmodus f&uuml;r Eingangsrechnungen und der automatische DATEV-Export:</p>
+
+<table>
+<tr><th>Einstellung</th><th>Beschreibung</th><th>Standard</th><th>Max</th></tr>
+<tr><td>Kassenname</td><td>Name des Kassenbuchs</td><td>&bdquo;Kasse&ldquo;</td><td>&mdash;</td></tr>
+<tr><td>Beraternummer</td><td>DATEV Consultant-Nr.</td><td>&mdash;</td><td>7</td></tr>
+<tr><td>Mandantennummer</td><td>DATEV Client-Nr.</td><td>&mdash;</td><td>5</td></tr>
+<tr><td>Export-Pfad</td><td>Serverseitiger Speicherort</td><td>&mdash;</td><td>&mdash;</td></tr>
+</table>
+
+<p>Gespeichert in <code>ShopConfigurationTable</code> als <code>ConfigKey.DATEV_XML_CONFIG</code> (JSON-Format).</p>
+
+<hr>
+
+<h2 id="s10">10. API-Endpunkte</h2>
+
+<table>
+<tr><th>Methode</th><th>Pfad</th><th>Befugnis</th><th>Beschreibung</th></tr>
+<tr><td>GET</td><td><code>/api/v1/kassenbuch/export/datev-xml</code></td><td><code>CASHBOOK_READ</code></td><td>Kassenbuch-Export als ZIP herunterladen</td></tr>
+<tr><td>GET</td><td><code>/api/v1/kassenbuch/export/datev-xml/statistics</code></td><td><code>CASHBOOK_READ</code></td><td>Vorschau-Statistiken</td></tr>
+<tr><td>GET</td><td><code>/api/v1/kassenbuch/export/buchungsstapel</code></td><td><code>CASHBOOK_READ</code></td><td><code>EXTF_Buchungsstapel.csv</code>; 409 ohne Kontenzuordnung</td></tr>
+<tr><td>GET</td><td><code>/api/documents/export/datev-ap</code></td><td><code>DOCUMENT_READ</code></td><td>Eingangsrechnungen-Export als ZIP</td></tr>
+<tr><td>GET</td><td><code>/api/documents/export/datev-ap/statistics</code></td><td><code>DOCUMENT_READ</code></td><td>Vorschau-Statistiken</td></tr>
+<tr><td>GET</td><td><code>/api/v1/config/{shopId}/datev-xml</code></td><td><code>CONFIG_READ</code></td><td>DATEV-Konfiguration abrufen</td></tr>
+<tr><td>PUT</td><td><code>/api/v1/config/{shopId}/datev-xml</code></td><td><code>CONFIG_WRITE</code></td><td>DATEV-Konfiguration aktualisieren</td></tr>
+<tr><td>GET/PUT</td><td><code>/api/v1/config/{shopId}/datev-account-mapping</code></td><td><code>CONFIG_READ</code> / <code>CONFIG_WRITE</code></td><td>Kontenzuordnung (Abschnitt&nbsp;12)</td></tr>
+</table>
+
+<p>Alle Export-Endpunkte erfordern die Query-Parameter <code>startDate</code> und <code>endDate</code> im Format <code>YYYY-MM-DD</code>.</p>
+
+<p><strong>Export-Response:</strong> ZIP-Datei mit <code>Content-Type: application/zip</code> und <code>Content-Disposition: attachment</code> Header.</p>
+
+<p><strong>Statistik-Response:</strong> JSON mit <code>totalEntries</code>, <code>totalDays</code>/<code>totalInvoices</code>, <code>totalAmount</code>, <code>dateRange</code>.</p>
+
+<hr>
+
+<h2 id="s11">11. Architektur</h2>
+
+<h3>Modul&uuml;bersicht</h3>
+<pre><code>┌──────────────┐     ┌──────────────────┐     ┌─────────────────┐
+│ui/backoffice/│     │     server/      │     │  server-export/  │
+│  (Client UI) │────▶│   (Routes +      │────▶│  (XML-Generator) │
+│              │     │    Services)      │     │                  │
+└──────────────┘     └──────────────────┘     └─────────────────┘
+                              │                        │
+                              ▼                        ▼
+                     ┌──────────────────┐     ┌─────────────────┐
+                     │  accounting/api  │     │    ZIP-Paket     │
+                     │   (DTOs, Enums)  │     │   (document.xml  │
+                     │                  │     │  + Ledger XMLs   │
+                     └──────────────────┘     │  + PDFs)         │
+                                              └─────────────────┘</code></pre>
+
+<h3>Datenfluss</h3>
+<ol>
+  <li>Client sendet GET-Request mit Datumsbereich</li>
+  <li>Route validiert Parameter, delegiert an Service</li>
+  <li>Service l&auml;dt Kassenbuch-/Rechnungsdaten aus Datenbank</li>
+  <li>Service mappt Entit&auml;ten auf DTOs mit Feldvalidierung</li>
+  <li>Builder gruppiert Eintr&auml;ge (je Kassenbuch-Eintrag bzw. je Rechnung)</li>
+  <li>Generator erzeugt XML-Dateien mit XMLStreamWriter</li>
+  <li>Builder erstellt ZIP-Paket mit document.xml + Ledger-XMLs + PDFs</li>
+  <li>ZIP wird als HTTP-Response zur&uuml;ckgegeben</li>
+</ol>
+
+<h3>Schl&uuml;sseldateien</h3>
+<table>
+<tr><th>Modul</th><th>Datei</th><th>Zweck</th></tr>
+<tr><td>server-export</td><td><code>DatevXmlExportBuilder</code></td><td>Kassenbuch ZIP-Orchestrierung</td></tr>
+<tr><td>server-export</td><td><code>DatevApExportBuilder</code></td><td>Eingangsrechnungen ZIP-Orchestrierung</td></tr>
+<tr><td>server-export</td><td><code>DatevXmlDocumentGenerator</code></td><td>document.xml f&uuml;r Kassenbuch</td></tr>
+<tr><td>server-export</td><td><code>DatevApDocumentGenerator</code></td><td>document.xml f&uuml;r Eingangsrechnungen</td></tr>
+<tr><td>server-export</td><td><code>DatevXmlLedgerGenerator</code></td><td>Ledger-XML (cashLedger + AP)</td></tr>
+<tr><td>server-export</td><td><code>DatevApLedgerGenerator</code></td><td>AP Ledger-XML Orchestrierung</td></tr>
+<tr><td>server-export</td><td><code>DatevXmlFieldValidator</code></td><td>XSD-Feldvalidierung</td></tr>
+<tr><td>server-export</td><td><code>DatevXmlBookingTextMapper</code></td><td>Buchungstext-Zuordnung</td></tr>
+<tr><td>server</td><td><code>DatevXmlExportServiceImpl</code></td><td>Kassenbuch Service</td></tr>
+<tr><td>server</td><td><code>DatevApExportServiceImpl</code></td><td>Eingangsrechnungen Service</td></tr>
+<tr><td>server</td><td><code>KassenbuchRoutes</code></td><td>Kassenbuch REST-Endpunkte</td></tr>
+<tr><td>server</td><td><code>PdfRoutes</code></td><td>Eingangsrechnungen REST-Endpunkte</td></tr>
+<tr><td>shared</td><td><code>DatevXmlExportDto</code></td><td>Kassenbuch DTOs</td></tr>
+<tr><td>shared</td><td><code>DatevApExportDto</code></td><td>Eingangsrechnungen DTOs</td></tr>
+</table>
+
+<hr>
+
+<h2 id="s12">12. Kontenzuordnung</h2>
+
+<p>
+  Kassenbuch-Positionen tragen seit der Einf&uuml;hrung der <strong>Positionsarten</strong>
+  (<code>KassenbuchLineKind</code> &ndash; STANDARD, PFAND, GUTSCHEIN, NON_CASH_PAYMENT,
+  RECEIVABLE_SETTLEMENT, EMPLOYEE_TIP, siehe
+  <a href="kap-12-finanzdokumente.html#kap-12-positionsarten" target="_blank">Kapitel 12 &ndash; Finanzdokumente</a>)
+  eine maschinenlesbare Klassifizierung. Damit kann jede Position beim Export einem
+  konfigurierbaren DATEV-Konto zugeordnet werden &ndash; statt wie bisher pauschal den
+  Standardkonten des Buchungstyps zu folgen.
+</p>
+
+<h3>12.1 Einstellungen</h3>
+
+<p>
+  Die Kontenzuordnung wird im Web-Backoffice unter
+  <strong>Compliance &rarr; Datenexport &rarr; Kontenzuordnung</strong> gepflegt.
+  Solange keine Zuordnung gespeichert wurde, gilt der Shop als <strong>unkonfiguriert</strong>:
+  Die Buchungsstapel-Exporte verweigern dann den Lauf (HTTP&nbsp;409,
+  <code>DATEV_ACCOUNT_MAPPING_REQUIRED</code>), der Kassenbuch-XML-Export l&auml;uft weiter
+  (siehe 12.4).
+</p>
+
+<p>Die Einstellungsseite bietet:</p>
+<ul>
+  <li>Auswahl des Kontenrahmens (<strong>SKR03</strong> oder <strong>SKR04</strong>) mit
+      Schaltfl&auml;che &bdquo;Standardwerte &uuml;bernehmen&ldquo;, die die Seed-Tabelle aus 12.2
+      vorbef&uuml;llt</li>
+  <li>Kasse-Konto (Soll-Gegenpart aller gemappten Zeilen der fiskalischen Ladenkasse; Zeilen einer
+      Nebenkasse wie des Tresors bucht der Buchungsstapel auf deren eigenes Sachkonto aus der
+      Kassenverwaltung, Standard 1010 &ndash; sonst hebe ein Geldtransit Ladenkasse &rarr; Tresor
+      sich in der Buchf&uuml;hrung selbst auf)</li>
+  <li>Konto (+ optionaler BU-Schl&uuml;ssel) je Positionsart &times; MwSt.-Satz, getrennt f&uuml;r
+      Einnahme- und Ausgabe-Seite</li>
+  <li>Konto je aktiver unbarer Zahlungsart (f&uuml;r <code>NON_CASH_PAYMENT</code>-Positionen aus
+      dem Z-Bon)</li>
+  <li>Block <strong>Sonderbuchungen (ohne Steuersatz)</strong> mit Konto (+ optionalem BU) f&uuml;r
+      jede der neun Sonderbuchungen unten; ein leeres Feld ist als &bdquo;Konto fehlt&ldquo; markiert,
+      und Speichern meldet &bdquo;Sonderbuchungen: jedes Konto belegen oder seine automatische
+      Zuordnung ausschalten&ldquo;, bis alle neun belegt oder ausgeschaltet sind. &bdquo;Standardwerte
+      &uuml;bernehmen&ldquo; belegt bei SKR03 und bei SKR04 alle neun (Werte in 12.2) &ndash; die mit
+      &#8308; und &#8310; markierten Vorschlagswerte stimmen Sie mit dem Steuerberater ab.</li>
+  <li>An jeder Zelle (Positionsart &times; MwSt.-Satz, Zahlungsart, Sonderbuchung) der Schalter
+      <strong>&bdquo;Konto automatisch zuordnen&ldquo;</strong> &ndash; siehe 12.7. Das Kasse-Konto hat
+      keinen Schalter; es ist immer Pflicht.</li>
+</ul>
+
+<p>
+  Zus&auml;tzlich verlangt eine speicherbare Zuordnung ein Gegenkonto f&uuml;r jede
+  <strong>Sonderbuchung</strong>, die weder vom Steuersatz noch von der Zahlungsart abh&auml;ngt:
+  Geldtransit, Einlage, Privateinlage, Entnahme, Privatentnahme, Kassendifferenz (Mehr- und
+  Fehlbetrag), Saldenvortrag (Anfangs-/Endbestand, Wechselgeld) sowie
+  <strong>Trinkgeld Arbeitnehmer</strong> (siehe 12.5). Fehlt eines davon, wird die
+  Zuordnung beim Speichern abgelehnt. Eine eingebaute Ersatzbelegung gibt es daf&uuml;r bewusst nicht
+  mehr &ndash; die fr&uuml;heren festen Konten mischten SKR03 und SKR04.
+</p>
+
+<h3>12.2 SKR03/SKR04-Seed-Werte</h3>
+
+<p>
+  Die folgenden Werte werden beim Klick auf &bdquo;Standardwerte &uuml;bernehmen&ldquo;
+  vorbef&uuml;llt (Stand 2026-07-08, gepr&uuml;ft gegen die DATEV SKR03/SKR04-Kontentabellen; die
+  Sonderbuchungen erneut gepr&uuml;ft 2026-10-06 gegen &bdquo;DATEV-Kontenrahmen nach dem
+  Bilanzrichtlinie-Umsetzungsgesetz&ldquo;, g&uuml;ltig f&uuml;r 2026: SKR&nbsp;03 Art.-Nr.&nbsp;11174,
+  SKR&nbsp;04 Art.-Nr.&nbsp;11175, kostenfreier Download auf datev.de).
+</p>
+
+<div class="hint">
+  <strong>Korrigierte Vorschlagswerte (2026-10-06):</strong> Bei SKR03 war die Privatentnahme mit
+  1890 vorbelegt &ndash; das ist das Konto <em>Privateinlagen</em>; richtig ist 1800
+  &bdquo;Privatentnahmen allgemein&ldquo;. Die Privateinlage stand auf 9000 (Saldenvortr&auml;ge) statt
+  1890. Die Kassendifferenz stand auf 2110 (&bdquo;Zinsaufwendungen f&uuml;r kurzfristige
+  Verbindlichkeiten&ldquo;) bzw. 6880, das es in SKR03 nicht gibt. SKR04 belegt jetzt zus&auml;tzlich
+  Privateinlage 2180 und Privatentnahme 2100 vor, au&szlig;erdem &ndash; spiegelbildlich zu SKR03
+  &ndash; Einlage, Entnahme und Saldenvortrag mit 9000, Kassendifferenz Mehrbetrag mit 4830 und
+  Fehlbetrag mit 6300; damit belegt &bdquo;Standardwerte &uuml;bernehmen&ldquo; auch bei SKR04 alle
+  neun Sonderbuchungen.<br>
+  <strong>Bestehende Zuordnungen werden nicht ge&auml;ndert.</strong> Die Vorschlagswerte wirken nur
+  bei einer Neuinstallation und beim Klick auf &bdquo;Standardwerte &uuml;bernehmen&ldquo;. Pr&uuml;fen Sie
+  die Sonderbuchungen Ihrer gespeicherten Zuordnung und korrigieren Sie sie bei Bedarf von Hand
+  bzw. mit &bdquo;Standardwerte &uuml;bernehmen&ldquo; &ndash; bereits exportierte Buchungsstapel muss der
+  Steuerberater gegebenenfalls umbuchen.
+</div>
+
+<table>
+<tr><th>Zelle</th><th>SKR03</th><th>SKR04</th></tr>
+<tr><td>Kasse</td><td>1000</td><td>1600</td></tr>
+<tr><td>Einnahme STANDARD 19&nbsp;%&nbsp;/&nbsp;7&nbsp;%&nbsp;/&nbsp;0&nbsp;%</td><td>8400&nbsp;/&nbsp;8300&nbsp;/&nbsp;8100&nbsp;&sup3;</td><td>4400&nbsp;/&nbsp;4300&nbsp;/&nbsp;4100&nbsp;&sup3;</td></tr>
+<tr><td>Einnahme PFAND 19&nbsp;%</td><td>8400&nbsp;&sup1;</td><td>4400&nbsp;&sup1;</td></tr>
+<tr><td>Einnahme GUTSCHEIN 19&nbsp;%&nbsp;/&nbsp;7&nbsp;% (Erl&ouml;sschm&auml;lerungen)</td><td>8720&nbsp;/&nbsp;8710</td><td>4720&nbsp;/&nbsp;4710</td></tr>
+<tr><td>Ausgabe STANDARD 19&nbsp;%&nbsp;/&nbsp;7&nbsp;%&nbsp;/&nbsp;0&nbsp;% (Wareneingang)</td><td>3400&nbsp;/&nbsp;3300&nbsp;/&nbsp;3200</td><td>5400&nbsp;/&nbsp;5300&nbsp;/&nbsp;5200</td></tr>
+<tr><td>Ausgabe PFAND 19&nbsp;%</td><td>3400&nbsp;&sup1;</td><td>5400&nbsp;&sup1;</td></tr>
+<tr><td>Ausgabe GUTSCHEIN 19&nbsp;%&nbsp;/&nbsp;7&nbsp;% (Nachl&auml;sse)</td><td>3720&nbsp;/&nbsp;3710</td><td>5720&nbsp;/&nbsp;5710</td></tr>
+<tr><td>Zahlungsart: unbar, kein Gutschein (Geldtransit)</td><td>1360</td><td>1460</td></tr>
+<tr><td>Zahlungsart: Gutschein (<code>isVoucher</code>)&nbsp;&sup2;</td><td>1700 (Sonst. Verbindlichkeiten)</td><td>3500</td></tr>
+<tr><td>Sonderbuchung Geldtransit</td><td>1360</td><td>1460</td></tr>
+<tr><td>Sonderbuchung Privateinlage</td><td>1890 (Privateinlagen)</td><td>2180 (Privateinlagen)</td></tr>
+<tr><td>Sonderbuchung Privatentnahme</td><td>1800 (Privatentnahmen allgemein)</td><td>2100 (Privatentnahmen allgemein)</td></tr>
+<tr><td>Sonderbuchungen Einlage / Entnahme / Saldenvortrag</td><td>9000&nbsp;&#8308;</td><td>9000&nbsp;&#8308;</td></tr>
+<tr><td>Sonderbuchung Kassendifferenz Mehrbetrag / Fehlbetrag</td><td>8603 / 4900&nbsp;&#8310;</td><td>4830 / 6300&nbsp;&#8310;</td></tr>
+<tr><td>Sonderbuchung Trinkgeld Arbeitnehmer (Durchlaufende Posten)&nbsp;&#8309;</td><td>1590</td><td>1370</td></tr>
+</table>
+
+<p>
+  &sup1; Pfand wird auf das STANDARD-Konto vorbelegt &ndash; ein eigenes Pfand-Konto ist
+  shop-spezifisch und sollte gemeinsam mit dem Steuerberater festgelegt werden.<br>
+  &sup2; F&uuml;r Zahlungsarten mit <code>isVoucher&nbsp;=&nbsp;true</code> wird ein dediziertes
+  &bdquo;Verbindlichkeiten aus Gutscheinen&ldquo;-Unterkonto empfohlen.<br>
+  &sup3; &bdquo;Steuerfreie Ums&auml;tze &sect;&nbsp;4 Nr.&nbsp;8&nbsp;ff. UStG&ldquo; &ndash; ein
+  Platzhalter: F&uuml;r Shops, deren einzige 0&nbsp;%-Ums&auml;tze aus Mehrzweck-Gutschein-<strong>Verk&auml;ufen</strong>
+  stammen (der h&auml;ufige Gastronomie-Fall), wird empfohlen, diese Zelle stattdessen auf das
+  Gutschein-Verbindlichkeitskonto zu legen &ndash; bis eine dedizierte Aufteilung von
+  Gutschein-Verk&auml;ufen (separate Spezifikation) verf&uuml;gbar ist. Mitarbeitertrinkgeld bucht seit v1.1.0 nicht mehr &uuml;ber diese Zelle,
+  sondern &uuml;ber die Sonderbuchung <em>Trinkgeld Arbeitnehmer</em> (12.5).<br>
+  &#8308; Bei SKR03 aus den fr&uuml;heren festen Konten &uuml;bernommen, bei SKR04 spiegelbildlich
+  vorbelegt; 9000 hei&szlig;t in beiden Kontenrahmen &bdquo;Saldenvortr&auml;ge, Sachkonten&ldquo; und
+  passt f&uuml;r einen Saldenvortrag, f&uuml;r eine Bargeldbewegung (Einlage/Entnahme) ist es
+  fraglich &ndash; bitte mit dem Steuerberater abstimmen.<br>
+  &#8310; DATEV f&uuml;hrt in keinem der beiden Kontenrahmen ein eigenes Kassendifferenz-Konto. SKR03
+  8603 &bdquo;Sonstige betriebliche Ertr&auml;ge&ldquo; / 4900 &bdquo;Sonstige betriebliche
+  Aufwendungen&ldquo; bzw. SKR04 4830 &bdquo;Sonstige betriebliche Ertr&auml;ge&ldquo; / 6300
+  &bdquo;Sonstige betriebliche Aufwendungen&ldquo; sind allgemeine Vorschlagswerte &ndash; ob ein ungekl&auml;rter Mehrbetrag als Erl&ouml;s (mit USt)
+  zu behandeln ist, entscheidet der Steuerberater.<br>
+  &#8309; Vorschlagswert, bitte mit dem Steuerberater abstimmen &ndash; manche Betriebe f&uuml;hren
+  Mitarbeitertrinkgeld auf einem eigenen Verbindlichkeitskonto gegen&uuml;ber dem Personal. Siehe 12.5.
+</p>
+
+<div class="hint">
+  <strong>Steuerberater-Hinweis:</strong> Die Seed-Werte sind editierbare Vorschlagswerte, keine
+  Steuerberatung. Insbesondere Pfand- und Gutschein-Verbindlichkeitskonten sind h&auml;ufig
+  individuelle Unterkonten &ndash; die Vorschlagswerte sollten vor dem produktiven Einsatz mit
+  dem Steuerberater abgestimmt werden.
+</div>
+
+<h3>12.3 Unzugeordnete Zahlungsarten</h3>
+
+<p>
+  Die Einstellungsseite zeigt immer alle aktuell aktiven unbaren Zahlungsarten an. Wird eine neue
+  Zahlungsart angelegt, nachdem die Kontenzuordnung bereits gepflegt wurde, erscheint sie in der
+  Zuordnungstabelle mit dem Hinweis <strong>&bdquo;Konto fehlt&ldquo;</strong>; zus&auml;tzlich nennt ein Banner &bdquo;N Konten fehlen&ldquo; die Gesamtzahl und springt per Schaltfl&auml;che zur ersten L&uuml;cke. Auch fehlende Konten in den Zellen der Einnahme- und Ausgabes&auml;tze sind markiert (die Ausgabeseite hei&szlig;t <em>Wareneingang</em>); das BU-Feld erscheint nur bei eingeschaltetem Schalter.
+</p>
+
+<div class="hint">
+  <strong>Fehlende Kontozuordnung:</strong> Fehlt f&uuml;r eine Zahlungsart (oder eine
+  Positionsart&times;MwSt.-Kombination) das Konto, <strong>bricht der Buchungsstapel-Export ab</strong>
+  (HTTP&nbsp;409) und nennt den betroffenen Beleg. Legen Sie die fehlende Zelle an und exportieren
+  Sie erneut. Der Kassenbuch-XML-Export &uuml;bernimmt f&uuml;r diese Zeile das Gegenkonto des
+  Eintrags unver&auml;ndert (12.4).
+</div>
+
+<h3>12.4 Ohne Zuordnung &amp; nicht aufl&ouml;sbare Zeilen</h3>
+
+<p>
+  <strong>Buchungsstapel</strong> (mit und ohne Belege): Ohne gespeicherte Zuordnung l&auml;uft der
+  Export nicht (HTTP&nbsp;409, <code>DATEV_ACCOUNT_MAPPING_REQUIRED</code>). Die fr&uuml;heren festen
+  Konten je Buchungstyp wurden entfernt: Sie buchten Barausgaben mit vertauschter Soll/Haben-Sicht,
+  legten jeden Steuersatz auf das 19-%-Automatikkonto und zogen unbare Einnahmen vom Umsatz ab. Mit
+  Zuordnung wird sie <strong>pro Zeile</strong> angewendet (nie pro Feld &ndash; keine gemischten
+  Zeilen); l&auml;sst sich eine einzelne Zeile nicht aufl&ouml;sen (fehlende Zelle, unbekannter
+  MwSt.-Satz, unbekannte/fehlende Zahlungsart), bricht der ganze Export mit HTTP&nbsp;409 ab, statt
+  eine plausibel aussehende, aber falsche Buchung zu liefern.
+</p>
+
+<p>
+  <strong>Kassenbuch-XML</strong> (cashLedger): Ohne Zuordnung bzw. f&uuml;r eine nicht aufl&ouml;sbare
+  Zeile &uuml;bernimmt der Export Gegenkonto und BU-Schl&uuml;ssel des Kassenbuch-Eintrags
+  unver&auml;ndert; er erfindet keine Konten und bleibt daher auch unkonfiguriert nutzbar.
+</p>
+
+<div class="hint">
+  <strong>Automatischer DATEV-Export:</strong> Der geplante Lauf bricht bei fehlender Zuordnung nicht
+  ab &ndash; er vermerkt den fehlgeschlagenen Buchungsstapel in seinem Ergebnis und gilt trotzdem als
+  erfolgreich. Pr&uuml;fen Sie das Ergebnis unter <em>System &rarr; Geplante Aufgaben</em>.
+</div>
+
+<h3 id="s12-5">12.5 Mitarbeitertrinkgeld (Durchlaufende Posten)</h3>
+
+<p>
+  Trinkgeld f&uuml;r Mitarbeiter (DSFinV-K <code>TrinkgeldAN</code>) ist <strong>kein Umsatz</strong>
+  und wird beim Tagesabschluss deshalb weder versteuert noch als Erl&ouml;s ausgewiesen. Im
+  Kassenbuch-Eintrag des Z-Bons steht es als eigene Position <code>TE:Trinkgeld (AN)</code> der
+  Positionsart <code>EMPLOYEE_TIP</code> &ndash; bar <em>und</em> mit Karte gezahltes Trinkgeld
+  zusammen, denn auch das Kartentrinkgeld wird den Mitarbeitern bar aus der Kasse ausgezahlt.
+  Diese Position bucht &bdquo;Kasse an <strong>Trinkgeld Arbeitnehmer</strong>&ldquo;
+  (Vorschlag SKR03&nbsp;1590 / SKR04&nbsp;1370, Durchlaufende Posten).
+</p>
+<p>
+  Die <strong>Auszahlung</strong> an den Mitarbeiter &ndash; im Dialog <em>Z-Bon erstellen</em> oder
+  danach am Z-Bon (<em>Trinkgeld auszahlen</em>, siehe
+  <a href="kap-11-berichte.html#kap-11-trinkgeld-auszahlen" target="_blank">Kapitel 11</a>) &ndash; ist eine
+  Barentnahme mit derselben Positionsart und bucht die Gegenrichtung &bdquo;Trinkgeld Arbeitnehmer an
+  Kasse&ldquo;. Im Abschluss ausgezahlt, steht sie am selben Tag wie das Trinkgeld; sind alle Trinkgelder
+  ausgezahlt, steht das Konto f&uuml;r diesen Tag auf null. Der Kartenanteil wird dabei aus der Kasse
+  vorgestreckt und liegt bis zur Kartenabrechnung auf dem Geldtransitkonto (1360/1460).
+  Das Konto wird immer &uuml;ber die Sonderbuchung gezogen, unabh&auml;ngig vom Buchungstyp und vom
+  MwSt.-Satz der Position.
+</p>
+<div class="hint">
+  <strong>Bestehende Zuordnungen:</strong> Wurde die Kontenzuordnung gespeichert, bevor es die
+  Sonderbuchung <em>Trinkgeld Arbeitnehmer</em> gab, erg&auml;nzt der Server sie beim Lesen
+  automatisch um den Vorschlagswert des gew&auml;hlten Kontenrahmens; ein bereits eingetragenes Konto
+  wird nie &uuml;berschrieben. Der Buchungsstapel bricht deshalb an einem Tag mit Trinkgeld nicht ab.
+  Dauerhaft gespeichert wird das Feld beim n&auml;chsten Speichern der Zuordnung.
+</div>
+<div class="hint">
+  <strong>Alte Z-Bons bleiben unver&auml;ndert.</strong> Z-Bons, die vor dieser Version erstellt
+  wurden, f&uuml;hren das Trinkgeld als Position der Art STANDARD mit 0&nbsp;% und buchen es
+  &ndash; auch bei einem erneuten Export &ndash; wie bisher auf das 0-%-Erl&ouml;skonto
+  (8100/4100). Gespeicherte, TSE-signierte Kassenbuch-Eintr&auml;ge werden nicht umgeschrieben, und
+  ein erneuter Export eines bereits an DATEV &uuml;bergebenen Zeitraums liefert dieselben Buchungen
+  wie der erste. Lassen Sie solche Zeitr&auml;ume bei Bedarf vom Steuerberater umbuchen. F&uuml;r
+  diese Z-Bons bietet die Kasse auch keine Trinkgeld-Auszahlung an.
+</div>
+
+
+<h3 id="s12-6">12.6 Belegfeld&nbsp;1 bei mehreren Kassenb&uuml;chern</h3>
+
+<p>
+  Jedes Kassenbuch nummeriert seine Eintr&auml;ge f&uuml;r sich &ndash; Ladenkasse und Tresor haben
+  beide einen Eintrag <code>2026-05-0001</code>. Damit ein Buchungsstapel &uuml;ber mehrere
+  Kassenb&uuml;cher keine doppelte Belegnummer enth&auml;lt, tr&auml;gt Belegfeld&nbsp;1 bei jedem
+  <strong>Nicht-Fiskal</strong>-Kassenbuch ein Pr&auml;fix aus dem ersten Buchstaben des Kassennamens
+  und der internen Kassen-ID, z.&nbsp;B. <code>T2-2026-05-0001</code> f&uuml;r den Tresor mit der ID&nbsp;2.
+  Die fiskalische <strong>Ladenkasse</strong> beh&auml;lt ihre Nummer unver&auml;ndert.
+</p>
+<ul>
+  <li>Nur der Export ist betroffen: die gespeicherte Belegnummer, die TSE-Prozessdaten und der
+      DSFinV-K-Export bleiben unver&auml;ndert.</li>
+  <li>Das Pr&auml;fix besteht nur aus <code>A</code>&ndash;<code>Z</code>, Ziffern und
+      <code>-</code> (Umlaute werden &uuml;bersprungen, ohne Buchstaben gilt <code>K</code>);
+      Belegfeld&nbsp;1 bleibt h&ouml;chstens 36 Zeichen lang.</li>
+  <li>Der Kassenbuch-XML-Export verwendet dieselbe Regel f&uuml;r <code>invoiceId</code>, wenn er
+      ersatzweise die eigene Belegnummer statt der Lieferanten-Rechnungsnummer ausgibt.</li>
+</ul>
+
+<h3 id="s12-7">12.7 Konto automatisch zuordnen (Zuordnung DATEV &uuml;berlassen)</h3>
+
+<p>
+  Nicht jeder Vorschlagswert ist vom Steuerberater best&auml;tigt. Statt ein unsicheres Konto zu
+  exportieren, kann jede Zelle der Zuordnung ihr Konto <strong>DATEV &uuml;berlassen</strong>: Schalten
+  Sie an der Zelle <strong>&bdquo;Konto automatisch zuordnen&ldquo;</strong> aus. Konto- und BU-Feld
+  werden dann ausgegraut; ein dort stehendes Konto bleibt gespeichert, wird aber nicht exportiert
+  (Wiedereinschalten stellt es wieder her), und das Feld darf leer bleiben.
+  &bdquo;Alle Sonderbuchungen ohne Zuordnung&ldquo; schaltet den Schalter f&uuml;r alle neun
+  Sonderbuchungen auf einmal aus. Voreingestellt ist er &uuml;berall <strong>an</strong> &ndash; auch
+  f&uuml;r jede vor dieser Funktion gespeicherte Zuordnung; &bdquo;Standardwerte &uuml;bernehmen&ldquo;
+  schaltet alle Schalter wieder ein. Ist der Schalter an, muss die Zelle ein Konto haben: Speichern
+  lehnt eine leere Zelle ab (HTTP&nbsp;400), und der Buchungsstapel-Export verweigert eine solche
+  Zuordnung mit HTTP&nbsp;409.
+</p>
+
+<p>Folgen f&uuml;r jede Zeile, deren Zelle ausgeschaltet ist:</p>
+<ul>
+  <li><strong>Buchungsstapel</strong> (mit und ohne Belege): Konto bleibt das Kassenkonto, Umsatz und
+      Soll/Haben-Kennzeichen sind unver&auml;ndert; das Feld <em>Gegenkonto</em> und der
+      <em>BU-Schl&uuml;ssel</em> bleiben <strong>leer</strong> (nicht &bdquo;0&ldquo;). Belegfeld, Buchungstext,
+      KOST und alle &uuml;brigen Felder werden wie sonst geschrieben.</li>
+  <li><strong>Kassenbuch-XML</strong>: <code>accountNo</code> und <code>buCode</code> entfallen.</li>
+  <li><strong>Ausgangsrechnungen (DATEV Debitoren)</strong>: Ist die Zelle <em>Einnahmen &middot;
+      Standard</em> eines Steuersatzes ausgeschaltet, entfallen <code>accountNo</code> und
+      <code>buCode</code> dieser Steueraufteilung; der Export wird dadurch <em>nicht</em> blockiert.</li>
+  <li>Ein im Kassenbuch-Eintrag selbst erfasstes Gegenkonto gilt weiterhin &ndash; es ist keine
+      automatische Zuordnung.</li>
+</ul>
+
+<p>
+  Der Export meldet solche Zeilen: Nach dem Download nennt <em>Compliance &rarr; Datenexport</em>
+  je Exportart, wie viele Zeilen ohne Gegenkonto exportiert wurden und welche Buchungen betroffen
+  sind (bei Ausgangsrechnungen schon in der Pr&uuml;fung vor dem Download). Technisch tr&auml;gt der
+  Download den Header <code>X-Export-Unassigned-Contra</code>.
+</p>
+
+<div class="hint">
+  <strong>Import in DATEV Rechnungswesen:</strong> Das Gegenkonto ist im Buchungsstapel-Format ein
+  Pflichtfeld. Der Steuerberater importiert die Datei deshalb mit der Option
+  <strong>&bdquo;Buchungen trotz Fehler importieren&ldquo;</strong>. Der Stapel wird dann nicht
+  automatisch festgeschrieben; die fehlenden Gegenkonten erg&auml;nzt er in DATEV (z.&nbsp;B. &uuml;ber
+  die Importanalyse oder &bdquo;Buchungen bereichsweise &auml;ndern&ldquo;) und schreibt den Stapel
+  danach fest. Sprechen Sie dieses Vorgehen vorab mit Ihrem Steuerberater ab.
+</div>
+
+<hr>
+
+<p><em>Dokumentation erstellt auf Basis der DATEV XML-Schnittstelle online (XSD Version 6.0) und der aktuellen Implementierung des POS-KMP DATEV-Export-Moduls. Stand: 09.03.2026, erg&auml;nzt um Kontenzuordnung (Abschnitt 12) am 2026-07-09; aktualisiert f&uuml;r v1.1.0 (einzelDateien, Zuordnungspflicht f&uuml;r den Buchungsstapel, Web-Backoffice) am 2026-09-24; Mitarbeitertrinkgeld (Abschnitt 12.5) am 2026-10-04; korrigierte SKR03/SKR04-Sonderbuchungskonten (12.2) und Belegfeld-1-Pr&auml;fix (12.6) am 2026-10-06; Schalter &bdquo;Konto automatisch zuordnen&ldquo; (12.7) am 2026-10-07.</em></p>
+
+</body>
+</html>

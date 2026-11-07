@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS local_choice_group_options (
+    group_id INTEGER NOT NULL,
+    option_id INTEGER NOT NULL,
+    price_delta TEXT AS org.example.project.money.Decimal NOT NULL,
+    sort_position INTEGER NOT NULL DEFAULT 0,
+    is_default INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (group_id, option_id)
+);
+
+insertOrReplace:
+INSERT OR REPLACE INTO local_choice_group_options(group_id, option_id, price_delta, sort_position, is_default)
+VALUES (?, ?, ?, ?, ?);
+
+getByGroup:
+SELECT * FROM local_choice_group_options WHERE group_id = ? ORDER BY sort_position;
+
+deleteByGroup:
+DELETE FROM local_choice_group_options WHERE group_id = ?;
+
+clearAll:
+DELETE FROM local_choice_group_options;

@@ -1,0 +1,1 @@
+# Frozen layering violations (spec section 5). This file only ever shrinks; never add a line.

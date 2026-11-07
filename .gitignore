@@ -1,0 +1,82 @@
+*.iml
+.kotlin
+.gradle
+**/build/
+**/bin/
+xcuserdata
+!src/**/build/
+local.properties
+.idea
+.DS_Store
+captures
+.externalNativeBuild
+.cxx
+.superpowers
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+# Application logs
+**/logs/
+!pos-server/src/main/kotlin/**/maintenance/data/logs/
+*.log
+ui/till/logs/application*.log
+
+# JVM error logs
+hs_err_pid*.log
+replay_pid*.log
+
+# Ignore KCEF bundle and cache
+ui/till/kcef-bundle/
+ui/till/cache/
+
+# Generated SWIG files
+server-tse/src/main/java/
+server-tse/src/main/c
+tseconnector
+docs/datev_xml
+docs/datev/DATEV_Format_Pruef_Programm_2023_03_V2_2_2_0_2_aa3b0086a1
+docs/datev/Musterdaten_DATEV_Format_0_7f9322b9cc
+docs/datev/kassenbuch_2026-04-01_2026-04-21.csv
+docs/datev/*
+
+
+ui/till/data/
+.worktrees/
+
+# Node
+node_modules/
+
+# BMAD temporary output
+_bmad-output/
+_bmad/
+
+# Signing
+*.jks
+*.keystore
+keystore.properties
+
+# Multi-agent coordination (ephemeral)
+.agents/
+.omo/run-continuation/*
+
+# Real-data test backups — NEVER commit (real customer/employee PII, tax IDs, TSE signatures).
+# Drop a production backup zip here to drive the local Docker integration test (see
+# pos-server/src/test/README-real-data.md). CI never uses these; it runs a synthetic seed.
+/test-data/
+*.pos-backup.zip
+pre-restore_*.zip
+/docs/dsfinv_k_v_2_4/Swissbit_TSE_API_v6.0.0/*
+/pos-tse/exports/*
+.omo/*
+# superpowers brainstorming session artifacts
+.superpowers/
+
+# Local dev env files (secrets + machine-specific paths) and the isolated dev database
+.env
+pos-server/.env
+pos-server/.dev-data/
+__pycache__/

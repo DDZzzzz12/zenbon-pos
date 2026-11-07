@@ -1,0 +1,48 @@
+-- Local payment type storage
+-- Stores synced payment type data for offline access
+
+CREATE TABLE IF NOT EXISTS local_payment_types (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE,
+    en_name TEXT,
+    ch_name TEXT,
+    is_active INTEGER NOT NULL DEFAULT 1,
+    creates_receivable INTEGER NOT NULL DEFAULT 0
+);
+
+-- Insert or update a payment type
+insertOrUpdatePaymentType:
+INSERT OR REPLACE INTO local_payment_types(id, name, en_name, ch_name, is_active, creates_receivable)
+VALUES (?, ?, ?, ?, ?, ?);
+
+-- Get all payment types
+getAllPaymentTypes:
+SELECT * FROM local_payment_types ORDER BY name;
+
+-- Get all active payment types
+getActivePaymentTypes:
+SELECT * FROM local_payment_types WHERE is_active = 1 ORDER BY name;
+
+-- Get a specific payment type by ID
+getPaymentTypeById:
+SELECT * FROM local_payment_types WHERE id = ?;
+
+-- Get a specific payment type by name
+getPaymentTypeByName:
+SELECT * FROM local_payment_types WHERE name = ?;
+
+-- Count total payment types
+countPaymentTypes:
+SELECT COUNT(*) FROM local_payment_types;
+
+-- Count active payment types
+countActivePaymentTypes:
+SELECT COUNT(*) FROM local_payment_types WHERE is_active = 1;
+
+-- Delete a specific payment type
+deletePaymentType:
+DELETE FROM local_payment_types WHERE id = ?;
+
+-- Clear all payment types
+clearAllPaymentTypes:
+DELETE FROM local_payment_types;

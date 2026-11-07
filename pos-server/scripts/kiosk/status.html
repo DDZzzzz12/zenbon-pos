@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="token" content="__TOKEN__">
+<meta name="wake" content="__WAKE__">
+<title>System</title>
+<style>
+  :root { color-scheme: light dark; --bg:#f4f5f7; --card:#fff; --fg:#1b1b1f; --muted:#5f6368; --line:#d9dbe0;
+          --ok:#1e8e3e; --warn:#b26a00; --bad:#c5221f; --accent:#2f5bd3; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#121316; --card:#1d1f24; --fg:#e6e6ea; --muted:#a0a4ab; --line:#33363d;
+            --ok:#5bd37a; --warn:#f2b45a; --bad:#ff8a84; --accent:#8ab0ff; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:18px/1.45 system-ui,"Segoe UI",Roboto,"Noto Sans",sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:20px 16px 40px; }
+  h1 { font-size:26px; margin:0 0 4px; }
+  .sub { color:var(--muted); margin:0 0 18px; font-size:16px; }
+  .banner { display:none; border-radius:12px; padding:16px 18px; margin-bottom:16px; font-weight:600; font-size:20px; }
+  .banner.low { display:block; background:var(--warn); color:#fff; }
+  .banner.critical { display:block; background:var(--bad); color:#fff; }
+  .banner small { display:block; font-weight:400; font-size:16px; margin-top:4px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:14px; }
+  .card h2 { font-size:15px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin:0 0 8px; }
+  .big { font-size:40px; font-weight:700; line-height:1.1; }
+  .bar { height:12px; border-radius:6px; background:var(--line); overflow:hidden; margin:10px 0 6px; }
+  .bar > i { display:block; height:100%; background:var(--ok); width:0; transition:width .4s; }
+  .bar.low > i { background:var(--warn); } .bar.critical > i { background:var(--bad); }
+  .row { display:flex; justify-content:space-between; gap:12px; padding:3px 0; }
+  .row span:first-child { color:var(--muted); }
+  .good { color:var(--ok); font-weight:600; } .bad { color:var(--bad); font-weight:600; }
+  .actions { display:grid; gap:12px; margin-top:6px; }
+  button { font:inherit; font-weight:600; min-height:56px; padding:12px 18px; border-radius:12px; border:1px solid var(--line);
+           background:var(--card); color:var(--fg); cursor:pointer; text-align:left; }
+  button.primary { background:var(--accent); border-color:var(--accent); color:#fff; text-align:center; }
+  button.danger.armed { background:var(--bad); border-color:var(--bad); color:#fff; }
+  button small { display:block; font-weight:400; font-size:15px; color:var(--muted); }
+  button.danger.armed small { color:#fff; }
+  #msg { min-height:24px; margin-top:10px; color:var(--bad); font-size:16px; }
+  .hint { color:var(--muted); font-size:15px; margin-top:18px; }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="t-title">System</h1>
+  <p class="sub" id="host"></p>
+
+  <div id="banner" class="banner"></div>
+
+  <section class="card" id="card-battery">
+    <h2 id="t-battery">Akku</h2>
+    <div class="big" id="pct">–</div>
+    <div class="bar" id="bar"><i id="barfill"></i></div>
+    <div id="batstate" class="sub" style="margin:0"></div>
+  </section>
+
+  <section class="card">
+    <h2 id="t-server">Server</h2>
+    <div class="row"><span id="t-state">Status</span><span id="srv">–</span></div>
+    <div class="row"><span id="t-net">Netzwerk</span><span id="net">–</span></div>
+    <div class="row"><span id="t-addr">Adresse</span><span id="addr">–</span></div>
+    <div class="row"><span id="t-up">Laufzeit</span><span id="up">–</span></div>
+  </section>
+
+  <div class="actions">
+    <button class="primary" id="b-back" data-action="back"></button>
+    <button class="danger" id="b-reboot" data-action="reboot" data-confirm="1"></button>
+    <button class="danger" id="b-poweroff" data-action="poweroff" data-confirm="1"></button>
+    <button class="danger" id="b-uioff" data-action="ui-off" data-confirm="1"></button>
+  </div>
+  <div id="msg" role="status"></div>
+  <p class="hint" id="hint"></p>
+</main>
+
+<script>
+const L = {
+  de: {
+    title: "System", battery: "Akku", server: "Server", state: "Status", net: "Netzwerk", addr: "Adresse", up: "Laufzeit",
+    running: "läuft", down: "nicht erreichbar", charging: "Wird geladen", full: "Voll geladen", discharging: "Läuft im Akkubetrieb",
+    noBattery: "Kein Akku (Netzbetrieb)", noWifi: "kein WLAN", wired: "Kabel / unbekannt",
+    low: "Akku niedrig – bitte Ladegerät anschließen", critical: "Akku kritisch – Rechner schaltet sich bald ab",
+    lowSub: "Unter {p} %. Der Server läuft weiter, solange der Rechner an ist.",
+    back: "Zurück zur Kasse", reboot: "Neustart", poweroff: "Herunterfahren", uioff: "Bildschirm ausschalten",
+    rebootSub: "Rechner neu starten", poweroffSub: "Server und Kasse ausschalten",
+    uioffSub: "Bildschirm ausschalten, Server läuft weiter. Zurück mit {k} auf der Tastatur",
+    confirm: "Bestätigen – tippen Sie noch einmal", failed: "Nicht möglich: ",
+    hint: "Strg+Tab wechselt den Tab. Diese Seite zeigt sich bei niedrigem Akku von selbst.",
+    days: "T", hours: "Std", minutes: "Min"
+  },
+  en: {
+    title: "System", battery: "Battery", server: "Server", state: "Status", net: "Network", addr: "Address", up: "Uptime",
+    running: "running", down: "unreachable", charging: "Charging", full: "Fully charged", discharging: "Running on battery",
+    noBattery: "No battery (mains powered)", noWifi: "no Wi-Fi", wired: "wired / unknown",
+    low: "Battery low – please connect the charger", critical: "Battery critical – the machine will shut down soon",
+    lowSub: "Below {p} %. The server keeps running as long as the machine is on.",
+    back: "Back to the till", reboot: "Restart", poweroff: "Shut down", uioff: "Turn the screen off",
+    rebootSub: "Restart the machine", poweroffSub: "Switch the server and till off",
+    uioffSub: "Turn the screen off, the server keeps running. Back with {k} on the keyboard",
+    confirm: "Confirm – tap once more", failed: "Not possible: ",
+    hint: "Ctrl+Tab switches tabs. This page shows itself when the battery runs low.",
+    days: "d", hours: "h", minutes: "min"
+  }
+};
+const T = L[(navigator.language || "de").toLowerCase().startsWith("de") ? "de" : "en"];
+const token = document.querySelector('meta[name="token"]').content;
+const wake = document.querySelector('meta[name="wake"]').content;
+const $ = id => document.getElementById(id);
+
+function label(id, text, sub) { $(id).innerHTML = ""; $(id).append(text); if (sub) { const s = document.createElement("small"); s.textContent = sub; $(id).append(s); } }
+document.documentElement.lang = T === L.de ? "de" : "en";
+$("t-title").textContent = T.title; $("t-battery").textContent = T.battery; $("t-server").textContent = T.server;
+$("t-state").textContent = T.state; $("t-net").textContent = T.net; $("t-addr").textContent = T.addr; $("t-up").textContent = T.up;
+label("b-back", T.back); label("b-reboot", T.reboot, T.rebootSub); label("b-poweroff", T.poweroff, T.poweroffSub); label("b-uioff", T.uioff, T.uioffSub.replace("{k}", wake));
+$("hint").textContent = T.hint;
+
+function fmtUptime(s) {
+  if (s == null) return "–";
+  const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
+  return (d ? d + " " + T.days + " " : "") + (h || d ? h + " " + T.hours + " " : "") + m + " " + T.minutes;
+}
+
+function render(s) {
+  $("host").textContent = s.hostname;
+  const b = s.battery;
+  const banner = $("banner");
+  banner.className = "banner" + (s.level !== "ok" ? " " + s.level : "");
+  if (s.level !== "ok") {
+    banner.textContent = s.level === "critical" ? T.critical : T.low;
+    const sub = document.createElement("small"); sub.textContent = T.lowSub.replace("{p}", s.warnPercent); banner.append(sub);
+  }
+  if (!b.present) {
+    $("pct").textContent = "–"; $("batstate").textContent = T.noBattery; $("bar").style.display = "none";
+  } else {
+    $("bar").style.display = ""; $("bar").className = "bar" + (s.level !== "ok" ? " " + s.level : "");
+    $("pct").textContent = b.percent == null ? "–" : b.percent + " %";
+    $("barfill").style.width = (b.percent || 0) + "%";
+    $("batstate").textContent = b.status === "Full" ? T.full : b.onAc ? T.charging : T.discharging;
+  }
+  $("srv").textContent = s.server.ok ? T.running : T.down; $("srv").className = s.server.ok ? "good" : "bad";
+  $("net").textContent = s.wifi ? s.wifi.ssid + (s.wifi.signal != null ? " (" + s.wifi.signal + " %)" : "") : T.wired;
+  $("addr").textContent = s.addresses.length ? s.addresses.join(", ") : "–";
+  $("up").textContent = fmtUptime(s.uptimeSeconds);
+}
+
+async function poll() {
+  try { render(await (await fetch("/api/status", { cache: "no-store" })).json()); } catch (e) { /* helper restarting */ }
+}
+poll(); setInterval(poll, 5000);
+
+const armed = new Map(), originals = new Map();
+function disarm(btn) {
+  clearTimeout(armed.get(btn)); armed.delete(btn);
+  btn.classList.remove("armed");
+  if (originals.has(btn)) { btn.innerHTML = originals.get(btn); originals.delete(btn); }
+}
+document.querySelectorAll("button[data-action]").forEach(btn => btn.addEventListener("click", async () => {
+  if (btn.dataset.confirm && !btn.classList.contains("armed")) {
+    originals.set(btn, btn.innerHTML);
+    btn.classList.add("armed"); btn.innerHTML = ""; btn.append(T.confirm);
+    armed.set(btn, setTimeout(() => disarm(btn), 5000));
+    return;
+  }
+  disarm(btn);
+  $("msg").textContent = "";
+  try {
+    const r = await fetch("/api/" + btn.dataset.action, { method: "POST", headers: { "X-Token": token } });
+    const body = await r.json();
+    if (!r.ok || body.ok === false) $("msg").textContent = T.failed + (body.error || r.status);
+  } catch (e) { /* the machine or the browser is going down */ }
+  poll();
+}));
+</script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geplante Aufgaben &mdash; Dokumentation</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+    --code-bg: #f3f4f6;
+    --table-header: #f9fafb;
+    --blockquote-bg: #eff6ff;
+    --blockquote-border: #93c5fd;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.7;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.4rem; margin-top: 2.5rem; margin-bottom: 0.75rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.3rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.8rem; margin-bottom: 0.5rem; }
+  h4 { font-size: 1rem; margin-top: 1.2rem; margin-bottom: 0.4rem; }
+  p { margin-bottom: 0.75rem; }
+  a { color: var(--accent); }
+  code {
+    background: var(--code-bg);
+    padding: 0.15em 0.35em;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  pre {
+    background: var(--code-bg);
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  blockquote {
+    background: var(--blockquote-bg);
+    border-left: 4px solid var(--blockquote-border);
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-style: italic;
+  }
+  blockquote p { margin-bottom: 0.4rem; }
+  blockquote p:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--table-header); font-weight: 600; }
+  tr:hover { background: #fafafa; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .meta { color: #6b7280; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .toc { background: var(--code-bg); padding: 1rem 1.5rem; border-radius: 6px; margin: 1rem 0 2rem; }
+  .toc ul { list-style: none; padding-left: 1.2rem; }
+  .toc > ul { padding-left: 0; }
+  .toc li { margin: 0.2rem 0; }
+  .toc a { text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .hint {
+    background: #fefce8;
+    border-left: 4px solid #facc15;
+    padding: 0.6rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  .status-ok { color: #16a34a; font-weight: 600; }
+  .status-warn { color: #d97706; font-weight: 600; }
+  .status-bad { color: #dc2626; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<h1>Geplante Aufgaben &mdash; Bedienungshandbuch</h1>
+<div class="meta">
+  <strong>Modul:</strong> Web-Admin &rarr; System &rarr; Geplante Aufgaben (an der Kasse nicht mehr vorhanden)<br>
+  <strong>Berechtigung:</strong> <code>SCHEDULED_JOB_READ</code> (ansehen), <code>SCHEDULED_JOB_WRITE</code> (ausf&uuml;hren/schalten) &ndash; vorgegeben ab Filialleitung<br>
+  <strong>Implementierung:</strong> <code>features/scheduler/</code>
+</div>
+
+<nav class="toc">
+<strong>Inhaltsverzeichnis</strong>
+<ul>
+  <li><a href="#s1">1. &Uuml;berblick</a></li>
+  <li><a href="#s2">2. Eingebaute Aufgaben</a></li>
+  <li><a href="#s3">3. Konfiguration</a></li>
+  <li><a href="#s4">4. Verlauf &amp; Status</a></li>
+  <li><a href="#s5">5. Verpasste L&auml;ufe nach Server-Ausfall</a></li>
+  <li><a href="#s6">6. &bdquo;Jetzt ausf&uuml;hren&ldquo;</a></li>
+  <li><a href="#s7">7. Berechtigungen</a></li>
+  <li><a href="#s8">8. Technische Hinweise</a></li>
+</ul>
+</nav>
+
+<h2 id="s1">1. &Uuml;berblick</h2>
+<p>
+Die Seite <em>Geplante Aufgaben</em> im Web-Admin ist im Wesentlichen eine Diagnose-Ansicht. Es gibt
+<strong>keine benutzerdefinierten Auftr&auml;ge</strong> &mdash; weder Anlegen, Bearbeiten noch L&ouml;schen.
+Stattdessen pflegt der Server <strong>sechs eingebaute Auftr&auml;ge</strong>, die automatisch beim Start angelegt
+werden und sich nach jedem Speichern der Backup- bzw. DATEV-Konfiguration neu einlesen.
+</p>
+<p>
+Konfiguriert werden die Auftr&auml;ge an den fachlich passenden Stellen:
+</p>
+<ul>
+  <li><strong>Auto Backup</strong> &rarr; Web-Admin, <em>Compliance &rarr; Datenexport &rarr; Datenbank-Backup &rarr; Automatische Sicherung</em>. Ist eine zweite Kopie eingestellt und schl&auml;gt nur diese fehl, steht der Lauf auf <em>FAILED</em> mit dem Ergebnis der lokalen Sicherung und dem Fehler <code>copy: &hellip;</code>; die lokale Sicherung ist dann vorhanden.</li>
+  <li><strong>Auto DATEV Export</strong> &rarr; Web-Admin, <em>Compliance &rarr; Datenexport &rarr; DATEV XML Konfiguration</em>.</li>
+  <li><strong>Update Check</strong> &rarr; Zeitplan fest; was nach der Pr&uuml;fung geschieht, regelt
+      <em>System &rarr; Software-Update</em> (siehe <a href="kap-17-softwareaktualisierung.html">Kapitel&nbsp;17</a>).</li>
+  <li><strong>Entry Log Retention</strong>, <strong>Contract Instalments</strong>, <strong>Reversal Sweep</strong>
+      &rarr; nur ein Aktiv-Schalter (Endpunkt <code>PUT /api/scheduled-jobs/{id}/enabled</code>; auf der Seite selbst
+      gibt es daf&uuml;r keinen Schalter), siehe <a href="#s3">Konfiguration</a>.</li>
+</ul>
+
+<h2 id="s2">2. Eingebaute Aufgaben</h2>
+<table>
+  <thead><tr><th>Auftrag (Anzeige)</th><th>Typ</th><th>Zeitplan / Vorgabe</th><th>Beschreibung</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Auto Backup (Datenbanksicherung)</td>
+      <td><code>BACKUP</code></td>
+      <td>T&auml;glich oder w&ouml;chentlich zur eingestellten Stunde; folgt dem Schalter <em>Aktiviert</em></td>
+      <td>Erstellt eine ZIP-Sicherung der Datenbank im konfigurierten Pfad und l&ouml;scht alte
+          Sicherungen gem&auml;&szlig; der eingestellten Aufbewahrungsanzahl.</td>
+    </tr>
+    <tr>
+      <td>Auto DATEV Export (DATEV-Auto-Export)</td>
+      <td><code>DATEV_AUTO_EXPORT</code></td>
+      <td>W&ouml;chentlich oder monatlich zur eingestellten Stunde; aktiv, wenn der Hauptschalter an und mindestens ein Typ nicht <em>Aus</em> ist</td>
+      <td>St&ouml;&szlig;t pro Typ (Kassenbuch, Eingangsrechnungen, Buchungsstapel) den jeweils
+          n&auml;chsten f&auml;lligen Export an. Verpasste Perioden werden automatisch nachgeholt.
+          Scheitert ein Typ oder eine Periode (z.&nbsp;B. ohne DATEV-Kontenzuordnung beim Buchungsstapel, oder weil
+          die Datei nicht geschrieben werden konnte), laufen die &uuml;brigen Typen trotzdem; der Lauf endet aber als
+          <span class="status-bad">Fehlgeschlagen</span>. Im Verlauf steht als Ergebnis, was exportiert wurde
+          (z.&nbsp;B. <code>KASSENBUCH: 0 periods, 1 failed, 1 deferred, AP_LEDGER: 1 periods</code>), und als
+          Fehlermeldung jede gescheiterte Periode mit Grund. Innerhalb eines Typs bricht der Lauf bei der ersten
+          gescheiterten Periode ab; die sp&auml;teren Perioden (<em>deferred</em>) werden nicht vorgezogen, denn sonst
+          w&uuml;rde die gescheiterte Periode nie mehr nachgeholt. Der n&auml;chste Lauf beginnt mit ihr.
+          Nach einer Wiederherstellung mit fremdem Exportordner wird der Lauf &uuml;bersprungen, bis der Pfad gepr&uuml;ft
+          ist (siehe <a href="kap-16-fehlerbehebung.html#kap-16-speicherpfade">Speicherpfade pr&uuml;fen</a>); dasselbe gilt
+          f&uuml;r <em>Auto Backup</em> und einen fremden Sicherungsordner.</td>
+    </tr>
+    <tr>
+      <td>Entry Log Retention (Protokolleintrags-Bereinigung)</td>
+      <td><code>ENTRY_LOG_RETENTION</code></td>
+      <td>T&auml;glich 03:00 Uhr; <strong>deaktiviert</strong></td>
+      <td>L&ouml;scht Eintr&auml;ge aus dem &Auml;nderungsprotokoll (<code>entry_log</code>), die &auml;lter als 90 Tage sind.
+          Bewusste Opt-in-Entscheidung des Betreibers (siehe unten).</td>
+    </tr>
+    <tr>
+      <td>Contract Instalments (Vertragsraten)</td>
+      <td><code>CONTRACT_INSTALMENTS</code></td>
+      <td>T&auml;glich 02:00 Uhr; <strong>aktiv</strong></td>
+      <td>Legt f&uuml;r jeden aktiven Vertrag die f&auml;lligen Raten der laufenden und der n&auml;chsten Periode an, damit eine
+          ausbleibende Zahlung auff&auml;llt. Wiederholte L&auml;ufe erzeugen nichts doppelt. Ergebnis z.&nbsp;B.
+          <code>created 3 contract instalments</code>.</td>
+    </tr>
+    <tr>
+      <td>Reversal Sweep (Stornolauf)</td>
+      <td><code>REVERSAL_SWEEP</code></td>
+      <td>T&auml;glich 04:00 Uhr; <strong>aktiv</strong></td>
+      <td>Wertet zur&uuml;ckgegebene Lastschriften aus dem Bankabgleich aus: Die Zuordnung zur Rechnung wird aufgehoben, die
+          Rechnung ist wieder offen. Gemeldet wird die Zahl der aufgehobenen Zuordnungen; 0 ist der Normalfall.</td>
+    </tr>
+    <tr>
+      <td>Update Check (Update-Pr&uuml;fung)</td>
+      <td><code>UPDATE_CHECK</code></td>
+      <td>T&auml;glich 03:00 Uhr; <strong>aktiv</strong></td>
+      <td>Pr&uuml;ft, ob eine neuere Programmversion ver&ouml;ffentlicht wurde, und legt sie gepr&uuml;ft auf der Festplatte
+          bereit. Das <em>Installieren</em> ist eine davon getrennte, per Voreinstellung ausgeschaltete Option. Lehnt die
+          Vorpr&uuml;fung eine n&auml;chtliche Installation ab, endet der Lauf als <span class="status-ok">Erfolgreich</span>
+          mit einem Ergebnis-Text, der mit <code>skipped:</code> beginnt. Siehe
+          <a href="kap-17-softwareaktualisierung.html">Kapitel&nbsp;17 &ndash; Softwareaktualisierung</a>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="s3">3. Konfiguration</h2>
+<p>
+Die Auftrags-Parameter werden <strong>nicht</strong> auf der Seite <em>Geplante Aufgaben</em> eingestellt,
+sondern in der jeweiligen Fachoberfl&auml;che:
+</p>
+<ul>
+  <li><strong>Auto Backup:</strong> <em>Aktiviert</em>-Schalter, <em>Frequenz</em> (T&auml;glich / W&ouml;chentlich),
+      <em>Aufbewahrte Kopien</em> (Standard 7) und <em>Stunde (0&ndash;23)</em> &mdash; Details siehe
+      <a href="kap-13-einstellungen.html#kap-13-export">Kapitel 13 &ndash; Datenexport</a>.</li>
+  <li><strong>Auto DATEV Export:</strong> Master-Schalter <em>Aktiviert</em>, pro Typ eine eigene Frequenz
+      (<em>Aus</em> / <em>W&ouml;chentlich</em> / <em>Monatlich</em>) f&uuml;r Kassenbuch, Eingangsrechnungen und
+      Buchungsstapel sowie eine gemeinsame <em>Stunde (0&ndash;23)</em>. Der Auftrag l&auml;uft im k&uuml;rzesten
+      eingestellten Rhythmus. Details siehe
+      <a href="kap-14-compliance.html#kap-14-datev">Kapitel 14 &ndash; DATEV</a>.</li>
+  <li><strong>Entry Log Retention, Contract Instalments, Reversal Sweep:</strong> Es gibt nur einen <em>Aktiv</em>-Schalter,
+      gesetzt &uuml;ber <code>PUT /api/scheduled-jobs/{id}/enabled</code> mit Body <code>{"enabled": true}</code>
+      bzw. <code>false</code>. Zeitplan und (bei der Bereinigung) die Aufbewahrungsdauer von 90 Tagen sind fest hinterlegt.</li>
+  <li><strong>Update Check:</strong> ebenfalls nur per <em>Aktiv</em>-Schalter abschaltbar; Kanal, Token und automatische
+      Installation stehen unter <em>System &rarr; Software-Update</em>.</li>
+</ul>
+<div class="hint">
+<strong>Warum ist die Entry-Log-Bereinigung standardm&auml;&szlig;ig aus?</strong> Das &Auml;nderungsprotokoll
+dient zugleich als Nachvollziehbarkeits-Log und kann gesetzlichen Aufbewahrungspflichten unterliegen
+(GoBD / DSFinV-K). Das L&ouml;schen alter Eintr&auml;ge ist daher eine bewusste Opt-in-Entscheidung des
+Betreibers. Die Client-Synchronisation funktioniert auch ohne Bereinigung &mdash; ohne Aktivierung
+w&auml;chst die Tabelle <code>entry_log</code> jedoch unbegrenzt.
+</div>
+<p>
+Nach jedem Speichern in Backup- oder DATEV-Konfiguration (sowie bei jedem Server-Start) werden die
+eingebauten Auftr&auml;ge serverseitig neu geseedet (Frequenz, Stunde, Aktiv-Status, n&auml;chster Lauf).
+Der manuell gesetzte Aktiv-Status von Entry Log Retention, Contract Instalments, Reversal Sweep und
+Update Check bleibt dabei erhalten &mdash; die Vorgabe gilt nur beim allerersten Anlegen.
+</p>
+
+<h2 id="s4">4. Verlauf &amp; Status</h2>
+<p>Pro eingebauter Aufgabe zeigt die Diagnose-Ansicht:</p>
+<ul>
+  <li>Aktiv / Inaktiv (bei Backup und DATEV folgt der Status dem Master-Schalter aus der jeweiligen
+      Konfiguration; bei den &uuml;brigen Auftr&auml;gen dem direkt gesetzten <em>Aktiv</em>-Schalter).</li>
+  <li>Letzter Lauf und n&auml;chster geplanter Lauf.</li>
+  <li>Verlauf der letzten Ausf&uuml;hrungen mit Status und Ergebnis-Text. Die Auftragsnamen erscheinen in der Oberfl&auml;chensprache; als Ausl&ouml;ser steht <em>Manuell</em> oder <em>Geplant</em>, eine Laufzeit unter einer Sekunde als <em>&lt;&nbsp;1&nbsp;s</em>. Das Kennzeichen an der Aufgabe selbst zeigt <em>Aktiv</em> bzw. <em>Deaktiviert</em>; <em>Erfolgreich</em> und <em>&Uuml;bersprungen</em> gelten nur f&uuml;r einzelne L&auml;ufe im Verlauf.</li>
+</ul>
+<p>M&ouml;gliche Status:</p>
+<table>
+  <thead><tr><th>Status</th><th>Bedeutung</th></tr></thead>
+  <tbody>
+    <tr><td><span class="status-ok">Erfolgreich</span></td><td>Die Aufgabe ist ohne Ausnahme zu Ende gelaufen. Beispiel: <code>backup-2026-04-18.zip, 24 MB, pruned 2 old</code>.
+        Beim <em>Update Check</em> hei&szlig;t das nicht, dass installiert wurde &ndash; entscheidend ist der Ergebnis-Text (siehe oben).</td></tr>
+    <tr><td><span class="status-bad">Fehlgeschlagen</span></td><td>W&auml;hrend der Ausf&uuml;hrung ist ein Fehler aufgetreten, oder nur ein Teil der Arbeit ist gelungen
+        (beim <em>Auto DATEV Export</em>: mindestens ein Typ oder eine Periode). Die Fehlermeldung im Verlauf nennt, was gescheitert ist;
+        der Ergebnis-Text, was trotzdem erledigt wurde. Einen eigenen Status &bdquo;teilweise&ldquo; gibt es bewusst nicht &ndash;
+        zu tun ist in beiden F&auml;llen dasselbe: nachsehen, was gescheitert ist.</td></tr>
+    <tr><td><span class="status-warn">&Uuml;bersprungen</span></td><td>Der Lauf wurde bewusst nicht ausgef&uuml;hrt &ndash; siehe Grund (z.&nbsp;B. vorheriger Lauf noch aktiv, oder Server war zum geplanten Zeitpunkt offline).</td></tr>
+    <tr><td>L&auml;uft</td><td>Der Lauf wurde gestartet und ist noch nicht beendet.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s5">5. Verpasste L&auml;ufe nach Server-Ausfall</h2>
+<p>
+War der Server zum geplanten Zeitpunkt ausgeschaltet, verh&auml;lt sich der Scheduler je nach Auftrag
+unterschiedlich:
+</p>
+<ul>
+  <li><strong>Alle Auftr&auml;ge:</strong> Beim Start wird jeder verpasste Lauf als
+      <span class="status-warn">&Uuml;bersprungen</span> vermerkt; ausgef&uuml;hrt wird erst der n&auml;chste regul&auml;re Termin.
+      Contract Instalments holt dabei nichts verloren, weil jeder Lauf die laufende und die n&auml;chste Periode vollst&auml;ndig anlegt.</li>
+  <li><strong>Auto Backup:</strong> Verpasste L&auml;ufe werden <em>nicht</em> nachgeholt.
+      Im Verlauf erscheint ein <span class="status-warn">&Uuml;bersprungen</span>-Eintrag mit der
+      Begr&uuml;ndung <em>missed while server was down</em>; der n&auml;chste Lauf-Zeitpunkt wird auf
+      das n&auml;chste zuk&uuml;nftige Vorkommen vorger&uuml;ckt.</li>
+  <li><strong>Auto DATEV Export:</strong> Verpasste Perioden werden beim n&auml;chsten Lauf &uuml;ber die bereits
+      vorhandene Catchup-Logik <em>nachgeholt</em> &mdash; pro Typ wird die n&auml;chste offene Woche
+      bzw. der n&auml;chste offene Monat ermittelt und ausgef&uuml;hrt, bis alle R&uuml;ckst&auml;nde
+      aufgeholt sind. Scheitert dabei eine Periode, stoppt der Typ dort und versucht sie beim n&auml;chsten Lauf erneut.</li>
+</ul>
+<div class="hint">
+<strong>Warum kein Nachholen beim Backup?</strong> Ein verz&ouml;gertes Backup w&auml;hrend der Stunden mit aktivem
+Gesch&auml;ftsbetrieb belastet die Datenbank unn&ouml;tig und st&ouml;rt den Kassenbetrieb. Beim DATEV-Export
+hingegen sind die Perioden fest (Kalenderwoche / Kalendermonat), so dass das Nachholen geschlossener
+Zeitr&auml;ume gefahrlos m&ouml;glich ist.
+</div>
+<p>
+Beim Start werden <em>offene</em> Ausf&uuml;hrungen (Status <code>L&auml;uft</code>), die wegen eines
+Server-Abbruchs nie abgeschlossen wurden, als <span class="status-bad">Fehlgeschlagen</span>
+mit der Nachricht <em>interrupted by server restart</em> markiert.
+</p>
+
+<h2 id="s6">6. &bdquo;Jetzt ausf&uuml;hren&ldquo;</h2>
+<p>
+F&uuml;r jeden eingebauten Auftrag gibt es einen Button <strong>Jetzt ausf&uuml;hren</strong>.
+Er startet den Auftrag sofort und legt einen Verlaufseintrag mit Quelle <em>Manuell</em> an. Der
+regul&auml;re Zeitplan bleibt unver&auml;ndert &ndash; der <em>n&auml;chste Lauf</em> wird also <strong>nicht</strong>
+verschoben. Manuelle L&auml;ufe sind auch m&ouml;glich, wenn die Aufgabe deaktiviert ist.
+</p>
+
+<h2 id="s7">7. Berechtigungen</h2>
+<p>
+Lesende Endpunkte unter <code>/api/scheduled-jobs</code> verlangen die Berechtigung <code>SCHEDULED_JOB_READ</code>,
+schreibende <code>SCHEDULED_JOB_WRITE</code> (vorgegeben: Filialleitung und Administration). Ohne Leserecht antwortet der
+Server mit HTTP&nbsp;403, und der Men&uuml;eintrag <em>Geplante Aufgaben</em> erscheint im Web-Admin nicht. Endpunkte zum Anlegen, Bearbeiten oder L&ouml;schen von Auftr&auml;gen
+existieren nicht mehr. Die einzigen schreibenden Endpunkte sind <em>Jetzt ausf&uuml;hren</em>
+(<code>POST /api/scheduled-jobs/{id}/run</code>) und der <em>Aktiv</em>-Schalter
+(<code>PUT /api/scheduled-jobs/{id}/enabled</code>). Letzterer akzeptiert nur Auftr&auml;ge, deren
+Aktiv-Status nicht aus einer Konfigurationsseite abgeleitet wird &mdash; also alle au&szlig;er Backup und DATEV. F&uuml;r <code>BACKUP</code> und <code>DATEV_AUTO_EXPORT</code> antwortet der
+Server mit HTTP&nbsp;409 (Fehlercode <code>SCHEDULED_JOB_CONFIG_MANAGED</code>); diese werden
+ausschlie&szlig;lich &uuml;ber die Backup- bzw. DATEV-Seite geschaltet.
+</p>
+
+<h2 id="s8">8. Technische Hinweise</h2>
+<ul>
+  <li><strong>Takt:</strong> Der Scheduler pr&uuml;ft alle 30&nbsp;Sekunden, ob f&auml;llige Aufgaben anstehen. Ein geplanter 03:00-Lauf wird also typischerweise zwischen 03:00:00 und 03:00:30 gestartet.</li>
+  <li><strong>Zeitzone:</strong> Standard <code>Europe/Berlin</code>. Alle gespeicherten Zeitpunkte werden intern in UTC gehalten und f&uuml;r die Anzeige umgerechnet.</li>
+  <li><strong>&Uuml;berlappungsschutz:</strong> L&auml;uft ein Auftrag noch, wird ein neuer f&auml;lliger Lauf desselben Auftrags &uuml;bersprungen.</li>
+  <li><strong>Seeding:</strong> Die sechs eingebauten Zeilen werden automatisch beim Server-Start angelegt und nach jedem Speichern in der Backup- bzw. DATEV-Konfiguration aktualisiert. Ein manuell gesetzter Aktiv-Status (alle au&szlig;er Backup und DATEV) wird beim Seeding nie zur&uuml;ckgesetzt.</li>
+  <li><strong>Aktivierung:</strong> Beim Aktivieren eines Auftrags wird der n&auml;chste Lauf auf das n&auml;chste zuk&uuml;nftige Vorkommen des Zeitplans gesetzt &mdash; ein veralteter Zeitpunkt aus der inaktiven Phase f&uuml;hrt also nicht zu einem sofortigen Lauf.</li>
+  <li><strong>Datenbank-Tabellen:</strong> <code>scheduled_jobs</code> (Definitionen) und <code>job_executions</code> (Verlauf).</li>
+  <li><strong>Verlaufsl&auml;nge:</strong> Pro Auftragstyp wird eine maximale Verlaufstiefe gespeichert &ndash; 30 Eintr&auml;ge, f&uuml;r den DATEV-Export 60. &Auml;ltere Eintr&auml;ge werden nach jedem Lauf automatisch gel&ouml;scht.</li>
+</ul>
+
+<hr>
+<p class="meta" style="text-align:center; margin-top:2rem;">POS-System &bull; Geplante Aufgaben &bull; Stand der Dokumentation: 2026-09-24 (v1.1.0)</p>
+
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choice Groups (Menü-Auswahlgruppen) — Dokumentation</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+    --code-bg: #f3f4f6;
+    --table-header: #f9fafb;
+    --blockquote-bg: #eff6ff;
+    --blockquote-border: #93c5fd;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.7;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.4rem; margin-top: 2.5rem; margin-bottom: 0.75rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.3rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.8rem; margin-bottom: 0.5rem; }
+  h4 { font-size: 1rem; margin-top: 1.2rem; margin-bottom: 0.4rem; }
+  p { margin-bottom: 0.75rem; }
+  a { color: var(--accent); }
+  code {
+    background: var(--code-bg);
+    padding: 0.15em 0.35em;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  pre {
+    background: var(--code-bg);
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  blockquote {
+    background: var(--blockquote-bg);
+    border-left: 4px solid var(--blockquote-border);
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-style: italic;
+  }
+  blockquote p { margin-bottom: 0.4rem; }
+  blockquote p:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--table-header); font-weight: 600; }
+  tr:hover { background: #fafafa; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .meta { color: #6b7280; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .toc { background: var(--code-bg); padding: 1rem 1.5rem; border-radius: 6px; margin: 1rem 0 2rem; }
+  .toc ul { list-style: none; padding-left: 1.2rem; }
+  .toc > ul { padding-left: 0; }
+  .toc li { margin: 0.2rem 0; }
+  .toc a { text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .hint {
+    background: #fefce8;
+    border-left: 4px solid #facc15;
+    padding: 0.6rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  .status-ok { color: #16a34a; font-weight: 600; }
+  .status-warn { color: #d97706; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<h1>Choice Groups &mdash; Men&uuml;-Auswahlgruppen</h1>
+<div class="meta">
+  <strong>Zielgruppe:</strong> Administratoren / Manager (Einrichtung) und Bedienpersonal (Bestellung)<br>
+  <strong>Modul:</strong> Web-Admin &rarr; Produkte &rarr; Auswahlgruppen verwalten &nbsp;|&nbsp; POS-Konfigurator<br>
+  <strong>Erstellt:</strong> 2026-06-16
+</div>
+
+<nav class="toc">
+<strong>Inhaltsverzeichnis</strong>
+<ul>
+  <li><a href="#s1">1. Was sind Choice Groups?</a></li>
+  <li><a href="#s2">2. Choice Groups als Administrator anlegen</a>
+    <ul>
+      <li><a href="#s21">2.1 Gruppe erstellen (Min/Max)</a></li>
+      <li><a href="#s22">2.2 Optionen hinzuf&uuml;gen (Preis-Delta pro Platzierung)</a></li>
+      <li><a href="#s23">2.3 Gruppen an Produkte anh&auml;ngen</a></li>
+    </ul>
+  </li>
+  <li><a href="#s3">3. Preismodell</a></li>
+  <li><a href="#s4">4. Bestellung &mdash; der Konfigurator</a></li>
+  <li><a href="#s5">5. Snapshots &amp; Belegtreue</a></li>
+  <li><a href="#s6">6. Migration bestehender Extras</a></li>
+</ul>
+</nav>
+
+<hr>
+
+<h2 id="s1">1. Was sind Choice Groups?</h2>
+
+<p>Eine <strong>Choice Group</strong> (Auswahlgruppe) ist ein wiederverwendbarer Auswahlabschnitt, der an beliebige Produkte angeh&auml;ngt werden kann. Typische Beispiele:</p>
+
+<ul>
+  <li><strong>Men&uuml;-Abschnitte:</strong> Entr&eacute;e / Hauptgang / Dessert &mdash; bei einem 3-G&auml;nge-Men&uuml;.</li>
+  <li><strong>Gr&ouml;&szlig;e:</strong> Klein / Mittel / Gro&szlig; &mdash; eine Auswahl, Aufpreis je Gr&ouml;&szlig;e.</li>
+  <li><strong>Add-ons / Beilagen:</strong> Extra K&auml;se, Pommes, Sauce &mdash; mehrere Auswahlen m&ouml;glich.</li>
+</ul>
+
+<p>Jede Gruppe legt &uuml;ber <strong>Min/Max-Auswahlen</strong> fest, ob sie verpflichtend oder optional ist und wie viele Optionen gew&auml;hlt werden d&uuml;rfen:</p>
+
+<table>
+<tr><th>min</th><th>max</th><th>Verhalten</th></tr>
+<tr><td>0</td><td>1</td><td>Optional, h&ouml;chstens eine Option (z.&nbsp;B. &bdquo;Sauce?&ldquo;)</td></tr>
+<tr><td>1</td><td>1</td><td>Pflicht, genau eine Option (z.&nbsp;B. &bdquo;Gr&ouml;&szlig;e&ldquo;, &bdquo;Hauptgang&ldquo;)</td></tr>
+<tr><td>0</td><td>n</td><td>Optional, mehrere Optionen (z.&nbsp;B. &bdquo;Add-ons&ldquo;)</td></tr>
+<tr><td>1</td><td>n</td><td>Pflicht, mindestens eine, h&ouml;chstens n</td></tr>
+</table>
+
+<div class="hint">
+<strong>Faustregel:</strong> <code>verpflichtend &hArr; min &ge; 1</code> &nbsp;&middot;&nbsp; <code>genau-eine &hArr; max == 1</code>.
+</div>
+
+<hr>
+
+<h2 id="s2">2. Choice Groups als Administrator anlegen</h2>
+
+<p>Die Verwaltung erfolgt im <strong>Web-Admin</strong> unter <strong>Produkte</strong> &uuml;ber die Schaltfl&auml;che <strong>Auswahlgruppen verwalten</strong> in der Werkzeugleiste (an der Kasse gibt es keine Artikelverwaltung mehr). Optionen werden aus den bestehenden <strong>Extras</strong> gespeist &mdash; eine Choice Group baut also auf dem bereits gepflegten Extras-Bestand auf.</p>
+
+<h3 id="s21">2.1 Gruppe erstellen (Min/Max)</h3>
+
+<ol>
+  <li>Unter <strong>Auswahlgruppen verwalten</strong> eine neue Auswahlgruppe anlegen (<strong>Gruppe hinzuf&uuml;gen</strong>).</li>
+  <li>Namen vergeben (optional EN/ZH-&Uuml;bersetzungen f&uuml;r mehrsprachige Anzeige).</li>
+  <li><strong>Min-Auswahlen</strong> und <strong>Max-Auswahlen</strong> setzen (siehe Tabelle oben). Es gilt: <code>min &ge; 0</code>, <code>max &ge; 1</code>, <code>min &le; max</code>.</li>
+  <li>Gruppe als aktiv/inaktiv schalten. Inaktive Gruppen werden bei der Bestellung nicht erzwungen.</li>
+</ol>
+
+<h3 id="s22">2.2 Optionen hinzuf&uuml;gen (Preis-Delta pro Platzierung)</h3>
+
+<p>Innerhalb der Gruppe werden Optionen aus den vorhandenen Extras ausgew&auml;hlt. Jede Platzierung erh&auml;lt:</p>
+
+<table>
+<tr><th>Feld</th><th>Bedeutung</th></tr>
+<tr><td><strong>Preis-Delta</strong></td><td>Auf- oder Abschlag dieser Option <em>in dieser Gruppe</em>. Das Delta ist <strong>pro Platzierung</strong> &mdash; dasselbe Extra kann in zwei Gruppen unterschiedlich viel kosten.</td></tr>
+<tr><td><strong>Reihenfolge</strong></td><td>Sortierposition der Option in der Gruppe.</td></tr>
+<tr><td><strong>Standard</strong></td><td>Vorausgew&auml;hlte Option beim &Ouml;ffnen des Konfigurators.</td></tr>
+</table>
+
+<div class="hint">
+<strong>Delta pro Platzierung:</strong> Weil der Preis-Aufschlag an der Platzierung (Gruppe&nbsp;&times;&nbsp;Option) h&auml;ngt &mdash; nicht am Extra selbst &mdash; kann &bdquo;Extra K&auml;se&ldquo; in der Pizza-Gruppe <code>+1,50</code> und in der Burger-Gruppe <code>+1,00</code> kosten.
+</div>
+
+<h3 id="s23">2.3 Gruppen an Produkte anh&auml;ngen</h3>
+
+<p>Im <strong>Produkt-Editor</strong> des Web-Admin werden die fertigen Gruppen einem Produkt zugewiesen (Abschnitt &bdquo;Auswahlgruppen&ldquo;, <strong>Gruppen zuweisen</strong>; ein neues Produkt muss dazu zuerst gespeichert sein). F&uuml;r eine ganze Kategorie geht das im Kategorie-Editor unter &bdquo;Auswahlgruppen f&uuml;r alle Produkte dieser Kategorie&ldquo; (<em>Zu allen hinzuf&uuml;gen</em> / <em>Von allen entfernen</em>). Die Reihenfolge der angeh&auml;ngten Gruppen bestimmt die Reihenfolge im Konfigurator. Eine Gruppe kann an beliebig viele Produkte angeh&auml;ngt werden &mdash; einmal pflegen, mehrfach verwenden.</p>
+
+<hr>
+
+<h2 id="s3">3. Preismodell</h2>
+
+<p>Der Zeilenpreis einer Bestellposition berechnet sich aus dem Grundpreis (oder einem individuellen Preis) plus der Summe der gew&auml;hlten Options-Deltas, danach rabattiert:</p>
+
+<pre><code>Zeilenpreis = (Grundpreis bzw. individueller Preis
+              + &Sigma;(gew&auml;hltes Options-Delta &times; Menge))
+              &times; Rabatt</code></pre>
+
+<table>
+<tr><th>Beispiel</th><th>Wert</th></tr>
+<tr><td>Grundpreis</td><td>18,90</td></tr>
+<tr><td>Option &bdquo;Salmon&ldquo; (Delta +3,00, Menge 1)</td><td>+3,00</td></tr>
+<tr><td>Rabatt</td><td>kein</td></tr>
+<tr><td><strong>Zeilenpreis</strong></td><td><strong>21,90</strong></td></tr>
+</table>
+
+<div class="hint">
+<strong>Der Server ist ma&szlig;gebend.</strong> Der Client zeigt eine Live-Vorschau mit derselben Formel, aber der Server berechnet den endg&uuml;ltigen Preis aus dem hinterlegten Delta neu und validiert Min/Max je Gruppe. Eine manipulierte oder veraltete Client-Auswahl wird serverseitig abgelehnt (<code>CHOICE_SELECTION_INVALID</code>) &mdash; auch eine Bestellposition, die f&uuml;r ein Produkt mit Pflichtgruppe gar keine Auswahl mitschickt.
+</div>
+
+<hr>
+
+<h2 id="s4">4. Bestellung &mdash; der Konfigurator</h2>
+
+<p>Beim Hinzuf&uuml;gen eines Produkts mit Choice Groups &ouml;ffnet sich der <strong>Konfigurator</strong> (das wiederverwendete Bearbeiten-Panel):</p>
+
+<table>
+<tr><th>Produkt hat &hellip;</th><th>Verhalten</th></tr>
+<tr><td>mind. eine <strong>Pflichtgruppe</strong> (min &ge; 1)</td><td>Der Konfigurator &ouml;ffnet automatisch beim Antippen des Produkts.</td></tr>
+<tr><td>nur <strong>optionale</strong> Gruppen</td><td>Antippen f&uuml;gt direkt hinzu; der Konfigurator wird per <strong>langem Druck</strong> ge&ouml;ffnet.</td></tr>
+</table>
+
+<p>Der Konfigurator erzwingt die Min/Max-Regeln jeder Gruppe: Eine Pflichtgruppe muss erf&uuml;llt sein, bevor die Position best&auml;tigt werden kann; Maximalgrenzen verhindern weitere Auswahlen. Die Live-Vorschau zeigt den resultierenden Zeilenpreis.</p>
+
+<hr>
+
+<h2 id="s5">5. Snapshots &amp; Belegtreue</h2>
+
+<p>Sobald eine Position verkauft wird, werden die gew&auml;hlten Optionen als <strong>Snapshot</strong> auf der Bestellposition gespeichert &mdash; jeweils mit:</p>
+
+<ul>
+  <li>Options-<strong>Name</strong> (Bezeichnung zum Verkaufszeitpunkt),</li>
+  <li>Preis-<strong>Delta</strong>,</li>
+  <li><strong>Gruppenname</strong>,</li>
+  <li><strong>Gruppen-ID</strong>,</li>
+  <li><strong>Menge</strong>.</li>
+</ul>
+
+<div class="hint">
+<strong>Gruppenname vs. Gruppen-ID:</strong> Der <em>Gruppenname</em> ist die belegrelevante Beschriftung und wird nie nachgeschlagen. Die <em>Gruppen-ID</em> dient allein der Wiederaufl&ouml;sung: Wird eine erfasste Position sp&auml;ter erneut eingereicht (Nachbestellung, Splitten, Bearbeiten nach dem Senden), braucht der Server die Platzierung (Gruppe&nbsp;&times;&nbsp;Option), um denselben Preis-Aufschlag erneut zu ermitteln &mdash; dasselbe Extra kann in mehreren Gruppen unterschiedlich viel kosten. Bei den alten flachen Extras ist sie leer, denn diese hatten keine Gruppe.
+</div>
+
+<p>Dadurch <strong>driften historische Belege nie</strong>, wenn Optionen sp&auml;ter umbenannt, umpreist oder gel&ouml;scht werden:</p>
+
+<table>
+<tr><th>Verbraucher</th><th>Quelle</th></tr>
+<tr><td>Belege / Kassenbon</td><td>Snapshot der Bestellposition</td></tr>
+<tr><td>Nach-Abrechnung / Re-Bill</td><td>Snapshot der Bestellposition</td></tr>
+<tr><td>DSFinV-K Unterpositionen (<code>Bonpos_Zusatzinfo</code> / <code>subitems.csv</code>)</td><td>Snapshot der Bestellposition</td></tr>
+</table>
+
+<div class="hint">
+<strong>DSFinV-K:</strong> Die Unterpositionen (<code>Bonpos_Zusatzinfo</code>) lesen ausschlie&szlig;lich den Snapshot, nicht die aktuelle Options-Definition. So bleibt der Export auch nach sp&auml;teren &Auml;nderungen am Extra reproduzierbar. Siehe <a href="dsfinvk-export.html#s24" target="_blank">DSFinV-K Export &sect;2.4</a>.
+</div>
+
+<hr>
+
+<h2 id="s6">6. Migration bestehender Extras</h2>
+
+<p>Bereits gepflegte flache Produkt-Extras werden beim Update auf v1.1.0 von Migration <code>V84</code> automatisch &uuml;berf&uuml;hrt: Jedes Produkt mit zugewiesenen <strong>aktiven</strong> Extras erh&auml;lt eine <em>eigene</em> optionale Gruppe &bdquo;Extras&nbsp;-&nbsp;&lt;Produktname&gt;&ldquo; (min&nbsp;0, max&nbsp;=&nbsp;Anzahl der Optionen). Eine einzige gemeinsame Gruppe w&auml;re falsch &mdash; die Zuweisungen waren produktspezifisch, und eine geteilte Gruppe h&auml;ngte jedem Produkt die Extras aller anderen an.</p>
+
+<p>Das Preis-Delta jeder Option entspricht exakt dem bisherigen <code>product_extras.price</code> &mdash; also dem Betrag, der vorher schon berechnet wurde. Durch die Migration &auml;ndert sich daher <strong>kein einziger Bon-Betrag</strong>.</p>
+
+<p><strong>Inaktive</strong> Extras werden bewusst nicht &uuml;bernommen: Ein stillgelegtes Extra soll nicht &uuml;ber den Umweg einer Gruppe wieder auf dem Bestellschirm erscheinen. Produkte, deren zugewiesene Extras s&auml;mtlich inaktiv sind, erhalten folglich gar keine Gruppe. Die Zeilen in <code>product_extras_assignment</code> bleiben erhalten &mdash; die Migration erg&auml;nzt nur, sie l&ouml;scht nichts.</p>
+
+<p>Bestehende Bestellungen bleiben durch die Snapshots unver&auml;ndert. Die Verwaltung erfolgt anschlie&szlig;end zentral &uuml;ber <em>Auswahlgruppen verwalten</em> im Web-Admin; im Bestellschirm sind Auswahlgruppen seither der einzige Weg, eine Option zu erfassen.</p>
+
+<hr>
+
+<p><em>Dokumentation der Choice-Groups-Funktion (Generalized Menus &amp; Choice Groups). Stand 2026-09-24 (v1.1.0).</em></p>
+
+</body>
+</html>

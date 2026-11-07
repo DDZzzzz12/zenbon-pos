@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSFinV-K 2.4 Export-Modul — Dokumentation</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+    --code-bg: #f3f4f6;
+    --table-header: #f9fafb;
+    --blockquote-bg: #eff6ff;
+    --blockquote-border: #93c5fd;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.7;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.4rem; margin-top: 2.5rem; margin-bottom: 0.75rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.3rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.8rem; margin-bottom: 0.5rem; }
+  h4 { font-size: 1rem; margin-top: 1.2rem; margin-bottom: 0.4rem; }
+  p { margin-bottom: 0.75rem; }
+  a { color: var(--accent); }
+  code {
+    background: var(--code-bg);
+    padding: 0.15em 0.35em;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  pre {
+    background: var(--code-bg);
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  blockquote {
+    background: var(--blockquote-bg);
+    border-left: 4px solid var(--blockquote-border);
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-style: italic;
+  }
+  blockquote p { margin-bottom: 0.4rem; }
+  blockquote p:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--table-header); font-weight: 600; }
+  tr:hover { background: #fafafa; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .meta { color: #6b7280; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .toc { background: var(--code-bg); padding: 1rem 1.5rem; border-radius: 6px; margin: 1rem 0 2rem; }
+  .toc ul { list-style: none; padding-left: 1.2rem; }
+  .toc > ul { padding-left: 0; }
+  .toc li { margin: 0.2rem 0; }
+  .toc a { text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .hint {
+    background: #fefce8;
+    border-left: 4px solid #facc15;
+    padding: 0.6rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  .status-ok { color: #16a34a; font-weight: 600; }
+  .status-warn { color: #d97706; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<h1>DSFinV-K 2.4 Export-Modul &mdash; Detaillierte Dokumentation</h1>
+<div class="meta">
+  <strong>Referenzdokument:</strong> DSFinV-K Version 2.4, Kapitel 3 &mdash; &bdquo;Datenstruktur der DSFinV-K&ldquo;<br>
+  <strong>Stand der Implementierung:</strong> POS-System <code>server-dsfinvk/</code> Modul<br>
+  <strong>Erstellt:</strong> 2026-02-13 &nbsp;|&nbsp; <strong>Aktualisiert:</strong> 2026-03-08
+</div>
+
+<nav class="toc">
+<strong>Inhaltsverzeichnis</strong>
+<ul>
+  <li><a href="#s1">1. &Uuml;berblick und Modulstruktur</a></li>
+  <li><a href="#s2">2. Einzelaufzeichnungsmodul (3.1)</a>
+    <ul>
+      <li><a href="#s21">2.1 Bonpos &mdash; <code>lines.csv</code></a></li>
+      <li><a href="#s22">2.2 Bonpos_USt &mdash; <code>lines_vat.csv</code></a></li>
+      <li><a href="#s23">2.3 Bonpos_Preisfindung &mdash; <code>itemamounts.csv</code></a></li>
+      <li><a href="#s24">2.4 Bonpos_Zusatzinfo &mdash; <code>subitems.csv</code></a></li>
+      <li><a href="#s25">2.5 Bonkopf &mdash; <code>transactions.csv</code></a></li>
+      <li><a href="#s26">2.6 Bonkopf_USt &mdash; <code>transactions_vat.csv</code></a></li>
+      <li><a href="#s27">2.7 Bonkopf_AbrKreis &mdash; <code>allocation_groups.csv</code></a></li>
+      <li><a href="#s28">2.8 Bonkopf_Zahlarten &mdash; <code>datapayment.csv</code></a></li>
+      <li><a href="#s29">2.9 Bon_Referenzen &mdash; <code>references.csv</code></a></li>
+      <li><a href="#s210">2.10 TSE_Transaktionen &mdash; <code>transactions_tse.csv</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#s3">3. Stammdatenmodul (3.2)</a>
+    <ul>
+      <li><a href="#s31">3.1 Stamm_Abschluss &mdash; <code>cashpointclosing.csv</code></a></li>
+      <li><a href="#s32">3.2 Stamm_Orte &mdash; <code>location.csv</code></a></li>
+      <li><a href="#s33">3.3 Stamm_Kassen &mdash; <code>cashregister.csv</code></a></li>
+      <li><a href="#s34">3.4 Stamm_Terminals &mdash; <code>slaves.csv</code></a></li>
+      <li><a href="#s35">3.5 Stamm_Agenturen &mdash; <code>pa.csv</code></a></li>
+      <li><a href="#s36">3.6 Stamm_USt &mdash; <code>vat.csv</code></a></li>
+      <li><a href="#s37">3.7 Stamm_TSE &mdash; <code>tse.csv</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#s4">4. Kassenabschlussmodul (3.3)</a>
+    <ul>
+      <li><a href="#s41">4.1 Z_GV_Typ &mdash; <code>businesscases.csv</code></a></li>
+      <li><a href="#s411">4.1.1 Kassenbuch-Eintr&auml;ge im DSFinV-K-Export</a></li>
+      <li><a href="#s42">4.2 Z_Zahlart &mdash; <code>payment.csv</code></a></li>
+      <li><a href="#s43">4.3 Z_Waehrungen &mdash; <code>cash_per_currency.csv</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#s5">5. Zus&auml;tzliche Dateien</a></li>
+  <li><a href="#s6">6. Datenfluss und Berechnungslogik</a></li>
+  <li><a href="#s7">7. Abweichungen und Hinweise</a></li>
+</ul>
+</nav>
+
+<hr>
+
+<h2 id="s1">1. &Uuml;berblick und Modulstruktur</h2>
+
+<h3>Spezifikation (Kapitel 3, S. 15)</h3>
+
+<blockquote>
+<p>&bdquo;Die Kassendaten sollen insbesondere im Hinblick auf die Vollst&auml;ndigkeitspr&uuml;fung der Kasseneinnahmen, der Ermittlung der Umsatzsteuer sowie der verbuchten Erl&ouml;se nachvollziehbar sein. Jeder einzelne Kassenbeleg muss aus den Daten inhaltlich reproduzierbar sein.&ldquo;</p>
+<p>&bdquo;Die DSFinV-K ist in folgende Bereiche aufgeteilt: Einzelaufzeichnungsmodul, Stammdatenmodul, Kassenabschlussmodul&ldquo;</p>
+</blockquote>
+
+<p>Das Export-Modul generiert insgesamt <strong>21 CSV-Dateien + 1 XML-Deskriptor</strong>, verpackt in einer ZIP-Datei:</p>
+
+<table>
+<tr><th>Modul</th><th>Anzahl</th><th>Dateien</th></tr>
+<tr><td>Einzelaufzeichnungsmodul</td><td>10</td><td>lines.csv, lines_vat.csv, itemamounts.csv, subitems.csv, transactions.csv, transactions_vat.csv, allocation_groups.csv, datapayment.csv, references.csv, transactions_tse.csv</td></tr>
+<tr><td>Stammdatenmodul</td><td>7</td><td>cashpointclosing.csv, location.csv, cashregister.csv, vat.csv, tse.csv, slaves.csv, pa.csv</td></tr>
+<tr><td>Kassenabschlussmodul</td><td>3</td><td>businesscases.csv, payment.csv, cash_per_currency.csv</td></tr>
+<tr><td>Deskriptor</td><td>1</td><td>index.xml</td></tr>
+</table>
+
+<p><strong>Datenquellen (Datenbank-Entit&auml;ten):</strong></p>
+
+<table>
+<tr><th>DB-Tabelle</th><th>Verwendung</th></tr>
+<tr><td><code>ZBonTable</code></td><td>Z-Berichte / Tagesabschl&uuml;sse</td></tr>
+<tr><td><code>BillTable</code></td><td>Rechnungsk&ouml;pfe (Bonkopf)</td></tr>
+<tr><td><code>OrderItemTable</code></td><td>Einzelne Positionen (Bonpos)</td></tr>
+<tr><td><code>BillVatDetailTable</code></td><td>USt-Aufschl&uuml;sselung pro Bon</td></tr>
+<tr><td><code>PaymentTable</code></td><td>Einzelne Zahlungen</td></tr>
+<tr><td><code>TseTransactionTable</code></td><td>TSE-Signaturen</td></tr>
+<tr><td><code>VoucherRedeemTable</code></td><td>Gutschein-Einl&ouml;sungen</td></tr>
+<tr><td><code>KassenbuchHeaderTable</code></td><td>Kassenbuch-Eintr&auml;ge</td></tr>
+<tr><td><code>KassenbuchLineItemTable</code></td><td>Kassenbuch-Positionen</td></tr>
+<tr><td><code>ZBonPaymentSummaryTable</code></td><td>Zahlungssummen pro Z-Bon</td></tr>
+<tr><td><code>ShopInfoTable</code></td><td>Unternehmensdaten/Standort</td></tr>
+<tr><td><code>TerminalTable</code></td><td>Erfassungsterminals</td></tr>
+<tr><td><code>TableSessionTable</code></td><td>Tischzuordnungen</td></tr>
+<tr><td><code>ItemExtrasTable</code></td><td>Produkt-Extras/Zusatzinfos</td></tr>
+</table>
+
+<hr>
+
+<h2 id="s2">2. Einzelaufzeichnungsmodul</h2>
+
+<h3>Spezifikation (Abschnitt 3.1, S. 16)</h3>
+<blockquote>
+<p>&bdquo;Grundlage der Datenspeicherung liefern die Einzelaufzeichnungen. Diese teilen sich in zwei wesentliche Bereiche auf: Bonpos und Bonkopf. Zus&auml;tzlich ergeben sich zu diesen zwei Dateien weitere Detail-Dateien.&ldquo;</p>
+</blockquote>
+
+<hr>
+
+<h3 id="s21">2.1 Bonpos &mdash; <code>lines.csv</code></h3>
+<p><strong>Exporter:</strong> <code>LinesCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.BonposRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateLineItems()</code> + <code>generateKassenbuchLineItems()</code></p>
+
+<h4>Spezifikation (Abschnitt 3.1.1, S. 16)</h4>
+<blockquote><p>&bdquo;Die Datei Bonpos enth&auml;lt die einzelnen Positionen eines Vorgangs mit der Zuordnung des korrekten USt-Satzes, der Menge und der Art der gelieferten Gegenst&auml;nde.&ldquo;</p></blockquote>
+
+<h4>Feld-Zuordnung</h4>
+<table>
+<tr><th>DSFinV-K Feld</th><th>Datenquelle</th><th>Berechnung / Herkunft</th></tr>
+<tr><td>Z_KASSE_ID</td><td><code>ShopInfo.id</code></td><td>Format: <code>"{shopId}_POS_01"</code></td></tr>
+<tr><td>Z_ERSTELLUNG</td><td><code>ZBon.createdAt</code></td><td>ISO-formatiertes Datum</td></tr>
+<tr><td>Z_NR</td><td><code>ZBon.zbonNummer</code></td><td>Die auf dem Z-Bon gedruckte, l&uuml;ckenlose Abschlussnummer (nicht die Datenbank-ID, siehe <a href="#s7">Abschnitt&nbsp;7</a>)</td></tr>
+<tr><td>BON_ID</td><td><code>Bill.id</code> / <code>"KB-{id}"</code></td><td>UUID der Rechnung; Kassenbuch: Pr&auml;fix <code>"KB-"</code></td></tr>
+<tr><td>POS_ZEILE</td><td>Laufende Nummer</td><td>Fortlaufend pro Bon</td></tr>
+<tr><td>GUTSCHEIN_NR</td><td><code>VoucherRedeem.voucherNumber</code></td><td>Nur bei Gutschein-Einl&ouml;sung</td></tr>
+<tr><td>ARTIKELTEXT</td><td><code>item.product.name</code></td><td>Artikelbezeichnung</td></tr>
+<tr><td>POS_TERMINAL_ID</td><td>Positionen eines Artikels: der TSE-Client, der die Bestellung signiert hat, sonst <code>orderItem.order.terminal.clientId</code>; Gesch&auml;ftsvorfall- und Kassenbuch-Zeilen: die TERMINAL_ID des eigenen Bons</td><td>Anhang&nbsp;E S.&nbsp;93: &bdquo;ID der Slave-Kasse (Terminal), an der die Position (Line) erfasst wird.&ldquo; Das Feld verweist auf die TERMINAL_ID in <code>slaves.csv</code> &mdash; den Terminal-Code (z.&nbsp;B. <code>TER-009</code>), <strong>nie</strong> den Datenbank-Prim&auml;rschl&uuml;ssel (bis 07.10.2026 wurde f&auml;lschlich <code>1</code>/<code>2</code> exportiert). <strong>Artikelpositionen</strong> &mdash; Bestellzeile, die Rechnungszeile, die den Artikel abrechnet, ihre Artikel-Rabattzeile (ein Artikelrabatt wird mit dem Artikel bei der Bestellung erfasst), deren Storno und der Positionsstorno &mdash; nennen das Terminal, an dem der Artikel <em>erfasst</em> wurde (das Terminal der Bestellung: der TSE-Client, unter dem die Bestellung echt signiert wurde (Modus <code>NORMAL</code>, abgeschlossen, Signatur vorhanden), sonst das an der Bestellung gespeicherte Terminal. Historische Bestellungen tragen kein gespeichertes Terminal, wurden aber jeweils unter dem Client ihrer Kasse signiert &mdash; die Signatur ordnet sie daher zu. Weichen gespeichertes Terminal und Signatur ab, gewinnt die Signatur und das Server-Log erh&auml;lt eine Warnung. Die Zuordnung wird einmal pro Bestellung aufgel&ouml;st (<code>OrderLineTerminals</code>). Ein Artikel <strong>ohne Bestellung</strong> (direkt auf der Rechnung erfasst, <code>orders_id</code> leer) wurde an der abrechnenden Kasse erfasst: seine Artikel- und Artikelrabatt-Zeilen tragen die TERMINAL_ID des eigenen Bons (Rechnung bzw. Positionsstorno), also dessen signierenden Client &mdash; leer, wenn dieser Bon nicht signiert ist. Ein Artikel <em>mit</em> Bestellung f&auml;llt nie auf den Bon zur&uuml;ck); Bestell- und Rechnungszeile desselben Artikels tragen daher denselben Wert. Diese Zuordnung h&auml;ngt nicht von der TSE-ClientID ab: auch eine unsignierte Rechnung nennt das Erfassungsterminal ihrer Artikel. <strong>Gesch&auml;ftsvorfall-Zeilen, die beim Abschluss entstehen</strong> (Aktions-Rabatt, Gutscheineinl&ouml;sung, Forderungsentstehung/-aufl&ouml;sung, Trinkgeld) und <strong>Kassenbuch-Zeilen</strong> nennen das Terminal, an dem der Bon abgeschlossen wurde &mdash; genau die TERMINAL_ID desselben Bons (also nur bei echter Signatur durch einen Terminal-Client, siehe TERMINAL_ID unten); ist diese leer, bleibt auch die Zeile leer. Jeder Wert wird zuletzt durch <code>DsfinvkTerminalAttribution.attributeLines</code> gepr&uuml;ft und geleert, wenn er kein Terminal <strong>desselben Abschlusses</strong> in <code>slaves.csv</code> ist; geraten wird nichts. Gate-Invariante 21 pr&uuml;ft jede gef&uuml;llte POS_TERMINAL_ID gegen <code>slaves.csv</code> und jede Kassenbuch-Zeile gegen die TERMINAL_ID ihres Bons.</td></tr>
+<tr><td>GV_TYP</td><td><code>determineGvTyp()</code></td><td>Gesch&auml;ftsvorfall-Art &mdash; siehe <a href="#gvtyp">GV_TYP-Logik</a></td></tr>
+<tr><td>GV_NAME</td><td><code>determineGvName()</code></td><td>Lesbarer Name (z.B. &bdquo;Verkauf&ldquo;, &bdquo;Rabatt&ldquo;)</td></tr>
+<tr><td>INHAUS</td><td><code>item.takeAway</code></td><td><code>"1"</code> = Inhaus, <code>"0"</code> = Au&szlig;er-Haus</td></tr>
+<tr><td>P_STORNO</td><td><code>bill.deletedBill</code> / <code>item.cancellation</code></td><td><code>"1"</code> wenn storniert</td></tr>
+<tr><td>AGENTUR_ID</td><td>&mdash;</td><td>Immer <code>null</code></td></tr>
+<tr><td>ART_NR</td><td><code>item.product.id</code></td><td>Artikelnummer</td></tr>
+<tr><td>GTIN</td><td>&mdash;</td><td>Immer <code>null</code></td></tr>
+<tr><td>WARENGR_ID</td><td><code>item.product.category?.id</code></td><td>Warengruppen-ID</td></tr>
+<tr><td>WARENGR</td><td><code>item.product.category?.name</code></td><td>Bezeichnung der Warengruppe</td></tr>
+<tr><td>MENGE</td><td>Fest <code>"1,00"</code></td><td>Menge</td></tr>
+<tr><td>FAKTOR</td><td>Fest <code>"1,00"</code></td><td>Faktor</td></tr>
+<tr><td>EINHEIT</td><td>Fest <code>"Stk"</code></td><td>Ma&szlig;einheit</td></tr>
+<tr><td>STK_BR</td><td>Bedingte Logik</td><td>Rabatt: <code>item.unitPrice</code>, sonst: <code>item.finalPrice</code></td></tr>
+</table>
+
+<h4>Besonderheiten</h4>
+<ul>
+<li><strong>Rabattzeile:</strong> Separate Zeile mit <code>GV_TYP = "Rabatt"</code> und negativem Betrag</li>
+<li><strong>Aktionsgutschein-Rabatt:</strong> Separate Zeile mit <code>GV_TYP = "Rabatt"</code> und <code>artikeltext = "Aktion: {Name}"</code>. Bei artikelbezogenen Aktionen eine Zeile pro Artikel; bei rechnungsweiten Aktionen proportionale Verteilung auf USt-Gruppen.</li>
+<li><strong>Gutschein-Einl&ouml;sung:</strong> Eigene Position mit <code>GV_TYP = "MehrzweckgutscheinEinloesung"</code></li>
+<li><strong>Trinkgeld:</strong> Separate Zeilen mit <code>GV_TYP = "TrinkgeldAN"</code> oder <code>"TrinkgeldAG"</code>. Das <strong>Arbeitnehmer-Trinkgeld</strong> (<code>TrinkgeldAN</code>) ist <strong>nicht steuerbar</strong> und bucht auf <code>UST_SCHLUESSEL = 5</code> (&bdquo;Nicht steuerbar&ldquo;, <em>nicht</em> Schl&uuml;ssel&nbsp;6 &bdquo;steuerfrei&ldquo;); das <strong>Arbeitgeber-Trinkgeld</strong> (<code>TrinkgeldAG</code>) ist steuerbar und wird anteilig auf die USt-S&auml;tze der Artikel verteilt.</li>
+<li><strong>Kassenbuch:</strong> &Uuml;ber <code>KassenbuchDsfinvkMapping</code> mit <code>BON_ID = "KB-{id}"</code></li>
+</ul>
+
+<hr>
+
+<h3 id="s22">2.2 Bonpos_USt &mdash; <code>lines_vat.csv</code></h3>
+<p><strong>Exporter:</strong> <code>LinesVatCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.BonposUstRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateLineVats()</code></p>
+
+<h4>Spezifikation (Abschnitt 3.1.1.1, S. 17)</h4>
+<blockquote><p>&bdquo;F&uuml;r jede Position werden in dieser Datei die Informationen zu den verwendeten USt-S&auml;tzen festgehalten.&ldquo;</p></blockquote>
+
+<h4>Feld-Zuordnung</h4>
+<table>
+<tr><th>DSFinV-K Feld</th><th>Datenquelle</th><th>Berechnung</th></tr>
+<tr><td>Z_KASSE_ID, Z_ERSTELLUNG, Z_NR, BON_ID</td><td>Standard-Schl&uuml;ssel</td><td>&mdash;</td></tr>
+<tr><td>POS_ZEILE</td><td>Laufende Nummer</td><td>Korrespondiert mit lines.csv</td></tr>
+<tr><td>UST_SCHLUESSEL</td><td><code>VatKeyMapping.getVatKey()</code></td><td>Abgeleitet aus USt-Satz</td></tr>
+<tr><td>POS_BRUTTO</td><td><code>item.finalPrice</code></td><td>Endpreis</td></tr>
+<tr><td>POS_NETTO</td><td>Berechnung</td><td><code>finalPrice / (1 + vatRate)</code>, 4 Dezimalstellen</td></tr>
+<tr><td>POS_UST</td><td>Berechnung</td><td><code>brutto - netto</code></td></tr>
+</table>
+
+<hr>
+
+<h3 id="s23">2.3 Bonpos_Preisfindung &mdash; <code>itemamounts.csv</code></h3>
+<p><strong>Exporter:</strong> <code>ItemAmountsCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.PriceFindingRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateItemAmounts()</code></p>
+
+<h4>Spezifikation (Abschnitt 3.1.1.2, S. 17)</h4>
+<blockquote><p>&bdquo;In dieser Tabelle werden Detailangaben zur Entstehung des Preises abgelegt, z.&nbsp;B. spezielle Kunden-Rabatte oder auch Aufschl&auml;ge.&ldquo;</p></blockquote>
+
+<p>Zwei Zeilen pro rabattierter Position: <code>TYP = "Basispreis"</code> (Originalpreis) und <code>TYP = "Rabatt"</code> (negativ). Positionen ohne Rabatt erhalten <strong>keinen Eintrag</strong>.</p>
+
+<hr>
+
+<h3 id="s24">2.4 Bonpos_Zusatzinfo &mdash; <code>subitems.csv</code></h3>
+<p><strong>Exporter:</strong> <code>SubItemsCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.SubItemRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateSubItems()</code></p>
+
+<h4>Spezifikation (Abschnitt 3.1.1.3, S. 18)</h4>
+<blockquote><p>&bdquo;Diese Tabelle schafft die M&ouml;glichkeit, die Zusammensetzung von verkauften Produkten bzw. Warenzusammenstellungen zu detaillieren.&ldquo;</p></blockquote>
+
+<p>Datenquelle: <code>item.productExtras</code> &mdash; Extras/Beilagen aus <code>ItemExtrasTable</code>.</p>
+
+<hr>
+
+<h3 id="s25">2.5 Bonkopf &mdash; <code>transactions.csv</code></h3>
+<p><strong>Exporter:</strong> <code>TransactionsCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.BonkopfRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateTransactions()</code> + <code>generateKassenbuchTransactions()</code></p>
+
+<h4>Spezifikation (Abschnitt 3.1.2, S. 19)</h4>
+<blockquote><p>&bdquo;Im Prinzip handelt es sich bei den Angaben im Bonkopf um ein elektronisches &sbquo;Rechnungsdoppel&lsquo;, d.&nbsp;h. alle Werte m&uuml;ssen exakt den auf dem Beleg aufgedruckten Werten entsprechen.&ldquo;</p></blockquote>
+
+<h4>Feld-Zuordnung</h4>
+<table>
+<tr><th>DSFinV-K Feld</th><th>Datenquelle</th><th>Berechnung / Herkunft</th></tr>
+<tr><td>Z_KASSE_ID, Z_ERSTELLUNG, Z_NR</td><td>Standard</td><td>&mdash;</td></tr>
+<tr><td>BON_ID</td><td><code>bill.id</code> / <code>"KB-{id}"</code></td><td>Vorgangs-ID</td></tr>
+<tr><td>BON_NR</td><td><code>parseBillNumber()</code></td><td>Nur Ziffern aus <code>billNumber</code></td></tr>
+<tr><td>BON_TYP</td><td><code>determineBonTyp()</code></td><td>Siehe BON_TYP-Logik</td></tr>
+<tr><td>BON_NAME</td><td>Bedingt</td><td><code>"Training"</code> bei Training, sonst <code>null</code>. Kassenbuch (<code>KB-{id}</code>): Freitext nach <code>KassenbuchDsfinvkMapping.bonName</code> &ndash; ein Geldtransit-Bein nennt die Gegenkasse (<code>"Geldtransit an Tresor"</code>, <code>"Geldtransit von Ladenkasse"</code>), ein von Hand gebuchter Geldtransit ohne Gegenkasse <code>"Geldtransit (Abgang)"</code>/<code>"(Zugang)"</code>, sonst die Buchungsart. GV_TYP bleibt <code>Geldtransit</code>; fr&uuml;her stand hier f&uuml;r jeden Abgang &bdquo;Geldtransit Bank-Einzahlung&ldquo;, auch f&uuml;r eine Umbuchung in den Tresor.</td></tr>
+<tr><td>TERMINAL_ID</td><td><code>tse_transaction.client_id</code> des Vorgangs (<code>DsfinvkTerminalAttribution</code>)</td><td>Anhang&nbsp;E S.&nbsp;85: „Die TERMINAL_ID darf in der Datei Bonkopf.csv nur angegeben werden, wenn die zugeh&ouml;rige TERMINAL_SERIENNR in diesem abzusichernden Vorgang als ClientID an die TSE &uuml;bergeben wurde.&ldquo; Jede Kasse signiert unter einem eigenen TSE-Client, der ihren Terminal-Code tr&auml;gt (<code>TER-002</code> signiert als <code>TER-002</code>). Gef&uuml;llt wird der Terminal-Code daher nur, wenn der Vorgang <strong>echt</strong> signiert ist (TSE-Modus <code>NORMAL</code>, abgeschlossen, Signatur vorhanden) und seine ClientID ein Terminal desselben Abschlusses in <code>slaves.csv</code> ist &mdash; f&uuml;r Belege, Training, Bestellungen (auch die der Bestellstation), Positions-Stornos und Kassenbuch-Buchungen gleicherma&szlig;en, nachsignierte Vorg&auml;nge eingeschlossen. Leer bleibt das Feld bei unsignierten oder ausstehenden Vorg&auml;ngen, im Simulationsmodus, bei einer ClientID, die kein Terminal dieses Abschlusses ist (z.&nbsp;B. ein Wartungs-Client), und bei Vorg&auml;ngen ohne Abschluss. Ma&szlig;geblich ist die Signatur, nicht das am Vorgang gespeicherte Terminal: Weichen beide ab, gewinnt die ClientID und das Server-Log erh&auml;lt eine Warnung (Audit BKOPF-7/STAM-10).</td></tr>
+<tr><td>BON_STORNO</td><td><code>bill.deletedBill</code></td><td><code>"1"</code> wenn storniert, sonst <code>"0"</code></td></tr>
+<tr><td>BON_START</td><td>fr&uuml;hestes <code>order.orderTime</code> der Sitzung (Fallback <code>bill.startTime</code>)</td><td>ISO-Format. Anhang&nbsp;E S.&nbsp;85: „Zeitpunkt der ersten Erfassung innerhalb eines Vorgangs&ldquo; &mdash; ausdr&uuml;cklich <strong>nicht</strong> TSE_TA_START. Ma&szlig;geblich ist die erste Bestellung, nicht das &Ouml;ffnen des Tisches: <code>bill.startTime</code> spiegelt <code>tableSession.startTime</code>, also den Moment des Tisch-Antippens, zu dem noch nichts erfasst war. Bei Splitrechnungen teilen sich alle Rechnungen einer Sitzung diesen Startzeitpunkt (Tz.&nbsp;2.7.1: „Bestellungen k&ouml;nnen auch auf mehrere Rechnungen verteilt sein&ldquo;); die Zuordnung erfolgt &uuml;ber ABRECHNUNGSKREIS.</td></tr>
+<tr><td>BON_ENDE</td><td><code>bill.endTime</code></td><td>ISO-Format</td></tr>
+<tr><td>BEDIENER_ID</td><td><code>bill.employeeId.employeeNumber</code></td><td>Mitarbeiter-Nummer</td></tr>
+<tr><td>BEDIENER_NAME</td><td>Vor-/Nachname aus <code>employee_info</code></td><td>Ohne Personalstammsatz der Benutzername. Die gemeinsame anmeldefreie Bestellstation hat bewusst keinen Personalstammsatz und wird deshalb als <code>Terminal (ohne Anmeldung)</code> ausgewiesen &mdash; BEDIENER_ID bleibt unver&auml;ndert <code>TERMINAL-DEVICE</code>, beide Felder bleiben also verschieden.</td></tr>
+<tr><td>UMS_BRUTTO</td><td><code>bill.billAmount</code></td><td>Brutto-Gesamtumsatz direkt vom Beleg</td></tr>
+<tr><td>KUNDE_*</td><td>&mdash;</td><td>Alle immer <code>null</code></td></tr>
+<tr><td>BON_NOTIZ</td><td><code>bill.deletingReason</code></td><td>Stornierungsgrund</td></tr>
+</table>
+
+<h4>BON_TYP-Bestimmungslogik</h4>
+<table>
+<tr><th>Bedingung</th><th>BON_TYP</th><th>Beschreibung</th></tr>
+<tr><td><code>bill.isTraining</code></td><td><code>"AVTraining"</code></td><td>Trainingsbuchung</td></tr>
+<tr><td><code>bill.deletedBill != null</code></td><td><code>"AVBelegstorno"</code></td><td>Stornierter Beleg</td></tr>
+<tr><td>Kassenbuch-Eintrag</td><td><code>"AVSonstige"</code></td><td>Sonstiger Vorgang</td></tr>
+<tr><td>Normaler Vorgang</td><td><code>"Beleg"</code></td><td>Standardbeleg</td></tr>
+</table>
+
+<hr>
+
+<h3 id="s26">2.6 Bonkopf_USt &mdash; <code>transactions_vat.csv</code></h3>
+<p><strong>Exporter:</strong> <code>BonkopfUstCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.BonkopfUstRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateBonkopfUst()</code></p>
+
+<h4>Spezifikation (Abschnitt 3.1.2.1, S. 20)</h4>
+<blockquote><p>&bdquo;Da es mehrere USt-S&auml;tze pro Bonkopf geben kann, sind diese in einer Detail-Tabelle aufgef&uuml;hrt.&ldquo;</p></blockquote>
+
+<p>Werte werden <strong>direkt aus <code>BillVatDetailTable</code></strong> &uuml;bernommen (Belegwerte), nicht aus Positionen aufsummiert.</p>
+
+<p><strong>Ausnahme &mdash; Arbeitnehmer-Trinkgeld:</strong> Ein <code>TrinkgeldAN</code> ist nicht steuerbar und wird <strong>nicht mehr als 0-%-Zeile in <code>BillVatDetailTable</code> gespeichert</strong> &mdash; ein Trinkgeld ist kein Umsatz, auch kein null-besteuerter. <code>generateBonkopfUst()</code> erzeugt die zugeh&ouml;rige Zeile auf <code>UST_SCHLUESSEL = 5</code> deshalb <strong>selbst</strong>, statt sie aus der MwSt.-Aufstellung zu lesen; andernfalls w&auml;re die Summe je Beleg genau um das Trinkgeld kleiner als <code>UMS_BRUTTO</code> in <code>transactions.csv</code>. F&auml;llt diese Zeile mit einer echten 0-%-Position desselben Belegs zusammen, werden beide zu <strong>einer</strong> Zeile summiert: <code>(Z_KASSE_ID, Z_ERSTELLUNG, Z_NR, BON_ID, UST_SCHLUESSEL)</code> ist der Schl&uuml;ssel dieser Tabelle (Abschnitt 3.1.2.1) und darf nur einmal vorkommen. Belege, die vor der Umstellung abgeschlossen wurden, tragen ihr Trinkgeld weiterhin als 0-%-Zeile; f&uuml;r sie wird keine zweite Zeile erzeugt.</p>
+
+<hr>
+
+<h3 id="s27">2.7 Bonkopf_AbrKreis &mdash; <code>allocation_groups.csv</code></h3>
+<p><strong>Exporter:</strong> <code>AllocationGroupsCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.AllocationGroupRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateAllocationGroups()</code></p>
+
+<p>Abrechnungskreis: <code>"Tisch-{tischNummer}/S-{sessionId}"</code> &mdash; Tischnummer (lesbar) plus Session-ID. Die Session-ID identifiziert den Gesch&auml;ftsvorfall eindeutig (Tz. 2.7.1 / GoBD Rz. 94); eine blo&szlig;e Tischnummer wiederholt sich pro Besuch und innerhalb desselben Abschlusses (z.&nbsp;B. Mittag- und Abendtisch).</p>
+
+<hr>
+
+<h3 id="s28">2.8 Bonkopf_Zahlarten &mdash; <code>datapayment.csv</code></h3>
+<p><strong>Exporter:</strong> <code>DataPaymentCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.BonkopfZahlartenRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateDataPayments()</code></p>
+
+<h4>Zahlart-Mapping</h4>
+<table>
+<tr><th>Interner Typ</th><th>ZAHLART_TYP (DSFinV-K)</th></tr>
+<tr><td>CASH / BAR</td><td><code>"Bar"</code></td></tr>
+<tr><td>CARD / EC / KARTE / ECKARTE</td><td><code>"ECKarte"</code></td></tr>
+<tr><td>CREDIT / KREDITKARTE</td><td><code>"Kreditkarte"</code></td></tr>
+<tr><td>VOUCHER / GUTSCHEIN</td><td><code>"Guthabenkarte"</code></td></tr>
+<tr><td>Sonstige</td><td><code>"Unbar"</code></td></tr>
+</table>
+
+<h4>Storno &amp; Zahlartwechsel</h4>
+<p>Ein <strong>Storno-Beleg</strong> (<code>bill.deletedBill != null</code>, <code>BON_STORNO = "1"</code>) f&uuml;hrt keine eigenen Zahlungszeilen &mdash; die erstattete Zahlung liegt als <code>refundedBillId</code>-Referenz auf den Quellzahlungen. <code>generateDataPayments()</code> gibt f&uuml;r den Storno-Beleg daher die zugeh&ouml;rigen Zahlarten mit <strong>negiertem Betrag</strong> aus, sodass Zahlung und Umsatz je Beleg und &uuml;ber das Original+Storno-Paar auf null netten (DSFinV-K Tz. 4.2, konform zur Kassennachschau). Der Original-Beleg beh&auml;lt seine positive Zahlungszeile. Ein <strong>Zahlartwechsel</strong> ist ein Storno plus eine Neubuchung: Der Storno-Beleg (Storno-Grund <code>ZAHLARTWECHSEL</code>) kehrt den Original-Beleg wie jeder andere Storno vollst&auml;ndig um, und die Neubuchung (<code>bill.rebooksBill</code> = Original) ist ein gew&ouml;hnlicher Verkauf mit denselben Positionen, der neuen Zahlung und ihrem gesamten Trinkgeld (<code>TrinkgeldAN</code> bzw. <code>TrinkgeldAG</code> wie bei jedem Beleg). Eine durch den Storno zur&uuml;ckgegebene Gutschein-Einl&ouml;sung ist, wie bei jedem Storno, kein Gesch&auml;ftsvorfall des Abschlusses. In <code>references.csv</code> verweisen <strong>Storno &rarr; Original</strong> und <strong>Neubuchung &rarr; Original</strong>, beide mit <code>REF_TYP</code> <code>Transaktion</code> (siehe <a href="#s29">2.9</a>). Einen Grund-Schl&uuml;ssel f&uuml;r den Storno kennt die DSFinV-K nicht; der Zusammenhang ergibt sich aus diesen Referenzen und ist in der Verfahrensdokumentation beschrieben.</p>
+
+<hr>
+
+<h3 id="s29">2.9 Bon_Referenzen &mdash; <code>references.csv</code></h3>
+<p><strong>Exporter:</strong> <code>ReferencesCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.ReferenceRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateReferences()</code></p>
+
+<p>Referenztypen: Storno-Referenz (Bonkopf &rarr; Original-Rechnung), Neubuchungs-Referenz nach einem Zahlartwechsel (Bonkopf der Neubuchung &rarr; stornierter Original-Beleg; <code>REF_TYP</code> <code>Transaktion</code>), Neuabrechnungs-Referenz nach einem Storno mit wieder ge&ouml;ffnetem Tisch (Bonkopf des Belegs, der zur&uuml;ckgelegte Positionen abrechnet &rarr; jeder stornierte Beleg, aus dem sie stammen, abgeleitet aus <code>order_item.duplicated_from_bill_id</code>; eine Zeile je Paar, auch wenn der Ursprungsbeleg in einem fr&uuml;heren Kassenabschluss liegt &mdash; <code>REF_Z_NR</code>/<code>REF_DATUM</code> kommen vom Abschluss des Ursprungsbelegs) und stornierte Einzelpositionen. Eine Neubuchung, deren Positionen zugleich aus ihrem Ursprungsbeleg stammen, referenziert diesen genau einmal.</p>
+
+<hr>
+
+<h3 id="s210">2.10 TSE_Transaktionen &mdash; <code>transactions_tse.csv</code></h3>
+<p><strong>Exporter:</strong> <code>TransactionsTseCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.TseTransaktionenRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateTransactionsTse()</code></p>
+
+<p>Enth&auml;lt TSE-Signaturdaten (Transaktionsnummer, Start/Ende, Signatur, Signaturz&auml;hler). Bills ohne TSE-Transaktion werden &uuml;bersprungen.</p>
+
+<hr>
+
+<h2 id="s3">3. Stammdatenmodul</h2>
+
+<h3>Spezifikation (Abschnitt 3.2, S. 23)</h3>
+<blockquote><p>&bdquo;Zur Vermeidung von Redundanzen werden die Stammdaten f&uuml;r jeden Kassenabschluss nur einmal gespeichert. Werden &Auml;nderungen an den Stammdaten vorgenommen, ist zuvor automatisch ein Abschluss zu erstellen.&ldquo;</p></blockquote>
+
+<hr>
+
+<h3 id="s31">3.1 Stamm_Abschluss &mdash; <code>cashpointclosing.csv</code></h3>
+<p><strong>Exporter:</strong> <code>StammAbschlussCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.StammAbschlussRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateStammAbschluss()</code></p>
+
+<h4>Feld-Zuordnung</h4>
+<table>
+<tr><th>DSFinV-K Feld</th><th>Datenquelle</th><th>Berechnung</th></tr>
+<tr><td>Z_KASSE_ID, Z_ERSTELLUNG, Z_NR</td><td>Standard</td><td>&mdash;</td></tr>
+<tr><td>Z_BUCHUNGSTAG</td><td><code>erster Bon des Abschlusses</code></td><td>Handelstag, nur bei Abweichung vom Erstellungstag</td></tr>
+<tr><td>TAXONOMIE_VERSION</td><td>Fest <code>"2.4"</code></td><td>&mdash;</td></tr>
+<tr><td>Z_START_ID</td><td>Berechnung</td><td>Erste BON_ID des Z-Bons</td></tr>
+<tr><td>Z_ENDE_ID</td><td>Berechnung</td><td>Letzte BON_ID des Z-Bons</td></tr>
+<tr><td>NAME</td><td><code>shopInfo.shopName</code></td><td>Unternehmensname</td></tr>
+<tr><td>STRASSE, PLZ, ORT, LAND</td><td><code>shopInfo.*</code></td><td>Adressdaten; LAND als ISO&nbsp;3166 ALPHA-3 &mdash; ein unbekannter Landesname bricht den Export ab (kein stilles &bdquo;DEU&ldquo;)</td></tr>
+<tr><td>STNR</td><td><code>zBon.stammStnr</code>, sonst <code>shopInfo.shopTaxNumber</code></td><td>Steuernummer aus dem Stammdaten-Snapshot des Abschlusses (KABS-2); Abschl&uuml;sse ohne Snapshot fallen auf die LIVE-Zeile zur&uuml;ck</td></tr>
+<tr><td>USTID</td><td><code>zBon.stammUstId</code>, sonst <code>shopInfo.ustIdNr</code></td><td>Echte &sect;27a-USt-IdNr (NIE die Steuernummer). STNR und USTID sind Alternativen &mdash; mindestens eines muss <em>je exportiertem Kassenabschluss</em> gesetzt sein (&sect;&nbsp;14 Abs.&nbsp;4 Nr.&nbsp;2 UStG), sonst bricht der Export ab (422, unter Nennung der betroffenen Z_NR).</td></tr>
+<tr><td>Z_SE_ZAHLUNGEN</td><td>Berechnung</td><td>Summe aller Zahlungen</td></tr>
+<tr><td>Z_SE_BARZAHLUNGEN</td><td>Berechnung</td><td>Summe der Barzahlungen</td></tr>
+</table>
+
+<hr>
+
+<h3 id="s32">3.2 Stamm_Orte &mdash; <code>location.csv</code></h3>
+<p><strong>Exporter:</strong> <code>StammOrteCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.StammOrteRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateStammOrte()</code></p>
+<p>Standortdaten: LOC_NAME, LOC_STRASSE, LOC_PLZ, LOC_ORT, LOC_LAND, LOC_USTID aus <code>ShopInfoTable</code>.</p>
+
+<hr>
+
+<h3 id="s33">3.3 Stamm_Kassen &mdash; <code>cashregister.csv</code></h3>
+<p><strong>Exporter:</strong> <code>StammKassenCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.StammKassenRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateStammKassen()</code></p>
+<p>Kassenstammdaten: Marke, Modell, Seriennummer, Software-Version, Basisw&auml;hrung <code>"EUR"</code>.</p>
+<h4>Feld-Zuordnung</h4>
+<table>
+<tr><th>DSFinV-K Feld</th><th>Datenquelle</th><th>Anmerkung</th></tr>
+<tr><td>KASSE_BRAND</td><td><code>zBon.stammKasseBrand</code>, sonst <code>kassenConfig.kasseBrand</code></td><td rowspan="4">Snapshot des Abschlusses (C3); Abschl&uuml;sse ohne Snapshot fallen auf die LIVE-Konfiguration zur&uuml;ck</td></tr>
+<tr><td>KASSE_MODELL</td><td><code>zBon.stammKasseModell</code>, sonst <code>kassenConfig.kasseModell</code></td></tr>
+<tr><td>KASSE_SW_BRAND</td><td><code>zBon.stammKasseSwBrand</code>, sonst <code>kassenConfig.kasseSwBrand</code></td></tr>
+<tr><td>KASSE_SW_VERSION</td><td><code>zBon.stammKasseSwVersion</code>, sonst <code>kassenConfig.kasseSwVersion</code></td></tr>
+<tr><td>KASSE_SERIENNR</td><td><code>kassenConfig.kasseSeriennr</code> (LIVE)</td><td><strong>Bewusst kein Snapshot:</strong> <code>Z_KASSE_ID</code> wird aus derselben Seriennummer abgeleitet und ist der Verkn&uuml;pfungsschl&uuml;ssel s&auml;mtlicher Dateien. Ein eingefrorener KASSE_SERIENNR w&uuml;rde von <code>Z_KASSE_ID</code> abweichen und die Verkn&uuml;pfungen zerst&ouml;ren.</td></tr>
+<tr><td>KASSE_BASISWAEH_CODE</td><td>fest <code>"EUR"</code></td><td>Literal, keine LIVE-Quelle</td></tr>
+<tr><td>KEINE_UST_ZUORDNUNG</td><td>eigene Zeilen des Abschlusses</td><td>bereits abschlussbezogen (STAM-3/7)</td></tr>
+</table>
+
+<hr>
+
+<h3 id="s34">3.4 Stamm_Terminals &mdash; <code>slaves.csv</code></h3>
+<p><strong>Exporter:</strong> <code>StammTerminalsCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.StammTerminalsRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateStammTerminals()</code></p>
+
+<h4>Feld-Zuordnung</h4>
+<table>
+<tr><th>DSFinV-K Feld</th><th>Datenquelle</th></tr>
+<tr><td>TERMINAL_ID</td><td><code>zBon.stammTerminals[].terminalId</code>, sonst <code>terminal.clientId</code></td></tr>
+<tr><td>TERMINAL_BRAND</td><td><code>zBon.stammTerminals[].terminalBrand</code>, sonst <code>terminal.terminalBrand</code></td></tr>
+<tr><td>TERMINAL_MODELL</td><td><code>zBon.stammTerminals[].terminalModell</code>, sonst <code>terminal.terminalModel</code></td></tr>
+<tr><td>TERMINAL_SERIENNR</td><td>Der Terminal-Code (= TSE-ClientID), wenn ein Vorgang <strong>dieses Abschlusses</strong> nachweislich unter diesem Code signiert wurde; sonst <code>zBon.stammTerminals[].terminalSeriennr</code>, sonst <code>terminal.terminalSerialNr</code>. Der Nachweis stammt aus den unver&auml;nderlichen <code>tse_transaction</code>-Zeilen der exportierten Vorg&auml;nge, nicht aus der Live-Spalte <code>tse_client_registered</code> &mdash; ein erneuter Export eines Abschlusses liefert daher dieselben Bytes. Ohne Nachweis bleibt die gespeicherte Hardware-Seriennummer stehen; erfunden wird nichts. Damit gilt die Bedingung aus Anhang&nbsp;E S.&nbsp;85 f&uuml;r jede gef&uuml;llte Bonkopf-TERMINAL_ID per Konstruktion (Gate-Invariante 20).</td></tr>
+<tr><td>TERMINAL_SW_BRAND</td><td><code>zBon.stammTerminals[].terminalSwBrand</code>, sonst <code>terminal.terminalSwBrand</code></td></tr>
+<tr><td>TERMINAL_SW_VERSION</td><td><code>zBon.stammTerminals[].terminalSwVersion</code>, sonst <code>terminal.terminalSwVersion</code></td></tr>
+</table>
+<p><strong>Aktualit&auml;t von <code>terminal.terminalSwVersion</code>:</strong> Die LIVE-Spalte wird beim Koppeln des Ger&auml;ts gesetzt, bei jeder Anmeldung an einer Kasse (<code>POST /api/v1/terminals/register</code>) und beim &Ouml;ffnen des Benachrichtigungsstroms (<code>GET /api/notifications/stream</code>, Header <code>X-App-Version</code>) aktualisiert. Der Benachrichtigungsstrom ist der einzige Weg f&uuml;r login-lose Bestellstationen (ORDER_STATION); ohne ihn meldeten sie dauerhaft die Version vom Zeitpunkt der Kopplung. Geschrieben wird nur bei abweichender Version; zuvor werden Abschl&uuml;sse ohne Snapshot eingefroren (<code>KassenStammdatenSnapshot.freezeUnsnapshottedClosingsBeforeTerminalRewrite</code>), da sie <code>slaves.csv</code> aus der LIVE-Tabelle erzeugen. <strong>Folge f&uuml;r Bediener:</strong> Ein Kassenabschluss meldet die Terminal-Software-Version, die bei seiner Erstellung galt; ein sp&auml;teres App-Update &auml;ndert nur k&uuml;nftige Abschl&uuml;sse.</p>
+
+<hr>
+
+<h3 id="s35">3.5 Stamm_Agenturen &mdash; <code>pa.csv</code></h3>
+<p><strong>Exporter:</strong> <code>StammAgenturenCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.StammAgenturenRowDto</code></p>
+
+<h4>Spezifikation (Abschnitt 3.2.5, S. 25)</h4>
+<blockquote><p>&bdquo;Werden Betr&auml;ge &sbquo;f&uuml;r Rechnung Dritter&lsquo; erfasst (durchlaufende Posten), ist der Dritte verantwortlich f&uuml;r die korrekte Erfassung der Umsatzsteuer.&ldquo;</p></blockquote>
+
+<p><strong>Status:</strong> Die Datei wird als <strong>Header-only CSV</strong> (nur Spaltennamen, keine Datenzeilen) exportiert, da das POS-System keine Agenturgesch&auml;fte unterst&uuml;tzt. Die Datei ist dennoch im Export enthalten, um DSFinV-K-Vollst&auml;ndigkeit zu gew&auml;hrleisten.</p>
+
+<hr>
+
+<h3 id="s36">3.6 Stamm_USt &mdash; <code>vat.csv</code></h3>
+<p><strong>Exporter:</strong> <code>StammUstCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.StammUstRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateStammUst()</code></p>
+
+<h4>Implementierte USt-Schl&uuml;ssel (alle 7 gem&auml;&szlig; Anlage 2)</h4>
+<table>
+<tr><th>UST_SCHLUESSEL</th><th>UST_SATZ</th><th>UST_BESCHR</th></tr>
+<tr><td>1</td><td>19,00</td><td>Allgemeiner Steuersatz (&sect;12 Abs. 1 UStG)</td></tr>
+<tr><td>2</td><td>7,00</td><td>Erm&auml;&szlig;igter Steuersatz (&sect;12 Abs. 2 UStG)</td></tr>
+<tr><td>3</td><td>10,70</td><td>Durchschnittsatz (&sect;24 Abs. 1 S. 1 Nr. 3 UStG)</td></tr>
+<tr><td>4</td><td>5,50</td><td>Durchschnittsatz (&sect;24 Abs. 1 S. 1 Nr. 1 UStG)</td></tr>
+<tr><td>5</td><td>0,00</td><td>Nicht steuerbar</td></tr>
+<tr><td>6</td><td>0,00</td><td>Umsatzsteuerfrei</td></tr>
+<tr><td>7</td><td>0,00</td><td>UmsatzsteuerNichtErmittelbar</td></tr>
+</table>
+
+<hr>
+
+<h3 id="s37">3.7 Stamm_TSE &mdash; <code>tse.csv</code></h3>
+<p><strong>Exporter:</strong> <code>StammTseCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.StammTseRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateStammTse()</code></p>
+
+<p>Eine Zeile je Abschluss und je TSE, die <em>in diesem Abschluss</em> signiert hat. Ein Ger&auml;t erscheint nur unter den Abschl&uuml;ssen, deren eigene Vorg&auml;nge es signiert hat &mdash; nach einem TSE-Tausch steht das alte Ger&auml;t nur unter den Abschl&uuml;ssen davor, das neue nur unter denen danach, und ein Abschluss, in dem beide signiert haben, f&uuml;hrt beide. Die Paare (<code>Z_NR</code>, <code>TSE_ID</code>) entsprechen damit genau denen in <code>transactions_tse.csv</code>. Ein Abschluss ohne echte (NORMAL-)Signatur hat keine Zeile.</p>
+
+<p>TSE-Stammdaten: TSE_ID (fortlaufend je physischer Seriennummer, 1&hellip;N), TSE_SERIAL, TSE_SIG_ALGO (<code>"ecdsa-plain-SHA384"</code>), TSE_ZEITFORMAT (das vom Ger&auml;t gemeldete interne Log-Zeitformat, pro Transaktion gespeichert &mdash; <code>"unixTime"</code> f&uuml;r die eingesetzte Swissbit; Alt-Datens&auml;tze ohne gespeichertes Format fallen auf <code>"unixTime"</code> zur&uuml;ck), TSE_PUBLIC_KEY, TSE_ZERTIFIKAT_I&hellip;N.</p>
+
+<p>Das TSE-Zertifikat wird in Base64 zu je 1.000 Zeichen auf so viele Felder <code>TSE_ZERTIFIKAT_I</code>, <code>TSE_ZERTIFIKAT_II</code>, <code>TSE_ZERTIFIKAT_III</code>, <code>TSE_ZERTIFIKAT_IV</code>, <code>TSE_ZERTIFIKAT_V</code> &hellip; verteilt, wie das Zertifikat ben&ouml;tigt (Anhang E S.&nbsp;78&ndash;79) &mdash; niemals abgeschnitten. Ein reales Produktiv-Zertifikat mit 4.316 Zeichen belegt f&uuml;nf Felder (I&ndash;V). Die Feldanzahl <code>N</code> ist datengetrieben (das l&auml;ngste Zertifikat des Abschlusses bestimmt sie, mindestens I und II); k&uuml;rzere Zertifikate lassen die h&ouml;heren Felder leer. <code>tse.csv</code> und <code>index.xml</code> leiten <code>N</code> aus derselben Quelle (<code>StammTseCertificate</code>) ab, damit die Spaltenzahl in beiden identisch ist.</p>
+
+<hr>
+
+<h2 id="s4">4. Kassenabschlussmodul</h2>
+
+<h3>Spezifikation (Abschnitt 3.3, S. 28)</h3>
+<blockquote><p>&bdquo;Durch die drei Gliederungsebenen k&ouml;nnen zu verbuchende Gesch&auml;ftsvorf&auml;lle separiert und gruppiert werden, sodass eine automatisierte Verbuchung bzw. die &Uuml;bernahme ins Kassenbuch m&ouml;glich ist.&ldquo;</p></blockquote>
+
+<hr>
+
+<h3 id="s41">4.1 Z_GV_Typ &mdash; <code>businesscases.csv</code></h3>
+<p><strong>Exporter:</strong> <code>BusinessCasesCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.ZGvTypRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateBusinessCases()</code> + <code>aggregateKassenbuchBusinessCases()</code></p>
+
+<p>Aggregiert pro Z-Bon nach <code>(GV_TYP, UST_SCHLUESSEL)</code>: Z_UMS_BRUTTO, Z_UMS_NETTO, Z_UST.</p>
+
+<p><strong>Netto/USt kommen aus den gespeicherten Belegwerten, nicht aus einer Neuberechnung.</strong> Je Beleg und USt-Schl&uuml;ssel ist das Ziel der gespeicherte Nettobetrag aus <code>BillVatDetail</code>, bei einem Storno der des Originals mit umgekehrtem Vorzeichen. Dieselben Zeilen lesen <code>transactions_vat.csv</code> und die USt-Aufstellung des Z-Bons. Rabatt-, Aktions- und Trinkgeld-Zeilen behalten ihren Nettobetrag. Der Rest wird auf die Umsatz-Zeilen des Belegs verteilt, die letzte nimmt den Rundungsrest auf (<code>BillVatNetting</code>, dasselbe Verfahren wie bei <code>lines_vat.csv</code>). Damit gilt je <code>(Z_KASSE_ID, Z_NR, UST_SCHLUESSEL)</code>: &Sigma; businesscases = &Sigma; <code>BillVatDetail</code> = &Sigma; <code>transactions_vat.csv</code> = Z-Bon. Das gilt auch f&uuml;r Altbelege, deren Werte nach einer fr&uuml;heren Formel gespeichert wurden. Nur ein Beleg ganz ohne <code>BillVatDetail</code>-Zeile wird ersatzweise frisch netto gerechnet. Bis 2026-10 wurde der Tagesumsatz einmal am St&uuml;ck netto gerechnet, was bei mehreren Belegen je Satz um 1&nbsp;Cent abwich (F43).</p>
+
+<h4 id="gvtyp">GV_TYP-Bestimmungslogik</h4>
+
+<p><strong>F&uuml;r Bestellpositionen</strong> (<code>determineGvTyp()</code>):</p>
+<table>
+<tr><th>Bedingung</th><th>GV_TYP</th><th>Beschreibung</th></tr>
+<tr><td><code>item.product.isDeposit</code></td><td><code>"Pfand"</code></td><td>Pfanderhebung</td></tr>
+<tr><td><code>item.product.isDepositReturn</code></td><td><code>"PfandRueckzahlung"</code></td><td>Pfandr&uuml;ckgabe</td></tr>
+<tr><td><code>productType == VOUCHER</code></td><td><code>"MehrzweckgutscheinKauf"</code></td><td>Gutscheinkauf</td></tr>
+<tr><td>Rabattzeile / Aktionsgutschein</td><td><code>"Rabatt"</code></td><td>Rabatt / Nachlass (inkl. Aktionsgutscheine)</td></tr>
+<tr><td>Gutschein-Einl&ouml;sung</td><td><code>"MehrzweckgutscheinEinloesung"</code></td><td>Gutscheineinl&ouml;sung</td></tr>
+<tr><td>Trinkgeld AN</td><td><code>"TrinkgeldAN"</code></td><td>Trinkgeld Arbeitnehmer</td></tr>
+<tr><td>Trinkgeld AG</td><td><code>"TrinkgeldAG"</code></td><td>Trinkgeld Arbeitgeber</td></tr>
+<tr><td>Normaler Artikel</td><td><code>"Umsatz"</code></td><td>Regul&auml;rer Umsatz</td></tr>
+</table>
+
+<div class="hint">
+<strong>Hinweis:</strong> Stornierungen werden <em>nicht</em> &uuml;ber einen eigenen GV_TYP abgebildet, sondern &uuml;ber das <code>BON_STORNO</code>-Flag am Bonkopf und negative Betr&auml;ge. Der GV_TYP bleibt <code>"Umsatz"</code>.
+</div>
+
+<p><strong>F&uuml;r Kassenbuch-Eintr&auml;ge</strong> (<code>KassenbuchDsfinvkMapping.getGvTyp()</code>):</p>
+<table>
+<tr><th>Kassenbuch-Typ</th><th>GV_TYP</th><th>Beschreibung</th></tr>
+<tr><td>CASH_TRANSFER_IN/OUT</td><td><code>"Geldtransit"</code></td><td>Geldtransit</td></tr>
+<tr><td>CASH_SALE / CASH_PAYMENT</td><td><code>"Umsatz"</code></td><td>Barumsatz</td></tr>
+<tr><td>CASH_DEPOSIT</td><td><code>"Einzahlung"</code></td><td>Einzahlung (generische Bareinlage; USt fallweise, hier Container&nbsp;5)</td></tr>
+<tr><td>PRIVATE_DEPOSIT</td><td><code>"Privateinlage"</code></td><td>Privateinlage (Bareinlage aus der Privatsph&auml;re des Unternehmers, Anhang&nbsp;C S.&nbsp;57 &mdash; gewinnneutral)</td></tr>
+<tr><td>CASH_EXPENSE / CASH_WITHDRAWAL</td><td><code>"Auszahlung"</code></td><td>Auszahlung</td></tr>
+<tr><td>PRIVATE_WITHDRAWAL</td><td><code>"Privatentnahme"</code></td><td>Privatentnahme</td></tr>
+<tr><td>REFUND</td><td><code>"Umsatz"</code></td><td>R&uuml;ckerstattung (mit negativem Betrag)</td></tr>
+<tr><td>CASH_SURPLUS / CASH_SHORTAGE</td><td><code>"DifferenzSollIst"</code></td><td>Kassendifferenz</td></tr>
+<tr><td>OPENING_BALANCE / CLOSING_BALANCE / CHANGE_FUND</td><td><code>"Anfangsbestand"</code></td><td>Anfangsbestand</td></tr>
+<tr><td>CORRECTION_IN / CORRECTION_OUT</td><td>GV_TYP des <strong>korrigierten</strong> Eintrags<br>(ohne <code>corrects</code>-Verkn&uuml;pfung: <code>"DifferenzSollIst"</code>)</td><td>Korrekturbuchungen (Storno)</td></tr>
+</table>
+
+<div class="hint">
+<strong>Positionsart vor Buchungstyp: Mitarbeitertrinkgeld.</strong> Eine Position der Art
+<code>EMPLOYEE_TIP</code> ist <em>immer</em> <code>"TrinkgeldAN"</code> mit UST_SCHLUESSEL&nbsp;5, gleich in
+welchem Eintrag sie steht &mdash; insbesondere die <strong>Trinkgeld-Auszahlung</strong> an den
+Mitarbeiter nach dem Z-Bon, eine Barentnahme (<code>CASH_WITHDRAWAL</code>), deren Kopf sonst
+<code>"Auszahlung"</code> w&auml;re. Grundlage ist DSFinV-K&nbsp;2.4, Anhang&nbsp;C S.&nbsp;52: &bdquo;Im
+Gesch&auml;ftsvorfalltyp &sbquo;TrinkgeldAN&lsquo; werden alle kassenwirksamen Ein- und Auszahlungen von
+Trinkgeldern an den Arbeitnehmer erfasst &hellip; Es ist m&ouml;glich, mit diesem Gesch&auml;ftsvorfalltyp
+sowohl die Ein- als auch die Auszahlung an den Arbeitnehmer darzustellen.&ldquo; Die Auszahlung tr&auml;gt
+einen negativen Betrag und wird als <code>Beleg^0.00_0.00_0.00_0.00_-x^-x:Bar</code> signiert. Ein
+erkl&auml;rter MwSt.-Satz der Position wird verworfen (<code>KassenbuchTaxClassifier</code>). Die
+Trinkgeldzeile des Z-Bon-Sammeleintrags hat dieselbe Positionsart, wird aber wie der ganze
+Sammeleintrag nicht exportiert (4.1.1).
+<br><br>
+<strong>Auszahlung im Abschluss.</strong> Wird das Trinkgeld im Dialog <em>Z-Bon erstellen</em>
+ausgezahlt, bucht der Server die Barentnahmen in derselben Transaktion wie den Abschluss; sie tragen
+dessen <code>Z_NR</code>. Je Abschluss gilt dann: &Sigma; <code>TrinkgeldAN</code> in
+<code>businesscases.csv</code> = Trinkgeld der Belege &minus; im Abschluss ausgezahltes Trinkgeld
+(alles ausgezahlt &rArr; 0,00). Eine Auszahlung nach dem Abschluss steht unter der Z-Nummer des
+n&auml;chsten Abschlusses (<code>DsfinvkTipPayoutInClosingTest</code>).
+</div>
+
+<div class="hint">
+<strong>Korrekturen netten innerhalb des korrigierten Gesch&auml;ftsvorfalls.</strong> Ein <code>CORRECTION_*</code>-Eintrag wird &uuml;ber seine <code>correctsHeader</code>-Verkn&uuml;pfung auf den GV_TYP des korrigierten Eintrags aufgel&ouml;st &mdash; ein Storno einer Barausgabe bleibt <code>"Auszahlung"</code>, nicht <code>"DifferenzSollIst"</code> (Anhang C S. 59 reserviert <code>DifferenzSollIst</code> f&uuml;r die gez&auml;hlte Soll/Ist-Differenz beim Kassensturz).
+<br><br>
+<strong>Das gilt ebenso f&uuml;r den Steuerschl&uuml;ssel.</strong> Das Storno eines <em>steuerbehafteten</em> Eintrags ist selbst ein steuerbarer Vorgang: <code>createCorrection</code> &uuml;bernimmt den <code>ustSatz</code> des Originals auf die Storno-Positionen, und alle drei USt-Erzeuger (<code>lines_vat.csv</code>, <code>businesscases.csv</code>, <code>transactions_vat.csv</code>) zerlegen ihn mit demselben UST_SCHLUESSEL wie das Original &mdash; mit umgekehrtem Vorzeichen. Original und Storno netten damit auf 0,00 USt. W&uuml;rde das Storno stattdessen unter Schl&uuml;ssel 5 / USt 0,00 gebucht, bliebe die Vor-/Umsatzsteuer des Originals stehen und der Kassenabschluss w&uuml;rde genau um diesen Betrag zu hoch ausgewiesen (Runde 5, Befund C6).
+</div>
+
+<h3 id="s411">4.1.1 Kassenbuch-Einträge im DSFinV-K-Export</h3>
+
+<div class="hint">
+<strong>Z-Bon-Sammeleintrag wird ausgeschlossen:</strong> Der vom Tagesabschluss automatisch erzeugte Sammeleintrag (Kassenbuch-Eintrag mit <code>isZbonAggregate = true</code>) wird aus allen f&uuml;nf DSFinV-K-Ausgaben ausgenommen, die Kassenbuch-Zeilen tragen (<code>transactions.csv</code>, <code>transactions_tse.csv</code>, <code>lines.csv</code>, <code>datapayment.csv</code>, <code>businesscases.csv</code>). Seine Ums&auml;tze sind bereits vollst&auml;ndig &uuml;ber die Rechnungen (<code>BillTable</code>) exportiert &mdash; inklusive Umsatz, Pfand (<code>product.isDeposit</code> / <code>isDepositReturn</code>) und Gutschein-Verk&auml;ufen. Ein zus&auml;tzlicher Export des Sammeleintrags w&uuml;rde diese Betr&auml;ge doppelt erfassen. <strong>Manuelle</strong> (nicht-aggregierte) Kassenbuch-Eintr&auml;ge werden weiterhin vollst&auml;ndig exportiert.
+</div>
+
+<p><strong>Per-Zeilen-GV_TYP f&uuml;r manuelle Kassenbuch-Eintr&auml;ge</strong> (<code>KassenbuchDsfinvkMapping.getGvTyp(entryType, kind, vorzBetrag)</code>): F&uuml;r Buchungstypen der Umsatz-Familie (<code>CASH_SALE</code>, <code>CASH_PAYMENT</code>, <code>REFUND</code> &mdash; deren Kopf-GV_TYP <code>"Umsatz"</code> ist) wird der GV_TYP pro Position anhand ihrer <code>KassenbuchLineKind</code> &uuml;bersteuert:</p>
+
+<table>
+<tr><th>Positionsart (<code>kind</code>)</th><th>Bedingung</th><th>GV_TYP</th></tr>
+<tr><td><code>PFAND</code></td><td>Betrag &ge; 0 (Pfand-Einnahme)</td><td><code>"Pfand"</code></td></tr>
+<tr><td><code>PFAND</code></td><td>Betrag &lt; 0 (Leergut-R&uuml;ckgabe)</td><td><code>"Pfand-R&uuml;ckzahlung"</code></td></tr>
+<tr><td><code>GUTSCHEIN</code></td><td>&mdash;</td><td><code>"Rabatt"</code></td></tr>
+<tr><td><code>STANDARD</code>, <code>NON_CASH_PAYMENT</code></td><td>&mdash;</td><td>Kopf-GV_TYP (i.&nbsp;d.&nbsp;R. <code>"Umsatz"</code>)</td></tr>
+</table>
+
+<p>F&uuml;r Buchungstypen <em>au&szlig;erhalb</em> der Umsatz-Familie (z.&nbsp;B. <code>CASH_EXPENSE</code> / Barausgabe) behalten alle Positionen den Kopf-GV_TYP &mdash; auch eine <code>PFAND</code>- oder <code>GUTSCHEIN</code>-Position innerhalb eines Wareneinkaufs bleibt Teil des <code>"Auszahlung"</code>-Gesch&auml;ftsvorfalls und wird nicht als Pfand/Rabatt umklassifiziert (siehe Metro-Beispiel im Bedienerhandbuch, Kapitel 12).</p>
+
+<div class="hint">
+<strong>Hinweis f&uuml;r den Steuerberater:</strong> <code>GV_TYP = "Rabatt"</code> wird hier f&uuml;r eine <strong>preismindernde</strong> Warengutschein-/Rabattposition (<code>GUTSCHEIN</code>-Zeile) auf einem Umsatz-Eintrag verwendet. Handelt es sich stattdessen um die Einl&ouml;sung eines ausgestellten Geschenkgutscheins (Mehrzweckgutschein), ist der korrekte DSFinV-K-Gesch&auml;ftsvorfall ein anderer (siehe <code>MehrzweckgutscheinEinloesung</code> weiter oben in Abschnitt <a href="#gvtyp">4.1</a>) &mdash; bitte den konkreten Anwendungsfall mit dem Steuerberater abstimmen.
+</div>
+
+<hr>
+
+<h3 id="s42">4.2 Z_Zahlart &mdash; <code>payment.csv</code></h3>
+<p><strong>Exporter:</strong> <code>PaymentSummaryCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.ZZahlartRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generatePaymentSummaries()</code></p>
+
+<p>Summen pro Zahlarttyp und Z-Bon. ZAHLART_TYP gem&auml;&szlig; Anhang D: <code>Bar</code>, <code>Unbar</code>, <code>Keine</code>, <code>ECKarte</code>, <code>Kreditkarte</code>, <code>ElZahlungsdienstleister</code>, <code>Guthabenkarte</code>.</p>
+
+<hr>
+
+<h3 id="s43">4.3 Z_Waehrungen &mdash; <code>cash_per_currency.csv</code></h3>
+<p><strong>Exporter:</strong> <code>CashPerCurrencyCsvExporter.kt</code> &nbsp;|&nbsp; <strong>DTO:</strong> <code>DsfinvkExportDto.ZWaehrungenRowDto</code> &nbsp;|&nbsp; <strong>Service:</strong> <code>generateCashPerCurrency()</code></p>
+
+<p>Bargeldbestand pro W&auml;hrung &mdash; stellt jederzeitige Kassensturzf&auml;higkeit her.</p>
+
+<hr>
+
+<h2 id="s5">5. Zus&auml;tzliche Dateien</h2>
+
+<h3>index.xml</h3>
+<p><strong>Generator:</strong> <code>DsfinvkIndexXmlGenerator.kt</code></p>
+<p>Master-Deskriptor mit Metadaten (Dateiname, Encoding <code>UTF-8</code>, Trennzeichen <code>;</code>) f&uuml;r alle CSV-Dateien.</p>
+
+<h3>tse/&hellip;.tar (optional)</h3>
+<p>Wird bei <code>includeTseTar = true</code> aus der am Server angeschlossenen TSE exportiert (im selben Prozess, &uuml;ber den <code>TseAdminProvider</code>; einen separaten TSE-Server gibt es seit v1.1.0 nicht mehr) und im Ordner <code>tse/</code> der ZIP abgelegt. Es wird der <strong>vollst&auml;ndige, ungefilterte</strong> Ger&auml;te-TAR ausgeliefert (<code>exportFull</code>), nicht der zeitgefilterte Export, weil Abschl&uuml;sse kalendertag&uuml;bergreifend sein k&ouml;nnen und kein Kalenderfenster exakt passt (CONT-1). Der volle TAR deckt stets alle Abschl&uuml;sse ab. Der zweite Grund (Round-3 TSER-1) besteht fort: der gefilterte Aufruf filtert auf TSE&nbsp;1.x nach <em>einer</em> Client-ID (der des Selbsttests) und liefert die Transaktionen der &uuml;brigen Terminals nicht (QA 2026-10, Korrektur in <code>pos-tse</code> ausstehend). Der TAR-Export ben&ouml;tigt keine Admin-PIN.</p>
+<p><strong>Mehrere TARs nach &bdquo;Exportieren und L&ouml;schen&ldquo;:</strong> Reicht der Zeitraum in Eintr&auml;ge, die ein Exportieren-und-L&ouml;schen von der TSE entfernt hat, legt der Export zus&auml;tzlich die registrierten Archive (<code>tse_export_archive</code>, siehe TSE-Dokumentation &bdquo;Archivregister&ldquo;) unter ihrem eigenen Namen in <code>tse/</code> ab &ndash; nur die, die eine sonst fehlende Transaktion enthalten, und nur nach erfolgreicher SHA-256-Pr&uuml;fung. Ein TSE-Export darf aus mehreren TAR-Dateien bestehen; <code>index.xml</code> beschreibt nur die CSV-Dateien und bleibt unver&auml;ndert. Deckt das Ger&auml;t den Zeitraum allein ab, enth&auml;lt das Paket wie bisher genau ein TAR.</p>
+
+<hr>
+
+<h2 id="s6">6. Datenfluss und Berechnungslogik</h2>
+
+<h3>Gesamtablauf des Exports</h3>
+<pre><code>1. ExportRequest (startDate, endDate, includeTseTar)
+       |
+2. Z-Berichte laden (ZBonTable WHERE createdAt &gt;= start 00:00 AND &lt; (end+1 Tag) 00:00, Ortszeit des Betriebs)
+       |
+3. Rechnungen laden (BillTable WHERE zBonId IN zBonIds)
+       |
+4. Kassenbuch-Eintr&auml;ge laden (KassenbuchHeaderTable WHERE createdAt BETWEEN start AND end)
+       |
+5. F&uuml;r jeden Z-Bon + zugehorige Rechnungen:
+       +-- generateTransactions()          -> transactions.csv
+       +-- generateLineItems()             -> lines.csv
+       +-- generateLineVats()              -> lines_vat.csv
+       +-- generateItemAmounts()           -> itemamounts.csv
+       +-- generateSubItems()              -> subitems.csv
+       +-- generateBonkopfUst()            -> transactions_vat.csv
+       +-- generateAllocationGroups()      -> allocation_groups.csv
+       +-- generateDataPayments()          -> datapayment.csv
+       +-- generateReferences()            -> references.csv
+       +-- generateTransactionsTse()       -> transactions_tse.csv
+       +-- generateBusinessCases()         -> businesscases.csv
+       +-- generatePaymentSummaries()      -> payment.csv
+       +-- generateCashPerCurrency()       -> cash_per_currency.csv
+       +-- generateStammAbschluss()        -> cashpointclosing.csv
+       +-- generateStammOrte()             -> location.csv
+       +-- generateStammKassen()           -> cashregister.csv
+       +-- generateStammUst()              -> vat.csv
+       +-- generateStammTse()              -> tse.csv
+       +-- generateStammTerminals()        -> slaves.csv
+       +-- (StammAgenturenCsvExporter)     -> pa.csv (header-only)
+       |
+6. (Optional) TSE TAR-Export herunterladen und Abdeckung pr&uuml;fen
+   (jede signierte TANR des Zeitraums muss im TAR stehen, sonst 409 TSE_EXPORT_INCOMPLETE)
+       |
+7. ZIP-Archiv erstellen (DsfinvkExportBuilder)
+</code></pre>
+
+<h3>USt-Berechnungsformel</h3>
+<pre><code>Brutto (gegeben) = Endpreis inkl. USt
+Netto            = Brutto / (1 + USt-Satz)     [2 Dezimalstellen, HALF_UP; im Kassenabschluss gilt der gespeicherte BillVatDetail-Wert]
+USt              = Brutto - Netto
+USt-Schluessel   = VatKeyMapping(USt-Satz)      [19% -> 1, 7% -> 2, 0% -> 5]
+</code></pre>
+
+<h3>CSV-Formatierungsregeln</h3>
+<table>
+<tr><th>Eigenschaft</th><th>Wert</th></tr>
+<tr><td>Trennzeichen</td><td>Semikolon (<code>;</code>)</td></tr>
+<tr><td>Dezimaltrennzeichen</td><td>Komma (<code>,</code>) &mdash; deutsches Format</td></tr>
+<tr><td>Textqualifizierer</td><td>Anf&uuml;hrungszeichen (<code>"</code>) bei Bedarf</td></tr>
+<tr><td>Zeilenende</td><td><code>\r\n</code> (Windows CRLF)</td></tr>
+<tr><td>Encoding</td><td>UTF-8</td></tr>
+</table>
+
+<hr>
+
+<h2 id="s7">7. Abweichungen und Hinweise</h2>
+
+<div class="hint">
+<strong>Nach dem Update auf v1.1.0: jeden bereits abgegebenen Zeitraum neu exportieren.</strong> Alles, was der Export zur Laufzeit ableitet &ndash; Zeilen- und Kopfabstimmung, Storno-Form, Gutschein-Einl&ouml;sung, Abschlusszuordnung, USt-Schl&uuml;ssel, CSV-Format, index.xml, TSE-Spalten, Ausschluss von Schulungsbelegen, Belegreferenzen &ndash; ist erst mit einem neu erzeugten Paket korrigiert. Dabei &auml;ndert sich <code>Z_NR</code> (siehe unten, Kassenabschluss-Orientierung). Ein neu erzeugtes Paket verlangt zudem je Kassenabschluss Steuernummer oder USt-IdNr (sonst HTTP&nbsp;422 unter Nennung der betroffenen <code>Z_NR</code>). Was einmal falsch in die TSE signiert wurde, bleibt im WORM-Protokoll und l&auml;sst sich durch einen Neuexport nicht &auml;ndern.
+</div>
+
+<h3>Audit-Remediation (Stand: 14.07.2026, Branch fix/dsfinvk-audit-remediation)</h3>
+<p>Der isolierte DSFinV-K/TSE-Audit vom 13.07.2026 wurde umgesetzt. Wesentliche Semantik seither:</p>
+<ul>
+<li><strong>Kassenabschluss-Orientierung:</strong> Der Export w&auml;hlt Abschl&uuml;sse nach Erstellungszeitpunkt; Vorg&auml;nge ohne deckenden Abschluss werden ausgeschlossen (nie <code>Z_NR=0</code>). <code>Z_NR</code> = l&uuml;ckenlose <code>zbonNummer</code>. <strong>Folge f&uuml;r einen erneuten Export:</strong> Bis v1.0.10 trug <code>Z_NR</code> die Datenbank-ID des Abschlusses. Ein fehlgeschlagener Abschlussversuch verbrauchte eine ID, aber keine gedruckte Nummer; ab dem ersten solchen Versuch f&uuml;hrt ein unter v1.1.0 neu exportiertes Paket denselben Abschluss unter einer anderen <code>Z_NR</code> als das fr&uuml;her abgegebene (in einem gepr&uuml;ften Bestand: ID&nbsp;110 &rarr; Nummer&nbsp;99). Richtig ist die gedruckte Nummer, die auch auf dem Papier-Z-Bon steht. Bei der erneuten Abgabe den Steuerberater bzw. Pr&uuml;fer darauf hinweisen, damit alte und neue Pakete nicht &uuml;ber <code>Z_NR</code> abgeglichen werden.</li>
+<li><strong>BON_NR:</strong> Belege tragen die GEDRUCKTE Bonnummer; AV-Vorg&auml;nge nutzen reservierte Bereiche (Orders 900&nbsp;Mio.+ID, Stornos 920&nbsp;Mio.+ID, Kassenbuch 940&nbsp;Mio.+ID; Fallback f&uuml;r ziffernlose Bill-Nummern 800&nbsp;Mio.+ID).</li>
+<li><strong>Mehrzweckgutschein-Einl&ouml;sung:</strong> negative Schl&uuml;ssel-5-Zeile (Bonkopf_USt/Bonpos_USt), UMS_BRUTTO saldiert, Zahlart &bdquo;Keine&ldquo; nur 0,00 bei vollst&auml;ndiger Gutscheinzahlung &mdash; identisch in der TSE-processData (negativer 0%-Container).</li>
+<li><strong>Kassenbuch-Bewegungen</strong> (Geldtransit, Privateinlage/-entnahme, Auszahlung, Differenz): <code>BON_TYP="Beleg"</code> mit signierter Bar-Zahlart und USt-Zerlegung; nur OPENING/CLOSING_BALANCE bleiben AVSonstige. CHANGE_FUND = Geldtransit.</li>
+<li><strong>Z_Zahlart / Z_SE_*</strong> werden aus den datapayment-Zeilen abgeleitet (Identit&auml;t per Konstruktion); AVTraining flie&szlig;t nie in den Abschluss. <strong>Z_Waehrungen</strong> = Bargeldbestand (closingBalance), nicht Zahlartensumme.</li>
+<li><strong>TSE-Felder:</strong> <code>TSE_TA_START/ENDE</code> ISO&nbsp;8601 <code>YYYY-MM-DDThh:mm:ss.fffZ</code>; <code>TSE_SERIAL</code> 64-stellig hexadezimal; tse.csv aus dem Ger&auml;t der exportierten Abschl&uuml;sse (NORMAL-Modus); unsignierte/simulierte Vorg&auml;nge mit leeren TSE_ID/TANR und <code>TSE_TA_FEHLER</code>; nachsignierte Vorg&auml;nge tragen die Signatur <em>und</em> &bdquo;Nachsigniert am &hellip;&ldquo; mit Ursache und Ausfallbeginn in <code>TSE_TA_FEHLER</code> (siehe TSE-Dokumentation, Nachsignierung).</li>
+<li><strong>POS_ZEILE:</strong> lines.csv ist die alleinige Nummerierungsautorit&auml;t (BonposLinePlan); lines_vat/subitems/references schlagen nach. Bill-weite Aktionen: EINE aggregierte Rabatt-Zeile je USt-Satz (A3-3/A3-4-Mathematik beidseitig identisch).</li>
+<li><strong>Vorzeichen:</strong> Bei R&uuml;ckg&auml;ngen/Stornos wechselt NUR <code>MENGE</code> (&plusmn;1,000) das Vorzeichen; <code>STK_BR</code> bleibt der (Grund-)Preis. Mengenfelder mit 3 Nachkommastellen.</li>
+<li><strong>itemamounts.csv:</strong> bewusst header-only &mdash; Rabatte sind separate Bonpos-Zeilen (Tz.&nbsp;3.1.1.2).</li>
+<li><strong>USt-Schl&uuml;ssel:</strong> vollst&auml;ndiger Anlage-2-Katalog (05.12.2024) inkl. historischer IDs 11/12/13/21/22/23/33/43; Schl&uuml;ssel&nbsp;3 = aktueller &sect;24-Nr.3-Satz (7,80&nbsp;%); <code>KEINE_UST_ZUORDNUNG=1</code> genau in den Abschl&uuml;ssen, deren eigene Zeilen Schl&uuml;ssel&nbsp;7 verwenden (pro Kassenabschluss, nicht exportweit).</li>
+<li><strong>USTID:</strong> nur echte &sect;27a-USt-IdNr (neues Feld <code>shop_info.ust_id_nr</code>, V93); die Steuernummer bleibt in STNR. PLZ wird auf 5 Stellen aufgef&uuml;llt.</li>
+<li><strong>Container:</strong> <code>gdpdu-01-09-2004.dtd</code> liegt der ZIP bei; index.xml beginnt mit UTF-8-BOM. TSE-TAR l&auml;uft &uuml;ber den TseAdminProvider; ein fehlgeschlagener TAR-Export bricht den Export ab (503), sofern nicht <code>allowMissingTseTar=true</code> gesetzt ist. <strong>Abdeckungspr&uuml;fung (Checkliste&nbsp;28.4):</strong> das gelieferte TAR muss jede signierte Transaktion des Zeitraums (NORMAL, FINISHED, mit Signatur) enthalten, je Seriennummer und TANR. Was das Ger&auml;te-TAR nicht enth&auml;lt, darf ein registriertes, unver&auml;ndertes Archiv abdecken (Exportieren und L&ouml;schen). Fehlt danach noch eine &ndash; leeres Ger&auml;t, getauschte TSE ohne registriertes Archiv, gel&ouml;schte Eintr&auml;ge ohne (intaktes) Archiv, virtuelle TSE nach Neustart ohne Protokoll &ndash;, lehnt der Export mit <strong>409 <code>TSE_EXPORT_INCOMPLETE</code></strong> ab und nennt Seriennummer, fehlende TANR und den Zeitraum ihrer Signatur. Fehlen Transaktionen unterhalb der niedrigsten, die die angeschlossene TSE noch h&auml;lt, sagt die Meldung, dass sie von dieser TSE gel&ouml;scht wurden und das Archiv zu registrieren oder zur&uuml;ckzulegen ist &ndash; einen Ger&auml;tetausch behauptet sie nur, wenn das Ger&auml;te-TAR die Seriennummer gar nicht enth&auml;lt. Mit <code>allowMissingTseTar=true</code> entsteht das Paket <em>ohne</em> TAR, nie mit einem unvollst&auml;ndigen. Ein vollst&auml;ndiges TAR wird unver&auml;ndert beigef&uuml;gt.</li>
+<li><strong>BEDIENER_NAME</strong> = Anzeigename (EmployeeInfo), f&uuml;r die anmeldefreie Station <code>Terminal (ohne Anmeldung)</code>, BON_NOTIZ auf 255 Zeichen begrenzt, CR/LF in Freitexten wird geflattet, ZAHLWAEH_* nur bei Fremdw&auml;hrung.</li>
+<li><strong>Bon_Referenzen:</strong> REF_DATUM = ISO-Zeitstempel des referenzierten Abschlusses, REF_Z_NR direkt vom Originalbeleg (perioden&uuml;bergreifend), Positionsstorno-Referenzen liegen auf dem STORNIERENDEN Vorgang und zeigen auf die Original-BON_ID. POS_ZEILE der Positionsstorno-Referenz = <code>"1"</code> (Zeilennummer des REFERENZIERENDEN Vorgangs, index.xml Zeile&nbsp;1598), Mitgliedschaft &uuml;ber dieselbe Fenster-Aufl&ouml;sung wie die Storno-Vorg&auml;nge (kein <code>Z_NR=0</code>).</li>
+</ul>
+
+<h3>Round-3-Remediation (Stand: 16.07.2026)</h3>
+<p>Erg&auml;nzend zum Lifecycle-/Querschnitts-Audit vom 15.07.2026 (siehe <code>docs/audits/dsfinvk-tse/findings-log.md</code>):</p>
+<ul>
+<li><strong>TSE-TAR = voller Export</strong> (<code>exportFull</code> statt zeitgefiltert; TSER-1/CONT-1) &mdash; siehe Abschnitt&nbsp;5.</li>
+<li><strong>Anfangsbestand = Beleg-Modell:</strong> OPENING_BALANCE wird als &bdquo;Beleg&ldquo;/Bar-Anfangsbestand gebucht (Anhang&nbsp;C S.&nbsp;56); Legacy-CLOSING_BALANCE-Snapshots sind AVSonstige und flie&szlig;en nie als Phantom-Anfangsbestand in den Abschluss (KABS-3/INV-F5).</li>
+<li><strong>STNR/USTID-Pflicht:</strong> Ein Kassenabschluss muss Steuernummer ODER USt-IdNr tragen; beide leer bricht den Export ab (Hard-Gate + <code>/validate</code>-Fehler, KABS-6).</li>
+<li><strong>ABRECHNUNGSKREIS</strong> = <code>Tisch-N/S-sessionId</code> (eindeutig je Gesch&auml;ftsvorfall, BKOPF-2, siehe Abschnitt&nbsp;2.7).</li>
+<li><strong>Z_BUCHUNGSTAG</strong> nur bei abweichendem Buchungstag gef&uuml;llt, sonst leer (CONT-3/KABS-7). Ma&szlig;geblich ist der Tag des <strong>ersten Bons des Abschlusses</strong>: Ein nach Mitternacht erstellter Abschluss bucht damit auf den Handelstag, an dem die Ums&auml;tze entstanden sind. Fr&uuml;her wurde der Fenster-Starttag verwendet &ndash; das ist der Zeitpunkt des <em>vorherigen</em> Abschlusses und lag bei einem t&auml;glich abschlie&szlig;enden Betrieb immer am Vortag.</li>
+<li><strong>Kunde:</strong> KUNDE_NAME = voller Name, KUNDE_ID = Kundennummer, sofern der Tischsession ein Kunde zugeordnet ist (BKOPF-5).</li>
+<li><strong>Mehrger&auml;te-tse.csv:</strong> ein TSE_ID je physischer Seriennummer, Stammdaten je Ger&auml;t, TSE_ID der Vorgangszeile aus deren eigener Signatur (STAM-1); je Abschluss nur die Ger&auml;te, die in ihm signiert haben (RU-1).</li>
+<li><strong>AVBestellung-Zeilen:</strong> GV_TYP spiegelt die Warenklasse (Pfand-R&uuml;ckgabe statt hart &bdquo;Umsatz&ldquo;), Vorzeichen in MENGE; INHAUS bei Nicht-Waren-Zeilen (Tender/Trinkgeld/Aktion/Kassenbuch) leer (BPOS-2/3/4).</li>
+</ul>
+
+<h3>Runde 5 (18.07.2026) &mdash; verhaltens&auml;ndernde Korrekturen</h3>
+<ul>
+<li><strong>Kassenbuch-Auszahlungen signieren einen NEGATIVEN Bar-Zahlbetrag</strong> (TSER-1, CRITICAL): der signierte Kassenbeleg-V1 trug bisher vorzeichenrichtige USt-Buckets, aber einen POSITIVEN Zahlungsbetrag &mdash; das signierte Dokument ging damit nicht auf (Anhang&nbsp;I S.&nbsp;119&ndash;121). <strong>&#x26A0; Deploy-Vorbedingung:</strong> Warteschlangeneintr&auml;ge zum Nachsignieren spielen ihre gespeicherten <code>process_data</code> unver&auml;ndert ab, und der Pending-Sweeper &uuml;berspringt KASSENBUCH &mdash; die KASSENBUCH-Warteschlange muss vor dem Deploy geleert (oder als leer nachgewiesen) werden, sonst wird der ALTE positive Betrag dauerhaft in die WORM signiert. Siehe <code>docs/dsfinvk_tse_release_audit.md</code>, Teil&nbsp;0.</li>
+<li><strong>Pfand im Schnellverkauf tr&auml;gt die USt-Klasse seines PfandType</strong> (der Schnellverkauf wurde mit v1.1.0 entfernt; Gutscheinverk&auml;ufe am Tresen laufen &uuml;ber den normalen Belegweg) statt pauschal 0&nbsp;% (BPOS-4). Betrifft <code>BillVatDetail</code>, die Bucket-Verteilung im signierten Kassenbeleg-V1 und die Pfand-Aufteilung im Z-Bon. <strong>Belegsummen bleiben unver&auml;ndert</strong> &mdash; nur die USt-Zuordnung des Pfands &auml;ndert sich. Bereits signierte Historie ist unver&auml;nderlich und nicht betroffen.</li>
+<li><strong>Stammdaten je Kassenabschluss (Snapshot) + Abschlusspflicht</strong> (KABS-2): Abschnitt&nbsp;3.2 S.&nbsp;23 verlangt, dass Stammdaten je Abschluss gespeichert werden und eine Stammdaten&auml;nderung <em>zuvor</em> einen Abschluss ausl&ouml;st. Bisher las der Export die LIVE-Zeile, sodass eine sp&auml;tere Adress&auml;nderung r&uuml;ckwirkend jeden vergangenen Abschluss umschrieb. Jetzt tr&auml;gt jeder Abschluss seinen eigenen Stammdaten-Snapshot (Migration V95), und eine Shop-Daten&auml;nderung bei laufendem Betrieb wird mit HTTP&nbsp;409 (<code>SHOP_INFO_CLOSING_REQUIRED</code>) abgelehnt.</li>
+<li><strong>USt-S&auml;tze werden historisiert, nicht bearbeitet</strong> (KABS-3): das Bearbeiten eines Satzes, der von einer Bestellposition referenziert wird, antwortet dauerhaft mit HTTP&nbsp;409. Da geschlossene Exporte ihre USt aus der LIVE-Satzzeile ableiten, schrieb eine solche &Auml;nderung bereits exportierte Kassenabschl&uuml;sse r&uuml;ckwirkend um. <strong>Korrektes Vorgehen:</strong> neuen Satz anlegen und Produkte darauf umstellen &mdash; der alte Satz bleibt unangetastet und h&auml;lt geschlossene Perioden korrekt.</li>
+<li><strong>Kassenbuch-Korrekturen wickeln die USt des korrigierten Eintrags ab</strong> (C6): <code>hasVatImplication</code> folgte dem <code>correctsHeader</code>-Link nicht, dem <code>getGvTyp</code> folgt, sodass <em>alle drei</em> Kassenbuch-USt-Erzeuger eine Korrektur auf UST_SCHLUESSEL&nbsp;5 / USt&nbsp;0,00 buchten. Die Vorsteuer/Umsatzsteuer des Originals wurde damit nie zur&uuml;ckgedreht und der Kassenabschluss &uuml;berdeklarierte um genau deren USt-Betrag. Eine Storno-Korrektur bucht jetzt am Satzschl&uuml;ssel des korrigierten Eintrags mit umgekehrtem Vorzeichen.</li>
+<li><strong>Belegstorno erfordert MANAGER oder ADMIN</strong> (C10): serverseitig war bisher <em>keine</em> Rolle erzwungen &mdash; jeder authentifizierte Prinzipal (auch Kassierer, Kellner oder ein Terminal-Token) konnte einen vollst&auml;ndigen Belegstorno ausl&ouml;sen. Der Zahlartwechsel bleibt bewusst auch f&uuml;r Kassierer verf&uuml;gbar. <em>Seit v1.1.0</em> ist das die Befugnis <code>BILL_VOID</code> (standardm&auml;&szlig;ig MANAGER und ADMIN); ein Kassierer kann sie per Manager-PIN f&uuml;r genau diesen Vorgang leihen und bleibt im Pr&uuml;fprotokoll der Handelnde.</li>
+<li><strong>Schnellverkaufs-Einzelpreise werden auf 2&nbsp;Nachkommastellen gerundet</strong> (C3; historisch &mdash; der Schnellverkauf wurde mit v1.1.0 entfernt): damit gleichzieht der Schnellverkauf mit dem Bestellweg. Folge f&uuml;r Bediener: bei gro&szlig;en Mengen kann <code>Menge &times; gerundeter Preis</code> um Cent von <code>gerundet(Menge &times; Preis)</code> abweichen.</li>
+</ul>
+
+<h3>Runde 7 (19.07.2026) &mdash; verhaltens&auml;ndernde Korrekturen</h3>
+<ul>
+<li><strong>Die STNR/USTID-Pflicht pr&uuml;ft jetzt den exportierten Kassenabschluss, nicht die LIVE-Shop-Zeile</strong> (C4, Regression aus Runde&nbsp;5): seit KABS-2 gibt <code>cashpointclosing.csv</code> den Stammdaten-Snapshot des Abschlusses aus, das Vorab-Gate las aber weiter <code>shop_info</code>. Beide Richtungen waren falsch &mdash; ein Abschluss, dessen Snapshot <em>weder</em> Steuernummer <em>noch</em> USt-IdNr tr&auml;gt, passierte ein gr&uuml;nes Gate und wurde als formal ung&uuml;ltiges Paket ausgeliefert (Anhang&nbsp;E S.&nbsp;68), w&auml;hrend eine nachtr&auml;glich geleerte LIVE-Zeile Exporte mit einwandfreiem Snapshot blockierte. Gate und <code>/validate</code> laufen jetzt beide &uuml;ber dieselbe Aufl&ouml;sung wie der Erzeuger und melden die betroffenen <code>Z_NR</code>. <strong>Folge f&uuml;r Bediener:</strong> Ein bereits geschlossener Abschluss ohne Steuer-ID l&auml;sst sich <em>nicht</em> durch nachtr&auml;gliches Eintragen in den Shop-Einstellungen reparieren &mdash; der Snapshot ist fixiert; die Einstellung wirkt nur auf k&uuml;nftige Abschl&uuml;sse. Abschl&uuml;sse ohne Snapshot (vor V95) verhalten sich unver&auml;ndert.</li>
+<li><strong>Eine Stammdaten&auml;nderung friert jetzt die bisherigen Werte auf allen Abschl&uuml;ssen ohne Snapshot ein</strong> (C5): der Nachtrag aus Migration&nbsp;V95 l&auml;uft nur, wenn das Protokoll (<code>entry_log</code>) einen <code>SHOP_INFO</code>-Eintrag enth&auml;lt &mdash; auf dem normalen Installationsweg legt der Einrichtungsassistent den Shop jedoch ohne Protokolleintrag an, sodass der Nachtrag f&uuml;r die gesamte Historie stillschweigend ausblieb. Diese Abschl&uuml;sse fielen weiter auf die LIVE-Shop-Zeile zur&uuml;ck; eine sp&auml;tere Adress- oder Steuernummern&auml;nderung h&auml;tte ihren Umsatz r&uuml;ckwirkend der neuen Identit&auml;t zugeschrieben. Die Bedingung des Nachtrags bleibt bewusst streng (Abwesenheit im Protokoll ist nur dann ein Beleg, wenn das Protokoll nachweislich gef&uuml;hrt wird &mdash; fiskalische Werte d&uuml;rfen nie erfunden werden). Stattdessen sichert die &Auml;nderung selbst die <em>alten</em> Werte, bevor sie &uuml;berschrieben werden. <strong>Folge f&uuml;r Bediener:</strong> Nur Abschl&uuml;sse <em>ohne</em> Snapshot werden bef&uuml;llt &mdash; ein vorhandener Snapshot wird nie &uuml;berschrieben, und nicht-fiskalische &Auml;nderungen (Logo, Zeitzone, Bankdaten) l&ouml;sen nichts aus.</li>
+<li><strong>Kassen- und Terminal-Stammdaten geh&ouml;ren jetzt zum Abschluss</strong> (C3): <code>cashregister.csv</code> las bisher die LIVE-Kassenmeldung und <code>slaves.csv</code> die LIVE-Terminal-Tabelle. Da <code>KASSE_SW_VERSION</code> bei <em>jedem</em> Serverstart auf die laufende Programmversion zur&uuml;ckgeschrieben wird, &auml;nderte bereits ein blo&szlig;es Programm-Update die Bytes jedes bereits ausgelieferten Abschlusses; ebenso zeigte ein Abschluss Terminals, die es zu seinem Zeitpunkt noch gar nicht gab. Abschnitt&nbsp;3.2 S.&nbsp;23 bindet die Stammdaten an den Kassenabschluss. Jeder neue Abschluss tr&auml;gt jetzt seinen eigenen Kassen-/Terminal-Snapshot (Migration V96). <strong>Folge f&uuml;r Bediener:</strong> Ein geschlossener Abschluss meldet dauerhaft die Software-Version, unter der er signiert wurde &mdash; das ist beabsichtigt und darf nicht als &bdquo;veraltete Angabe&ldquo; korrigiert werden. Das Zur&uuml;ckschreiben der laufenden Version in die Kassenmeldung selbst bleibt unver&auml;ndert (&sect;&nbsp;146a-Meldung). <strong>Kein Nachtrag f&uuml;r Alt-Abschl&uuml;sse:</strong> weder die fr&uuml;heren Software-Versionen noch die fr&uuml;heren Terminal-Best&auml;nde sind in der Datenbank &uuml;berhaupt gespeichert &mdash; ein Nachtrag w&auml;re keine Sicherung, sondern eine Erfindung. Diese Abschl&uuml;sse exportieren unver&auml;ndert wie bisher; beim n&auml;chsten Versionswechsel werden ihre bisherigen Werte einmalig eingefroren.</li>
+<li><strong>Kassenbuch-Vorg&auml;nge z&auml;hlen jetzt als laufender Gesch&auml;ftsbetrieb</strong> (C9): die Pr&uuml;fung &bdquo;ist seit dem letzten Kassenabschluss etwas offen?&ldquo; sah bisher nur Rechnungen. Ein Tag mit ausschlie&szlig;lich Kassenbuch-Bewegungen &mdash; Privateinlage, Barausgabe, Geldtransit, Kassendifferenz &mdash; galt damit als &bdquo;nichts offen&ldquo;, sodass die Stammdaten ohne den nach Abschnitt&nbsp;3.2 S.&nbsp;23 vorgeschriebenen Abschluss ge&auml;ndert werden konnten und dieser Umsatz anschlie&szlig;end unter der neuen Identit&auml;t exportiert wurde. Ma&szlig;geblich ist jetzt, ob ein Kassenbuch-Eintrag noch nicht in einen Abschluss &uuml;bernommen (gesperrt) wurde. <strong>Folge f&uuml;r Bediener:</strong> Eine gebuchte Privateinlage blockiert eine fiskalische Shop-&Auml;nderung (HTTP&nbsp;409, <code>SHOP_INFO_CLOSING_REQUIRED</code>) bis zum n&auml;chsten Z-Bon &mdash; und ein Tag <em>ohne</em> Rechnungen, aber mit Kassenbuch-Bewegung l&auml;sst sich jetzt abschlie&szlig;en; das wurde vorher mit &bdquo;keine Belege&ldquo; abgelehnt und h&auml;tte den Bediener sonst zwischen beiden Regeln eingeklemmt. Ein Tag ganz ohne Bewegung wird weiterhin abgelehnt, damit keine Z_NR verbraucht wird.</li>
+<li><strong>Feldl&auml;ngen der Shop-Stammdaten werden jetzt bei der Eingabe gepr&uuml;ft</strong> (C7, vorbestehend): Anhang&nbsp;E bzw. die <code>MaxLength</code>-Angaben der index.xml begrenzen <code>NAME</code> und <code>STRASSE</code> auf 60, <code>ORT</code> auf 62 und <code>STNR</code> auf 20 Zeichen. Die Datenbankspalten sind deutlich weiter (255&nbsp;/&nbsp;500&nbsp;/&nbsp;100&nbsp;/&nbsp;50), und auf dem Ausgabeweg wurde nichts gek&uuml;rzt &mdash; ein langer Firmenname landete also ungek&uuml;rzt in <code>cashpointclosing.csv</code> <em>und</em> <code>location.csv</code> und machte das Paket formal ung&uuml;ltig, weil Pr&uuml;fsoftware jede CSV &uuml;ber genau diese Spaltenbeschreibungen einliest. <strong>Bewusst bei der Eingabe abgelehnt, nicht beim Export gek&uuml;rzt:</strong> ein gek&uuml;rzter Wert w&auml;re ein Wert, den der Bediener nie eingegeben hat &mdash; ein falscher, aber unver&auml;nderter Wert bleibt pr&uuml;fbar, ein stillschweigend gek&uuml;rzter nicht (gleiche Entscheidung wie bei C8). <strong>Folge f&uuml;r Bediener:</strong> Einrichtungsassistent und Shop-Einstellungen nehmen in diesen vier Feldern keine l&auml;ngeren Eingaben mehr an; bereits gespeicherte &uuml;berlange Werte bleiben unver&auml;ndert und m&uuml;ssen beim n&auml;chsten Bearbeiten gek&uuml;rzt werden. <strong>Nicht abgedeckt</strong> (identifiziert, bewusst offen): <code>BEDIENER_NAME</code>&nbsp;(50) und <code>KUNDE_NAME</code>&nbsp;(50) aus Vor-/Nachname (je 100), <code>ZAHLART_NAME</code>&nbsp;(60), die <code>TERMINAL_*</code>-Felder sowie die drei <code>BON_NOTIZ</code>-K&uuml;rzungen im Export.</li>
+</ul>
+
+<h3>Trinkgeld-Auszahlung (05.10.2026) &mdash; einheitliche Bezeichnungen</h3>
+<ul>
+<li><strong>Ein GV_NAME f&uuml;r <code>TrinkgeldAN</code></strong>: Rechnungszeilen schrieben &bdquo;Trinkgeld (AN)&ldquo;, Kassenbuchzeilen (Trinkgeld-Auszahlung und deren Storno) &bdquo;Trinkgeld Arbeitnehmer&ldquo;. Beide verwenden jetzt die Konstante <code>DsfinvkExportDto.BusinessCaseNames.TRINKGELD_AN</code> = &bdquo;Trinkgeld (AN)&ldquo; &mdash; die Bezeichnung, die die Rechnungsseite seit Einf&uuml;hrung der Trinkgelder exportiert. <code>GV_TYP</code> ist unver&auml;ndert.</li>
+<li><strong>Ein ZAHLART_NAME f&uuml;r Bargeld</strong>: die Bar-Zahlart eines Kassenbuch-Belegs war fest &bdquo;Bar&ldquo;, w&auml;hrend Barrechnungen den gespeicherten Namen der Zahlungsart tragen (z.&nbsp;B. &bdquo;BAR&ldquo;). Ein Abschluss mit beiden f&uuml;hrte Bargeld in <code>payment.csv</code> deshalb zweimal. Kassenbuch-Belege tragen jetzt den Namen der aktiven Bar-Zahlungsart (bei mehreren die mit der kleinsten ID); nur wenn keine Bar-Zahlungsart angelegt ist, bleibt es &bdquo;Bar&ldquo;. <code>ZAHLART_TYP</code> ist unver&auml;ndert &bdquo;Bar&ldquo;.</li>
+</ul>
+
+<h3 id="v1-1-1">v1.1.1 (10.10.2026) &mdash; Tagesabschluss von jedem Ger&auml;t</h3>
+<p>Wirksam ab dem ersten Start von v1.1.1 auf der jeweiligen Installation. Wie dieser Zeitpunkt nachzuweisen ist &ndash;
+am direktesten &uuml;ber <code>KASSE_SW_VERSION</code> je Abschluss in <code>cashregister.csv</code> (Abschnitt&nbsp;<a href="#s33">3.3</a>) &ndash;,
+warum sich etwas ge&auml;ndert hat und was sich an der TSE-Signierung &auml;ndert, steht in der
+<a href="tse-dokumentation.html#aenderungen-v1-1-1">TSE-Dokumentation, &Auml;nderungen je Version: v1.1.1</a>.
+<strong>Format und Spalten des Exports sind unver&auml;ndert; ein erneuter Export bereits erstellter Abschl&uuml;sse liefert
+dieselben Bytes.</strong></p>
+<ul>
+<li><strong>Z-Bon-Aggregat nicht mehr TSE-signiert &ndash; Export unver&auml;ndert:</strong> Die Sammelbuchung des
+Tagesabschlusses (<code>is_zbon_aggregate</code>) wird seit v1.1.1 ohne TSE-Transaktion gespeichert
+(<code>NOT_APPLICABLE</code>). Im Export fehlt sie wie bisher: Sie ist seit v1.1.0 aus allen f&uuml;nf Kassenbuch-Ausgaben
+ausgeschlossen (Abschnitt&nbsp;<a href="#s411">4.1.1</a>). Erreichte eine <code>NOT_APPLICABLE</code>-Zeile je den
+fiskalischen Export, bricht er ab, statt sie zu beschreiben. Das mitgelieferte TAR enth&auml;lt je Abschluss ab v1.1.1 eine
+Transaktion weniger; Transaktionen im TAR, auf die keine Zeile des Pakets verweist, sind die
+Aggregat-Signaturen der Abschl&uuml;sse vor v1.1.1, keine fehlenden Belege. Ihr Prozesstyp im TAR ist
+<code>SonstigerVorgang</code> bei Abschl&uuml;ssen unter v1.1.0 und <code>Kassenbeleg-V1</code> bei Abschl&uuml;ssen unter v1.0.x
+(bis einschlie&szlig;lich v1.0.10). Eine fr&uuml;here Fassung dieser Dokumentation nannte auch f&uuml;r v1.0.x
+<code>SonstigerVorgang</code>; das war ein Irrtum, der in einer Nachpr&uuml;fung am 10.10.2026 berichtigt wurde
+(<a href="tse-dokumentation.html#aenderungen-aggregat-berichtigung">Berichtigung</a>).</li>
+<li><strong><code>TERMINAL_ID</code> der Abschlussbewegungen nennt die signierende Kasse der Ladenkasse:</strong>
+Kassendifferenz, Trinkgeld-Auszahlung bar, Aufstockung und t&auml;glicher Geldtransit eines Abschlusses werden unter dem
+TSE-Client der an der Ladenkasse bestimmten Kasse signiert, gleich welches Ger&auml;t den Abschluss ausl&ouml;st. Da
+<code>TERMINAL_ID</code> (<code>transactions.csv</code>) und <code>TERMINAL_SERIENNR</code> (<code>slaves.csv</code>) unver&auml;ndert
+aus der signierenden ClientID abgeleitet werden (Anhang&nbsp;E S.&nbsp;85, <code>DsfinvkTerminalAttribution</code>), erscheinen
+diese Buchungen unter der bestimmten Kasse &ndash; auch wenn der Abschluss an einer anderen Kasse oder im Admin-Panel
+ausgel&ouml;st wurde. Es kommt keine zus&auml;tzliche Kasse hinzu. Gilt nur f&uuml;r Abschl&uuml;sse nach dem Bestimmen einer
+Kasse (Pr&uuml;fprotokoll <code>SET_CASH_BOOK_SIGNING_TERMINAL</code>); ohne Bestimmung signiert wie bisher die
+ausl&ouml;sende Kasse. Ein Paket mit Abschl&uuml;ssen nach dem Bestimmen weicht daher in dieser Spalte von fr&uuml;heren
+Paketen ab; fr&uuml;here Abschl&uuml;sse behalten ihre Zuordnung, weil sie an der gespeicherten Signatur h&auml;ngt.</li>
+<li><strong>TSE deaktiviert:</strong> Kassenbuch-Vorg&auml;nge und Abschl&uuml;sse brauchen im Modus <code>DISABLED</code> keine
+registrierte Kasse mehr und k&ouml;nnen auch aus dem Admin-Panel stammen. Im Export stehen solche Zeilen wie jeder
+<code>DISABLED</code>-Vorgang: <code>TSE_TA_FEHLER</code> &bdquo;TSE deaktiviert&ldquo;, leere <code>TSE_ID</code>/TANR in
+<code>transactions_tse.csv</code> und leere <code>TERMINAL_ID</code> in <code>transactions.csv</code>, da keine Signatur eine
+ClientID belegt. Belege und Bestellungen verlangen weiterhin eine registrierte Kasse.</li>
+</ul>
+
+<h3 id="v1-2-0">v1.2.0 &mdash; Prozentaktion auf den Beleg auf den Cent gerundet</h3>
+<p>Wirksam ab dem ersten Start von v1.2.0 auf der jeweiligen Installation; Begr&uuml;ndung und Nachweis in der
+<a href="tse-dokumentation.html#aenderungen-v1-2-0">TSE-Dokumentation, &Auml;nderungen je Version: v1.2.0</a>.</p>
+<ul>
+<li><strong>Der Rabattbetrag einer <code>BILL_WIDE</code>-Prozentaktion hat genau zwei Nachkommastellen:</strong> er wird beim Anwenden HALF_UP
+auf den Cent gerundet (z.&nbsp;B. 10&nbsp;% auf 29,68&nbsp;&euro; = 2,97&nbsp;&euro;). Die aggregierte Rabatt-Zeile je USt-Satz, <code>UMS_BRUTTO</code>
+und die Zahlung bleiben dadurch ohne Cent-Rest in Einklang. Format und Aufbau des Exports sind unver&auml;ndert; Belege mit Untercent-Abzug
+konnten vor v1.2.0 nicht abgeschlossen werden und kommen in &auml;lteren Daten nicht vor.</li>
+</ul>
+
+<h3>Offene Punkte / Follow-ups</h3>
+<table>
+<tr><th>Punkt</th><th>Status</th></tr>
+<tr><td><strong>StartTransaction-processType leer</strong> (Anhang I)</td><td class="status-ok">Behoben (14.07.2026, freigegebene pos-tse-&Auml;nderung): <code>transaction_start</code> erh&auml;lt leeren processType; der Typ wird nur bei Finish/Update &uuml;bergeben.</td></tr>
+<tr><td><strong>TSE_TA_START bei quickSign</strong></td><td class="status-ok">Behoben: quickSign liefert die Start-Log-Time (<code>SignResultDto.startTimestamp</code>); Fallback Serverzeit nur noch f&uuml;r Altbest&auml;nde (der Remote-Betrieb der TSE wurde mit v1.1.0 entfernt).</td></tr>
+<tr><td><strong>PLZ-Spalte VARCHAR</strong></td><td class="status-warn">Export paddet auf 5 Stellen; die Spaltenmigration ber&uuml;hrt <code>ShopInfoSyncDto</code> (Client-Wire-Format) und braucht koordinierte Client-Arbeit.</td></tr>
+<tr><td><strong>USt-IdNr-Eingabe</strong></td><td class="status-ok">Umgesetzt: Eingabe im Web-Backoffice unter <em>Einstellungen &rarr; Gesch&auml;ftsdaten</em> und im Einrichtungsassistenten (Serverfeld seit V93).</td></tr>
+<tr><td><strong>KASSE_SERIENNR-Validierung (kein / oder _)</strong></td><td class="status-warn">Seriennummer wird beim Setup generiert (formatrein); ein k&uuml;nftiger Bearbeitungs-Endpoint muss validieren.</td></tr>
+<tr><td><strong>Pfand-USt (Warenumschlie&szlig;ung)</strong></td><td class="status-warn">Satz je PfandType konfigurieren (eine PfandType je Satzfamilie); strukturelle Verkn&uuml;pfung Pfandzeile&nbsp;&harr;&nbsp;Hauptartikel als Spec-C-Follow-up. Steuerberater-Freigabe empfohlen.</td></tr>
+<tr><td><strong>Erste-Bestellung-Zeit auf dem Beleg</strong> (Tz.&nbsp;2.7)</td><td class="status-ok">Die erste Bestellzeit wird als eigene Zeile &bdquo;Erste Bestellung&ldquo; gedruckt; die TSE-Daten stehen seit 2026-10 als lesbarer Text auf dem Beleg (kein QR-Code mehr, siehe <a href="tse-dokumentation.html#s11-beleg">TSE-Daten auf dem Beleg</a>).</td></tr>
+<tr><td><strong>Fremdw&auml;hrungen</strong></td><td class="status-warn">Keine Umrechnung implementiert; alle Zahlungswege erzeugen EUR. Warnung im Log, falls je Fremdw&auml;hrung auftritt.</td></tr>
+</table>
+
+<hr>
+
+<p><em>Dokumentation auf Basis der DSFinV-K Version 2.4 (Stand: 15.12.2023) und Anlage 2 (Stand: 05.12.2024). Aktualisiert am 18.07.2026 nach Umsetzung der Runde-5-Remediation (Branch fix/dsfinvk-audit-remediation, Plan docs/superpowers/plans/2026-07-18-dsfinvk-tse-round5-remediation.md); vorherige Aktualisierung 14.07.2026.</em></p>
+
+</body>
+</html>

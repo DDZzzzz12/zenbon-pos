@@ -1,0 +1,151 @@
+package org.example.project.features.auth.ui
+
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.runComposeUiTest
+import org.example.project.core.utils.LanguageManager
+import org.example.project.core.utils.LocalLanguageManager
+import org.example.project.core.utils.LocalVirtualKeyboard
+import org.example.project.core.utils.LocalWindowSizeClass
+import org.example.project.core.utils.VirtualKeyboardController
+import androidx.window.core.layout.WindowSizeClass
+import org.example.project.core.domain.enums.setup.Language
+import org.example.project.core.presentation.strings.TranslationRegistry
+import org.example.project.core.presentation.strings.translations.*
+import org.example.project.features.auth.presentation.screens.LoginScreenContent
+import org.example.project.features.auth.presentation.viewmodels.ServerStatus
+import org.example.project.features.settings.domain.enums.ThemeMode
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+
+@OptIn(ExperimentalTestApi::class)
+class LoginScreenTest {
+
+    @BeforeEach
+    fun setUp() {
+        TranslationRegistry.initialize(
+            mapOf(
+                Language.GERMAN to GermanCommonStrings.all + GermanDashboardStrings.all + GermanSettingsStrings.all + GermanFeaturesStrings.all,
+                Language.ENGLISH to EnglishCommonStrings.all + EnglishDashboardStrings.all + EnglishSettingsStrings.all + EnglishFeaturesStrings.all,
+                Language.CHINESE to ChineseCommonStrings.all + ChineseDashboardStrings.all + ChineseSettingsStrings.all + ChineseFeaturesStrings.all,
+            )
+        )
+    }
+
+    // Compact width (< 600dp), medium height (>= 480dp)
+    private val compactWindowSize = WindowSizeClass(widthDp = 400f, heightDp = 700f)
+
+    @Test
+    fun `login screen displays input fields and button`() = runComposeUiTest {
+        setContent {
+            CompositionLocalProvider(
+                LocalLanguageManager provides LanguageManager(),
+                LocalVirtualKeyboard provides VirtualKeyboardController(),
+                LocalWindowSizeClass provides compactWindowSize
+            ) {
+                LoginScreenContent(
+                    onLogin = { _, _, _ -> },
+                    isLoading = false,
+                    isAuthenticated = false,
+                    errorMessage = null,
+                    serverStatus = ServerStatus.CONNECTED,
+                    initialIdentifier = "",
+                    initialSecret = "",
+                    initialRememberMe = false,
+                    currentUrl = "http://localhost:8080/",
+                    themeMode = ThemeMode.SYSTEM,
+                    onRefreshHealth = {},
+                    onSaveSettings = { _, _ -> }
+                )
+            }
+        }
+
+        // Default language is GERMAN
+        // Verify welcome text
+        onNodeWithText("Willkommen zur\u00FCck").assertIsDisplayed()
+
+        // Verify employee number field exists via testTag
+        onNodeWithTag("employeeNumberField").assertIsDisplayed()
+
+        // Verify password field exists via testTag
+        onNodeWithTag("passwordField").assertIsDisplayed()
+
+        // Verify remember-me text
+        onNodeWithText("Angemeldet bleiben").assertIsDisplayed()
+
+        // Verify login button exists via testTag and text
+        onNodeWithTag("loginButton").assertIsDisplayed()
+        onNodeWithText("ANMELDEN").assertIsDisplayed()
+    }
+
+    @Test
+    fun `typing in fields updates their content`() = runComposeUiTest {
+        setContent {
+            CompositionLocalProvider(
+                LocalLanguageManager provides LanguageManager(),
+                LocalVirtualKeyboard provides VirtualKeyboardController(),
+                LocalWindowSizeClass provides compactWindowSize
+            ) {
+                LoginScreenContent(
+                    onLogin = { _, _, _ -> },
+                    isLoading = false,
+                    isAuthenticated = false,
+                    errorMessage = null,
+                    serverStatus = ServerStatus.CONNECTED,
+                    initialIdentifier = "",
+                    initialSecret = "",
+                    initialRememberMe = false,
+                    currentUrl = "http://localhost:8080/",
+                    themeMode = ThemeMode.SYSTEM,
+                    onRefreshHealth = {},
+                    onSaveSettings = { _, _ -> }
+                )
+            }
+        }
+
+        // Type into employee number field using testTag
+        onNodeWithTag("employeeNumberField").performTextInput("EMP001")
+
+        // Verify typed text appears
+        onNodeWithText("EMP001", useUnmergedTree = true).assertIsDisplayed()
+
+        // Type into password field using testTag
+        onNodeWithTag("passwordField").performTextInput("secret123")
+
+        // Password field uses PasswordVisualTransformation so raw text won't be visible,
+        // but the interaction should not crash. We verify the field is still present.
+        onNodeWithTag("passwordField").assertIsDisplayed()
+    }
+
+    @Test
+    fun `login screen shows error message when provided`() = runComposeUiTest {
+        setContent {
+            CompositionLocalProvider(
+                LocalLanguageManager provides LanguageManager(),
+                LocalVirtualKeyboard provides VirtualKeyboardController(),
+                LocalWindowSizeClass provides compactWindowSize
+            ) {
+                LoginScreenContent(
+                    onLogin = { _, _, _ -> },
+                    isLoading = false,
+                    isAuthenticated = false,
+                    errorMessage = "Invalid credentials",
+                    serverStatus = ServerStatus.CONNECTED,
+                    initialIdentifier = "",
+                    initialSecret = "",
+                    initialRememberMe = false,
+                    currentUrl = "http://localhost:8080/",
+                    themeMode = ThemeMode.SYSTEM,
+                    onRefreshHealth = {},
+                    onSaveSettings = { _, _ -> }
+                )
+            }
+        }
+
+        onNodeWithText("Invalid credentials").assertIsDisplayed()
+    }
+}

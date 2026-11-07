@@ -1,0 +1,34 @@
+-- Local room-element cache. Mirrors core/data/models/RoomElement.
+CREATE TABLE IF NOT EXISTS local_room_elements (
+    id INTEGER NOT NULL PRIMARY KEY,
+    element_type TEXT NOT NULL,
+    grid_x INTEGER NOT NULL,
+    grid_y INTEGER NOT NULL,
+    grid_width INTEGER NOT NULL,
+    grid_height INTEGER NOT NULL,
+    rotation REAL NOT NULL DEFAULT 0.0,
+    location_type_id INTEGER NOT NULL,
+    metadata TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_local_room_elements_location_type_id ON local_room_elements(location_type_id);
+
+upsert:
+INSERT OR REPLACE INTO local_room_elements(
+    id, element_type, grid_x, grid_y, grid_width, grid_height, rotation, location_type_id, metadata
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+selectByLocationType:
+SELECT * FROM local_room_elements WHERE location_type_id = ? ORDER BY id;
+
+selectById:
+SELECT * FROM local_room_elements WHERE id = ?;
+
+deleteById:
+DELETE FROM local_room_elements WHERE id = ?;
+
+deleteByLocationType:
+DELETE FROM local_room_elements WHERE location_type_id = ?;
+
+clear:
+DELETE FROM local_room_elements;

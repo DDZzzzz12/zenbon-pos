@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 04 – Dashboard &amp; Tischverwaltung – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 04 – Dashboard &amp; Tischverwaltung</h2>
+
+    <h3>Tischübersicht</h3>
+    <p>Das Dashboard zeigt alle Tische des Betriebs an. Die Tische sind nach Bereich (Standorttyp) gruppiert.
+    Vorgegeben sind:</p>
+    <ul>
+        <li><strong>Innenbereich</strong> – Tische im Innenbereich</li>
+        <li><strong>Außenbereich</strong> – Terrassenplätze</li>
+        <li><strong>Abholung</strong> – Abholbestellungen (Takeaway)</li>
+    </ul>
+    <p>Daneben gibt es virtuelle Bereiche, die nicht im Tischplan erscheinen (<strong>Gutschein</strong> sowie
+    <strong>Schnellverkauf</strong> aus dem entfernten Schnellverkaufs-Ablauf). Diese beiden Bereiche und der
+    virtuelle Tisch <code>VOUCHER</code> sind <strong>Systemeinträge</strong>: Sie werden vom System angelegt, im
+    Web-Admin mit dem Hinweis &bdquo;Systemeintrag&ldquo; statt Bearbeiten- und Löschen-Schaltflächen angezeigt und
+    vom Server nicht geändert oder gelöscht (<code>409 SYSTEM_RECORD_PROTECTED</code>). Sie werden auch nicht als
+    Bereich für den Tischplan oder als Standort eines Tisches angeboten. Selbst angelegte Bereiche bleiben bearbeitbar.</p>
+
+    <h3 id="kap-04-statusleiste">Statusleiste und Navigation</h3>
+    <p>Am unteren Bildschirmrand zeigt die <strong>Statusleiste</strong> auf jedem Gerät die Mitarbeiternummer,
+    den Verbindungsstatus zum Server, den TSE-Status und das heutige Datum mit Jahr. Auf Tablet und Desktop steht
+    rechts zusätzlich die Uhrzeit; dort erscheint auch die Terminal-Kennung. Auf dem Telefon bleibt die Leiste
+    schmal (ohne Uhrzeit, denn die zeigt das Gerät selbst).</p>
+    <p>Auf dem Telefon besteht die untere Navigationsleiste aus <strong>Dashboard</strong>,
+    <strong>Verwaltung</strong> und <strong>Reservierungen</strong>. Das Menü <strong>Verwaltung</strong> enthält
+    Berichte und Finanzdokumente (je nach Berechtigung), die <strong>Einstellungen</strong> und
+    <em>Backoffice öffnen</em>. <strong>Benachrichtigungen</strong> öffnen Sie über das Glockensymbol oben rechts
+    im Dashboard; eine Zahl am Symbol zeigt ungelesene Meldungen. Ein Tipp auf das Logo oben links
+    aktualisiert die Tische und die Geschäftsdaten (einschließlich des Logos). Auf Tablet und Desktop bleiben
+    Benachrichtigungen und Einstellungen in der seitlichen Navigation.</p>
+
+    <h3>Tischstatus</h3>
+    <table>
+        <thead>
+            <tr><th>Status</th><th>Farbe</th><th>Bedeutung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Frei (FREE)</td><td>Grün</td><td>Tisch ist verfügbar</td></tr>
+            <tr><td>Besetzt (OCCUPIED)</td><td>Rot</td><td>Tisch hat aktive Sitzung</td></tr>
+            <tr><td>Reserviert (RESERVED)</td><td>Blau</td><td>Tisch ist vorgemerkt</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Tisch-Eigenschaften</h3>
+    <table>
+        <thead>
+            <tr><th>Eigenschaft</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Tischnummer</td><td>Eindeutig, max. 10 Zeichen</td></tr>
+            <tr><td>Sitzplätze</td><td>1–50 (optional)</td></tr>
+            <tr><td>Bereich</td><td>Innenbereich, Außenbereich, Abholung</td></tr>
+            <tr><td>Position X/Y</td><td>Koordinaten im Raumplan</td></tr>
+            <tr><td>Drehung</td><td>-360° bis 360°</td></tr>
+            <tr><td>Breite/Höhe</td><td>Standard: 100×100</td></tr>
+        </tbody>
+    </table>
+
+    <h3 id="kap-04-editor">Tischplan-Editor</h3>
+
+    <div class="alert alert-warning">
+        <strong>Bearbeiten nur im Web-Admin:</strong> An der Kasse ist der Tischplan reine Ansicht.
+        Tische anlegen, verschieben, ändern oder löschen ist dort nicht mehr möglich; der Tischplan wird
+        im <strong>Web-Admin</strong> unter dem Menüpunkt <strong>Tische</strong> gepflegt. Zoom und Pan
+        sowie das Öffnen eines Tisches bleiben an der Kasse erhalten.
+    </div>
+
+    <p>Der visuelle Editor des Web-Admin bietet:</p>
+    <ul>
+        <li><strong>Drag &amp; Drop</strong> – Tische per Maus oder Touch verschieben.</li>
+        <li><strong>Stapelverarbeitung</strong> – Bis zu 100 Tische gleichzeitig positionieren.</li>
+        <li><strong>Zoom &amp; Pan</strong> – Mausrad oder Pinch-Geste, erweitertes Gitter-Hintergrundbild. <em>Einpassen</em> zeigt den ganzen Plan (auch in schmalen Fenstern), verkleinert werden kann auch unter 100&nbsp;%, und verschieben lässt sich der Plan auch bei 100&nbsp;%. <em>Einpassen</em> ist aktiv, solange die Ansicht nicht eingepasst ist.</li>
+        <li><strong>Echtzeit-Feedback</strong> – Visuelle Rückmeldung beim Verschieben.</li>
+    </ul>
+
+    <h3>Tisch-Aktionen</h3>
+    <h4>Tisch öffnen</h4>
+    <p>Tippen Sie auf einen Tisch, um die Bestellübersicht zu öffnen.</p>
+    <p>Ein freier Tisch wird erst mit seiner <strong>ersten Bestellung</strong> belegt: Beim Senden legt der
+    Server die Tischsitzung im selben Vorgang an, in dem er die Positionen bucht. Das bloße Antippen belegt
+    keinen Tisch, und bricht das Senden ab (z.&nbsp;B. Netzwerkausfall), bleibt der Tisch frei &ndash; eine leere,
+    offene Sitzung entsteht nicht. Der Besitzer der neuen Sitzung ist der gewählte Kellner, sonst bei
+    aktivierter Rundlauf-Zuweisung der nächste Mitarbeiter der Rotation, sonst der bestellende Mitarbeiter.
+    Abholtische (z.&nbsp;B. „Abholung“) ziehen nie aus der Rotation: Sie gehören dem bestellenden
+    Mitarbeiter, und die Rotation rückt dabei nicht weiter. Wird die erste Bestellung abgelehnt, bleibt
+    auch die Rotation, wo sie war.
+    Auch ein gewählter Besitzer und bereits belegte Tische nutzen die Rotation nicht.
+    Virtuelle Tische (Schnellverkauf, Gutschein) können nicht per Bestellung geöffnet werden.</p>
+    <p><strong>Anzeige „Als Nächstes“:</strong> Ist die Rundlauf-Zuweisung eingeschaltet, zeigt die obere Leiste
+    jeder Kasse einen Hinweis „Als Nächstes: &lt;Name&gt;“ &ndash; den Mitarbeiter, dem der nächste geöffnete Tisch
+    zugewiesen wird. Der Hinweis aktualisiert sich live und nach einer Wiederverbindung. Er ist nur ein
+    Hinweis und kann einen Moment nachlaufen: Entschieden wird erst beim Öffnen, also mit der ersten Bestellung
+    auf einem freien Tisch, durch den Server. Maßgeblich ist der Name, der beim Antippen des freien Tisches
+    angezeigt wurde. Hat seitdem eine andere Kasse einen Tisch geöffnet, wird Ihre
+    Bestellung <strong>nicht</strong> abgelehnt; der Tisch wird für den tatsächlich nächsten Mitarbeiter
+    geöffnet, und die Kasse zeigt kurz die Meldung „Rotation hat sich verschoben &mdash; Tisch für &lt;Name&gt;
+    geöffnet“. Der Hinweis ist ausgeblendet, wenn die Rundlauf-Zuweisung aus ist oder kein Mitarbeiter im
+    Rotationspool ist.</p>
+    <div class="alert alert-info">
+        <strong>Nach dem Update:</strong> Die Abfrage der aktuellen Sitzung (<code>GET /api/tables/{id}/currentSession</code>)
+        öffnet keinen Tisch mehr, sondern liest nur; ein Tisch ohne Sitzung antwortet mit 404. Nur Kassen der
+        Vorversion öffnen einen Tisch übergangsweise noch auf diesem Weg; diese Ausnahme entfällt im
+        übernächsten Release. Aktualisieren Sie deshalb zuerst den Server, dann die Kassen.
+    </div>
+
+    <h4>Tisch transferieren</h4>
+    <p>Eine Tischsitzung kann auf einen anderen Tisch verschoben werden. Dafür ist die Berechtigung
+    <em>Tischsitzung übersteuern</em> (<code>TABLE_SESSION_OVERRIDE</code>) nötig; fehlt sie, kann ein Manager sie per PIN für diesen Vorgang leihen
+    (siehe <a href="kap-05-bestellungen.html">Kapitel 05</a>). Dabei gibt es zwei Szenarien:</p>
+    <ul>
+        <li><strong>Zieltisch hat Sitzung:</strong> Die Positionen werden auf die bestehende Sitzung übertragen.</li>
+        <li><strong>Zieltisch ist leer:</strong> Die gesamte Sitzung wird verschoben.</li>
+    </ul>
+    <p>Werden alle offenen Positionen auf einen besetzten Tisch übertragen, wird der Ausgangstisch
+    freigegeben &ndash; auch wenn er bereits bezahlte Runden hatte. Bezahlte und stornierte Positionen halten
+    eine Sitzung nicht offen.</p>
+
+    <p><strong>Grund (Pflicht):</strong> Beim Transferieren eines Tisches oder Wechseln des Kellners wird ein Grund gewählt:
+    <em>Gast hat Platz gewechselt</em>, <em>Gruppen zusammengelegt</em>, <em>Auf falschem Tisch eröffnet</em>,
+    <em>Kellnerwechsel</em> oder <em>Sonstiges</em> mit Freitext. Gespeichert wird immer der deutsche Text; ohne Grund lehnt der
+    Server die Anfrage ab (400).</p>
+
+    <h4>Tischsitzung löschen</h4>
+    <p>Eine versehentlich geöffnete Sitzung kann gelöscht werden (Berechtigung <em>Tischsitzung übersteuern</em>,
+    per Manager-PIN leihbar). Offene Positionen
+    werden dabei storniert, anschließend wird die Sitzung beendet und der Tisch freigegeben. Kommen zwischen
+    Stornierung und Abschluss neue Positionen hinzu, lehnt der Server das Löschen ab (409), statt einen
+    Erfolg zu melden. Hat der Tisch keine Sitzung, antwortet der Server ebenfalls mit 409.</p>
+    <p><strong>Grund (Pflicht):</strong> Zum Löschen wird ein Grund gewählt: <em>Falscher Tisch</em>, <em>Doppelte Sitzung</em>,
+    <em>Test- oder Schulungseintrag</em> oder <em>Sonstiges</em> mit Freitext. Er wird bei jeder dabei stornierten Position als
+    Stornogrund gespeichert (bisher stand dort &bdquo;Table session deleted&ldquo;). Ohne Grund antwortet der Server mit 400
+    (<code>DELETE /api/tables/{id}/session?reason=&hellip;</code>).</p>
+    <p>Allgemein gilt: Eine Tischsitzung ohne offene Position wird immer beendet und der Tisch freigegeben
+    &ndash; beim Stornieren, beim Übertragen einzelner Positionen oder des ganzen Tisches, beim Löschen und
+    beim Tagesabschluss.</p>
+
+    <h4>Tisch suchen</h4>
+    <p>Suche nach Tischnummer oder -name (standardmäßig 5, höchstens 20 Ergebnisse).</p>
+
+    <h4>Tischliste im Web-Admin</h4>
+    <p>Die Seite <strong>Tische</strong> im Web-Admin passt sich der Breite an. Oben nennt sie die Anzahl der Tische und
+    wie viele davon <strong>frei</strong>, <strong>besetzt</strong> und <strong>reserviert</strong> sind (jeder Status
+    mit Punkt und Wort); ein besetzter Tisch zeigt darunter Mitarbeiter und offenen Betrag, ein deaktivierter Tisch
+    erscheint halbtransparent mit dem Hinweis <em>Inaktiv</em>. Die Umschaltung <strong>Tische | Standorttypen</strong>
+    steht unter der Kopfzeile.</p>
+    <ul>
+      <li><strong>Breites Fenster:</strong> links die Standorte mit der Zahl ihrer Tische, rechts die Tabelle. Nummer, Plätze
+        und Standort bearbeiten Sie direkt in der Zeile und speichern sie mit dem Haken; die Zeile <strong>Neuer Tisch</strong>
+        steht über der Liste. Daneben stehen Suchfeld, <strong>Grundriss bearbeiten</strong> und Aktualisieren.</li>
+      <li><strong>Mittleres Fenster:</strong> Standort-Schaltflächen und Suchfeld über einer Tabelle, die nur anzeigt.
+        Bearbeiten, <strong>Kombinierbar mit</strong> und Löschen sind Symbole in der Zeile; <strong>Tisch anlegen</strong>
+        steht oben rechts. Bearbeiten und Anlegen öffnen einen Dialog.</li>
+      <li><strong>Smartphone:</strong> <strong>Tisch anlegen</strong> und das Grundriss-Symbol, darunter Suchfeld und
+        <strong>Filter</strong>. Im Filter wählen Sie den <strong>Standort</strong> und die <strong>Sortierung</strong> (Tischnummer,
+        Sitzplätze, Standort oder Status, aufsteigend oder absteigend) und übernehmen sie mit <strong>Anwenden</strong>.
+        Jeder Tisch ist eine Zeile mit farbigem Statusstreifen; ein Tipp öffnet den Bearbeiten-Dialog. Aktualisieren
+        steht in der oberen Leiste.</li>
+    </ul>
+    <p>Der Dialog <strong>Tisch bearbeiten</strong> enthält Tischnummer (Pflicht), Plätze, Standort und die Zeile
+    <strong>Kombinierbar mit</strong>, die eine Liste der kombinierbaren Tische öffnet (Tische desselben Standorts, mit
+    Häkchen). <strong>Löschen</strong> steht links in der Fußzeile und fragt vorher nach. Hat die Seite ungespeicherte
+    Änderungen, fragt sie vor dem Anwenden eines Filters oder dem Aktualisieren nach.</p>
+
+    <h4>Abrechnung anfordern</h4>
+    <p>Nicht-Eigentümer-Mitarbeiter können eine Abrechnung für einen Tisch anfordern. An einer
+    <a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a> gibt es diese Aktion nicht –
+    die Station rechnet in keiner Form ab, der Server lehnt die Anforderung von dort mit HTTP&nbsp;403 ab.</p>
+
+    <h4>CSV-Import</h4>
+    <p>Tische können über die Server-Schnittstelle (<code>POST /api/tables/import-csv/{overwrite}</code>) per
+    CSV-Datei importiert werden; vorhandene Tischnummern werden übersprungen, sofern <code>overwrite</code> nicht
+    gesetzt ist. Eine Bedienoberfläche und einen CSV-Export gibt es dafür nicht.</p>
+
+    <h3>Kundenzuordnung</h3>
+    <p>Tischsitzungen können einem Kunden zugeordnet werden (Name, Lieferadresse) für formelle Rechnungen.</p>
+
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-03-anmeldung.html">&larr; Vorheriges: Anmeldung &amp; Sicherheit</a>
+    <a href="kap-05-bestellungen.html">Nächstes: Bestellungen &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

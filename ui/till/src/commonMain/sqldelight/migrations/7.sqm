@@ -1,0 +1,54 @@
+-- Migration from version 7 to version 8: local_products.price moves from INTEGER cents to
+-- exact decimal TEXT, read through DecimalColumnAdapter.
+--
+-- SQLite cannot retype a column in place, so the table is recreated. The column list below is
+-- copied from LocalProducts.sq verbatim — every column and the FOREIGN KEY must survive, or the
+-- recreate silently drops data. Only `price` changes type; `allow_custom_price` is a boolean
+-- flag that merely shares the word.
+--
+-- The conversion uses integer arithmetic only. Dividing by 100.0 would route every cached price
+-- through a float, reintroducing the defect :money exists to remove. The explicit sign is
+-- required: SQLite truncates integer division toward zero, so the shorter form
+--   CAST(price/100 AS TEXT) || '.' || substr('0' || CAST(price%100 AS TEXT), -2)
+-- is silently WRONG between -99 and -1 (verified with sqlite3: -5 gives "0.-5", and -99 gives
+-- "0.99" with the sign LOST). This column is non-negative today; the guard is defence in depth
+-- and the template for later slices where price_delta is signed.
+--
+-- DROP TABLE also drops the table's indexes, so the four added by 6.sqm are recreated at the end.
+
+ALTER TABLE local_products RENAME TO local_products_old;
+
+CREATE TABLE local_products (
+    id INTEGER NOT NULL PRIMARY KEY,
+    product_number TEXT NOT NULL,
+    name TEXT NOT NULL,
+    en_name TEXT,
+    ch_name TEXT,
+    description TEXT,
+    price TEXT NOT NULL,
+    product_type TEXT NOT NULL,
+    category_id INTEGER NOT NULL,
+    is_active INTEGER NOT NULL DEFAULT 1,
+    allow_custom_price INTEGER NOT NULL DEFAULT 0,
+    image_url TEXT,
+    FOREIGN KEY (category_id) REFERENCES local_product_categories (id)
+);
+
+INSERT INTO local_products (
+    id, product_number, name, en_name, ch_name, description, price,
+    product_type, category_id, is_active, allow_custom_price, image_url
+)
+SELECT
+    id, product_number, name, en_name, ch_name, description,
+    CASE WHEN price < 0 THEN '-' ELSE '' END ||
+        CAST(abs(price) / 100 AS TEXT) || '.' ||
+        substr('0' || CAST(abs(price) % 100 AS TEXT), -2),
+    product_type, category_id, is_active, allow_custom_price, image_url
+FROM local_products_old;
+
+DROP TABLE local_products_old;
+
+CREATE INDEX IF NOT EXISTS idx_local_products_category_id ON local_products(category_id);
+CREATE INDEX IF NOT EXISTS idx_local_products_is_active ON local_products(is_active);
+CREATE INDEX IF NOT EXISTS idx_local_products_product_number ON local_products(product_number);
+CREATE INDEX IF NOT EXISTS idx_local_products_name ON local_products(name);

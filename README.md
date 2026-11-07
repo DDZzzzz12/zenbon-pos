@@ -4,7 +4,8 @@ Point-of-sale system for restaurants and retail — a server with a web back off
 an Android client, and optional browser tills.
 
 Releases are published here. Download the assets for your platform from the
-[latest release](../../releases/latest).
+[latest release](../../releases/latest). The repository also carries the source code
+of each release, as one snapshot commit per version (`Zenbon POS vX.Y.Z source`).
 
 ## Components
 
@@ -101,6 +102,26 @@ but **a German till cannot sell**:
 
 SIMULATION mode produces fake signatures and is for development only. Outside
 Germany, set the TSE mode to DISABLED.
+
+## Building from source
+
+The tree is the source of the released version, without the proprietary Swissbit TSE SDK
+(see above) and without the project's internal notes and tooling. It is a Gradle build
+(JDK 21; the Android client also needs the Android SDK):
+
+```bash
+./gradlew :pos-server:run          # server in development mode
+```
+
+The `pos-tse` module (the TSE driver) compiles against Swissbit's `WormAPI.jar`, which is
+**not** in this repository. Before building, copy the jar from your SDK to
+`pos-tse/lib/WormAPI.jar`; to run against real TSE hardware also copy the matching JNI
+libraries to `pos-tse/src/main/resources/native/<linux64|linux32|windows64|windows32>/`.
+Use the SDK version your TSE hardware needs (TSE 2.0 needs 6.0 or newer). Without the jar,
+`:pos-tse` and everything that depends on it does not compile.
+
+Only the server's compile step (`:pos-server:compileKotlin`) has been verified from this
+public tree; the release assets are built from the full private tree.
 
 ## Support
 

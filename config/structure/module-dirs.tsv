@@ -1,0 +1,22 @@
+# Area modules the mover (scripts/structure/move_area.py) extracts files into (ZenBon restructuring, Stages B2-1b and B2-2).
+# One row per module:  <gradle-name> TAB <directory> TAB <source-module> TAB <source sets, comma-separated>
+#   gradle-name    `:<area>-<tier>`, the target name of move-manifest.tsv with a leading colon
+#   directory      the module's directory relative to the repository root
+#   source-module  the blob module its files come from (shared, pos-server; `core-data` in the rows below is history: that blob was dissolved in B2-5 C2 and has no sources)
+#   source sets    every source set the module accepts; each maps to the set of the same name. A moving file in a set that is
+#                  not listed is an error.
+:platform-api	platform/api	shared	commonMain,commonTest,jvmMain,jvmTest,androidMain,wasmJsMain
+:platform-data	platform/data	core-data	main,test
+:platform-server	platform/server	pos-server	main,test
+:ecr-api	ecr/api	shared	commonMain,commonTest,jvmMain,jvmTest,androidMain,wasmJsMain
+:ecr-data	ecr/data	core-data	main,test
+:ecr-server	ecr/server	pos-server	main,test
+:fiscal-api	fiscal/api	shared	commonMain,commonTest,jvmMain,jvmTest,androidMain,wasmJsMain
+:fiscal-data	fiscal/data	core-data	main,test
+:fiscal-server	fiscal/server	pos-server	main,test
+:accounting-api	accounting/api	shared	commonMain,commonTest,jvmMain,jvmTest,androidMain,wasmJsMain
+:accounting-data	accounting/data	core-data	main,test
+:accounting-server	accounting/server	pos-server	main,test
+:backoffice-api	backoffice/api	shared	commonMain,commonTest,jvmMain,jvmTest,androidMain,wasmJsMain
+:backoffice-data	backoffice/data	core-data	main,test
+:backoffice-server	backoffice/server	pos-server	main,test

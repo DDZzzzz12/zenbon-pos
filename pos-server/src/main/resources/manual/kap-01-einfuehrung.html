@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 01 – Einführung – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 01 – Einführung</h2>
+
+    <h3>Was ist das POS-System?</h3>
+    <p>Das POS-System ist eine moderne Kassenlösung für die Gastronomie. Es vereint Tischverwaltung, Bestellwesen, Abrechnung, Gutscheinverwaltung, Mitarbeiterverwaltung, Berichtswesen und fiskalische Compliance (TSE/DSFinV-K) in einem System.</p>
+
+    <h3 id="kap-01-bestandteile">Bestandteile</h3>
+    <p>Das System besteht aus drei Teilen, die sich die Arbeit teilen:</p>
+    <table>
+        <thead>
+            <tr><th>Bestandteil</th><th>Wo</th><th>Wofür</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>Server</strong></td><td>Ein Rechner im Betrieb</td><td>Hält alle Daten, signiert über die TSE und liefert Web-Admin und Handbuch aus. Alle Geräte verbinden sich mit ihm über das Netzwerk.</td></tr>
+            <tr><td><strong>Kasse</strong></td><td>App auf Android-Tablet, oder als <strong>Browser-Station</strong> im Browser unter <code>/pos/</code>. Daneben gibt es weiterhin den Linux-Desktop-Client.</td><td>Der Tresen: Tische, Bestellungen, Abrechnung, Gutscheine verkaufen und einlösen, Kassenbuch, Berichte, Mein Profil. Ihre Einstellungen umfassen nur Allgemein, Drucker und TSE. Eine Kasse muss mit dem Server <a href="kap-03-anmeldung.html#kap-03-kopplung">gekoppelt</a> sein. Als <em>Bestellstation</em> gekoppelt, nimmt dasselbe Gerät ohne Anmeldung nur Bestellungen auf.</td></tr>
+            <tr><td><strong>Web-Admin</strong> (Backoffice)</td><td>Browser, <code>https://&lt;Server-Adresse&gt;/admin</code></td><td>Die Verwaltung: Ersteinrichtung, Produkte, Tische und Grundriss, Personal, Gutscheinverwaltung, Terminals und Drucker, TSE, Rechnungen und Belege, Z-Bons, Datenexporte, Prüfprotokoll, Berechtigungen und Einstellungen. An der Kasse öffnet <a href="kap-13-einstellungen.html#kap-13-backoffice">Backoffice öffnen</a> ihn im Browser.</td></tr>
+        </tbody>
+    </table>
+    <p>Was früher an der Kasse verwaltet wurde (Artikel, Mitarbeiter, Gutscheinverwaltung, Monatsabschluss, Datenexport, Geschäftsdaten, Prüfprotokoll), ist in den Web-Admin umgezogen. Die Menüpunkte des Web-Admin sind in Gruppen geordnet (<em>Betrieb</em>, <em>Kasse &amp; Abschluss</em>, <em>Belegfluss</em>, <em>Stammdaten</em>, <em>Geräte</em>, <em>Compliance</em>, <em>System</em>); jeder erscheint nur, wenn die Berechtigungsgruppe des angemeldeten Mitarbeiters die nötige Fähigkeit enthält. Dieses Handbuch nennt Orte im Web-Admin in der Form <em>Gruppe &rarr; Menüpunkt</em>.</p>
+
+    <h3>Funktionsumfang</h3>
+    <table>
+        <thead>
+            <tr><th>Funktion</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Tischverwaltung</td><td>Grafischer Raumplan, Tischstatus, Drag-&amp;-Drop-Editor</td></tr>
+            <tr><td>Bestellungen</td><td>Tastatur- und Raster-Modus, Extras/Zusätze, Stornierungen</td></tr>
+            <tr><td>Abrechnung</td><td>Bar, Karte, gemischt; Teilrechnungen; Trinkgeld; Gutscheine</td></tr>
+            <tr><td>Gutscheine</td><td>Verkaufen und Einlösen an der Kasse (mit Teileinlösung); Verwaltung im Web-Admin</td></tr>
+            <tr><td>Artikelverwaltung</td><td>Produkte, Kategorien, Extras, Auswahlgruppen, CSV-Import, Mehrsprachig (Web-Admin)</td></tr>
+            <tr><td>Mitarbeiter</td><td>Personal, Berechtigungsgruppen, PIN-Verwaltung (Web-Admin); Mein Profil an der Kasse</td></tr>
+            <tr><td>Berichte</td><td>Tagesabschluss (Z-Bon), Umsatzstatistiken, Trainingsberichte</td></tr>
+            <tr><td>Finanzdokumente</td><td>Kassenbuch, Bankbelege, Eingangs- und Ausgangsrechnungen (inkl. E-Rechnung XRechnung/ZUGFeRD), DATEV-Export</td></tr>
+            <tr><td>Compliance</td><td>TSE-Anbindung, DSFinV-K-Export, DATEV-Kassenbuch</td></tr>
+            <tr><td>Prüfprotokoll</td><td>Lückenlose Aufzeichnung aller Änderungen</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Systemanforderungen</h3>
+    <table>
+        <thead>
+            <tr><th>Plattform</th><th>Anforderungen</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Server</td><td>Linux (Ubuntu 20.04+ oder vergleichbar), mind. 4 GB RAM. PostgreSQL wird mitgeliefert (eingebettet) oder extern angebunden (PostgreSQL 16). Feste IP-Adresse im Netzwerk empfohlen.</td></tr>
+            <tr><td>Kasse Android</td><td>Android 10+, mind. 2 GB RAM, Netzwerkzugang zum Server</td></tr>
+            <tr><td>Kasse Browser-Station</td><td>Aktueller Browser mit WebAssembly-Unterstützung (empfohlen: Chromium/Chrome), Netzwerkzugang zum Server (nur online); siehe <a href="kap-13-einstellungen.html#kap-13-browser-stationen">Browser-Stationen</a></td></tr>
+            <tr><td>Kasse Linux Desktop</td><td>Ubuntu 20.04+ oder vergleichbar, Netzwerkzugang zum Server. Alternativ lässt sich ein PC als <a href="kap-13-einstellungen.html#kap-13-browser-stationen">Browser-Station</a> betreiben.</td></tr>
+            <tr><td>Web-Admin</td><td>Aktueller Browser mit WebAssembly-Unterstützung</td></tr>
+        </tbody>
+    </table>
+    <p>Der Server (Ktor/Netty) läuft als eigenes Programm. Kassen &ndash; auch Browser-Stationen und die Desktop-Version &ndash; verbinden sich als Clients über das Netzwerk mit ihm; einen in die Kasse eingebauten Server gibt es nicht mehr. Live-Aktualisierungen (z.&nbsp;B. Tischstatus) erhalten die Geräte über eine dauerhafte Server-Sent-Events-Verbindung.</p>
+    <p>Der POS-Server ist nur auf dem Serverrechner selbst erreichbar; Kassen, Bestellstationen und Browser verbinden sich ausschließlich verschlüsselt über HTTPS mit dem vorgeschalteten Proxy Caddy (siehe <a href="kap-17-softwareaktualisierung.html#kap-17-https">Kapitel&nbsp;17</a>).</p>
+
+    <h3 id="kap-01-rollen">Berechtigungskonzept</h3>
+    <p>
+        Was ein Mitarbeiter darf, entscheidet seine <strong>Berechtigungsgruppe</strong> &ndash; nicht seine Rolle.
+        Jeder Mitarbeiter gehört zu genau einer Gruppe, und die Gruppe führt eine Liste von <em>Fähigkeiten</em>
+        (englisch <em>capabilities</em>), etwa &bdquo;Bestellungen schreiben&ldquo; oder &bdquo;Kassenbuch lesen&ldquo;.
+        Der Server prüft bei jedem Aufruf genau diese Liste; Kasse und Web-Admin blenden anhand derselben Liste aus,
+        was man nicht darf. Die Gruppen und ihre Fähigkeiten werden im Web-Admin unter <strong>System &rarr;
+        Berechtigungen</strong> verwaltet, die Zuordnung zu Mitarbeitern unter <strong>Betrieb &rarr; Personal</strong>
+        (siehe <a href="kap-10-mitarbeiter.html">Kapitel 10</a>). Genau eine Gruppe pro Mitarbeiter ist Absicht: so hat
+        die Frage &bdquo;warum darf diese Person das?&ldquo; immer eine einzige Antwort &ndash; was bei einer
+        Kassennachschau zählt.
+    </p>
+    <p>
+        Die Rolle (<code>TERMINAL_DEVICE</code>, <code>CASHIER</code>, <code>MANAGER</code>, <code>ADMIN</code>)
+        bleibt als Bezeichnung im Anmelde-Token und in der Oberfläche erhalten und bestimmt beim Anlegen eines
+        Mitarbeiters dessen Startgruppe. Sie ist aber <strong>keine Rangfolge mehr</strong>: eine Buchhalterin
+        trägt die Rolle <code>MANAGER</code> und die Gruppe <code>ACCOUNTANT</code>, und maßgeblich ist die Gruppe.
+    </p>
+
+    <h4>Vorgegebene Gruppen</h4>
+    <table>
+        <thead>
+            <tr><th>Gruppe</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>TERMINAL_DEVICE</code></td><td>Anmeldefreie Station (Bestellterminal, Küchendisplay). Kein persönliches Konto &ndash; die Rolle lässt sich keinem Mitarbeiter zuweisen (siehe <a href="kap-10-mitarbeiter.html">Kapitel 10</a>).</td></tr>
+            <tr><td><code>CASHIER</code></td><td>Kassierer: Bestellungen, Abrechnungen, Rabatte, Retouren, Kassenlade.</td></tr>
+            <tr><td><code>MANAGER</code></td><td>Voller operativer Zugriff samt Mitarbeiterverwaltung, Artikelpflege und Berichten.</td></tr>
+            <tr><td><code>ADMIN</code></td><td>Vollständiger Systemzugang inklusive Konfiguration und Berechtigungsverwaltung.</td></tr>
+            <tr><td><code>ACCOUNTANT</code></td><td>Buchhaltung: Rechnungen, Belege, Kassenbuch und die DATEV-Exporte. Kann keinen Abschluss buchen, keinen Beleg löschen und weder Artikel, Personal noch Systemeinstellungen ändern.</td></tr>
+            <tr><td><code>AUDITOR</code></td><td>Nur-Lese-Zugang für eine externe Prüfung, einschließlich DSFinV-K-Export. Schreibt nichts &ndash; nicht einmal die eigene PIN.</td></tr>
+            <tr><td><code>ORDER_ONLY</code></td><td>Nimmt Bestellungen am Tisch auf und sieht sie ein, sonst nichts. Keine Rechnungen, Zahlungen, Gutscheine, Reservierungen oder Berichte.</td></tr>
+        </tbody>
+    </table>
+    <p>
+        Diese sieben Gruppen sind fest vorgegeben: ihre Fähigkeiten lassen sich nicht ändern und sie lassen sich
+        nicht löschen &ndash; ihr Anzeigename schon. Eigene Gruppen können daneben frei angelegt werden.
+    </p>
+
+    <div class="alert alert-info">
+        <strong>Geschützte Fähigkeiten.</strong> Einige Fähigkeiten sind <em>reserviert</em> und lassen sich über
+        keine Gruppenbearbeitung vergeben &ndash; darunter Tagesabschluss, Monatsabschluss, Belege löschen,
+        Datensicherung zurückspielen, TSE-Verwaltung, Systemkonfiguration und die Berechtigungsverwaltung selbst.
+        Wer Gruppen verwalten darf, kann sich damit also nicht selbst zum Administrator machen. Außerdem gilt: man
+        kann nur weitergeben, was man selbst besitzt.
+    </div>
+
+    <div class="alert alert-info">
+        <strong>Die Station zählt mit.</strong> Bei anmeldefreien Geräten begrenzt zusätzlich die Geräteklasse, was
+        möglich ist: ein Küchendisplay kann keine Bestellung kassieren, auch wenn seine Gruppe das erlauben würde.
+        Diese Begrenzung greift ausschließlich bei Geräten, die sich mit einem Gerätetoken ausweisen &ndash; die
+        Anmeldung einer Person am selben Gerät ist davon nicht betroffen.
+    </div>
+
+    <p>
+        Die früheren <em>Ausnahmeberechtigungen</em> (neun Einzelrechte zusätzlich zur Rolle) sind entfallen. Ihre
+        Wirkung steckt heute in den Fähigkeiten der Gruppe; wer einzelnen Mitarbeitern mehr erlauben will, legt eine
+        eigene Gruppe an und weist sie zu. Für einen einzelnen Vorgang an der Kasse kann ein Manager eine fehlende
+        Fähigkeit per PIN kurzzeitig leihen (siehe <a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Manager-Sitzung</a>).
+    </p>
+
+    <h3>Adaptive Oberfläche</h3>
+    <p>Die Benutzeroberfläche passt sich automatisch an die Bildschirmgröße an:</p>
+    <table>
+        <thead>
+            <tr><th>Geräteklasse</th><th>Breite</th><th>Layout</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Smartphone (Compact)</td><td>&lt; 600 dp</td><td>Einzelansichten mit Tab-Navigation</td></tr>
+            <tr><td>Tablet (Medium)</td><td>600–840 dp</td><td>Zwei-Spalten-Layouts</td></tr>
+            <tr><td>Desktop (Expanded)</td><td>&gt; 840 dp</td><td>Mehrspaltige Ansichten mit Seitennavigation</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<nav class="chapter-nav">
+    <a href="index.html">&larr; Vorheriges: Übersicht</a>
+    <a href="kap-02-ersteinrichtung.html">Nächstes: Ersteinrichtung &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

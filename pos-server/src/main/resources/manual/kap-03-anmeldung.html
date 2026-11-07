@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 03 – Anmeldung &amp; Sicherheit – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-sessions">Sitzungen &amp; Token-Widerruf</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 03 – Anmeldung &amp; Sicherheit</h2>
+
+    <h3 id="kap-03-kopplung">Voraussetzung: gekoppeltes Gerät</h3>
+    <p>
+        Eine Kasse kann erst benutzt werden, wenn sie mit dem Server <strong>gekoppelt</strong> ist. Beim
+        Start prüft die App, ob der Server erreichbar, eingerichtet und das Gerät gekoppelt ist. Ein nicht
+        gekoppeltes Gerät zeigt statt der Anmeldung den Bildschirm <strong>Gerät koppeln</strong>: Dort geben
+        Sie den <strong>Kopplungscode</strong> ein, den jemand mit dem Recht zur Terminalverwaltung im
+        Web-Admin unter <strong>Geräte &rarr; Terminals</strong> erzeugt, oder scannen (Android) den QR-Code.
+        Wie ein Gerät erstmals verbunden wird, beschreibt
+        <a href="kap-02-ersteinrichtung.html#kap-02-geraet-verbinden">Kapitel 02</a>.
+    </p>
+    <div class="alert alert-warning">
+        <strong>Nach dem Update auf Version 1.1 müssen bestehende Kassen gekoppelt werden.</strong> Ein Gerät
+        ohne Kopplung wird beim Anmelden auf den Kopplungsbildschirm geleitet. Stellen Sie vor dem Update
+        sicher, dass jemand im Web-Admin Kopplungscodes erzeugen kann (Fähigkeit
+        <code>TERMINAL_MANAGE</code>). Nach fünf falschen oder abgelaufenen Codes von derselben
+        Netzwerkadresse lehnt der Server Kopplungsversuche von dort für bis zu fünf Minuten ab.
+    </div>
+    <p>
+        Wurde der Code mit <strong>beim Koppeln an der TSE registrieren</strong> erzeugt, registriert der
+        Server das Terminal beim Koppeln an der TSE. Gelingt das nicht, bleibt das Gerät ungekoppelt und
+        meldet, dass es nicht an der TSE registriert werden konnte; wenden Sie sich an einen Administrator,
+        der die TSE prüft und bei Bedarf einen neuen Code erzeugt. Ein solcher Code verfällt außerdem, sobald
+        die TSE-Admin-Sitzung endet, in der er erzeugt wurde („Kopplungscode abgelaufen“).
+    </p>
+    <p>
+        Die <strong>Server-Adresse</strong> lässt sich im Anmeldebildschirm nicht mehr ändern. Solange das Gerät
+        nicht gekoppelt ist, wird sie auf dem Startbildschirm (wenn der Server nicht erreichbar ist), auf dem
+        Kopplungsbildschirm über <strong>Server ändern</strong> oder über den QR-Code eingestellt. Ein
+        gekoppeltes Gerät bleibt bei dem Server, mit dem es gekoppelt wurde.
+    </p>
+
+    <h3 id="kap-03-browser-kopplung">Browser-Station koppeln</h3>
+    <p>
+        Eine Kasse oder Bestellstation lässt sich auch im Browser betreiben (<code>/pos/</code>). Voraussetzung
+        ist, dass die Rolle im Web-Admin unter <strong>Einstellungen &rarr; Browser-Stationen</strong>
+        aktiviert ist (siehe <a href="kap-13-einstellungen.html#kap-13-browser-stationen">Kapitel 13</a>);
+        solange keine Rolle aktiviert ist, antwortet <code>/pos/</code> mit „nicht gefunden“ (404).
+    </p>
+    <ol class="steps">
+        <li>Im Web-Admin unter <strong>Geräte &rarr; Terminals</strong> einen Kopplungscode für das Terminal erzeugen &ndash; wie bei jedem Gerät. Neben dem Code zeigt der Web-Admin den <strong>Link für den Browser</strong> (<code>&lt;Adresse&gt;/pos/?code=&lt;Code&gt;</code>).</li>
+        <li>Im Browser des Geräts <code>http://&lt;Server-Adresse&gt;:8080/pos/</code> öffnen, oder den Link aufrufen &ndash; dann ist der Code bereits eingetragen.</li>
+        <li>Auf dem Bildschirm <strong>Gerät koppeln</strong> den Code eingeben (falls nicht per Link ausgefüllt) und bestätigen. Danach läuft die Station in ihrer Rolle (Kasse oder Bestellstation) wie auf einem Tablet.</li>
+    </ol>
+    <p>
+        Das Gerät bleibt im Browserprofil gekoppelt. <strong>Nach 10 Minuten ohne Eingabe</strong> wird die
+        angemeldete Person abgemeldet; das Gerät bleibt gekoppelt und zeigt wieder die Anmeldung. Ein
+        <strong>zweiter Tab</strong> im selben Browserprofil startet keine zweite Station, sondern zeigt
+        den Hinweis „Diese Station ist bereits in einem anderen Tab geöffnet“. Für mehrere Stationen auf
+        einem Rechner verwenden Sie getrennte Browserprofile.
+    </p>
+    <p>
+        Weitere Einzelheiten, Einschränkungen und Sicherheitshinweise stehen in
+        <a href="kap-13-einstellungen.html#kap-13-browser-stationen">Kapitel 13 &ndash; Browser-Stationen</a>.
+    </p>
+
+    <h3>Anmeldung</h3>
+    <p>Der Anmeldebildschirm hat ein einziges Formular für beide Anmeldearten. Bei erfolgreicher Authentifizierung wird ein JWT-Token-Paar erstellt (Zugangstoken und Aktualisierungstoken).</p>
+    <ol class="steps">
+        <li>Geben Sie im Feld <strong>Benutzername oder Mitarbeiternummer</strong> Ihren Benutzernamen oder Ihre Mitarbeiternummer ein.</li>
+        <li>Geben Sie im Feld <strong>Passwort oder PIN</strong> Ihr Passwort bzw. Ihre PIN ein.</li>
+        <li>Optional: <strong>Anmeldedaten merken</strong> anhaken.</li>
+        <li>Tippen Sie auf <kbd>Anmelden</kbd>.</li>
+    </ol>
+    <p>Oben im Bildschirm zeigt eine Statusanzeige, ob der Server erreichbar ist (<em>Online</em>/<em>Offline</em>; antippen prüft erneut); daneben lässt sich die Sprache wählen.</p>
+
+    <div class="alert alert-info" id="kap-03-zugangsdaten-merken">
+        <strong>Zugangsdaten merken an der Kasse:</strong> Ist „Angemeldet bleiben" aktiviert, füllt die Kasse Benutzername und Passwort bei der nächsten Anmeldung vor. Passwort, Geräte-Token sowie Zugangs- und Aktualisierungstoken speichert die Kasse verschlüsselt. Den Schlüssel verwahrt auf Android der geschützte Schlüsselspeicher des Geräts (Android Keystore), am PC der Schlüsselbund des Betriebssystems; gibt es dort keinen nutzbaren Schlüsselbund, liegt er in einer Datei, die nur der angemeldete Benutzer lesen kann. Eine kopierte Datenbankdatei allein ist daher nicht lesbar. Auf Android gelangen die Daten der Kasse weder in Gerätesicherungen noch bei einem Geräteumzug auf ein neues Gerät. Nutzt ein PC die Schlüsseldatei, enthält eine Sicherung des gesamten Benutzerverzeichnisses auch den Schlüssel. Gegen ein gerootetes Gerät oder Schadsoftware unter demselben Benutzerkonto schützt die Verschlüsselung nicht. Wer vor der Kasse steht, kann sich mit dem gemerkten Passwort anmelden – an gemeinsam genutzten Kassen die Option daher nicht aktivieren. Siehe auch <a href="kap-16-fehlerbehebung.html#kap-16-neu-koppeln">Kasse verlangt erneut die Kopplung oder die Anmeldung</a>.
+    </div>
+
+    <h3>Token-Verwaltung</h3>
+    <ul>
+        <li><strong>Zugangstoken</strong> (kurzlebig) – Wird für API-Aufrufe verwendet.</li>
+        <li><strong>Aktualisierungstoken</strong> (langlebig) – Ermöglicht die automatische Verlängerung der Sitzung. Kassen speichern es auf dem Gerät. Der Web-Admin erhält es ausschließlich als <code>HttpOnly</code>-Cookie, das kein Skript im Browser lesen kann; sein Zugangstoken liegt nur im Arbeitsspeicher der Seite und wird nach dem Neuladen über das Cookie erneuert.</li>
+        <li><strong>Mehrere Tabs</strong> – Erneuern zwei Tabs gleichzeitig ihre Sitzung, akzeptiert der Server das eben ersetzte Token noch 10 Sekunden lang, statt alle Sitzungen des Mitarbeiters zu beenden.</li>
+        <li><strong>Geräte-ID</strong> – Wird als <code>X-Device-ID</code>-Header für die Gerätezuordnung übertragen.</li>
+        <li><strong>Kopplungstoken</strong> – Wird bei der Kopplung ausgestellt, auf dem Gerät gespeichert und bei jeder Anfrage als <code>X-Device-Token</code>-Header mitgesendet. Es gilt nur für den Server, mit dem das Gerät gekoppelt wurde.</li>
+        <li><strong>Sitzungsende</strong> – Läuft die Sitzung eines Mitarbeiters ab oder wird sie widerrufen, kehrt die Kasse zur Anmeldung zurück; die <strong>Kopplung bleibt erhalten</strong>. Ist der Server nur vorübergehend nicht erreichbar (z.&nbsp;B. während eines Neustarts), bleibt die Sitzung bestehen.</li>
+        <li><strong>Validierung</strong> – <code>GET /api/auth/validate</code> für leichtgewichtige Token-Prüfung.</li>
+    </ul>
+
+    <h3 id="kap-03-training">Trainingsmodus</h3>
+    <p>Der Trainingsmodus ermöglicht das Üben ohne fiskalische Auswirkungen. Er ist eine Eigenschaft des Mitarbeiterkontos, nicht der Anmeldung: Wer mit einem Trainingskonto angemeldet ist, arbeitet im Trainingsmodus.</p>
+    <ul>
+        <li><strong>Aktivierung:</strong> Im Web-Admin unter <strong>Betrieb &rarr; Personal</strong> beim Mitarbeiter den Schalter <strong>Schulungsmodus</strong> einschalten (siehe <a href="kap-10-mitarbeiter.html">Kapitel 10</a>). Einen Schalter auf dem Anmeldebildschirm gibt es nicht. Umschalten darf nur, wer Mitarbeiter bearbeiten darf (Berechtigung <code>EMPLOYEE_WRITE</code>, standardmäßig Manager und Admin) &ndash; auch am eigenen Konto: Ein Kassierer kann sich nicht selbst in den Trainingsmodus versetzen (der Server antwortet mit 403, der Schalter ist ohne die Berechtigung gesperrt).</li>
+        <li><strong>Erkennung:</strong> Tische mit Trainingsvorgängen tragen im Tischplan die Kennzeichnung <em>Training</em>.</li>
+        <li><strong>TSE:</strong> Trainings-Transaktionen werden mit dem Typ <code>Training</code> signiert.</li>
+        <li><strong>Beleg:</strong> Ein Trainingsbeleg trägt am Kopf und am Fuß die Kennzeichnung <strong>TRAININGSBELEG</strong> / <strong>*** KEIN VERKAUF - SCHULUNGSBELEG ***</strong> &ndash; auf dem Bondrucker, im PDF, beim Nachdruck und auch auf dem Storno eines Trainingsbelegs. So kann er nicht mit einem echten Kassenbeleg verwechselt werden.</li>
+        <li><strong>Belegliste:</strong> In den Belegen eines Z-Bons (Kasse und Web-Admin) stehen Trainingsbelege mit, gekennzeichnet mit <em>Training</em>; in Umsatz und Summen zählen sie nicht.</li>
+        <li><strong>Berichte:</strong> Trainingsberichte sind separat einsehbar.</li>
+    </ul>
+
+    <h3 id="kap-03-temp">Temporäre Manager-Sitzung (Manager-PIN)</h3>
+    <p>
+        Fehlt einem Kassierer für einen Vorgang die nötige Fähigkeit, kann ein Manager sie ihm mit seiner PIN
+        vorübergehend <strong>leihen</strong>. Der Kassierer bleibt dabei angemeldet und behält alles, was er
+        ohnehin darf; er erhält zusätzlich <em>nur</em> die angefragte Fähigkeit &ndash; beim allgemeinen
+        Freigabedialog aus dem Menü die kleine Gruppe der Kassen-Freigaben: Zahlart ändern, Beleg stornieren,
+        Rabatt gewähren, Position stornieren, Preis überschreiben und Tischsitzung übernehmen. Die Sitzung
+        übernimmt <strong>nicht</strong> mehr die Identität des Managers.
+    </p>
+    <table>
+        <thead>
+            <tr><th>Eigenschaft</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Dauer</td><td>3 Minuten (180 Sekunden); wird bei Navigation bzw. bei einem berechtigten Vorgang kurz vor Ablauf verlängert. Eine Verlängerung setzt das Ende auf „jetzt + 3 Minuten“, nie weiter; eine abgelaufene Sitzung lässt sich nicht verlängern, dafür ist die Manager-PIN erneut nötig</td></tr>
+            <tr><td>Höchstdauer</td><td><strong>15 Minuten</strong> ab Eingabe der Manager-PIN &ndash; eine feste Obergrenze, die keine Verlängerung überschreitet, auch wenn an der Kasse ständig navigiert wird. Danach endet die Freigabe; die Kasse zeigt <em>Manager-Freigabe abgelaufen</em>, und der Manager muss die PIN erneut eingeben. Der Server lehnt eine Verlängerung nach Erreichen der Obergrenze mit HTTP&nbsp;409 (<code>AUTH_STEP_UP_CAP_REACHED</code>) ab.</td></tr>
+            <tr><td>Bindung</td><td>Gilt nur auf dem anfragenden Gerät <strong>und</strong> nur für den anfragenden Mitarbeiter &ndash; ein zweiter Kassierer an derselben Kasse erbt sie nicht</td></tr>
+            <tr><td>Umfang</td><td>Nur Kassen-Freigaben; alles andere (z.&nbsp;B. Tagesabschluss, Konfiguration) lehnt der Server ab. Verliehen wird nur, was der Manager selbst besitzt.</td></tr>
+            <tr><td>Freigebende</td><td>Nur Mitarbeiter, deren Gruppe die Fähigkeit <code>ELEVATION_APPROVE</code> enthält (vorgegeben: <code>MANAGER</code>, <code>ADMIN</code>)</td></tr>
+            <tr><td>Server-Synchronisation</td><td>Alle 30 Sekunden</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Ablauf:</strong></p>
+    <ol class="steps">
+        <li>Mitarbeiter fordert die Freigabe an.</li>
+        <li>Manager gibt Benutzername (oder Mitarbeiternummer) und PIN ein.</li>
+        <li>Die Fähigkeit ist auf diesem Gerät für diesen Mitarbeiter freigeschaltet.</li>
+        <li>Automatisches Ende nach Ablauf der Zeit, spätestens 15 Minuten nach der PIN-Eingabe &ndash; oder sofort über <strong>Sitzung beenden</strong>. Der Server entzieht die geliehene Fähigkeit dann mit der nächsten Anfrage, nicht erst bei Ablauf.</li>
+    </ol>
+    <p>Verlängern und Beenden darf nur der Mitarbeiter, dem die Fähigkeit geliehen wurde; ein Kollege an derselben Kasse erhält HTTP&nbsp;403.</p>
+    <p>Aktionen während einer temporären Sitzung werden im Prüfprotokoll dem <strong>Kassierer</strong> zugeschrieben, der sie ausgeführt hat; der freigebende Manager wird dazu vermerkt.</p>
+
+    <h3 id="kap-03-bestellstation">Bestellstation (Betrieb ohne Anmeldung)</h3>
+    <p>
+        Ein Terminal mit der Rolle <strong>Bestellstation</strong> (siehe
+        <a href="kap-13-einstellungen.html#kap-13-terminalverwaltung">Terminalverwaltung</a>) ist ein
+        fester Bestellpunkt an Theke oder Bar – typischerweise für Aushilfen, die kein eigenes
+        Mitarbeiterkonto haben. Die Station kennt keinen Anmeldebildschirm: einmal gekoppelt, zeigt
+        sie beim Einschalten sofort die Kassenoberfläche in reduzierter Form.
+    </p>
+    <table>
+        <thead>
+            <tr><th>Möglich</th><th>Nicht möglich</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bestellungen auf Tische aufnehmen und an die Küche senden; freie Tische öffnen (nur mit Reihum-Mitarbeiterzuweisung); bestehende Bestellungen einsehen; Reservierungen anlegen und ändern; Kunden zuordnen; Benachrichtigungen</td>
+                <td>Abrechnen (auch teilweise), Rechnung anfordern, Rechnung oder Beleg drucken, Rechnung teilen, Tisch umbuchen, Zahlart ändern, Beleg stornieren; Rabatt gewähren oder individuellen Preis setzen (auch nicht mit Manager-PIN); Abhol- und virtuelle Tische öffnen; Reservierungen löschen; Berichte, Finanzdokumente, Einstellungen, Mein Profil</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        Das Menü der Station umfasst genau <strong>Dashboard</strong> (Tische),
+        <strong>Reservierungen</strong> und <strong>Benachrichtigungen</strong> (auf dem Telefon über das
+        Glockensymbol oben im Dashboard). Abgerechnet wird an
+        der Kasse durch einen Mitarbeiter.
+    </p>
+    <p>
+        <strong>Tische öffnen.</strong> Einen <strong>freien</strong> Tisch öffnet die Station nur, wenn
+        die Reihum-Mitarbeiterzuweisung eingeschaltet ist. Der Tisch
+        gehört dann dem Mitarbeiter, den die Rotation als Nächsten bestimmt – nicht der Station. Dieser
+        Mitarbeiter rechnet den Tisch an der Kasse ab. Ist die
+        Reihum-Mitarbeiterzuweisung ausgeschaltet, meldet die Station, dass sie freie Tische nur mit
+        eingeschalteter Reihum-Mitarbeiterzuweisung öffnet, und verweist an die Kasse. Ist der
+        Rotationspool leer, meldet sie stattdessen, dass kein Mitarbeiter im Rotationspool ist, und
+        verweist auf das Hinzufügen von Mitarbeitern unter Reihum-Mitarbeiterzuweisung. Abhol- und
+        virtuelle Tische (z. B. Gutschein) öffnet die Station nie. Auf Tische mit einer
+        bereits offenen Sitzung – auch Abholungen – bucht sie jederzeit Bestellungen; der zuständige
+        Mitarbeiter bleibt dabei unverändert.
+    </p>
+    <p>
+        <strong>Keine Abrechnung.</strong> Die Station rechnet in keiner Form ab. Im Tischfenster
+        (Antippen und Halten eines besetzten Tisches) fehlen <strong>Rechnung</strong> und
+        <strong>Rechnung anfordern</strong> immer – unabhängig davon, wem der Tisch gehört, und auch
+        dann, wenn die Einstellung <em>Mitarbeiterübergreifende Abrechnung</em> eingeschaltet ist. Der Kellner
+        rechnet unter seiner eigenen Anmeldung ab. Maßgeblich ist, <em>unter wem</em> abgerechnet wird,
+        nicht das Gerät: Der Server lehnt das Abrechnen (ganz, teilweise oder mit Karte), die
+        Rechnungsanforderung, den Zahlartwechsel (Storno und Neubuchung) und den Belegstorno unter dem gemeinsamen
+        Stationskonto mit HTTP&nbsp;403 ab – für die Station selbst und auch während einer temporären
+        Manager-Sitzung, denn die Freigabe leiht dem Stationskonto nur Rechte, die Buchung bliebe dem
+        Stationskonto zugeordnet. Meldet sich dagegen ein Mitarbeiter, etwa ein Manager, mit seinem
+        eigenen Konto am Gerät der Bestellstation an, darf er dort abrechnen: Der Beleg wird ihm
+        zugeordnet (Bediener im DSFinV-K-Export) und über den TSE-Client des Stationsgeräts signiert.
+    </p>
+    <p>
+        <strong>Keine Preisänderungen.</strong> Im Fenster <em>Artikel bearbeiten</em> bietet die Station
+        weder das Feld <strong>Rabatt</strong> noch den Schalter <strong>Individueller Preis</strong> an;
+        jede Position wird zum Listenpreis gebucht. Preise und Nachlässe legt ein angemeldeter
+        Mitarbeiter fest. Auch der Server lehnt eine Bestellung unter dem gemeinsamen Stationskonto mit
+        Rabatt (<code>DISCOUNT_NOT_ALLOWED</code>) oder individuellem Preis
+        (<code>CUSTOM_PRICE_NOT_ALLOWED</code>) mit HTTP&nbsp;403 ab – unabhängig von der Höhe des Rabatts
+        und auch während einer temporären Manager-Sitzung. Die Regel gilt für die <em>Person</em>, unter
+        der die Bestellung gebucht wird, nicht für das Gerät: Ein Manager, der sich mit seinem eigenen
+        Konto am Gerät der Bestellstation anmeldet, bucht Rabatt und individuellen Preis wie an der
+        Kasse – die Bestellung wird ihm zugeordnet und über den TSE-Client des Stationsgeräts signiert.
+        Am Kassen-Terminal bleiben Rabatt und individueller Preis wie gewohnt möglich.
+    </p>
+    <p>
+        Alle an einer Station ohne Anmeldung aufgenommenen Bestellungen werden dem gemeinsamen
+        Geräte-Mitarbeiterkonto und der jeweiligen Station zugeschrieben; die Station signiert ihre
+        Bestellungen über ihren eigenen TSE-Client. Was später abgerechnet wird, trägt den Namen des
+        abrechnenden Mitarbeiters. Einen Trainingsmodus gibt es an der Station nicht – ohne
+        Anmeldebildschirm gibt es auch keine Auswahl dafür.
+    </p>
+
+    <div class="alert alert-info">
+        <strong>Korrekturen nach dem Senden brauchen einen Manager &ndash; vor Ort.</strong> Eine bereits
+        an die Küche gesendete Position kann an der Station nur storniert werden, während ein Manager an
+        der Station angemeldet ist. Die Station kann <strong>keine Storno-Freigabe anfordern</strong>:
+        Das Symbol <em>Stornieren</em> fehlt in der Auswahlleiste, solange kein Manager angemeldet ist,
+        und auch der Server lehnt eine Storno-Anfrage des Stationskontos mit HTTP&nbsp;403
+        (<code>STATION_STORNO_REQUIRES_MANAGER</code>) ab &ndash; es wird nichts vorgemerkt, das
+        unbeantwortet verfallen könnte.
+        <br><br>
+        <strong>Manager-Anmeldung an der Station.</strong> Über die Schaltfläche <em>Manager anmelden</em>
+        (Schloss-Symbol in der Seitenleiste) gibt
+        ein Manager seine Mitarbeiternummer (oder seinen Benutzernamen) und seine PIN ein; daraus wird
+        eine <a href="#kap-03-temp">temporäre Manager-Sitzung</a> an diesem Gerät. An der Station
+        schaltet sie genau zwei Dinge frei: <strong>Stornieren</strong> gesendeter Positionen und das
+        <strong>Umsetzen</strong> von Positionen oder Tischen. Abrechnen, Rabatte und individuelle
+        Preise bleiben auch dann gesperrt. Storno und Umsetzung werden dem <strong>Manager</strong>
+        zugeordnet (der Storno-Dialog nennt ihn: <em>Freigabe durch &hellip;</em>) &ndash; im
+        Storno- bzw. Umsetzungsdatensatz, im Prüfprotokoll
+        (Autorisierungsart <em>TEMPORARY_SESSION</em>, freigebender Manager; das gilt auch für das
+        Umsetzen eines ganzen Tisches) &ndash;, nicht dem gemeinsamen Stationskonto. Die
+        TSE-Transaktion eines Stornos nennt nur den TSE-Client der Station, keinen Mitarbeiter. Endet die
+        Sitzung (Schaltfläche <em>Beenden</em> oder Ablauf), hat die Station wieder nur ihre eigenen
+        Rechte, und ein Storno wird erneut abgelehnt. Läuft die Sitzung <strong>von selbst</strong> ab
+        (3 Minuten ohne Aktivität, Höchstdauer erreicht oder vom Server beendet), erscheint an Kasse und
+        Station die Warnung <em>Manager-Freigabe abgelaufen</em>; wer <em>Beenden</em> drückt oder sich
+        abmeldet, bekommt keine Meldung.
+        <br><br>
+        Öffnet ein Umsetzen unter der Manager-Anmeldung einen <strong>freien Tisch</strong>, gehört der
+        neue Tisch nicht dem Manager, sondern dem Mitarbeiter, den die Rotation bestimmt (der Manager
+        nur, wenn er im Rotations-Pool ist und an der Reihe).
+        <br><br>
+        Das <strong>Umsetzen von Positionen</strong> bleibt ohne Manager-Anmeldung als offene
+        Genehmigung möglich (siehe unten); diese Umsetzung wird dem Stationskonto zugeordnet, mit dem
+        genehmigenden Manager im Prüfprotokoll.
+    </div>
+
+    <p>
+        <strong>Wo offene Genehmigungen landen.</strong> Vorgemerkte Anfragen sammelt der Web-Admin auf
+        dem Startbildschirm in der Karte <strong>Autorisierungs-Anfragen</strong> samt Anzahl. Jeder
+        Eintrag nennt den angefragten Vorgang, die <strong>Mitarbeiternummer</strong> des Anfragenden,
+        die <strong>Kennung des Terminals</strong>, von dem die Anfrage stammt (z.&nbsp;B.
+        <code>TER-001</code> – nicht der frei vergebene Terminalname), und den Zeitpunkt; dazu die
+        Aktionen <strong>Genehmigen</strong> und <strong>Ablehnen</strong>, letztere mit Pflichtangabe
+        eines Grundes. Eine bereits wartende Anfrage ist damit genauso zuzuordnen wie eine, die
+        während der Anzeige eintrifft. Lässt sich ein Mitarbeiter oder ein Terminal nicht mehr
+        auflösen – etwa nach dem Löschen –, steht an dieser Stelle die technische ID, damit die
+        Anfrage sichtbar bleibt. Beantwortet niemand eine Anfrage innerhalb von drei Minuten, verfällt
+        sie, und das anfragende Gerät meldet <em>„Genehmigungsanfrage abgelaufen“</em>. Ein Neustart
+        des Servers verwirft offene Anfragen.
+    </p>
+
+    <div class="alert alert-warning">
+        <strong>Widerruf und Deaktivierung.</strong> Ist das Gerät mit dem Server verbunden, meldet der
+        Server einen Widerruf oder eine Deaktivierung sofort: Das Gerät verwirft Sitzung und Kopplung und
+        kehrt zum Kopplungsbildschirm zurück. War es in diesem Moment nicht verbunden, arbeitet eine Station
+        bis zur nächsten stillen Erneuerung ihrer Sitzung weiter (spätestens nach 15 Minuten) und fällt dann
+        auf den Kopplungsbildschirm zurück. Alles, was fiskalisch signiert wird, wird sofort abgewiesen.
+        Soll die Station augenblicklich stehen, starten Sie das Gerät neu.
+    </div>
+
+    <p>
+        <strong>Deaktivieren oder Widerrufen?</strong> Im Web-Admin unter <strong>Geräte &rarr;
+        Terminals</strong> bietet das Detailfeld beides an, und die beiden sind nicht dasselbe:
+    </p>
+    <ul>
+        <li><strong>Deaktivieren</strong> &ndash; sperrt das Terminal, bis es mit
+            <strong>Reaktivieren</strong> wieder freigegeben wird. Das Terminal selbst mit
+            TSE-Registrierung und Belegverlauf bleibt erhalten. Das Gerät verwirft jedoch seine Kopplung
+            (siehe oben) und wird nach dem Reaktivieren mit einem neuen Kopplungscode wieder angebunden.</li>
+        <li><strong>Widerrufen</strong> &ndash; löst die Gerätebindung. Das Gerät muss danach mit einem
+            neuen Kopplungscode <strong>neu gekoppelt</strong> werden; das Terminal kann auch an ein
+            anderes Gerät gegeben werden.</li>
+    </ul>
+
+    <p>
+        <strong>Ein Rollenwechsel wirkt dagegen sofort</strong> und kostet keine erneute Kopplung. Ändern Sie
+        im Web-Admin die Rolle eines Terminals, meldet der Server dies dem Gerät: Es verwirft seine
+        Sitzung, <strong>behält aber die Kopplung</strong> und meldet sich in der neuen Rolle wieder an. Eine
+        Bestellstation holt sich dabei selbständig ihre Stations-Sitzung – niemand muss zum Gerät gehen
+        oder einen Kopplungscode eintippen.
+    </p>
+
+    <p>
+        Statt „Abmelden" bietet die Station im Menü die Aktion <strong>Gerät neu koppeln</strong>. Sie
+        setzt das Gerät auf den Kopplungsbildschirm zurück – der Weg, ein Gerät an einen anderen
+        Platz zu geben oder es aus dem Betrieb zu nehmen. Zusätzlich steht, wie an der Kasse, die
+        Aktion <a href="kap-13-einstellungen.html#kap-13-backoffice">Backoffice öffnen</a> bereit.
+    </p>
+
+    <h3>Abmeldung</h3>
+    <p>Tippen Sie unten in der Navigationsleiste auf <kbd>Abmelden</kbd> (auf Telefonen auch unter <strong>Einstellungen &rarr; Allgemein &rarr; Konto</strong>). Der Aktualisierungstoken wird damit serverseitig widerrufen; der Zugangstoken läuft nach spätestens 15 Minuten ab. Die Kopplung des Geräts bleibt bestehen &ndash; die nächste Person meldet sich einfach an.</p>
+    <p>Im Web-Backoffice widerruft <kbd>Abmelden</kbd> (Benutzermenü) die Sitzung ebenfalls serverseitig. Ist der Server gerade nicht erreichbar, meldet das Backoffice Sie nach höchstens fünf Sekunden trotzdem im Browser ab; der Aktualisierungstoken verfällt dann regulär. Ein Neuladen der Seite zeigt danach wieder den Anmeldebildschirm.</p>
+    <p>Das Benutzermenü unten links im Web-Backoffice nennt die <strong>Berechtigungsgruppe</strong> der angemeldeten Person (z.&nbsp;B. <em>Prüfer</em>), nicht ihre Grundrolle &ndash; maßgeblich für die Rechte ist die Gruppe. Nur wenn der Server keine Gruppe meldet, erscheint die Rolle. Ist einem Konto <strong>keine Berechtigungsgruppe</strong> zugewiesen, wird die Anmeldung mit einem Hinweis abgelehnt (&bdquo;Ihrem Konto ist keine Berechtigungsgruppe zugewiesen&ldquo;); eine Administratorin oder ein Administrator muss zuerst eine Gruppe zuweisen. Endet eine Sitzung ohne Abmeldung (abgelaufen oder beendet), weist der Anmeldebildschirm einmalig darauf hin.</p>
+
+    <div class="alert alert-warning">
+        <strong>Sicherheitshinweis:</strong> Melden Sie sich immer ab, wenn Sie das Gerät verlassen. Nicht abgemeldete Sitzungen können von anderen Personen missbraucht werden.
+    </div>
+
+    <h3 id="kap-03-sessions">Sitzungen &amp; Token-Widerruf</h3>
+    <p>Das System verwendet kurzlebige Zugangstokens und langlebige, serverseitig verwaltete Aktualisierungstokens. Alle aktiven Sitzungen werden in der Datenbank erfasst und können gezielt widerrufen werden.</p>
+
+    <dl>
+        <dt>Zugangstoken (Access Token)</dt>
+        <dd>Kurzlebiges JWT (~15 Minuten, konfigurierbar über <code>JWT_ACCESS_TOKEN_EXPIRY_MINUTES</code>). Wird bei jedem API-Aufruf geprüft, aber nicht serverseitig gespeichert.</dd>
+
+        <dt>Aktualisierungstoken (Refresh Token)</dt>
+        <dd>Langlebig (~30 Tage), serverseitig in der Tabelle <code>refresh_tokens</code> gespeichert. Bei jeder Nutzung wird ein neuer Token ausgestellt (<strong>Token Rotation</strong>). Das Einreichen eines bereits rotierten Tokens löst Missbrauchserkennung aus und widerruft alle Sitzungen des betreffenden Mitarbeiters.</dd>
+
+        <dt>Automatischer Tagesreset</dt>
+        <dd>Einmal täglich (Standard: 04:00 Uhr, konfigurierbar) werden alle Aktualisierungstokens widerrufen. Alle Benutzer müssen sich beim nächsten Zugriff neu anmelden. Die Uhrzeit kann im Web-Admin unter <strong>System → Einstellungen → Sicherheit &amp; Sitzungen</strong> eingestellt werden.</dd>
+
+        <dt>Sofortiger Sitzungsabbruch (Panic-Funktion)</dt>
+        <dd>Administratoren können im Web-Admin unter <strong>System → Einstellungen → Sicherheit &amp; Sitzungen</strong> die Aktion <em>„Alle Geräte jetzt abmelden"</em> ausführen. Dadurch werden sofort alle aktiven Aktualisierungstokens aller Mitarbeiter widerrufen.</dd>
+
+        <dt>Automatischer Widerruf bei sicherheitsrelevanten Änderungen</dt>
+        <dd>Folgende Ereignisse widerrufen automatisch alle Sitzungen des betroffenen Mitarbeiters:
+            <ul>
+                <li>Passwortänderung</li>
+                <li>PIN-Änderung</li>
+                <li>Deaktivierung des Mitarbeiterkontos</li>
+            </ul>
+        </dd>
+    </dl>
+
+    <h4 id="kap-03-prod-config">Produktionskonfiguration</h4>
+    <p>Für den Produktionsbetrieb sind folgende Umgebungsvariablen erforderlich:</p>
+    <table>
+        <thead>
+            <tr><th>Variable</th><th>Beschreibung</th><th>Pflicht</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>JWT_SECRET</code></td>
+                <td>Starker, geheimer Schlüssel zum Signieren der JWTs. Der Server verweigert den Start, wenn dieser Wert auf den Entwicklungsstandard gesetzt ist (sofern nicht <code>JWT_DEVELOPMENT_MODE=true</code>).</td>
+                <td>Ja</td>
+            </tr>
+            <tr>
+                <td><code>JWT_DEVELOPMENT_MODE</code></td>
+                <td>Muss in Produktion auf <code>false</code> gesetzt sein. Auf <code>true</code> nur für lokale Entwicklungsumgebungen.</td>
+                <td>Ja (<code>false</code>)</td>
+            </tr>
+            <tr>
+                <td><code>JWT_ACCESS_TOKEN_EXPIRY_MINUTES</code></td>
+                <td>Gültigkeitsdauer des Zugangstokens in Minuten. Standard: <code>15</code>.</td>
+                <td>Nein</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-warning">
+        <strong>Wichtig:</strong> Setzen Sie <code>JWT_SECRET</code> auf einen langen, zufälligen Wert (mindestens 32 Zeichen). Verwenden Sie niemals den Entwicklungsstandard in Produktionsumgebungen.
+    </div>
+    <p>Diese Prüfung läuft als <strong>erster Schritt</strong> des Serverstarts, noch bevor die Datenbank gestartet oder migriert wird. Ein Start, der mit <em>Refusing to start: …</em> abbricht, hat die Datenbank also nicht verändert &ndash; Sie können die Konfiguration korrigieren und erneut starten.</p>
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-02-ersteinrichtung.html">&larr; Vorheriges: Ersteinrichtung</a>
+    <a href="kap-04-tischverwaltung.html">Nächstes: Dashboard &amp; Tischverwaltung &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

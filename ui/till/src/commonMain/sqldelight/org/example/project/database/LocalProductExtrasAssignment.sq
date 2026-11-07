@@ -1,0 +1,30 @@
+-- Junction table for product and product extras relationship
+-- Links which extras are available for which products
+
+CREATE TABLE IF NOT EXISTS LocalProductExtrasAssignment (
+    productId INTEGER NOT NULL,
+    extrasId INTEGER NOT NULL,
+    updatedAt TEXT NOT NULL DEFAULT '',
+    PRIMARY KEY (productId, extrasId)
+);
+
+-- Get all assignments
+getAll:
+SELECT * FROM LocalProductExtrasAssignment;
+
+-- Get assignments for a specific product
+getByProductId:
+SELECT * FROM LocalProductExtrasAssignment WHERE productId = ?;
+
+-- Insert or replace an assignment
+insertOrReplace:
+INSERT OR REPLACE INTO LocalProductExtrasAssignment(productId, extrasId, updatedAt)
+VALUES (?, ?, ?);
+
+-- Delete a specific product-extra assignment
+deleteByProductAndExtra:
+DELETE FROM LocalProductExtrasAssignment WHERE productId = ? AND extrasId = ?;
+
+-- Delete all assignments
+deleteAll:
+DELETE FROM LocalProductExtrasAssignment;

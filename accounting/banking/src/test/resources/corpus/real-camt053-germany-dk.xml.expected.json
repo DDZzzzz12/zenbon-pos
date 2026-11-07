@@ -1,0 +1,18 @@
+{
+  "_source": "moiristo/camt spec/sample_files/camt_germany_01.xml, MIT (c) 2014 Reinier de Lange.",
+  "_exercises": "A real German DK camt.053.001.02: PRCD rather than OPBD for the opening balance, ten entries, SEPA EndToEndId and MandateId, a return entry with no counterparty. Self-validating — the invariant only passes if all ten entries sum to the stated closing balance.",
+  "outcome": "Success",
+  "format": "CAMT053",
+  "transactionCount": 10,
+  "currency": "EUR",
+  "openingBalance": "112.72",
+  "closingBalance": "158780.32",
+  "accountIban": "DE87200500001234567890",
+  "statementNumber": "2736482736482",
+  "firstAmount": "100.00",
+  "firstCreditDebit": "CREDIT",
+  "firstCounterpartyName": "Herr Ueberweisender",
+  "firstCounterpartyIban": "DE21500500001234567897",
+  "firstEndToEndId": "Ende-zu-Ende-Id des Ueberweisenden",
+  "firstRemittance": "Rechnungsnr. 4711 vom 20.08.2008"
+}

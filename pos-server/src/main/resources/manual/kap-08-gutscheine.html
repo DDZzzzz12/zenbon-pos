@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 08 – Gutscheinverwaltung – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 08 – Gutscheinverwaltung</h2>
+
+    <p>Das POS-System bietet eine vollständige Gutscheinverwaltung mit Erstellung, Validierung, Teileinlösung und lückenloser Nachverfolgung aller Transaktionen.</p>
+
+    <div class="alert alert-warning">
+        <strong>Verkaufen an der Kasse, verwalten im Web-Admin:</strong> Die Kassen-App verkauft Gutscheine
+        (Schaltfläche <strong>Gutschein verkaufen</strong> auf dem Dashboard bzw. Aktion <strong>Gutschein</strong>
+        an einem Tisch) und löst sie beim Bezahlen ein. Eine Gutscheinverwaltung gibt es an der Kasse nicht
+        mehr. Übersicht, Suche, Kennzahlen, Einlösungsverlauf und die Gutschein-Einstellungen liegen im
+        <strong>Web-Admin</strong> unter <em>Betrieb &rarr; Gutscheine</em>; der Menüpunkt erscheint mit der
+        Berechtigung <code>VOUCHER_REPORT</code> (standardmäßig ab Manager; Buchhaltung und Prüfer ebenfalls, der Kassierer nicht).
+        Verkaufen setzt <code>VOUCHER_WRITE</code> voraus, das Prüfen und Einlösen <code>VOUCHER_READ</code>.
+    </div>
+
+    <div class="alert alert-info">
+        <strong>Kein Gutschein-Artikel im Bestellbildschirm:</strong> Die Kategorie <em>VOUCHER</em> und ihr Artikel
+        <em>Gutschein</em> (<code>VOU</code>), die das System beim Einschalten der Gutscheine anlegt, erscheinen weder
+        an der Kasse noch an der Bestellstation im Produktraster. Ein Gutschein wird ausschließlich über
+        <strong>Gutschein verkaufen</strong> bzw. die Tischaktion <strong>Gutschein</strong> verkauft, denn nur dort
+        entsteht der Gutschein mit seinem Wert. Eine direkte Bestellung des Artikels lehnt der Server mit
+        <code>400 VOUCHER_PRODUCT_NOT_ORDERABLE</code> ab &ndash; früher ließ sie sich als 0,00-&euro;-Beleg ohne
+        Gutschein abrechnen.
+    </div>
+
+    <!-- =============================== -->
+    <h3 id="kap-08-erstellen">Gutschein erstellen</h3>
+
+    <p>Gutscheine können auf zwei Wegen erstellt werden:</p>
+
+    <h4>Modus 1: Als Bestellposition (Tischsitzung)</h4>
+    <p>Der Gutschein wird einer bestehenden Tischsitzung als Artikel hinzugefügt und zusammen mit der Rechnung abgerechnet. Dabei wird die <code>sessionId</code> der aktiven Sitzung übergeben.</p>
+    <ol class="steps">
+        <li>Tisch mit laufender Bestellung auswählen und die Aktion <strong>Gutschein</strong> antippen</li>
+        <li>Im Dialog <em>Gutschein zur Bestellung hinzufügen</em> den <strong>Gutscheinwert</strong> eingeben (<code>originalValue</code>) und <strong>Hinzufügen</strong> antippen</li>
+        <li>Sitzung normal abrechnen &ndash; der Gutschein wird mit der Rechnung erstellt</li>
+        <li>Gutscheinnummer wird automatisch generiert und auf dem Beleg ausgedruckt</li>
+    </ol>
+
+    <h4>Modus 2: Direktverkauf an der Theke</h4>
+    <p>Gutscheine können direkt ohne Tischzuordnung verkauft werden. In diesem Fall wird keine <code>sessionId</code> übergeben, dafür ist die Angabe der Zahlungsart verpflichtend. Das System öffnet dafür intern eine Sitzung am virtuellen Tisch <em>Gutschein</em> und rechnet sie sofort ab &ndash; TSE-Signierung, Z-Bon-Zuordnung und DSFinV-K-Export verhalten sich genau wie bei einer Tischrechnung.</p>
+    <ol class="steps">
+        <li>Auf dem Dashboard die Schaltfläche <strong>Gutschein verkaufen</strong> antippen (erscheint nur, wenn Gutscheine in den Einstellungen aktiviert sind)</li>
+        <li><strong>Gutscheinwert</strong> eingeben (<code>originalValue</code>)</li>
+        <li>Zahlungsmethode auswählen (<code>paymentTypeId</code> &ndash; Pflichtfeld bei Direktverkauf)</li>
+        <li>Optional: <strong>Trinkgeld</strong> eingeben (<code>tipAmount</code>). Der Gesamtbetrag ist
+            Gutscheinwert plus Trinkgeld: Der Beleg führt das Trinkgeld wie bei einer Tischrechnung, die
+            Zahlung umfasst beides, der Gutschein selbst ist nur den Gutscheinwert wert.</li>
+        <li><strong>Gutschein erstellen</strong> &ndash; der Gutschein wird sofort erstellt und ist aktiv; anschließend fragt die Kasse, ob der Beleg gedruckt werden soll</li>
+        <li><strong>Drucken</strong> druckt den Kassenbeleg des Verkaufs (dieselbe Rechnung wie in den Berichten, z.&nbsp;B. <em>RE-…</em>) auf dem Bondrucker; die Antwort des Verkaufs nennt dafür die <code>billId</code>. Schlägt der Druck fehl, bleibt der Dialog offen und kann wiederholt werden. Ist das Drucken in <a href="kap-13-einstellungen.html#kap-13-drucker">Einstellungen &rarr; Drucker</a> ausgeschaltet oder fehlt der Rolle die Druckberechtigung, bietet die Kasse nur <strong>Schließen</strong> an (der Server lehnt den Druck in diesem Fall ebenfalls ab). Ein automatischer Druck erfolgt nicht &ndash; wie bei einer Tischrechnung wird der Beleg nur auf Wunsch gedruckt.</li>
+    </ol>
+
+    <h4>Felder beim Erstellen</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Typ</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>sessionId</code></td><td>Long?</td><td>Sitzungs-ID bei Tischbestellung; <code>null</code> für Direktverkauf</td></tr>
+            <tr><td><code>originalValue</code></td><td>String</td><td>Gutscheinwert als Dezimalzahl (z.&nbsp;B. &bdquo;50.00&ldquo;), muss positiv sein</td></tr>
+            <tr><td><code>paymentTypeId</code></td><td>Long?</td><td>Zahlungsart-ID &ndash; Pflicht bei Direktverkauf (<code>sessionId = null</code>)</td></tr>
+            <tr><td><code>tipAmount</code></td><td>String?</td><td>Optionaler Trinkgeldbetrag, darf nicht negativ sein; nur beim Direktverkauf (ohne <code>sessionId</code>) erlaubt &ndash; ein Tisch-Gutschein wird mit der Tischrechnung bezahlt, die ihr eigenes Trinkgeld trägt</td></tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <strong>Hinweis:</strong> Bei der Erstellung wird automatisch eine eindeutige Gutscheinnummer vergeben (Format: <code>G2025-0001</code>). Das System prüft die Eindeutigkeit der Nummer vor dem Speichern.
+    </div>
+
+    <!-- =============================== -->
+    <h3 id="kap-08-validierung">Gutschein validieren</h3>
+
+    <p>Vor der Einlösung kann ein Gutschein über <code>POST /api/vouchers/validate</code> geprüft werden. Das ist besonders nützlich, um dem Kassenpersonal sofort den aktuellen Status anzuzeigen.</p>
+
+    <h4>Anfrage</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Typ</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>voucherNumber</code></td><td>String</td><td>Gutscheinnummer (Pflichtfeld)</td></tr>
+            <tr><td><code>requestedAmount</code></td><td>String?</td><td>Optionaler Betrag, der eingelöst werden soll &ndash; muss positiv sein</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Antwort</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Typ</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>isValid</code></td><td>Boolean</td><td>Gutschein existiert und ist gültig</td></tr>
+            <tr><td><code>isActive</code></td><td>Boolean</td><td>Gutschein hat noch Restguthaben (nicht vollständig eingelöst)</td></tr>
+            <tr><td><code>remainingValue</code></td><td>String</td><td>Aktuelles Restguthaben</td></tr>
+            <tr><td><code>originalValue</code></td><td>String</td><td>Ursprünglicher Gutscheinwert</td></tr>
+            <tr><td><code>canRedeemRequested</code></td><td>Boolean</td><td>Ob der angefragte Betrag vom Restguthaben gedeckt ist</td></tr>
+            <tr><td><code>validationMessage</code></td><td>String</td><td>Validierungsmeldung im Klartext (z.&nbsp;B. &bdquo;Gutschein gültig&ldquo; oder Fehlermeldung)</td></tr>
+            <tr><td><code>expiryDate</code></td><td>String?</td><td>Optionales Ablaufdatum des Gutscheins</td></tr>
+        </tbody>
+    </table>
+
+    <!-- =============================== -->
+    <h3 id="kap-08-einloesung">Einlösung &amp; Teileinlösung</h3>
+
+    <p>Gutscheine können in beliebig vielen Teilbeträgen über mehrere Rechnungen hinweg eingelöst werden, bis das Guthaben vollständig aufgebraucht ist.</p>
+
+    <h4>Ablauf einer Einlösung</h4>
+    <ol class="steps">
+        <li>Beim Bezahlen die Zahlungsart <strong>Gutschein</strong> wählen</li>
+        <li><strong>Gutschein-Quelle</strong> auswählen (<code>voucherSource</code>) &ndash; ist nur eine Quelle aktiv, ist sie vorbelegt</li>
+        <li>Gutscheinnummer eingeben (Format <code>G[Jahr]-[Nummer]</code>) und <strong>Gutschein Überprüfen</strong> antippen &ndash; die Kasse zeigt Ursprungswert und Restguthaben</li>
+        <li>Einlösungsbetrag eingeben (<code>redeemedAmount</code>) &ndash; muss positiv sein</li>
+        <li>Zahlung bestätigen &ndash; eingelöst wird mit dem Erstellen der Rechnung; das Restguthaben wird dabei automatisch aktualisiert</li>
+    </ol>
+
+    <h4>Felder bei der Einlösung</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Typ</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>voucherNumber</code></td><td>String</td><td>Gutscheinnummer (Pflichtfeld)</td></tr>
+            <tr><td><code>redeemedAmount</code></td><td>String</td><td>Einzulösender Betrag als Dezimalzahl, muss positiv sein</td></tr>
+            <tr><td><code>voucherSource</code></td><td>VoucherSourceType</td><td>Herkunft des Gutscheins (siehe Abschnitt Gutscheinquellen)</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Antwort nach Einlösung</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Typ</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>voucherNumber</code></td><td>String</td><td>Gutscheinnummer</td></tr>
+            <tr><td><code>voucherSource</code></td><td>VoucherSourceType</td><td>Quelle des eingelösten Gutscheins</td></tr>
+            <tr><td><code>redeemedAmount</code></td><td>String</td><td>Tatsächlich eingelöster Betrag</td></tr>
+            <tr><td><code>remainingValue</code></td><td>String?</td><td>Verbleibendes Restguthaben nach dieser Einlösung</td></tr>
+            <tr><td><code>redeemedAt</code></td><td>String</td><td>Zeitpunkt der Einlösung</td></tr>
+            <tr><td><code>billId</code></td><td>Long</td><td>ID der zugehörigen Rechnung</td></tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <strong>Beispiel Teileinlösung:</strong> Ein Gutschein mit 50,00&nbsp;&euro; Guthaben kann z.&nbsp;B. heute mit 20,00&nbsp;&euro; auf Rechnung #1001 und morgen mit 30,00&nbsp;&euro; auf Rechnung #1042 eingelöst werden. Jede Teileinlösung wird einzeln in der Historie protokolliert.
+    </div>
+
+    <!-- =============================== -->
+    <h3 id="kap-08-historie">Einlösungshistorie (Audit Trail)</h3>
+
+    <p>Für jeden Gutschein wird eine vollständige Einlösungshistorie geführt. Der Abruf erfolgt über <code>GET /api/vouchers/number/{voucherNumber}/redemption-history</code>.</p>
+
+    <p>Die Antwort enthält die Gutschein-Basisdaten (<code>voucherId</code>, <code>voucherNumber</code>) sowie eine Liste aller Einlösungen:</p>
+
+    <h4>Felder pro Einlösungseintrag</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Typ</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>redemptionId</code></td><td>Long</td><td>Eindeutige ID der Einlösung</td></tr>
+            <tr><td><code>redeemedAmount</code></td><td>String</td><td>Eingelöster Betrag</td></tr>
+            <tr><td><code>redeemedAt</code></td><td>String</td><td>Datum und Uhrzeit der Einlösung</td></tr>
+            <tr><td><code>billNumber</code></td><td>String?</td><td>Zugehörige Rechnungsnummer</td></tr>
+            <tr><td><code>employeeNumber</code></td><td>String</td><td>Mitarbeiternummer des Bearbeiters</td></tr>
+            <tr><td><code>remainingValueAfter</code></td><td>String</td><td>Restguthaben nach dieser Einlösung</td></tr>
+        </tbody>
+    </table>
+
+    <!-- =============================== -->
+    <h3 id="kap-08-quellen">Gutscheinquellen (VoucherSourceType)</h3>
+
+    <p>Das System unterstützt verschiedene Gutscheinquellen, um auch Fremdgutscheine und Altgutscheine abwickeln zu können. Die Konfiguration der aktiven Quellen (und der Hauptschalter für Gutscheine) erfolgt im Web-Admin unter <em>Betrieb &rarr; Gutscheine</em>, Reiter <strong>Einstellungen</strong>.</p>
+
+    <table>
+        <thead>
+            <tr><th>Typ</th><th>Bezeichnung</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>INTERNAL</code></td><td>Intern</td><td>Gutscheine, die im POS-System erstellt und verkauft wurden</td></tr>
+            <tr><td><code>LEGACY</code></td><td>Alt</td><td>Altgutscheine aus früheren Systemen oder manueller Erstellung</td></tr>
+            <tr><td><code>EXTERNAL</code></td><td>Extern</td><td>Gutscheine von externen Partnersystemen oder Drittanbietern</td></tr>
+            <tr><td><code>PROMOTIONAL</code></td><td>Aktion</td><td>Aktionsgutscheine für Marketingkampagnen</td></tr>
+            <tr><td><code>GIFT_CARD</code></td><td>Geschenkkarte</td><td>Geschenkkarten von Kartenanbietern</td></tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <strong>Hinweis:</strong> Die Quelle <code>INTERNAL</code> ist immer konfiguriert und muss aktiv sein, wenn das Gutscheinsystem aktiviert ist. Weitere Quellen können in den Einstellungen einzeln aktiviert oder deaktiviert werden. Jede Quelle hat einen Namen, eine Beschreibung und einen Aktivierungs-Status.
+    </div>
+
+    <!-- =============================== -->
+    <h3 id="kap-08-filter">Filtern &amp; Suchen</h3>
+
+    <h4>Im Web-Admin</h4>
+    <p>Die Seite <em>Betrieb &rarr; Gutscheine</em> zeigt oben die Kennzahlen (u.&nbsp;a. den <strong>offenen Restwert</strong>, also die noch ausstehende Verbindlichkeit), darunter vier Reiter:</p>
+    <ul>
+        <li><strong>Ausgegebene Gutscheine</strong> &ndash; im gewählten Zeitraum ausgestellt, optional je Mitarbeiter</li>
+        <li><strong>Aktive Gutscheine</strong> &ndash; alle Gutscheine mit Restguthaben</li>
+        <li><strong>Eingelöste Gutscheine</strong> &ndash; Einlösungen im gewählten Zeitraum. Eine Einlösung, die durch einen Storno oder einen Zahlartwechsel rückgängig gemacht wurde, bleibt in der Liste stehen, ist aber hinter der Rechnungsnummer als <em>Storniert</em> bzw. <em>Storniert (Zahlartwechsel)</em> markiert und zählt in der Kennzahl &bdquo;Eingelöste Gutscheine&ldquo; nicht mit &ndash; dieselbe Regel wie im Z-Bon. Ihr Betrag wurde dem Gutschein beim Storno wieder gutgeschrieben.</li>
+        <li><strong>Einstellungen</strong> &ndash; Hauptschalter und Gutscheinquellen</li>
+    </ul>
+    <p>Auf einem Telefon sind die Bedienelemente kompakt angeordnet: Die vier Kennzahlen erscheinen zunächst als <strong>eine Zusammenfassungszeile</strong> (Ausgegeben und Eingelöst im Zeitraum) und lassen sich per Antippen aufklappen. Der <strong>Zeitraum-Wähler</strong> bleibt in der Leiste. <strong>Suche</strong> und <strong>Mitarbeiter</strong> (sofern Sie den Mitarbeiter wählen dürfen) liegen hinter der Schaltfläche <em>Filter</em>; dort gelten die Einstellungen erst nach <em>Anwenden</em>. Dasselbe gilt für die Suche auf einem schmalen Fenster, in dem das Suchfeld nicht mehr neben Zeitraum-Wähler und Filter-Schaltfläche passt.</p>
+    <p>Das Suchfeld <em>Gutscheine suchen&hellip;</em> sucht über alle Zeiträume nach der Gutscheinnummer. Ein Klick auf einen Gutschein öffnet rechts die Details mit dem <strong>Einlösungsverlauf</strong> und, falls zutreffend, den Angaben zur Stornierung.</p>
+
+    <div class="alert alert-info">
+        <strong>Entfallen:</strong> Die früheren Schnittstellen <code>GET /api/vouchers/search</code>, <code>GET /api/vouchers/active</code> und <code>GET /api/vouchers/check-number</code> gibt es nicht mehr. Die Gutscheinnummer wird immer vom System vergeben und auf Eindeutigkeit geprüft.
+    </div>
+
+    <h4>Filterung nach Erstellungsdatum</h4>
+    <p>Über <code>GET /api/vouchers/created-by-date</code> können Gutscheine nach Erstellungszeitraum gefiltert werden:</p>
+    <table>
+        <thead>
+            <tr><th>Parameter</th><th>Typ</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>startDate</code></td><td>String</td><td>Startdatum im ISO-8601-Format (Pflichtfeld)</td></tr>
+            <tr><td><code>endDate</code></td><td>String</td><td>Enddatum im ISO-8601-Format (Pflichtfeld)</td></tr>
+            <tr><td><code>employeeId</code></td><td>String?</td><td>Optional: Filterung nach erstellendem Mitarbeiter</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Filterung nach Einlösungsdatum</h4>
+    <p>Über <code>GET /api/vouchers/redeemed-by-date</code> können eingelöste Gutscheine nach Einlösungszeitraum gefiltert werden. Die Parameter sind identisch zur Erstellungsdatum-Filterung. Die Antwort enthält pro Einlösung: Gutscheinnummer, Originalwert, eingelöster Betrag, Restwert, Zeitpunkt, bearbeitender Mitarbeiter und Rechnungsnummer sowie, falls ein Storno die Einlösung rückgängig gemacht hat, <code>reversedByBillNumber</code> (die Storno-Rechnung) und <code>reversalReason</code> (<code>ZAHLARTWECHSEL</code> beim Zahlartwechsel).</p>
+
+    <!-- =============================== -->
+    <h3 id="kap-08-statistiken">Statistiken</h3>
+
+    <p>Über <code>GET /api/vouchers/statistics</code> (Berechtigung <code>VOUCHER_REPORT</code>, ebenso wie die beiden Datumsfilter oben) werden zusammengefasste Kennzahlen zur Gutscheinnutzung abgerufen:</p>
+
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Typ</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>totalVouchers</code></td><td>Long</td><td>Gesamtanzahl aller ausgestellten Gutscheine</td></tr>
+            <tr><td><code>activeVouchers</code></td><td>Long</td><td>Anzahl aktiver Gutscheine (mit Restguthaben)</td></tr>
+            <tr><td><code>fullyRedeemedVouchers</code></td><td>Long</td><td>Anzahl vollständig eingelöster Gutscheine</td></tr>
+            <tr><td><code>totalValueIssued</code></td><td>String</td><td>Gesamtwert aller ausgestellten Gutscheine</td></tr>
+            <tr><td><code>totalValueRedeemed</code></td><td>String</td><td>Gesamtwert aller eingelösten Beträge</td></tr>
+            <tr><td><code>totalValueRemaining</code></td><td>String</td><td>Gesamtes verbleibendes Guthaben aller aktiven Gutscheine</td></tr>
+        </tbody>
+    </table>
+
+    <!-- =============================== -->
+    <h3 id="kap-08-datenmodell">Gutschein-Datenmodell</h3>
+
+    <p>Ein Gutschein enthält folgende Kerndaten:</p>
+
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Typ</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>id</code></td><td>Long</td><td>Eindeutige Datenbank-ID</td></tr>
+            <tr><td><code>sessionId</code></td><td>Long?</td><td>Zugehörige Sitzungs-ID (<code>null</code> bei Direktverkauf)</td></tr>
+            <tr><td><code>voucherNumber</code></td><td>String</td><td>Eindeutige Gutscheinnummer (z.&nbsp;B. <code>G2025-0001</code>)</td></tr>
+            <tr><td><code>employeeNumber</code></td><td>String</td><td>Mitarbeiternummer des Erstellers</td></tr>
+            <tr><td><code>orderItemId</code></td><td>Long?</td><td>Zugehörige Bestellpositions-ID (bei Tischverkauf)</td></tr>
+            <tr><td><code>originalValue</code></td><td>String</td><td>Ursprünglicher Gutscheinwert</td></tr>
+            <tr><td><code>remainingValue</code></td><td>String</td><td>Aktuelles Restguthaben</td></tr>
+            <tr><td><code>totalRedeemed</code></td><td>String</td><td>Summe aller bisherigen Einlösungen</td></tr>
+            <tr><td><code>isFullyRedeemed</code></td><td>Boolean</td><td>Ob der Gutschein vollständig eingelöst wurde</td></tr>
+            <tr><td><code>createdAt</code></td><td>String</td><td>Erstellungszeitpunkt</td></tr>
+            <tr><td><code>fullyRedeemedAt</code></td><td>String?</td><td>Zeitpunkt der vollständigen Einlösung (nur gesetzt wenn <code>isFullyRedeemed = true</code>)</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-06-abrechnung.html">&larr; Vorheriges: Abrechnung &amp; Bezahlung</a>
+    <a href="kap-09-artikelverwaltung.html">Nächstes: Artikelverwaltung &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+-- Migration from version 3 to version 4: Remove local RTable/RoomElement tables (moved to in-memory cache) and offline queue
+DROP TABLE IF EXISTS local_rtables;
+DROP TABLE IF EXISTS local_room_elements;
+DROP TABLE IF EXISTS offline_queue;

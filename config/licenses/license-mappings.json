@@ -1,0 +1,109 @@
+{
+  "_comment": [
+    "Manual license mappings for shipped dependencies whose published metadata is missing or wrong.",
+    "A mapping REPLACES the declared licenses of 'dependency' ('group:name' or 'npm:name') with 'licenses'",
+    "(read as a choice, like several POM licenses). Keep this file minimal: every entry must cite the",
+    "evidence it was taken from. An entry that matches nothing is reported as stale and fails the check.",
+    "An optional 'version' pins the entry to that exact version: any other version is judged by its own metadata,",
+    "and the entry turns stale once its version is gone, forcing a re-check of the evidence."
+  ],
+  "mappings": [
+    {
+      "dependency": "com.sun.mail:mailapi",
+      "licenses": ["CDDL-1.1", "GPL-2.0-with-classpath-exception"],
+      "reason": "The artifact's own POM declares no license; it inherits 'CDDL/GPLv2+CE' from its parent POM com.sun.mail:all, which the SBOM does not follow. Arrives via ktor-server-openapi's swagger tooling.",
+      "evidence": "META-INF/LICENSE.txt inside mailapi-1.6.2.jar; https://github.com/javaee/javamail/blob/master/LICENSE.txt"
+    },
+    {
+      "dependency": "com.github.jai-imageio:jai-imageio-core",
+      "licenses": ["BSD-3-Clause"],
+      "reason": "The POM's name maps to SPDX 'BSD-3-Clause-No-Nuclear-License' (a field-of-use restriction), but the license the jar actually carries is BSD-3-Clause plus a non-binding acknowledgement that the software is 'not designed or intended for use' in a nuclear facility, i.e. BSD-3-Clause-No-Nuclear-Warranty, not a use restriction. Its own LICENSE file is reproduced verbatim in the notices.",
+      "evidence": "META-INF/LICENSE inside jai-imageio-core-1.4.0.jar"
+    },
+    {
+      "dependency": "npm:@napi-rs/canvas-android-arm64",
+      "version": "1.0.13",
+      "licenses": ["MIT"],
+      "reason": "Per-platform prebuilt package of @napi-rs/canvas, an OPTIONAL dependency of pdfjs-dist (shared-ui's wasm PDF viewer) used only by pdf.js's Node.js code path. yarn installs only the platform packages matching the build machine's OS/CPU, so on every other machine this one has no package.json to read and the check sees 'no license metadata'. Named exactly and pinned to the version in kotlin-js-store/wasm/yarn.lock, so a new platform package or a bump (possibly relicensed) is judged by its own metadata, never by this evidence. Never reaches the browser bundles: webpack leaves pdf.js's runtime require('@napi-rs/canvas') unresolved (owner decision 2026-10-22, dz).",
+      "evidence": "registry.npmjs.org/@napi-rs/canvas-android-arm64/1.0.13 declares 'license': 'MIT' (checked 2026-10-22); the parent @napi-rs/canvas 1.0.13 and the installed linux-x64-gnu/-musl siblings declare MIT in their package.json; https://github.com/Brooooooklyn/canvas/blob/main/LICENSE"
+    },
+    {
+      "dependency": "npm:@napi-rs/canvas-darwin-arm64",
+      "version": "1.0.13",
+      "licenses": ["MIT"],
+      "reason": "Per-platform prebuilt package of @napi-rs/canvas, an OPTIONAL dependency of pdfjs-dist (shared-ui's wasm PDF viewer) used only by pdf.js's Node.js code path. yarn installs only the platform packages matching the build machine's OS/CPU, so on every other machine this one has no package.json to read and the check sees 'no license metadata'. Named exactly and pinned to the version in kotlin-js-store/wasm/yarn.lock, so a new platform package or a bump (possibly relicensed) is judged by its own metadata, never by this evidence. Never reaches the browser bundles: webpack leaves pdf.js's runtime require('@napi-rs/canvas') unresolved (owner decision 2026-10-22, dz).",
+      "evidence": "registry.npmjs.org/@napi-rs/canvas-darwin-arm64/1.0.13 declares 'license': 'MIT' (checked 2026-10-22); the parent @napi-rs/canvas 1.0.13 and the installed linux-x64-gnu/-musl siblings declare MIT in their package.json; https://github.com/Brooooooklyn/canvas/blob/main/LICENSE"
+    },
+    {
+      "dependency": "npm:@napi-rs/canvas-darwin-x64",
+      "version": "1.0.13",
+      "licenses": ["MIT"],
+      "reason": "Per-platform prebuilt package of @napi-rs/canvas, an OPTIONAL dependency of pdfjs-dist (shared-ui's wasm PDF viewer) used only by pdf.js's Node.js code path. yarn installs only the platform packages matching the build machine's OS/CPU, so on every other machine this one has no package.json to read and the check sees 'no license metadata'. Named exactly and pinned to the version in kotlin-js-store/wasm/yarn.lock, so a new platform package or a bump (possibly relicensed) is judged by its own metadata, never by this evidence. Never reaches the browser bundles: webpack leaves pdf.js's runtime require('@napi-rs/canvas') unresolved (owner decision 2026-10-22, dz).",
+      "evidence": "registry.npmjs.org/@napi-rs/canvas-darwin-x64/1.0.13 declares 'license': 'MIT' (checked 2026-10-22); the parent @napi-rs/canvas 1.0.13 and the installed linux-x64-gnu/-musl siblings declare MIT in their package.json; https://github.com/Brooooooklyn/canvas/blob/main/LICENSE"
+    },
+    {
+      "dependency": "npm:@napi-rs/canvas-linux-arm-gnueabihf",
+      "version": "1.0.13",
+      "licenses": ["MIT"],
+      "reason": "Per-platform prebuilt package of @napi-rs/canvas, an OPTIONAL dependency of pdfjs-dist (shared-ui's wasm PDF viewer) used only by pdf.js's Node.js code path. yarn installs only the platform packages matching the build machine's OS/CPU, so on every other machine this one has no package.json to read and the check sees 'no license metadata'. Named exactly and pinned to the version in kotlin-js-store/wasm/yarn.lock, so a new platform package or a bump (possibly relicensed) is judged by its own metadata, never by this evidence. Never reaches the browser bundles: webpack leaves pdf.js's runtime require('@napi-rs/canvas') unresolved (owner decision 2026-10-22, dz).",
+      "evidence": "registry.npmjs.org/@napi-rs/canvas-linux-arm-gnueabihf/1.0.13 declares 'license': 'MIT' (checked 2026-10-22); the parent @napi-rs/canvas 1.0.13 and the installed linux-x64-gnu/-musl siblings declare MIT in their package.json; https://github.com/Brooooooklyn/canvas/blob/main/LICENSE"
+    },
+    {
+      "dependency": "npm:@napi-rs/canvas-linux-arm64-gnu",
+      "version": "1.0.13",
+      "licenses": ["MIT"],
+      "reason": "Per-platform prebuilt package of @napi-rs/canvas, an OPTIONAL dependency of pdfjs-dist (shared-ui's wasm PDF viewer) used only by pdf.js's Node.js code path. yarn installs only the platform packages matching the build machine's OS/CPU, so on every other machine this one has no package.json to read and the check sees 'no license metadata'. Named exactly and pinned to the version in kotlin-js-store/wasm/yarn.lock, so a new platform package or a bump (possibly relicensed) is judged by its own metadata, never by this evidence. Never reaches the browser bundles: webpack leaves pdf.js's runtime require('@napi-rs/canvas') unresolved (owner decision 2026-10-22, dz).",
+      "evidence": "registry.npmjs.org/@napi-rs/canvas-linux-arm64-gnu/1.0.13 declares 'license': 'MIT' (checked 2026-10-22); the parent @napi-rs/canvas 1.0.13 and the installed linux-x64-gnu/-musl siblings declare MIT in their package.json; https://github.com/Brooooooklyn/canvas/blob/main/LICENSE"
+    },
+    {
+      "dependency": "npm:@napi-rs/canvas-linux-arm64-musl",
+      "version": "1.0.13",
+      "licenses": ["MIT"],
+      "reason": "Per-platform prebuilt package of @napi-rs/canvas, an OPTIONAL dependency of pdfjs-dist (shared-ui's wasm PDF viewer) used only by pdf.js's Node.js code path. yarn installs only the platform packages matching the build machine's OS/CPU, so on every other machine this one has no package.json to read and the check sees 'no license metadata'. Named exactly and pinned to the version in kotlin-js-store/wasm/yarn.lock, so a new platform package or a bump (possibly relicensed) is judged by its own metadata, never by this evidence. Never reaches the browser bundles: webpack leaves pdf.js's runtime require('@napi-rs/canvas') unresolved (owner decision 2026-10-22, dz).",
+      "evidence": "registry.npmjs.org/@napi-rs/canvas-linux-arm64-musl/1.0.13 declares 'license': 'MIT' (checked 2026-10-22); the parent @napi-rs/canvas 1.0.13 and the installed linux-x64-gnu/-musl siblings declare MIT in their package.json; https://github.com/Brooooooklyn/canvas/blob/main/LICENSE"
+    },
+    {
+      "dependency": "npm:@napi-rs/canvas-linux-riscv64-gnu",
+      "version": "1.0.13",
+      "licenses": ["MIT"],
+      "reason": "Per-platform prebuilt package of @napi-rs/canvas, an OPTIONAL dependency of pdfjs-dist (shared-ui's wasm PDF viewer) used only by pdf.js's Node.js code path. yarn installs only the platform packages matching the build machine's OS/CPU, so on every other machine this one has no package.json to read and the check sees 'no license metadata'. Named exactly and pinned to the version in kotlin-js-store/wasm/yarn.lock, so a new platform package or a bump (possibly relicensed) is judged by its own metadata, never by this evidence. Never reaches the browser bundles: webpack leaves pdf.js's runtime require('@napi-rs/canvas') unresolved (owner decision 2026-10-22, dz).",
+      "evidence": "registry.npmjs.org/@napi-rs/canvas-linux-riscv64-gnu/1.0.13 declares 'license': 'MIT' (checked 2026-10-22); the parent @napi-rs/canvas 1.0.13 and the installed linux-x64-gnu/-musl siblings declare MIT in their package.json; https://github.com/Brooooooklyn/canvas/blob/main/LICENSE"
+    },
+    {
+      "dependency": "npm:@napi-rs/canvas-linux-x64-gnu",
+      "version": "1.0.13",
+      "licenses": ["MIT"],
+      "reason": "Per-platform prebuilt package of @napi-rs/canvas, an OPTIONAL dependency of pdfjs-dist (shared-ui's wasm PDF viewer) used only by pdf.js's Node.js code path. yarn installs only the platform packages matching the build machine's OS/CPU, so on every other machine this one has no package.json to read and the check sees 'no license metadata'. Named exactly and pinned to the version in kotlin-js-store/wasm/yarn.lock, so a new platform package or a bump (possibly relicensed) is judged by its own metadata, never by this evidence. Never reaches the browser bundles: webpack leaves pdf.js's runtime require('@napi-rs/canvas') unresolved (owner decision 2026-10-22, dz).",
+      "evidence": "registry.npmjs.org/@napi-rs/canvas-linux-x64-gnu/1.0.13 declares 'license': 'MIT' (checked 2026-10-22); the parent @napi-rs/canvas 1.0.13 and the installed linux-x64-gnu/-musl siblings declare MIT in their package.json; https://github.com/Brooooooklyn/canvas/blob/main/LICENSE"
+    },
+    {
+      "dependency": "npm:@napi-rs/canvas-linux-x64-musl",
+      "version": "1.0.13",
+      "licenses": ["MIT"],
+      "reason": "Per-platform prebuilt package of @napi-rs/canvas, an OPTIONAL dependency of pdfjs-dist (shared-ui's wasm PDF viewer) used only by pdf.js's Node.js code path. yarn installs only the platform packages matching the build machine's OS/CPU, so on every other machine this one has no package.json to read and the check sees 'no license metadata'. Named exactly and pinned to the version in kotlin-js-store/wasm/yarn.lock, so a new platform package or a bump (possibly relicensed) is judged by its own metadata, never by this evidence. Never reaches the browser bundles: webpack leaves pdf.js's runtime require('@napi-rs/canvas') unresolved (owner decision 2026-10-22, dz).",
+      "evidence": "registry.npmjs.org/@napi-rs/canvas-linux-x64-musl/1.0.13 declares 'license': 'MIT' (checked 2026-10-22); the parent @napi-rs/canvas 1.0.13 and the installed linux-x64-gnu/-musl siblings declare MIT in their package.json; https://github.com/Brooooooklyn/canvas/blob/main/LICENSE"
+    },
+    {
+      "dependency": "npm:@napi-rs/canvas-win32-arm64-msvc",
+      "version": "1.0.13",
+      "licenses": ["MIT"],
+      "reason": "Per-platform prebuilt package of @napi-rs/canvas, an OPTIONAL dependency of pdfjs-dist (shared-ui's wasm PDF viewer) used only by pdf.js's Node.js code path. yarn installs only the platform packages matching the build machine's OS/CPU, so on every other machine this one has no package.json to read and the check sees 'no license metadata'. Named exactly and pinned to the version in kotlin-js-store/wasm/yarn.lock, so a new platform package or a bump (possibly relicensed) is judged by its own metadata, never by this evidence. Never reaches the browser bundles: webpack leaves pdf.js's runtime require('@napi-rs/canvas') unresolved (owner decision 2026-10-22, dz).",
+      "evidence": "registry.npmjs.org/@napi-rs/canvas-win32-arm64-msvc/1.0.13 declares 'license': 'MIT' (checked 2026-10-22); the parent @napi-rs/canvas 1.0.13 and the installed linux-x64-gnu/-musl siblings declare MIT in their package.json; https://github.com/Brooooooklyn/canvas/blob/main/LICENSE"
+    },
+    {
+      "dependency": "npm:@napi-rs/canvas-win32-x64-msvc",
+      "version": "1.0.13",
+      "licenses": ["MIT"],
+      "reason": "Per-platform prebuilt package of @napi-rs/canvas, an OPTIONAL dependency of pdfjs-dist (shared-ui's wasm PDF viewer) used only by pdf.js's Node.js code path. yarn installs only the platform packages matching the build machine's OS/CPU, so on every other machine this one has no package.json to read and the check sees 'no license metadata'. Named exactly and pinned to the version in kotlin-js-store/wasm/yarn.lock, so a new platform package or a bump (possibly relicensed) is judged by its own metadata, never by this evidence. Never reaches the browser bundles: webpack leaves pdf.js's runtime require('@napi-rs/canvas') unresolved (owner decision 2026-10-22, dz).",
+      "evidence": "registry.npmjs.org/@napi-rs/canvas-win32-x64-msvc/1.0.13 declares 'license': 'MIT' (checked 2026-10-22); the parent @napi-rs/canvas 1.0.13 and the installed linux-x64-gnu/-musl siblings declare MIT in their package.json; https://github.com/Brooooooklyn/canvas/blob/main/LICENSE"
+    },
+    {
+      "dependency": "com.github.javakeyring:java-keyring",
+      "version": "1.0.4",
+      "licenses": ["BSD-3-Clause"],
+      "reason": "Declares its license as 'BSD-3', a spelling the allowlist does not know. The text is the standard three-clause BSD license (source and binary redistribution keep the notice; the third clause forbids using the names of east301 or contributors to endorse), i.e. SPDX BSD-3-Clause. Used by the desktop till for OS keychain storage of local secrets (Windows Credential Manager, macOS Keychain, Linux Secret Service) and so ships in the .deb. Pinned to the version in the build so a bump is judged by its own metadata (owner decision 2026-10-23, dz).",
+      "evidence": "https://github.com/javakeyring/java-keyring/blob/master/LICENSE (Copyright (c) 2012 east301, 2016-2023 Rex Hoffman and contributors; three clauses, checked 2026-10-23)"
+    }
+
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "_source": "wolph/mt940 mt940_tests/self-provided/raiffeisen-cmi.sta, BSD-3-Clause (c) 2014 Rick van Hattem.",
+  "_exercises": "A non-EUR (HUF) statement with a Latin-2 payload, :61: lines carrying a funds code and no customer reference, and unstructured multi-line :86: text. This file is why entries inherit the statement currency instead of a hardcoded EUR. Refused because the export is truncated: all seven entries parse and sum to -1012213.50, verified by hand, which does not reach the stated closing balance.",
+  "outcome": "Failure",
+  "_note": "Before the currency fix it failed with 'entry currency EUR does not match the statement currency HUF' — every entry of a non-EUR statement was wrong. It now fails only on the file's own truncation."
+}

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 02 – Ersteinrichtung – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 02 – Ersteinrichtung</h2>
+
+    <h3 id="kap-02-kassenrechner">Server auf einem Ubuntu-Desktop als Kassenrechner einrichten (Linux)</h3>
+    <p>
+        Das Skript <code>install-service.sh</code> installiert den Server als Systemdienst
+        (<code>sudo ./install-service.sh</code>, im Verzeichnis des entpackten Server-Pakets). Läuft es
+        interaktiv auf einer <strong>Standard-Installation von Ubuntu Desktop</strong>, stellt es zusätzlich die
+        Frage <code>Slim down this system as well? (y/N)</code>. Mit <strong>n</strong> wird nur der Server
+        installiert; mit <strong>y</strong> wird der Rechner zusätzlich zu einem dedizierten Kassenrechner
+        umgebaut. Auf anderen Systemen (z.&nbsp;B. Ubuntu Server) und in nicht interaktiven Läufen wird die Frage
+        nicht gestellt.
+    </p>
+    <p>
+        Der Ubuntu-<strong>Desktop</strong> ist die Voraussetzung, weil er Gerätetreiber mitbringt, die eine
+        schlankere Installation nicht enthält &ndash; bei einem MacBook Air von 2017 etwa den WLAN-Treiber.
+        Deshalb wird nichts deinstalliert: GNOME wird nur abgeschaltet.
+    </p>
+
+    <h4>Was die Verschlankung ändert</h4>
+    <ul>
+        <li><strong>Start ohne Desktop:</strong> Der Rechner bootet in die Textkonsole, GNOME/GDM startet nicht
+            mehr (spart rund 1&nbsp;GB Arbeitsspeicher). Danach zeigt ein Vollbild-Browser (<code>cage</code>
+            mit Chromium) die Web-Admin-Oberfläche oder die Kasse (<code>/pos/</code>) &ndash; ohne Anmeldebild
+            und ohne Desktop. Der Browser wird nachts um 04:30&nbsp;Uhr neu gestartet.</li>
+        <li><strong>System-Tab:</strong> Hinter den Anwendungs-Tabs liegt ein Tab <em>System</em> (Strg+Tab
+            wechselt, Strg+3 springt bei zwei Anwendungen direkt hin). Er zeigt Akkustand, Zustand von Server und
+            Netzwerk, die Adresse und die Laufzeit des Rechners und bietet <strong>Neustart</strong>,
+            <strong>Herunterfahren</strong> und <strong>Bildschirm ausschalten</strong> (die Kasse wird beendet und der
+            Bildschirm abgeschaltet, der Server läuft weiter). Jede dieser Aktionen verlangt eine zweite Bestätigung. Fällt der Akku im
+            Akkubetrieb unter <strong>40&nbsp;%</strong>, schaltet sich der Tab von selbst in den Vordergrund und warnt;
+            <strong>Zurück zur Kasse</strong> führt zum vorherigen Tab. Die Warnung kehrt alle 10&nbsp;Minuten zurück
+            (unter 15&nbsp;% alle 3&nbsp;Minuten), bis das Ladegerät angeschlossen ist. Wer den Bildschirm ausgeschaltet hat,
+            holt die Kasse mit der Tastenkombination <strong>Strg+Alt+U</strong> zurück (einstellbar mit
+            <code>KIOSK_WAKE_COMBO</code>); die Kombination wird auf dem Knopf angezeigt. Notfalls per SSH:
+            <code>sudo systemctl start pos-kiosk</code>. Ein Neustart des Rechners stellt die Kasse ebenfalls wieder her.</li>
+        <li><strong>Deckel zuklappen:</strong> Der Rechner schläft nicht ein. Beim Zuklappen wird nur die
+            Bildschirm-Oberfläche (Kasse/Admin im Vollbild) beendet, der Server läuft weiter; beim Aufklappen startet
+            sie wieder. Einen Bildschirm, den Sie im System-Tab selbst ausgeschaltet haben, schaltet das Aufklappen nicht wieder ein.
+            Abschaltbar mit <code>LID_STOPS_KIOSK="no"</code>.</li>
+        <li><strong>TSE und Backup-Stick:</strong> Ein USB-Stick mit der Bezeichnung <code>SWISSBIT</code> (die TSE)
+            wird unter <code>/media/pos/SWISSBIT</code> eingehängt &ndash; auch wenn er erst später eingesteckt
+            oder getauscht wird, und beim Abziehen automatisch wieder ausgehängt (sonst bliebe eine tote Einhängung
+            zurück, an der der Server beim Starten hängen kann); ohne Stick startet der Rechner trotzdem. Optional gilt dasselbe für einen
+            Backup-Stick (siehe unten).</li>
+        <li><strong>Sicherheit und Betrieb:</strong> Firewall (nur SSH und der Server-Port), kein Ruhezustand,
+            auch nicht bei geschlossenem Deckel; bei fast leerem Akku fährt der Rechner sauber herunter; das
+            Journal ist auf 500&nbsp;MB begrenzt; nicht benötigte Dienste (Bluetooth, Modem-Manager u.&nbsp;a.)
+            sind abgeschaltet.</li>
+        <li><strong>Kernel-Updates von Hand:</strong> Läuft ein nachgeladener Treiber wie der Broadcom-WLAN-Treiber
+            (<code>wl</code>), werden Kernel nicht mehr automatisch aktualisiert, weil ein fehlgeschlagener
+            Treiber-Bau den Rechner ohne WLAN zurückließe. Nach einem manuellen Kernel-Update vor dem Neustart mit
+            <code>dkms status</code> prüfen, dass der Treiber für den neuen Kernel gebaut wurde.</li>
+    </ul>
+
+    <h4>Einstellungen</h4>
+    <p>
+        Die Auswahl steht in <code>pos-node.conf</code> neben dem Skript (Vorlage: <code>pos-node.conf.example</code>,
+        jeder Eintrag ist dort erklärt). Fehlt die Datei, gelten Standardwerte. Die wichtigsten Einträge:
+    </p>
+    <table>
+        <thead><tr><th>Eintrag</th><th>Bedeutung</th></tr></thead>
+        <tbody>
+            <tr><td><code>KIOSK_APPS</code></td><td><code>admin</code>, <code>pos</code> oder beides (dann ein Tab je Anwendung, Umschalten mit Strg+Tab &ndash; Tastatur nötig). Die Kasse unter <code>/pos/</code> antwortet erst mit 404, bis im Web-Admin unter <strong>Einstellungen → Browser-Stationen</strong> eine Rolle aktiviert ist; für die erste Einrichtung daher <code>admin</code>.</td></tr>
+            <tr><td><code>KIOSK_STATUS_TAB</code>, <code>KIOSK_WAKE_COMBO</code>, <code>BATTERY_WARN_PERCENT</code>, <code>BATTERY_CRITICAL_PERCENT</code>, <code>BATTERY_REWARN_MINUTES</code></td><td>System-Tab ein/aus (<code>yes</code>/<code>no</code>), die Tastenkombination, die nach <em>Bildschirm ausschalten</em> die Kasse zurückholt (Standard <code>ctrl+alt+u</code>; Modifikator plus eine Taste, nach Tastenposition), und die Schwellen der Akkuwarnung (Standard 40&nbsp;%, kritisch 15&nbsp;%, Wiederholung 10&nbsp;Minuten). Der Tab braucht <code>python3</code>; er öffnet zusätzlich Chromiums Fehlersuch-Schnittstelle, ausschließlich auf <code>127.0.0.1</code>.</td></tr>
+            <tr><td><code>TSE_LABEL</code></td><td>Bezeichnung des TSE-Sticks (Standard <code>SWISSBIT</code>).</td></tr>
+            <tr><td><code>BACKUP_LABEL</code></td><td>Bezeichnung des Backup-Sticks (Standard <code>ZEN_BACKUP</code>, leer = kein Backup-Stick). Er erscheint unter <code>/media/pos/ZEN_BACKUP</code>; diesen Pfad tragen Sie in den Einstellungen als Backup-Pfad ein. FAT32 fasst keine Dateien über 4&nbsp;GB &ndash; den Stick als exFAT oder ext4 formatieren.</td></tr>
+            <tr><td><code>CUPS</code>, <code>PRINTER_QUEUE</code>, <code>PRINTER_URI</code></td><td>Drucken (siehe unten).</td></tr>
+            <tr><td><code>STATIC_IP</code>, <code>GATEWAY</code></td><td>Feste Adresse; alternativ im Router eine feste Zuordnung (DHCP-Reservierung) einrichten.</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Drucker</h4>
+    <p>
+        Der Server druckt über <strong>CUPS</strong>, sobald ein USB-Drucker angeschlossen ist; deshalb bleibt CUPS
+        eingeschaltet. Der Drucker braucht eine <em>raw</em>-Warteschlange:
+        <code>lpinfo -v</code> zeigt die Geräteadresse, <code>sudo lpadmin -p kasse -E -v &lt;Adresse&gt; -m raw</code>
+        legt die Warteschlange an (oder <code>PRINTER_QUEUE</code>/<code>PRINTER_URI</code> in der Konfiguration
+        setzen). Netzwerkdrucker, die den Bon direkt auf Port 9100 annehmen, brauchen CUPS nicht
+        (<code>CUPS="disable"</code>).
+    </p>
+
+    <h4>Prüfen und rückgängig machen</h4>
+    <ul>
+        <li><code>./provision-node.sh --check</code> prüft die Konfiguration und den Rechner, ohne etwas zu ändern.</li>
+        <li><code>sudo /opt/pos-node/provision-node.sh --undo</code> macht die Änderungen der Verschlankung rückgängig
+            (Boot-Ziel, abgeschaltete Dienste, Mounts, Firewall-Zustand). Der Server selbst wird mit
+            <code>install-service.sh --uninstall</code> entfernt.</li>
+        <li>Die Änderungen wirken nach einem <strong>Neustart</strong>. Ohne LAN-Kabel ist das WLAN die einzige
+            Verbindung zum Rechner &ndash; ein LAN-Adapter erleichtert die Fehlersuche.</li>
+    </ul>
+    <div class="alert alert-info">
+        <strong>Hinweis:</strong> Ein MacBook Air hat keinen Lüfter. Bei geschlossenem Deckel in einer Schublade
+        staut sich die Wärme &ndash; stellen Sie den Rechner so auf, dass er Luft bekommt.
+    </div>
+
+    <h4 id="kap-02-speicherorte">Speicherorte der Linux-Installation</h4>
+    <p>
+        Eine <strong>neue</strong> Installation mit <code>install-service.sh</code> legt ihre Daten an den
+        Standardorten von Linux ab:
+    </p>
+    <table>
+        <thead><tr><th>Ort</th><th>Inhalt</th></tr></thead>
+        <tbody>
+            <tr><td><code>/opt/pos-server</code></td><td>Programm, mitgelieferte Java-Laufzeit, Skripte (unverändert)</td></tr>
+            <tr><td><code>/var/lib/zenbon</code></td><td>Alle Daten des Servers: Datenbank (<code>.data/postgresql</code>), <code>documents</code>, <code>exports</code>, <code>backups</code>, <code>cache</code></td></tr>
+            <tr><td><code>/var/log/zenbon</code></td><td>Protokolldateien <code>application.log</code> und <code>error.log</code></td></tr>
+            <tr><td><code>/etc/zenbon/server.env</code></td><td>Umgebungsdatei mit dem JWT-Geheimnis und weiteren Schlüsseln (Dateirechte 600)</td></tr>
+        </tbody>
+    </table>
+    <p>
+        Der Dienst legt diese Ordner selbst an (<code>StateDirectory=</code>, <code>LogsDirectory=</code>,
+        <code>ConfigurationDirectory=</code>) und braucht keinen Zugriff mehr auf <code>/home</code>. Die Dokumente
+        bleiben im Datenordner; wer sie auf einer eigenen Platte haben möchte, hängt diese Platte auf
+        <code>/var/lib/zenbon/documents</code> ein.
+    </p>
+    <div class="alert alert-info">
+        <strong>Bestehende Installationen bleiben unverändert.</strong> Ein Server, dessen Daten in
+        <code>/home/pos/Zenbon POS</code> liegen, behält diesen Ort nach jedem Update; das Installationsskript erkennt
+        das bei jedem Lauf und schreibt die alten Pfade unverändert in den Dienst.
+    </div>
+    <h4 id="kap-02-datenordner-umziehen">Bestehende Installation auf die Standardpfade umziehen</h4>
+    <p>
+        Nur auf ausdrücklichen Wunsch: <code>sudo ./install-service.sh --migrate-data-dir</code>. Das Skript geht in
+        dieser Reihenfolge vor und hält beim ersten Fehler an:
+    </p>
+    <ol>
+        <li>Es verweigert den Lauf, solange der Dienst läuft; mit <code>--yes</code> (oder der Antwort <em>y</em>
+            auf die Rückfrage) hält es ihn selbst an.</li>
+        <li>Es prüft den freien Platz auf dem Ziel (<code>/home</code> und <code>/var</code> liegen oft auf
+            verschiedenen Platten) &ndash; <em>vor</em> dem Anhalten des Dienstes.</li>
+        <li>Es kopiert den Datenordner mit <code>rsync -a</code>; der alte Ordner wird nicht verändert. Fehlt
+            <code>rsync</code> (schlanke Server-Abbilder), installiert das Skript es vorher, noch vor dem Anhalten
+            des Dienstes.</li>
+        <li>Es prüft die Kopie (Dateianzahl, Gesamtgröße, <code>PG_VERSION</code> und <code>postgresql.conf</code>).</li>
+        <li>Es schreibt Dienst-Datei und Umgebungsdatei (<code>/etc/zenbon/server.env</code>) neu und startet den Dienst.</li>
+        <li>Beim ersten Start setzt der Server die drei gespeicherten Ordnerpfade (Dokumente, Backups, DATEV-Export)
+            um, soweit sie im alten Datenordner lagen; ein Pfad auf einen USB-Stick bleibt unberührt.</li>
+        <li>Ist der Server gesund, wird der alte Ordner in <code>Zenbon POS.migrated-&lt;Datum&gt;</code> umbenannt;
+            nach einer guten Sicherung kann er gelöscht werden. Andernfalls stellt das Skript die alte Dienst-Datei
+            wieder her, entfernt die unvollständige Kopie der Datenbank und startet vom alten Ordner; der Umzug lässt
+            sich danach erneut ausführen.</li>
+    </ol>
+    <p>
+        Wer bisher <code>/home/pos</code> gesichert hat, sichert danach <code>/var/lib/zenbon</code> und
+        <code>/etc/zenbon</code>.
+    </p>
+
+    <h4 id="kap-02-backup-stick">Backup-Stick einrichten (<code>--backup-device</code>)</h4>
+    <p>
+        <code>sudo ./install-service.sh --backup-device</code> listet die Wechseldatenträger und USB-Laufwerke auf
+        (die Platte, von der der Rechner startet, nie), lässt Sie einen auswählen und hängt ihn unter
+        <code>/media/pos/&lt;Bezeichnung&gt;</code> ein. Fehlt dem Stick eine Bezeichnung, fragt das Skript danach
+        (Vorschlag <code>ZEN_BACKUP</code>). Das Skript <strong>formatiert nie</strong>: Hat der Stick kein Dateisystem,
+        bricht es ab und zeigt den <code>mkfs</code>-Befehl zum Selbstausführen. Ein FAT32-Stick wird mit dem Hinweis
+        angenommen, dass er keine Dateien über 4&nbsp;GB fasst. Der Stick wird mit <code>nofail</code> und
+        Automount eingetragen, ein fehlender Stick verhindert also nie den Start. Am Ende nennt das Skript den Pfad,
+        den Sie im Web-Admin eintragen (siehe <a href="kap-13-einstellungen.html">Kapitel&nbsp;13</a>, Feld
+        <em>Kopie speichern in</em>).
+    </p>
+
+    <h3>Setup-Wizard</h3>
+    <div class="alert alert-info">
+        <strong>Hinweis:</strong> Die Ersteinrichtung findet im <strong>Web-Admin</strong> statt, nicht in der
+        Kassen-App. Öffnen Sie auf einem frisch installierten Server im Browser die Adresse
+        <code>http://&lt;Server-Adresse&gt;:8080/admin</code> (z.&nbsp;B. <code>http://192.168.1.20:8080/admin</code>).
+        Solange noch kein Inhaberkonto vorhanden ist, zeigt der Web-Admin statt der Anmeldung den Assistenten
+        <strong>Diesen Server einrichten</strong>. Eine Kassen-App, die sich mit einem noch nicht eingerichteten
+        Server verbindet, zeigt nur den Hinweis <strong>Einrichtung erforderlich</strong> mit der Adresse des
+        Web-Admin und <strong>Erneut prüfen</strong>. Der Web-Admin wird nur aus einem gepackten Deployment
+        ausgeliefert; ein als reiner Entwicklungsstand gestarteter Server antwortet unter <code>/admin</code> mit 404.
+    </div>
+
+    <h4>Schritt 1: Inhaberkonto anlegen</h4>
+    <ol class="steps">
+        <li>Geben Sie einen Benutzernamen ein.</li>
+        <li>Legen Sie ein sicheres Passwort fest (mindestens 6 Zeichen) und bestätigen Sie es.</li>
+        <li>Geben Sie eine E-Mail-Adresse ein (muss <kbd>@</kbd> enthalten).</li>
+        <li>Tragen Sie Vorname und Nachname ein (Pflicht &ndash; der Name erscheint als Bediener auf den von Ihnen signierten Belegen und im DSFinV-K-Export).</li>
+        <li>Legen Sie eine PIN fest (Pflicht); mit ihr melden Sie sich an der Kasse auch mit Mitarbeiternummer an.</li>
+    </ol>
+
+    <h4>Alternative: Backup wiederherstellen</h4>
+    <p>Anstelle der Ersteinrichtung können Sie im Assistenten über <strong>Backup-Datei auswählen (.zip)</strong> eine vorhandene Sicherungsdatei aus einer früheren Installation hochladen und wiederherstellen. Administratorkonto und Geschäftsdaten werden dabei vollständig aus dem Backup übernommen – beide Schritte des Wizards entfallen, und Sie melden sich anschließend mit den im Backup enthaltenen Zugangsdaten an.</p>
+    <div class="alert alert-warning">
+        <strong>Wichtig:</strong> Die Wiederherstellung ist nur vor Abschluss der Ersteinrichtung möglich. Ist das System bereits initialisiert (Administratorkonto, Geschäftsdaten und Konfiguration liegen vor), lehnt der Server den Wiederherstellungsversuch mit Fehler 409 (Conflict) ab.
+    </div>
+    <p>Die hochgeladene Datei darf höchstens so groß sein wie die Upload-Grenze der Sicherungseinstellungen (<code>maxUploadBytes</code>, auf einer Neuinstallation 2&nbsp;GB). Eine größere Datei lehnt der Server mit Fehler 413 (<code>UPLOAD_TOO_LARGE</code>) ab und nennt die Grenze &ndash; auch dann, wenn die Größe vorab nicht angegeben wird und erst beim Hochladen auffällt. Es wird nichts wiederhergestellt, und keine Zwischendatei bleibt zurück.</p>
+    <p>Stammt die Sicherung von einem anderen Rechner, verweisen die darin eingestellten Ordner (DATEV-Export, Sicherungen, Dokumentenablage) meist auf die Ordner der alten Installation. Exporte und Sicherungen dorthin bleiben dann angehalten, bis ein Administrator auf dem Dashboard unter <strong>Nach der Wiederherstellung: Speicherpfade prüfen</strong> je Pfad <em>Beibehalten</em> oder <em>Standard verwenden</em> gewählt hat &ndash; siehe <a href="kap-16-fehlerbehebung.html#kap-16-speicherpfade">Kapitel 16</a>.</p>
+
+    <h4>Schritt 2: Geschäftsdaten erfassen</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Pflicht</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Geschäftsname</td><td>Ja</td><td>Name des Gastronomiebetriebs</td></tr>
+            <tr><td>Firmenname</td><td>Nein</td><td>Offizieller Firmenname, falls abweichend</td></tr>
+            <tr><td>Adresse</td><td>Ja</td><td>Straße und Hausnummer</td></tr>
+            <tr><td>Stadt</td><td>Ja</td><td>Ort</td></tr>
+            <tr><td>PLZ</td><td>Ja</td><td>Postleitzahl (3–10 Zeichen)</td></tr>
+            <tr><td>Land</td><td>Nein</td><td>Standard: Germany</td></tr>
+            <tr><td>Telefon</td><td>Ja</td><td>Kontaktnummer</td></tr>
+            <tr><td>Steuernummer</td><td>Nein</td><td>Steuer-ID für Belege und Exporte</td></tr>
+            <tr><td>USt-IdNr.</td><td>Nein</td><td>Umsatzsteuer-Identifikationsnummer für den DSFinV-K-Export (Feld USTID, max. 15 Zeichen). Muss dem Format einer echten §27a-USt-IdNr entsprechen (Länderpräfix + alphanumerisch, bei DE genau 9 Ziffern) – eine Steuernummer wird hier abgelehnt (400)</td></tr>
+            <tr><td>E-Mail</td><td>Nein</td><td>Geschäfts-E-Mail</td></tr>
+            <tr><td>Zeitzone</td><td>Nein</td><td>Standard: Europe/Berlin</td></tr>
+            <tr><td>Webseite</td><td>Nein</td><td>Optionale Geschäfts-Website</td></tr>
+            <tr><td>Währungscode</td><td>Nein</td><td>ISO 4217, Standard: EUR</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Optionale Bankdaten</h4>
+    <ul>
+        <li>Bankname</li>
+        <li>BIC</li>
+        <li>IBAN</li>
+    </ul>
+
+    <h4>Automatische Konfiguration</h4>
+    <p>Nach der Einrichtung werden automatisch konfiguriert:</p>
+    <ul>
+        <li>Zahlungsarten (Bar, Karte, etc.)</li>
+        <li>MwSt.-Sätze (19 %, 7 %, 0 %)</li>
+        <li>Standard-Konfigurationsschlüssel</li>
+        <li>TSE-Modus: <strong>deaktiviert</strong> – die TSE wird anschließend in den TSE-Einstellungen in Betrieb genommen</li>
+    </ul>
+
+    <div class="alert alert-warning">
+        <strong>Wichtig:</strong> Die Geschäftsdaten werden auf Belegen, im Kassenbuch und in den DSFinV-K-Exporten verwendet. Stellen Sie sicher, dass alle Angaben korrekt sind.
+    </div>
+
+    <h3>Server-Ersteinrichtung im Web-Admin</h3>
+    <p>Solange der Server noch nicht eingerichtet ist, leitet die Serveradresse (<code>http://&lt;Server&gt;:8080/</code>) automatisch zur Ersteinrichtung im Web-Admin weiter. Erst danach zeigt sie die Startseite (siehe <a href="kap-13-einstellungen.html#kap-13-web-zugang">Startseite und API-Dokumentation</a>).</p>
+    <p>Im Überblick führt Sie der Web-Admin auf einem frisch bereitgestellten Server durch die komplette Ersteinrichtung — noch bevor eine Anmeldung möglich ist:</p>
+    <ol class="steps">
+        <li>Inhaberkonto anlegen (Benutzername, Passwort, E-Mail, Vor- und Nachname, PIN) und Geschäftsdaten eingeben (siehe oben).</li>
+        <li>Anmelden mit den soeben angelegten Inhaber-Zugangsdaten.</li>
+        <li>Assistent <strong>Erstes Terminal einrichten</strong>: erstes Terminal anlegen (Name und Rolle – <em>Kasse</em> oder <em>Bestellstation</em>, Standard: Kasse). Das Terminal kommt zuerst, weil die Inbetriebnahme es als ersten Client auf der TSE registriert &ndash; der Web-Admin ist selbst kein Terminal.</li>
+        <li>TSE in Betrieb nehmen (Admin-PIN, Admin-PUK, Zeit-Admin-PIN und Seed eingeben; derselbe Dialog wie in den TSE-Einstellungen, das Terminal ist darin auf das soeben angelegte festgelegt). Die Inbetriebnahme registriert dieses Terminal als TSE-Client, eine eigene Registrierung entfällt. Ist die TSE deaktiviert &ndash; der Auslieferungszustand &ndash;, wird dieser Schritt trotzdem angeboten; zusätzlich gibt es <strong>Ohne TSE fortfahren</strong> (siehe unten).</li>
+        <li>Nur wenn die TSE bereits in Betrieb ist (Schaltfläche <strong>TSE bereits eingerichtet — dieses Terminal registrieren</strong>, oder die TSE meldet sich bei der Inbetriebnahme als bereits eingerichtet): TSE-Client des Terminals registrieren (bei gesperrter Admin-Sitzung werden Sie zur Eingabe der Admin-PIN aufgefordert). Schlägt die Registrierung fehl, zeigt der Assistent den Grund an: Sie können es <strong>erneut versuchen</strong> oder mit <strong>Später registrieren — Code trotzdem erzeugen</strong> direkt zum Kopplungscode weitergehen; der Abschluss erinnert dann daran, den TSE-Client nachzuregistrieren. Brechen Sie die PIN-Eingabe ab, weist die Karte darauf hin, dass jemand mit der TSE-Admin-PIN die Sitzung entsperren muss; ohne TSE-Admin-Rechte (z. B. als Manager) können Sie die Registrierung stattdessen auf später verschieben.</li>
+        <li>Kopplungscode und QR-Code erzeugen – das neue Gerät scannt den QR-Code, um sich mit dem Server zu verbinden und sich zu koppeln. Wurde die TSE-Registrierung zuvor auf später verschoben und ist die TSE in Betrieb, fragt der Assistent vorher, ob das Gerät <strong>beim Koppeln an der TSE registriert</strong> werden soll (vorausgewählt; dafür wird ggf. die Admin-PIN abgefragt, siehe <a href="kap-13-einstellungen.html#kap-13-terminalverwaltung">Terminalverwaltung</a>). Über dem QR-Code steht die Server-Adresse, die er enthält (siehe <a href="kap-13-einstellungen.html#kap-13-terminalverwaltung">Terminalverwaltung</a>).</li>
+    </ol>
+    <div class="alert alert-warning">
+        <strong>TSE deaktiviert:</strong> Eine Neuinstallation startet mit deaktivierter TSE. Der Assistent bietet die Inbetriebnahme trotzdem an und weist im Schritt „TSE in Betrieb nehmen“ darauf hin: Die Inbetriebnahme nimmt die TSE in Betrieb und stellt den TSE-Modus auf <em>Normal</em> &ndash; ein Umstellen des Modus vorher ist nicht nötig. Nur wenn das Geschäft ohne TSE arbeitet, wählen Sie <strong>Ohne TSE fortfahren</strong>; dann entfallen Inbetriebnahme und Registrierung des TSE-Clients, und der Abschluss weist darauf hin. Nehmen Sie die TSE in diesem Fall später in den TSE-Einstellungen (Web-Admin: <strong>Geräte → TSE</strong>) in Betrieb und wählen Sie dabei das Terminal, das als erster TSE-Client registriert wird; weitere Terminals registrieren Sie unter <strong>Geräte → Terminals</strong> mit <strong>TSE registrieren</strong>. Solange die TSE deaktiviert ist, lehnt der Server die Registrierung mit der Meldung „Die TSE ist deaktiviert, daher ist dieser Vorgang nicht möglich.“ ab.
+    </div>
+    <div class="alert alert-info">
+        <strong>Hinweis:</strong> Die Schritte ab „TSE in Betrieb nehmen“ können übersprungen und später über den Startbildschirm des Web-Admin bzw. die Terminalverwaltung nachgeholt werden. Die Inhaber-/Geschäftseinrichtung ist verpflichtend. Der Assistent „Erstes Terminal einrichten“ läuft nur auf einem frisch eingerichteten Server, nicht nach einem Update: Bestehende Kassen werden nach dem Update über <strong>Geräte → Terminals</strong> mit einem Kopplungscode neu gekoppelt (siehe <a href="kap-03-anmeldung.html#kap-03-kopplung">Kapitel 03</a>).
+    </div>
+
+    <h3 id="kap-02-geraet-verbinden">Kasse oder Station mit dem Server verbinden</h3>
+    <div class="alert alert-info">
+        <strong>Im Browser:</strong> Eine <strong>Browser-Station</strong> braucht keine Installation und keine
+        Server-Adresse &ndash; sie wird unter <code>http://&lt;Server-Adresse&gt;:8080/pos/</code> geöffnet und
+        ist daher immer mit dem richtigen Server verbunden. Die Rolle muss zuvor im Web-Admin unter
+        <strong>Einstellungen &rarr; Browser-Stationen</strong> aktiviert sein, siehe
+        <a href="kap-13-einstellungen.html#kap-13-browser-stationen">Kapitel 13</a> und
+        <a href="kap-03-anmeldung.html#kap-03-browser-kopplung">Kapitel 03</a>. Die folgenden Schritte
+        betreffen die installierte App.
+    </div>
+    <p>
+        Die Kassen-App (Android-Tablet, Linux-Desktop-Client) prüft beim Start, ob der Server erreichbar und das
+        Gerät gekoppelt ist. Eine frisch installierte App kennt die Adresse Ihres Servers noch nicht und
+        versucht es zunächst mit <code>http://localhost:8080/</code> – auf einem Tablet ist das das
+        Tablet selbst. Der Startbildschirm zeigt dann <strong>Server nicht erreichbar</strong> und
+        darunter die eingestellte Server-Adresse.
+    </p>
+    <ol class="steps">
+        <li>Auf <strong>Server-Adresse ändern</strong> tippen.</li>
+        <li>Die Adresse des Servers im Netzwerk eintragen, z.&nbsp;B. <code>http://192.168.1.20:8080</code>. Fehlt <code>http://</code>, wird es ergänzt. Eine ungültige Eingabe wird mit einer Meldung abgelehnt und nicht gespeichert.</li>
+        <li><strong>Speichern</strong> – die App prüft die neue Adresse sofort. Ist der Server dort erreichbar, erscheint der Kopplungsbildschirm; sonst bleibt der Startbildschirm mit der neuen Adresse stehen.</li>
+        <li>Den Kopplungscode aus der <a href="kap-13-einstellungen.html#kap-13-terminalverwaltung">Terminalverwaltung</a> eingeben oder den QR-Code scannen. Der QR-Code enthält die Server-Adresse bereits; auf dem Kopplungsbildschirm lässt sie sich zusätzlich über <strong>Server ändern</strong> anpassen.</li>
+    </ol>
+    <div class="alert alert-warning">
+        <strong>Nur ein noch nicht gekoppeltes Gerät kann die Server-Adresse ändern.</strong> Ein
+        gekoppeltes Gerät zeigt am Startbildschirm nur die Adresse und den Hinweis, dass sie sich dort
+        nicht ändern lässt; die App lehnt eine Änderung auch intern ab. Dasselbe gilt für den Bildschirm
+        <strong>Einrichtung erforderlich</strong>, den die App zeigt, wenn der Server selbst noch nicht
+        eingerichtet ist (etwa nach einem Zurücksetzen): Nur ein noch nicht gekoppeltes Gerät kann die
+        Adresse dort ändern, ein gekoppeltes sieht stattdessen denselben Hinweis. Die Kopplung gehört zu genau
+        diesem Server: Das Gerät weist sich bei jeder Anfrage mit seinem Kopplungsschlüssel aus, der an
+        keine andere Adresse gehen darf, und TSE-Client und Kassenjournal des Terminals liegen auf diesem
+        Server. Ist ein gekoppeltes Gerät nicht erreichbar, liegt es am Netzwerk oder am Server – beides
+        prüfen und <strong>Wiederholen</strong> tippen. Geben Sie dem Server deshalb eine feste IP-Adresse
+        (z.&nbsp;B. eine feste Zuweisung im Router).
+    </div>
+    <p>
+        Hat der Server dauerhaft eine andere Adresse bekommen, ist die feste Zuweisung der alten Adresse
+        der schonendste Weg. Andernfalls muss das Gerät neu gekoppelt werden: Kopplung in der
+        Terminalverwaltung widerrufen, auf dem Gerät die App-Daten löschen (Android: App-Info →
+        Speicher → Speicher löschen; Desktop: die Datei <code>.pos/pos_database.db</code> im
+        Benutzerordner entfernen) und das Gerät wie oben mit der neuen Adresse und einem neuen
+        Kopplungscode verbinden. Dabei geht alles verloren, was nur auf dem Gerät gespeichert ist.
+    </p>
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-01-einfuehrung.html">&larr; Vorheriges: Einführung</a>
+    <a href="kap-03-anmeldung.html">Nächstes: Anmeldung &amp; Sicherheit &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

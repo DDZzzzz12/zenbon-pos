@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 10 – Mitarbeiterverwaltung – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 10 – Mitarbeiterverwaltung <span class="badge badge-manager">Manager+</span></h2>
+
+    <div class="alert alert-info">
+        <strong>Die Mitarbeiterverwaltung liegt im Web-Admin.</strong> Mitarbeiter werden im Web-Admin
+        (Backoffice, <code>/admin</code>) unter <strong>Betrieb &rarr; Personal</strong> angelegt und
+        gepflegt; der Menüpunkt erscheint mit der Fähigkeit <code>EMPLOYEE_READ</code>, Änderungen
+        verlangen <code>EMPLOYEE_WRITE</code>. An der Kasse gibt es keine Mitarbeiterverwaltung mehr: Der
+        frühere Menüpunkt <em>Mitarbeiter</em> heißt dort <strong>Mein Profil</strong> (siehe
+        <a href="#kap-10-mein-profil">unten</a>).
+    </div>
+
+    <h3>Mitarbeiter anlegen</h3>
+    <ol>
+        <li>Im Web-Admin <strong>Betrieb &rarr; Personal</strong> öffnen</li>
+        <li><strong>Mitarbeiter hinzufügen</strong> wählen</li>
+        <li>Pflichtfelder: Benutzername (3&ndash;50 Zeichen), Passwort (min. 6 Zeichen), Rolle</li>
+        <li>Optional: Personalnummer, Notizen, Schulungsmodus</li>
+        <li><strong>Speichern</strong></li>
+        <li>Die PIN anschließend über <strong>Zugangsdaten &rarr; PIN zurücksetzen</strong> vergeben (siehe <a href="#kap-10-pin">PIN und Passwort verwalten</a>)</li>
+    </ol>
+
+    <h3>Mitarbeiter-Felder</h3>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Pflicht</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Benutzername</td><td>Ja</td><td>3&ndash;50 Zeichen; nach dem Anlegen nicht mehr änderbar</td></tr>
+            <tr><td>Passwort</td><td>Ja</td><td>Mindestens 6 Zeichen</td></tr>
+            <tr><td>Rolle</td><td>Ja</td><td>CASHIER, MANAGER, ADMIN &ndash; bestimmt die Startgruppe. <code>TERMINAL_DEVICE</code> ist dem gemeinsamen Konto der Bestellstationen vorbehalten und lässt sich nicht auswählen.</td></tr>
+            <tr><td>Personalnummer</td><td>Nein</td><td>Interne Personalnummer</td></tr>
+            <tr><td>Schulungsmodus</td><td>Nein</td><td>Konto arbeitet im Trainingsmodus (siehe <a href="kap-03-anmeldung.html#kap-03-training">Kapitel 03</a>)</td></tr>
+            <tr><td>Notizen</td><td>Nein</td><td>Interne Bemerkungen</td></tr>
+            <tr><td>Berechtigungsgruppe</td><td>&ndash;</td><td>Ergibt sich aus der Rolle; kann im Profil über <strong>Gruppe ändern</strong> abweichend gesetzt werden</td></tr>
+            <tr><td>PIN</td><td>&ndash;</td><td>4&ndash;6 Ziffern für die Anmeldung mit Mitarbeiternummer; wird über <strong>PIN zurücksetzen</strong> gesetzt</td></tr>
+        </tbody>
+    </table>
+    <p>
+        Name, Kontaktdaten, Anschrift, Eintrittsdatum, Stellenbezeichnung und Vertragsdaten stehen in der
+        <strong>Personalakte</strong> des Mitarbeiters (<strong>Personalakte bearbeiten</strong>).
+    </p>
+
+    <h3>Beschäftigungsstatus</h3>
+    <p>Der Web-Admin zeigt und setzt die Status <em>Aktiv</em> und <em>Inaktiv</em>; die übrigen Werte können aus älteren Datenbeständen stammen.</p>
+    <table>
+        <thead>
+            <tr><th>Status</th><th>Bedeutung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>ACTIVE</code></td><td>Aktiv und anmeldefähig</td></tr>
+            <tr><td><code>INACTIVE</code></td><td>Deaktiviert, keine Anmeldung möglich</td></tr>
+            <tr><td><code>ON_LEAVE</code></td><td>Beurlaubt</td></tr>
+            <tr><td><code>TERMINATED</code></td><td>Ausgeschieden</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Rollen und Berechtigungen</h3>
+    <p>Das Berechtigungskonzept ist in <a href="kap-01-einfuehrung.html#kap-01-rollen">Kapitel 01</a> beschrieben. Die Rolle eines Mitarbeiters kann ändern, wer die Fähigkeit <code>EMPLOYEE_WRITE</code> besitzt (im Bearbeitungsdialog unter <strong>Personal</strong>).</p>
+    <div class="alert alert-warning">
+        <strong>Schutzregeln bei Rollenänderungen:</strong> Diese Änderungen werden vom Server abgelehnt &ndash; unabhängig davon, über welche Oberfläche sie ausgelöst werden:
+        <ul>
+            <li>Ein Benutzer kann seine <strong>eigene Rolle</strong> nicht ändern (HTTP 409).</li>
+            <li>Am <strong>eigenen Datensatz</strong> darf jeder nur PIN und Sprache ändern. Personalnummer, Notizen,
+                Beschäftigungsstatus, Standard-Kostenstelle und Schulungsmodus verlangen die Fähigkeit
+                <code>EMPLOYEE_WRITE</code> (standardmäßig Manager und Admin) &ndash; auch am eigenen Konto (HTTP 403);
+                ohne sie zeigt der Web-Admin diese Felder schreibgeschützt.</li>
+            <li>Der <strong>letzte aktive ADMIN</strong> kann nicht herabgestuft werden (HTTP 409). Es muss stets mindestens ein aktiver Administrator verbleiben.</li>
+            <li>Niemand vergibt eine Rolle über den eigenen Rang hinaus (HTTP 403): Die Gruppe einer Rolle darf keine
+                Fähigkeit enthalten, die der Bearbeitende selbst nicht besitzt. Ein Manager kann daher Kassierer und
+                Manager anlegen und umstellen, aber keinen Administrator anlegen, niemanden zum Administrator machen und
+                keinen Administrator herabstufen. Der Web-Admin bietet ihm die Rolle <em>Administrator</em> gar nicht erst an.</li>
+            <li>Niemand erhält die Rolle <strong><code>TERMINAL_DEVICE</code></strong> (HTTP 400) &ndash; weder beim Anlegen
+                noch durch eine Rollenänderung. Sie gehört allein dem gemeinsamen Konto der Bestellstationen, das die
+                Einrichtung selbst anlegt. Ein Terminalkonto führt nie eine Tischsitzung: ein Mitarbeiter mit dieser Rolle
+                würde beim Öffnen von Tischen wie eine Station behandelt, fiele aus der Reihum-Zuweisung, und die Tische,
+                die er gerade führt, gehörten plötzlich einem Terminalkonto. Wer die Rolle aus einer früheren Version noch
+                trägt, lässt sich weiterhin auf eine andere Rolle umstellen; der Bearbeitungsdialog weist darauf hin.</li>
+        </ul>
+    </div>
+    <h3>Berechtigungsgruppe zuweisen</h3>
+    <p>
+        Eine Rollenänderung setzt die Berechtigungsgruppe neu. Ein Administrator kann einem Mitarbeiter aber auch
+        gezielt eine abweichende Gruppe geben &ndash; im Web-Admin unter <strong>Betrieb &rarr; Personal</strong> im
+        Profil des Mitarbeiters über <strong>Gruppe ändern</strong>. So trägt eine Buchhalterin die Rolle
+        <code>MANAGER</code> und die Gruppe <code>ACCOUNTANT</code>. Eine so gesetzte Gruppe bleibt bei jeder weiteren
+        Bearbeitung des Mitarbeiters erhalten; nur eine echte Rollenänderung setzt sie zurück.
+    </p>
+    <p>
+        Die Gruppen selbst werden unter <strong>System &rarr; Berechtigungen</strong> verwaltet: vorgegebene Gruppen
+        einsehen (Name und Beschreibung erscheinen in der gewählten Sprache und sind fest &ndash; der Server setzt sie
+        bei jedem Start auf die Vorgabe zurück), eigene Gruppen mit <strong>Neue Gruppe</strong> anlegen und ihre Fähigkeiten
+        auswählen. Reservierte Fähigkeiten sind dort gekennzeichnet und lassen sich keiner Gruppe geben; eine Gruppe
+        mit Mitgliedern lässt sich erst löschen, wenn ihre Mitarbeiter einer anderen Gruppe zugewiesen sind.
+        <strong>Löschen</strong> auf der Seite einer eigenen Gruppe löscht nicht sofort, sondern fragt erst nach
+        (&bdquo;<em>Gruppenname</em>&ldquo; löschen? &ndash; Dies kann nicht rückgängig gemacht werden.); erst die
+        rote Schaltfläche <strong>Löschen</strong> im Dialog löscht die Gruppe, <strong>Abbrechen</strong> lässt sie
+        unverändert. Vorgegebene Gruppen lassen sich nicht löschen.
+    </p>
+    <div class="alert alert-warning">
+        <strong>Schutzregeln bei der Gruppenzuweisung:</strong>
+        <ul>
+            <li>Nur ein Administrator (Fähigkeit <code>PERMISSION_ADMIN</code>) darf Gruppen zuweisen &ndash; ausdrücklich <em>nicht</em> jeder, der
+                Mitarbeiterdaten bearbeiten darf. Wer Personalakten pflegt, soll damit nicht auch Rechte vergeben können.</li>
+            <li>Niemand kann seine <strong>eigene</strong> Gruppe ändern. Eine versehentliche Herabstufung ließe sich
+                sonst nicht rückgängig machen, weil dazu genau das Recht fehlt, das man gerade abgegeben hat.</li>
+            <li>Ein unbekannter Gruppenname wird abgelehnt. Ein Mitarbeiter ohne Gruppe hätte keinerlei Rechte und
+                käme an nichts mehr heran &ndash; ohne dass die Oberfläche erklärt, warum.</li>
+        </ul>
+    </div>
+    <p>
+        Die früheren Ausnahmeberechtigungen sind entfallen; an ihre Stelle treten eigene Berechtigungsgruppen
+        (siehe <a href="kap-01-einfuehrung.html#kap-01-rollen">Kapitel 01</a>).
+    </p>
+
+    <h3 id="kap-10-pin">PIN und Passwort verwalten</h3>
+    <ul>
+        <li><strong>PIN zurücksetzen / Passwort zurücksetzen</strong> &ndash; im Web-Admin unter <strong>Personal</strong> im Menü <strong>Zugangsdaten</strong> des Mitarbeiters (Fähigkeit <code>EMPLOYEE_CREDENTIAL_RESET</code>). Der neue Wert wird zweimal eingegeben und mit dem <strong>eigenen Passwort</strong> bestätigt. PIN: 4&ndash;6 Ziffern, Passwort: mindestens 6 Zeichen.</li>
+        <li><strong>Eigenes Passwort / eigene PIN ändern</strong> &ndash; jeder Mitarbeiter an der Kasse unter <strong>Mein Profil</strong> (Passwort: aktuelles + neues, müssen unterschiedlich sein, min. 6 Zeichen)</li>
+        <li>Eine Passwort- oder PIN-Änderung meldet den Mitarbeiter auf allen Geräten ab (siehe <a href="kap-03-anmeldung.html#kap-03-sessions">Kapitel 03</a>).</li>
+        <li>PIN wird in API-Antworten nie zurückgegeben (Sicherheit)</li>
+    </ul>
+
+    <h3>Mitarbeiter löschen / deaktivieren</h3>
+    <p>
+        Das Löschen eines Mitarbeiters setzt dessen Status automatisch auf <code>INACTIVE</code> (Soft Delete).
+        Der Mitarbeiter wird nicht dauerhaft aus der Datenbank entfernt, sondern deaktiviert.
+        Deaktivierte Mitarbeiter können sich nicht mehr anmelden, bleiben aber in Berichten und historischen Daten sichtbar.
+        In der Mitarbeiterliste werden inaktive Einträge standardmäßig ausgeblendet; über den Schalter <strong>Inaktive anzeigen</strong> können sie wieder eingeblendet werden.
+    </p>
+    <div class="alert alert-warning">
+        <strong>Schutz des letzten Administrators:</strong> Der letzte aktive ADMIN kann nicht deaktiviert werden (HTTP 409). Deaktivieren Sie zuerst den vorletzten Administrator oder ernennen Sie einen weiteren ADMIN, bevor Sie den bestehenden deaktivieren.
+    </div>
+
+    <h3>Persönliche Informationen</h3>
+    <p>Die <strong>Personalakte</strong> (Web-Admin, <strong>Personal</strong> &rarr; Mitarbeiter &rarr; <strong>Personalakte bearbeiten</strong>) enthält Vor- und Nachname, E-Mail, Telefon, Geburtsdatum, Anschrift, Stellenbezeichnung, Beschäftigungsart, Eintrittsdatum, Vertragsstunden sowie Stundenlohn bzw. Gehalt. Vor- und Nachname sind Pflicht &ndash; der Name erscheint als Bediener auf den Belegen und im DSFinV-K-Export. Ein geleertes Feld wird beim Speichern gelöscht (DSGVO); die Löschung wird im Prüfprotokoll vermerkt (Feldname, nicht der Wert). Im Personalverzeichnis erscheint der Vor- und Nachname, sonst der Benutzername; ein Administrator sieht dort auch die Administratoren (nur lesend).</p>
+
+    <h3>Dienstplan, Zeiterfassung und Freigaben</h3>
+    <p>Im selben Mitarbeiterprofil pflegt der Web-Admin den <strong>Dienstplan</strong> (Schichten je Wochentag mit Pause), die <strong>Zeiterfassung</strong> (Zeiteinträge eines Monats ansehen, manuell hinzufügen, bearbeiten, löschen) und die <strong>Freigaben</strong> eingereichter Monate (<strong>Freigeben</strong> oder <strong>Ablehnen</strong> mit Grund).</p>
+
+    <h3 id="kap-10-mein-profil">Mein Profil (an der Kasse)</h3>
+    <p>
+        An der Kasse sieht jeder Mitarbeiter unter <strong>Mein Profil</strong> nur die eigenen Daten: persönliche
+        Angaben (die Rolle schreibgeschützt), den eigenen Arbeitsplan, die Monatsübersicht mit Ist-, Soll- und
+        Reststunden samt Zeiteinträgen und der Aktion <strong>Monat einreichen</strong>, sowie die bevorzugte
+        Sprache. Über <strong>Profil bearbeiten</strong>, <strong>Passwort zurücksetzen</strong> und
+        <strong>PIN ändern</strong> pflegt er seine eigenen Angaben und Zugangsdaten. Andere Mitarbeiter lassen
+        sich an der Kasse nicht mehr bearbeiten.
+    </p>
+    <p>
+        <strong>Profil bearbeiten</strong> umfasst nur Kontaktdaten, Anschrift und Geburtsdatum. Die
+        Beschäftigungsbedingungen &ndash; Stundenlohn, Gehalt, Vertragsstunden, Stellenbezeichnung und
+        Eintrittsdatum &ndash; pflegt ausschließlich die Personalverwaltung in der Personalakte; der Server lehnt
+        eine Selbstauskunft, die eines dieser Felder setzt oder leert, mit HTTP&nbsp;403
+        (<code>SELF_MODIFICATION_FORBIDDEN</code>) ab, auch für Administratoren.
+    </p>
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-09-artikelverwaltung.html">&larr; Vorheriges: Artikelverwaltung</a>
+    <a href="kap-11-berichte.html">Nächstes: Berichte &amp; Statistiken &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

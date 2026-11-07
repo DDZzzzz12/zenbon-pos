@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 11 – Berichte &amp; Statistiken – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 11 – Berichte &amp; Statistiken</h2>
+
+    <p>Der Berichtsbereich der Kassen-App (<strong>Berichte</strong>) bietet verschiedene Auswertungen. Was sichtbar ist, richtet sich nicht mehr nach der Rolle, sondern nach den <strong>Berechtigungen</strong> der Berechtigungsgruppe:</p>
+    <ul>
+        <li><code>REPORT_READ</code> &ndash; öffnet <strong>Berichte</strong> überhaupt (standardmäßig ab Kassierer). Ohne weitere Berechtigung heißt die Ansicht <em>Meine Statistiken</em> und zeigt nur die eigenen Zahlen.</li>
+        <li><code>REPORT_ALL_READ</code> &ndash; die betriebsweite Sicht <em>Statistik Übersicht</em>: Zeitraumwahl, Mitarbeiterfilter, Training-Filter, die Ansichten nach Tisch und Mitarbeiter (standardmäßig Manager, Buchhaltung und Prüfer).</li>
+        <li><code>ZBON_MANAGE</code> &ndash; der Reiter <em>Z-Bon Verlauf</em> (Liste, Detail, PDF und Nachdruck der Z-Bons); dieselbe Berechtigung verlangt der Server für diese Aufrufe (standardmäßig Manager, Buchhaltung und Prüfer).</li>
+        <li><code>ZBON_CLOSE</code> &ndash; die Schaltfläche <em>Z-Bon erstellen</em> und damit den Tagesabschluss; Kasse und Server prüfen dieselbe Berechtigung (standardmäßig nur Manager und Administrator). Buchhaltung und Prüfer sehen alle Zahlen, aber keinen Z-Bon-Knopf.</li>
+    </ul>
+    <p>Dieselbe Regel gilt auf dem Server: Ein Kassierer, der die Statistik-Schnittstelle direkt aufruft, erhält ebenfalls nur seine eigenen Zahlen. Im Verwaltungsbereich (Browser) liegen unter <em>Kasse &amp; Abschluss</em> zusätzlich der <strong>Tagesbericht</strong> und die <strong>Analysen</strong> (beide <code>REPORT_ALL_READ</code>) sowie die <strong>Z-Bons</strong> mit Einzelansicht, PDF und Nachdruck (<code>ZBON_MANAGE</code>). Die Einzelansicht führt unter den Rabatten – wie der gedruckte Z-Bon – die Tabelle <em>Aktionen</em> (je Aktion Name, Anzahl der Anwendungen und abgezogener Betrag, darunter die Summe der Aktionen). Die Schulungsbelege des Abschlusses stehen in Einzelansicht, PDF und gedrucktem Z-Bon als eigene Zeile <em>Schulungsbelege (Anzahl, kein Umsatz)</em> mit ihrem Betrag; sie zählen nicht zum Umsatz. In den Reitern <em>Rechnungen</em> und <em>Sitzungen</em> der Einzelansicht trägt jeder Schulungsbeleg und jede Schulungssitzung die Markierung <em>Training</em>; die Positionen im Belegpanel zeigen ihre Optionen mit Aufpreis wie der gedruckte Beleg (z.&nbsp;B. <em>Groß&nbsp;&nbsp;(1.50)</em>). Einzelansicht, PDF und Nachdruck eines Z-Bons zeigen Name, Anschrift und Steuernummer des Betriebs <strong>so, wie sie beim Abschluss galten</strong> (derselbe Stammdaten-Stand, den der DSFinV-K-Export für diesen Abschluss ausgibt) &ndash; eine spätere Änderung der Geschäftsdaten verändert alte Z-Bons nicht. Nur ein Abschluss ohne gespeicherten Stand zeigt die aktuellen Geschäftsdaten. Die Karten <em>Seit letztem Z-Bon</em> und <em>Tagesabschluss</em> auf der Startseite des Verwaltungsbereichs erscheinen nur mit <code>ZBON_READ</code> und <code>REPORT_READ</code>. Die Karte <em>Seit letztem Z-Bon</em> zeigt Umsatz, Belege, offene Beträge und Trinkgeld vom Ende des letzten Z-Bons bis jetzt &ndash; denselben Zeitraum wie der Tagesbericht in der Standardeinstellung, nicht den Kalendertag. Nach dem Tagesabschluss zeigt sie daher bis zum nächsten Verkauf keine Umsätze. Wie beim Z-Bon selbst beginnt ein Statistik-Zeitraum <strong>nach</strong> seinem Startzeitpunkt (der Start gehört nicht dazu, das Ende schon): Ein abgeschlossener Beleg zählt zum Ende seines Z-Bons, und ein Zeitraum, der genau am Ende des letzten Z-Bons beginnt, enthält diesen Abschluss nicht noch einmal.</p>
+
+    <h3 id="kap-11-zbon">Tagesabschluss (Z-Bon)</h3>
+    <p>Der Z-Bon fasst alle Transaktionen eines Zeitraums zusammen. Er ist gesetzlich vorgeschrieben.</p>
+
+    <ol>
+        <li><strong>Berichte</strong> öffnen</li>
+        <li><strong>Z-Bon erstellen</strong> antippen (nur mit <code>ZBON_CLOSE</code> sichtbar)</li>
+        <li>Hinweis im Dialog <em>Z-Bon erstellen</em> prüfen</li>
+        <li>Im Abschnitt <strong>Trinkgeld auszahlen</strong> die Auszahlungen an die Mitarbeiter prüfen
+            (siehe <a href="#kap-11-trinkgeld-im-abschluss">Trinkgeld im Abschluss auszahlen</a>)</li>
+        <li>Kassenbestand zählen und im Feld <strong>Gezählter Kassenbestand</strong> eintragen (optional)</li>
+        <li>Abschluss bestätigen</li>
+    </ol>
+
+    <p>
+        Nach dem Abschluss öffnet die Kasse den neuen Z-Bon sofort: Mit <code>ZBON_MANAGE</code> wechselt sie
+        in den Reiter <em>Z-Bon Verlauf</em> und zeigt dort dessen Detailansicht; ohne diese Berechtigung
+        erscheint die Zusammenfassung in einem Dialog (ohne PDF und Druck), und der Reiter bleibt verborgen.
+        Der Z-Bon wird beim Erstellen <strong>nicht automatisch gedruckt</strong> &ndash; gedruckt wird nur
+        über <strong>Drucken</strong> in der Detailansicht.
+    </p>
+
+    <h4>Offene Tische</h4>
+    <p>
+        Ein Tisch mit <strong>offenen Positionen</strong> verhindert den Abschluss: Der Z-Bon wird mit der
+        Meldung <strong>&bdquo;Tische noch offen &ndash; Alle Tische müssen abgerechnet sein, bevor der
+        Z-Bon erstellt werden kann.&ldquo;</strong> abgelehnt (vorher erschien fälschlich
+        &bdquo;Unerwarteter Fehler&ldquo;). Rechnen Sie ihn zuerst ab oder
+        stornieren Sie die Positionen. Ein Tisch, der zwar belegt ist, aber <strong>nichts Offenes</strong>
+        trägt (geöffnet, aber nichts bestellt; alles storniert; alles bezahlt), blockiert den Abschluss nicht
+        mehr &ndash; der Z-Bon beendet solche Sitzungen selbst und gibt die Tische frei.
+    </p>
+
+    <h4>Zeitraum überschneidet sich</h4>
+    <p>
+        Endet ein bereits gespeicherter Z-Bon <strong>nach</strong> dem Zeitpunkt, an dem der neue Abschluss
+        beginnen würde (das Ende des letzten Z-Bons), lehnt der Server den Abschluss mit
+        <strong>&bdquo;Zeitraum überschneidet sich&ldquo;</strong> ab (409 <code>ZBON_PERIOD_OVERLAP</code>).
+        Es wird nichts gebucht und keine Z-Nummer verbraucht. Im normalen Betrieb kommt das nicht vor; es
+        zeigt widersprüchliche Abschlussdaten an (etwa einen nachträglich verschobenen Z-Bon) &ndash; wenden
+        Sie sich an den Support. Vorher erschien hier &bdquo;Unerwarteter Fehler&ldquo; (500).
+    </p>
+
+    <h4>Nichts abzuschließen</h4>
+    <p>
+        Gibt es seit dem letzten Z-Bon weder Umsatz noch Kassenbuch-Buchung noch Trinkgeld-Auszahlung, lehnt der
+        Server den Abschluss mit <strong>&bdquo;Nichts abzuschließen&ldquo;</strong> ab (400
+        <code>ZBON_NOTHING_TO_CLOSE</code>). Es wird nichts gebucht und keine Z-Nummer verbraucht. Vorher erschien
+        hier ein allgemeines &bdquo;Unerwarteter Fehler&ldquo; mit dem Grund nur auf Englisch unter &bdquo;Technische
+        Details&ldquo;.
+    </p>
+
+    <h4>Kassenzählung beim Abschluss</h4>
+    <p>
+        Das Feld <strong>Gezählter Kassenbestand</strong> startet <strong>leer</strong>. Der erwartete
+        Kassenbestand steht als Platzhalter bzw. Hinweis im Feld:
+        <strong>Buchbestand plus die noch nicht verbuchten Bareinnahmen</strong> des Tages. Barumsätze
+        gelangen erst mit dem Z-Bon (Sammelbuchung „Bareinnahmen") ins Kassenbuch – die Kasse enthält sie
+        aber bereits. Gezählt wird deshalb gegen diese Summe, nicht gegen den nackten Buchbestand; sonst
+        würde jeder Abschluss die Tageseinnahmen als Kassenüberschuss buchen. Ein leeres Feld bedeutet
+        <em>nicht gezählt</em>: Dann wird <em>nichts</em> gebucht und keine Kassendifferenz erzeugt – die
+        Zählung ist freiwillig und blockiert den Abschluss nie. Nur ein eingetragener Betrag wird mit dem
+        erwarteten Bestand verglichen. Werden im selben Dialog Trinkgelder ausgezahlt, ist der erwartete
+        Bestand der Betrag <strong>nach</strong> der Auszahlung (z.&nbsp;B. <em>Erwartet in der Kasse:
+        89,70&nbsp;€ (davon Trinkgeld-Auszahlung −3,00&nbsp;€)</em>): Gezählt wird, nachdem das Trinkgeld
+        übergeben wurde, und der Server vergleicht die Zählung mit genau diesem Betrag.
+    </p>
+    <p>
+        Weicht der gezählte Betrag ab, bucht das System die Differenz automatisch als eigenen,
+        TSE-signierten Beleg – <strong>Kassenüberschuss</strong> bei einem Plus,
+        <strong>Kassenfehlbetrag</strong> bei einem Minus – jeweils mit automatisch erzeugtem
+        Eigenbeleg. Die Differenz wird <strong>im Abschluss selbst</strong> gebucht &ndash; in derselben
+        Datenbanktransaktion, nach der Sammelbuchung „Bareinnahmen“ und den Trinkgeld-Auszahlungen, vor dem
+        Geldtransit &ndash; und gehört damit zu genau dem Z-Bon, der sie verursacht hat. Verglichen wird mit
+        dem Kassenbuchbestand an genau dieser Stelle, also mit dem Bestand nach den gebuchten Auszahlungen.
+    </p>
+    <p>
+        Die Zählung wird zusammen mit dem Abschluss an den Server geschickt. Zählung, Trinkgeld-Auszahlungen
+        und Z-Bon werden gemeinsam oder gar nicht gebucht: Wird der Abschluss abgelehnt (z.&nbsp;B. weil
+        zwischen Öffnen und Bestätigen des Dialogs ein Tisch geöffnet wurde), bleibt das Kassenbuch
+        unverändert &ndash; keine Differenz, keine Auszahlung. Nach dem Beheben des Grundes einfach neu zählen
+        und erneut abschließen – es entsteht keine doppelte Differenz.
+    </p>
+    <div class="alert alert-warning">
+        <strong>Wichtig:</strong> Seit der automatischen nächtlichen Geldtransit-Buchung ändert sich
+        der Kassenbestand der Ladenkasse selbsttätig. Ohne Zählung wird dieser Bestand behauptet,
+        aber nie geprüft – ein Fehlbetrag bliebe unentdeckt und würde sich Tag für Tag fortschreiben.
+    </div>
+
+    <h4 id="kap-11-zbon-admin">Tagesabschluss im Admin-Panel</h4>
+    <p>
+        Den Tagesabschluss gibt es auch im Verwaltungsbereich (Browser), mit demselben Dialog wie an der
+        Kasse: Zählung, Trinkgeld-Auszahlungen und Aufstockung. <strong>Z-Bon erstellen</strong> steht auf der
+        Karte <em>Tagesabschluss</em> der Startseite und in der Liste <em>Z-Bons</em>; die Schaltfläche
+        erscheint nur mit <code>ZBON_CLOSE</code>. Die Abschnitte für Trinkgeld-Auszahlung und Aufstockung
+        verlangen zusätzlich <code>CASHBOOK_WRITE</code>, die Anzeige des erwarteten Kassenbestands
+        <code>CASHBOOK_READ</code> &ndash; fehlt Letztere, zeigt das (ohnehin leere) Zählfeld keinen
+        erwarteten Betrag, und der Abschluss ist trotzdem möglich. Der Server prüft dieselben Berechtigungen.
+    </p>
+    <p>
+        Im Dialog steht die Zeile <strong>Signiert von: &lt;Kasse&gt;</strong>. Gemeint ist die
+        <a href="kap-12-finanzdokumente.html#kap-12-signierende-kasse">signierende Kasse der Ladenkasse</a>:
+        Ein Browser ist kein Kassenterminal und hat keinen TSE-Client, also signiert der TSE-Client dieser
+        Kasse jede Bargeldbewegung des Abschlusses (Zählung, Trinkgeld-Auszahlung, Aufstockung, täglicher
+        Geldtransit). Die abschließende Person bleibt am Z-Bon und im Audit-Protokoll vermerkt.
+    </p>
+    <p><strong>Bei deaktivierter TSE</strong> wird nichts signiert: Der Abschluss braucht dann keine
+        signierende Kasse, der Dialog zeigt stattdessen den Hinweis <em>TSE deaktiviert &ndash; es wird nichts
+        signiert</em>, und Zählung, Trinkgeld-Auszahlung, Aufstockung und täglicher Geldtransit sind auch aus
+        dem Browser möglich. Die Buchungen tragen den Status <code>DISABLED</code>.</p>
+    <p><strong>Ohne signierende Kasse</strong> (nichts bestimmt, oder die bestimmte Kasse ist inzwischen
+        deaktiviert, nicht mehr fiskalisch oder nicht mehr bei der TSE angemeldet) gilt:</p>
+    <ul>
+        <li>Ein <strong>einfacher Abschluss</strong> &ndash; ohne Zählung, ohne Bar-Auszahlung, ohne Aufstockung &ndash; gelingt von jedem Gerät, auch mit Trinkgeld-Auszahlungen über Bank/Lohn.</li>
+        <li>Zählung und Aufstockung sind ausgeblendet. Trinkgeld lässt sich nur <strong>über Bank/Lohn</strong> auszahlen (die Auswahl „bar“ entfällt, alle Zeilen sind auf Bank/Lohn gestellt): das bucht kein Kassenbuch und braucht keine Signatur. Der Dialog nennt den Grund und verweist auf die Einstellung der Ladenkasse; mit der Berechtigung <code>TERMINAL_MANAGE</code> führt die Schaltfläche <strong>Signierende Kasse festlegen</strong> direkt zu <em>Kassenbuch</em> &rarr; <em>Kassen verwalten</em>.</li>
+        <li>Ist zusätzlich ein <strong>täglicher Geldtransit</strong> eingerichtet, lässt sich der Abschluss nicht bestätigen, denn die Umbuchung müsste signiert werden. Bestimmen Sie zuerst die signierende Kasse oder schließen Sie an einer Kasse ab.</li>
+        <li>Schlägt ein Abschluss trotzdem mit <code>ZBON_SIGNER_NOT_DESIGNATED</code> oder <code>ZBON_SIGNER_UNAVAILABLE</code> fehl, zeigt ein Fehlerdialog Meldung, Fehlercode und Trace-ID zum Kopieren. Es wurde nichts gebucht und keine Z-Nummer verbraucht.</li>
+    </ul>
+    <p>
+        Nach dem Abschluss öffnet sich der neue Z-Bon in der Liste (mit <code>ZBON_MANAGE</code>, dort auch
+        Drucken); ohne diese Berechtigung zeigt ein Dialog Z-Nummer, Umsatz und Kassenbestand. Die Karte
+        <em>Tagesabschluss</em> aktualisiert sich.
+    </p>
+
+    <h4>Z-Bon enthält</h4>
+    <table>
+        <thead>
+            <tr><th>Bereich</th><th>Details</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Identifikation</td><td>Z-Bon-Nummer (lückenlose Nummerierung pro Geschäft)</td></tr>
+            <tr><td>Geschäftsdaten</td><td>Firmenname, Adresse, Stadt, Land, Steuernummer</td></tr>
+            <tr><td>Zeitraum</td><td>Startzeit, Endzeit, Erstellungsdatum</td></tr>
+            <tr><td>Finanzen</td><td>Gesamtumsatz, Bareinnahmen, Ausgaben, Anfangsbestand, Schlussbestand</td></tr>
+            <tr><td>Stornierungen</td><td>Stornierter Gesamtbetrag</td></tr>
+            <tr><td>Rabatte</td><td>Gesamtrabatte: manuelle Positionsrabatte plus alle Aktionsabzüge (Rechnungs- und Artikelaktionen) der stehen gebliebenen Belege</td></tr>
+            <tr><td>Aktionen</td><td>Je Aktion Anzahl und Betrag, dazu „Aktionen gesamt" &ndash; nur über Belege, die stehen bleiben: Eine stornierte Rechnung gewährt keine Aktion, und nach einem Zahlartwechsel zählt die Aktion einmal (auf der Neubuchung)</td></tr>
+            <tr><td>Trinkgeld</td><td>Admin-Trinkgeld, Mitarbeiter-Trinkgeld gesamt</td></tr>
+            <tr><td>MwSt.-Gruppen</td><td>Aufschlüsselung nach MwSt.-Satz (Netto, MwSt., Brutto)</td></tr>
+            <tr><td>Zahlungsarten</td><td>Zusammenfassung nach Zahlungsart (Name, Währung, Betrag)</td></tr>
+            <tr><td>Mitarbeiter</td><td>Pro-Mitarbeiter-Zusammenfassung mit Zahlungsarten-Aufschlüsselung. Jede Zeile nennt die <strong>Mitarbeiternummer</strong> ohne Rolle: die Rolle wird beim Abschluss nicht gespeichert, ein abgeschlossener Z-Bon sieht nach einem späteren Rollenwechsel deshalb im Nachdruck, im PDF und in der Ansicht unverändert aus. Das Inhabertrinkgeld gehört zum Gesamtumsatz, aber zu keinem Mitarbeiterumsatz; es steht deshalb als eigene Zeile <em>Inhabertrinkgeld</em> unter den Mitarbeitern, sodass die Zeilen den Gesamtumsatz ergeben. Ein <em>Forderungsausgleich</em> an der Kasse zählt nicht zum Umsatz des kassierenden Mitarbeiters (ab den nach diesem Update erstellten Abschlüssen; ältere Abschlüsse bleiben unverändert), seine Zahlung steht aber in dessen Zahlungsarten-Aufschlüsselung. Umsätze anmeldefreier Bestellstationen laufen auf das gemeinsame Gerätekonto und erscheinen als <code>Terminal (ohne Anmeldung)</code>.</td></tr>
+            <tr><td>Gutscheine</td><td>Erstellte und eingelöste Gutscheine</td></tr>
+            <tr><td>Kassendifferenz</td><td>Ergebnis der Kassenzählung, falls eine Differenz gebucht wurde</td></tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <strong>Trinkgeld und MwSt.:</strong> Ein <strong>Mitarbeiter-Trinkgeld</strong> ist nicht steuerbar
+        und damit kein Umsatz. Es erscheint deshalb <strong>nicht</strong> in den MwSt.-Gruppen und nicht im
+        <em>Gesamtumsatz</em>, sondern ausschließlich in der Zeile <em>Trinkgeld</em>, die Inhaber- und
+        Mitarbeiter-Trinkgeld getrennt ausweist. Im <em>Gesamtumsatz</em> steckt nur das
+        <strong>Inhaber-Trinkgeld</strong>, weil dieses mit der zugrunde liegenden Leistung versteuert wird.
+        Bar gegebenes Trinkgeld liegt trotzdem in der Schublade: Es ist in den <em>Bareinnahmen</em> und im
+        <em>Schlussbestand</em> enthalten und steckt ebenso im angezeigten erwarteten Kassenbestand – ein
+        Trinkgeldtag erzeugt dadurch keine Kassendifferenz.
+    </div>
+
+    <h3>Trinkgeld pro Mitarbeiter</h3>
+    <p>
+        Bei Z-Bon-Erstellung wird Trinkgeld pro Mitarbeiter berechnet und im Abschnitt
+        <strong>TRINKGELD PRO MITARBEITER</strong> des Z-Bon-Ausdrucks (ebenso im PDF und in der
+        Z-Bon-Ansicht) ausgewiesen: je eine Zeile mit <strong>Mitarbeiternummer</strong> – nicht mit dem
+        Namen – und Trinkgeldbetrag, darunter die Summe <em>Trinkgeld gesamt</em>, die genau die
+        aufgelisteten Zeilen addiert. Aufgelistet wird nur <strong>Mitarbeiter-Trinkgeld</strong>
+        (kein Umsatz). Das <strong>Inhaber-Trinkgeld</strong> (Rechnungen, die ein Admin abgeschlossen
+        hat) ist Umsatz; maßgeblich ist der beim Abschluss der Rechnung festgehaltene
+        Trinkgeldempfänger, nicht die heutige Rolle &ndash; ein späterer Rollenwechsel ändert die
+        Zuordnung also nicht (so rechnen auch MwSt.-Gruppen, DSFinV-K-Export und Statistik). Es steht nicht in der Mitarbeiterliste und nicht in deren Summe, sondern in
+        einer eigenen Zeile <em>Trinkgeld Betrieb (im Umsatz enthalten)</em>. Mitarbeiter ohne
+        Trinkgeld erscheinen nicht. Die Auszahlung an die Mitarbeiter wird gesondert gebucht, siehe
+        unten.
+    </p>
+
+    <h3 id="kap-11-trinkgeld-auszahlen">Trinkgeld auszahlen</h3>
+    <p>
+        Mitarbeiter-Trinkgeld &ndash; <strong>bar und mit Karte</strong> gezahlt &ndash; wird beim
+        Tagesabschluss bar aus der Kasse an die Mitarbeiter ausgezahlt. Diese Auszahlung muss im Kassenbuch
+        stehen, sonst liegt bei der nächsten Kassenzählung weniger Geld in der Schublade als im Buch und es
+        entsteht eine scheinbare Kassendifferenz. Der Normalfall ist die Auszahlung <strong>im
+        Abschluss-Dialog selbst</strong>; was dort nicht (oder nur teilweise) ausgezahlt wird, kann danach
+        am erstellten Z-Bon nachgeholt werden.
+    </p>
+
+    <h4 id="kap-11-trinkgeld-im-abschluss">Trinkgeld im Abschluss auszahlen</h4>
+    <p>
+        Der Dialog <strong>Z-Bon erstellen</strong> zeigt den Abschnitt <strong>Trinkgeld auszahlen</strong>:
+        je Mitarbeiter mit Mitarbeiter-Trinkgeld seit dem letzten Z-Bon (genau die Rechnungen, die dieser
+        Abschluss erfasst) eine Zeile mit dem Betrag und seiner Aufteilung, z.&nbsp;B.
+        <em>Mia: 3,00&nbsp;€ (2,00 bar + 1,00 Karte)</em>. Jede Zeile ist angehakt und mit dem vollen
+        Betrag vorbelegt (Dezimalkomma). Der Betrag kann verringert werden (höchstens der angezeigte
+        Betrag, höchstens zwei Nachkommastellen); eine Zeile, deren Trinkgeld jetzt nicht ausgezahlt wird,
+        abhaken. Eine angehakte Zeile mit leerem Betrag oder 0 sperrt <strong>Bestätigen</strong> und zeigt
+        <em>Betrag eingeben oder Zeile abwählen</em> &ndash; „nichts auszahlen“ heißt: Haken entfernen. Ein
+        halb getipptes „3,“ gilt als 3,00. <em>Erwartet in der Kasse</em> und die Vorbelegung der
+        Kassenzählung berücksichtigen die angehakten Auszahlungen sofort.
+    </p>
+    <p>
+        <strong>Kartentrinkgeld wird aus der Kasse vorgestreckt:</strong> Der Kartenanteil lag nie in der
+        Schublade &ndash; er kommt mit der Kartenabrechnung aufs Bankkonto (DATEV: Geldtransit 1360/1460).
+        Ausgezahlt wird trotzdem der ganze Betrag bar; die Aufteilung dient nur der Information, gebucht wird
+        der Gesamtbetrag.
+    </p>
+    <p>
+        Mit dem Bestätigen bucht der Server jede angehakte Auszahlung als TSE-signierte Barentnahme
+        (wie unten beschrieben) <strong>in derselben Datenbanktransaktion wie den Z-Bon</strong>, nach der
+        Sammelbuchung „Bareinnahmen“ und vor dem Geldtransit. Die Auszahlungen gehören damit zu
+        <strong>diesem</strong> Abschluss: Der Z-Bon weist sie unter den Ausgaben aus, sein Endbestand ist der
+        Bestand nach der Auszahlung, und im DSFinV-K-Export stehen sie unter derselben Z-Nummer wie das
+        Trinkgeld selbst. Ist ein Tresor als Ziel des täglichen Geldtransits eingestellt, wandern
+        <strong>Bareinnahmen abzüglich der im Abschluss ausgezahlten Trinkgelder</strong> in den Tresor
+        &ndash; das ausgezahlte Geld hat die Kasse ja bereits mit den Mitarbeitern verlassen &ndash;, und die
+        Kasse endet wieder auf ihrem Wechselgeldbestand. (Übersteigen die Auszahlungen die Bareinnahmen, weil
+        viel Kartentrinkgeld vorgestreckt wurde, entfällt der Geldtransit.) Ist alles ausgezahlt, ist das Konto „Trinkgeld Arbeitnehmer“ (1590/1370) für den
+        Tag ausgeglichen. Vor dem Buchen prüft der Server alles: offene Tische, Betrag größer null und nicht
+        höher als das Trinkgeld des Mitarbeiters in diesem Zeitraum, und die Berechtigung. Schlägt eine
+        Prüfung fehl &ndash; oder scheitert der Abschluss später &ndash;, wird <strong>nichts</strong> gebucht:
+        weder Auszahlung noch Kassendifferenz noch Z-Bon.
+    </p>
+    <h5 id="kap-11-trinkgeld-fehlbetrag">Reicht das Bargeld nicht? Fehlbetrag aus einer anderen Kasse einlegen</h5>
+    <p>
+        Die Kasse darf nicht mehr auszahlen, als sie hält (<a href="kap-12-finanzdokumente.html#kap-12-kassenminus">Kassenminus-Sperre</a>).
+        Viel Kartentrinkgeld an einem Tag mit wenig Bareinnahmen kann das überschreiten. Übersteigen die
+        angehakten <strong>Bar</strong>auszahlungen den erwarteten Kassenbestand, zeigt der Dialog den
+        Fehlbetrag (<em>Die Barauszahlungen übersteigen den Kassenbestand um 3,00&nbsp;€</em>) und bietet
+        <strong>Fehlbetrag aus &lt;Kassenbuch&gt; einlegen</strong> an: zur Auswahl stehen die anderen
+        aktiven Kassen des Geschäfts (Tresor, Hauptkasse), die genug Bestand haben. Vorbelegt ist der Betrag,
+        der das <strong>Wechselgeld unangetastet</strong> lässt: <em>Barauszahlungen &minus; Bareinnahmen</em>
+        (die Einnahmen zahlen, was sie können, die Einlage den Rest). Er kann geändert werden, muss aber
+        mindestens den Fehlbetrag decken. Ohne eine solche Einlage lässt sich der Abschluss nicht bestätigen.
+    </p>
+    <p>
+        Beim Bestätigen bucht der Server die Einlage als gewöhnlichen <strong>Geldtransit</strong> (zwei
+        Buchungen, Eigenbelege, die Ladenkassen-Seite TSE-signiert) aus der gewählten Kasse in die
+        Ladenkasse &ndash; <strong>im selben Abschluss, vor den Auszahlungen</strong>. Danach die
+        Auszahlungen, dann der Z-Bon. Scheitert irgendetwas (z.&nbsp;B. hält die gewählte Kasse inzwischen
+        weniger), wird <strong>nichts</strong> gebucht: weder Einlage noch Auszahlung noch Z-Bon.
+    </p>
+    <p>
+        <strong>Geldtransit in den Tresor:</strong> Er bewegt <em>Bareinnahmen + Einlage &minus;
+        Barauszahlungen</em>, mindestens null und höchstens den Kassenbestand. Die Kasse endet damit auf
+        ihrem Wechselgeldbestand, nie darüber: Mit dem vorbelegten Betrag wandert nichts in den Tresor und
+        das Wechselgeld bleibt vollständig; wird nur der Fehlbetrag eingelegt, ist die Kasse danach leer (das
+        Wechselgeld wurde mit ausgezahlt und muss aus dem Tresor nachgefüllt werden); was über den
+        vorbelegten Betrag hinaus eingelegt wird, geht im selben Abschluss in den Tresor zurück.
+    </p>
+
+    <h5 id="kap-11-trinkgeld-bank-lohn">Über Bank/Lohn ausgezahlt</h5>
+    <p>
+        Wird das Trinkgeld eines Mitarbeiters nicht bar, sondern per Überweisung oder mit der
+        Lohnabrechnung ausgezahlt, im Dialog bei diesem Mitarbeiter <strong>Über Bank/Lohn
+        ausgezahlt</strong> anhaken (ebenso beim Auszahlen nach dem Abschluss). Damit gilt der Betrag als
+        ausgeglichen &ndash; der offene Betrag sinkt wie bei einer Barauszahlung &ndash;, aber:
+    </p>
+    <ul>
+        <li>es verlässt <strong>kein Bargeld</strong> die Kasse; der erwartete Kassenbestand, die
+            Kassenminus-Sperre und der Geldtransit bleiben unberührt;</li>
+        <li>es entsteht <strong>keine Kassenbuch-Buchung</strong>, kein Eigenbeleg und keine
+            TSE-Signatur;</li>
+        <li><strong>kein DSFinV-K-Datensatz</strong>: Es ist kein Kassenvorgang, kein Geld bewegt sich
+            durch die Kasse;</li>
+        <li><strong>keine DATEV-Buchung aus der Kasse</strong>: Der Z-Bon hat das Trinkgeld dem
+            Durchlaufkonto „Trinkgeld Arbeitnehmer“ (SKR03 1590, SKR04 1370) gutgeschrieben; die Auszahlung
+            über die Bank bzw. die Lohnabrechnung bucht Ihr Steuerberater gegen dieses Konto. Bis dahin steht
+            das Trinkgeld dort offen.</li>
+    </ul>
+    <p>
+        Festgehalten wird die Auszahlung in der Liste der Auszahlungen (<em>3,00&nbsp;€ über Bank/Lohn</em>)
+        und im Prüfprotokoll (<code>SETTLE_EMPLOYEE_TIP_BANK_PAYROLL</code>). Sie wird wie eine
+        Barauszahlung mit <strong>Stornieren</strong> und Grund rückgängig gemacht
+        (<code>REVERSE_EMPLOYEE_TIP_SETTLEMENT</code>, einmalig, nur eine neue Zeile &ndash; keine
+        Kassenbuch-Buchung); der Betrag ist danach wieder offen. Berechtigung wie bei der Barauszahlung:
+        <code>CASHBOOK_WRITE</code>.
+    </p>
+
+    <div class="alert alert-info">
+        Den Abschnitt sieht nur, wer Kassenbuch-Einträge buchen darf (<code>CASHBOOK_WRITE</code>); ohne diese
+        Berechtigung schließt der Dialog den Tag ohne Auszahlung ab, und der Server lehnt eine Auszahlung im
+        Abschluss mit 403 ab (nichts wird gebucht).
+    </div>
+
+    <h4>Trinkgeld nach dem Abschluss auszahlen</h4>
+    <p>
+        Eine Auszahlung nach dem Abschluss ist eine gewöhnliche Barentnahme des <em>nächsten</em>
+        Zeitraums: Der Geldtransit des bereits erstellten Z-Bons bleibt unverändert, die Entnahme mindert den
+        Kassenbestand bis zum nächsten Abschluss. Die Kasse zeigt in der Z-Bon-Ansicht (auch im Dialog, der sich nach dem Erstellen des Z-Bons öffnet)
+        den Abschnitt <strong>Trinkgeld auszahlen</strong>: je Mitarbeiter das Trinkgeld des Abschlusses, den
+        bereits ausgezahlten (auch den im Abschluss ausgezahlten) und den noch <em>offenen</em> Betrag.
+    </p>
+    <ol>
+        <li>Beim Mitarbeiter auf <strong>Trinkgeld auszahlen</strong> tippen. Der Betrag ist mit dem
+            gesamten offenen Betrag vorbelegt, wie bei der Kassenzählung mit Dezimalkomma (z.&nbsp;B.
+            <code>3,00</code>).</li>
+        <li>Bei einer Teilauszahlung den Betrag verringern (Komma oder Punkt, höchstens zwei
+            Nachkommastellen) und mit <strong>Auszahlen</strong> bestätigen.</li>
+        <li>Das Geld aus der Kasse an den Mitarbeiter übergeben. Der offene Betrag sinkt; ist alles
+            ausgezahlt, steht dort <em>Vollständig ausgezahlt</em>.</li>
+    </ol>
+    <p>
+        Jede Auszahlung ist eine <strong>TSE-signierte Barentnahme</strong> aus der Ladenkasse mit dem
+        Buchungstext <code>TA:Trinkgeld-Auszahlung &lt;Name&gt;</code>, datiert auf den Zeitpunkt der
+        Auszahlung (nach dem Abschluss gehört sie also zum <em>nächsten</em> Z-Bon, im Abschluss-Dialog zu
+        diesem) und mit einem automatisch erzeugten
+        Eigenbeleg. Der Audit-Eintrag der Auszahlung (<code>PAY_OUT_EMPLOYEE_TIP</code>) und ihres Stornos
+        (<code>REVERSE_EMPLOYEE_TIP_PAYOUT</code>) verweist im Feld <em>Fiscal Record</em> auf die
+        TSE-Transaktion, die den Eintrag signiert hat (leer, solange er noch zur Nachsignierung ansteht).
+        Im DSFinV-K-Export erscheint sie als Geschäftsvorfall <code>TrinkgeldAN</code> mit
+        negativem Betrag, nicht steuerbar (USt-Schlüssel&nbsp;5) &ndash; DSFinV-K&nbsp;2.4, Anhang&nbsp;C
+        S.&nbsp;52: <em>TrinkgeldAN</em> erfasst „alle kassenwirksamen Ein- und Auszahlungen von
+        Trinkgeldern an den Arbeitnehmer“. Im DATEV-Buchungsstapel bucht sie „Trinkgeld Arbeitnehmer an
+        Kasse“ und gleicht damit die Trinkgeldzeile des Z-Bons aus (siehe
+        <a href="datev-xml-export.html#s12-5" target="_blank">DATEV-Export, Abschnitt 12.5</a>).
+    </p>
+    <div class="alert alert-info">
+        <strong>Regeln:</strong> Mehrere Teilauszahlungen sind erlaubt, ihre Summe darf das Trinkgeld des
+        Mitarbeiters in diesem Abschluss aber nie übersteigen &ndash; die Kasse sperrt einen höheren
+        Betrag, und der Server lehnt ihn ebenfalls ab (409, nichts wird gebucht). Auszahlen darf, wer
+        Kassenbuch-Einträge buchen darf (<code>CASHBOOK_WRITE</code>); ohne diese Berechtigung zeigt die
+        Kasse die Beträge, aber keine Schaltfläche. Eine Barauszahlung nach dem Abschluss unterliegt der
+        <a href="kap-12-finanzdokumente.html#kap-12-kassenminus">Kassenminus-Sperre</a>: Hält die Kasse
+        weniger, lehnt der Server sie ab (409 <code>KASSENBUCH_INSUFFICIENT_CASH</code>) &ndash; erst Geld
+        aus dem Tresor umbuchen oder <em>Über Bank/Lohn ausgezahlt</em> wählen. Z-Bons, die vor dieser Version erstellt wurden, bieten
+        keine Auszahlung an: Ihr Trinkgeld wurde noch als Umsatzposition gebucht.
+    </div>
+
+    <h4 id="kap-11-trinkgeld-stornieren">Trinkgeld-Auszahlung stornieren</h4>
+    <p>
+        Unter jedem Mitarbeiter stehen die gebuchten Auszahlungen (Betrag und Beleg-Nr.). Eine Auszahlung
+        an den falschen Mitarbeiter oder mit falschem Betrag wird mit <strong>Stornieren</strong>
+        rückgängig gemacht: Grund eingeben und bestätigen. Das bucht &ndash; wie jede
+        Kassenbuch-Korrektur &ndash; einen neuen, TSE-signierten Storno-Eintrag (Korrektur, Bargeld zurück in
+        die Kasse) mit Eigenbeleg und Grund; die ursprüngliche Auszahlung bleibt unverändert stehen. Der
+        Betrag ist danach wieder offen und wird richtig neu ausgezahlt. Im DSFinV-K-Export ist der Storno
+        <code>TrinkgeldAN</code> mit positivem Betrag (Schlüssel&nbsp;5), im DATEV-Buchungsstapel
+        „Kasse an Trinkgeld Arbeitnehmer“. Jede Auszahlung kann nur <strong>einmal</strong> storniert
+        werden (danach steht dort <em>Storniert</em>); Teilstornos gibt es nicht &ndash; stornieren und neu
+        auszahlen. Die allgemeine Funktion <em>Korrigieren</em> im Kassenbuch lehnt Trinkgeld-Auszahlungen
+        ab und verweist auf diese Aktion, weil ihre Neubuchung die Auszahlungsregeln umgehen würde.
+    </p>
+
+    <h3>Tagesbericht (Umsatzstatistiken)</h3>
+    <p>Der Reiter <strong>Tagesbericht</strong> zeigt Kennzahlen (Umsatz, Trinkgeld, Rechnungen, Stornierungen) und darunter die Umsätze in einer von drei Ansichten:</p>
+    <p>Die Kennzahl <strong>Rabatte</strong> ist dieselbe Größe wie auf dem Z-Bon: manuelle Positionsrabatte plus alle Aktionsabzüge (Rechnungs- und Artikelaktionen) der nicht stornierten Belege. Eine stornierte Rechnung und ihr Storno zählen nicht, nach einem Zahlartwechsel zählt der Rabatt einmal (auf der Neubuchung).</p>
+    <p>Die Kennzahl <strong>Rechnungen</strong> und der daraus berechnete Durchschnittsbon zählen nur Verkäufe: Stornobelege und stornierte Rechnungen zählen nicht mit. Nach einem Zahlartwechsel zählen der ersetzte Beleg und sein Storno also nicht, die Neubuchung zählt einmal &ndash; ein Zahlartwechsel macht aus einer Rechnung keine drei.</p>
+    <p>Ebenso zählt die <strong>Anzahl der Zahlungen je Zahlart</strong> (und der daraus berechnete Durchschnitt je Zahlart) nur die Zahlungen der nicht stornierten Belege. Wird eine Barzahlung per Zahlartwechsel auf EC-Karte umgebucht, steht bei BAR 0 und bei EC-Karte 1 Zahlung (die der Neubuchung); eine geteilte Zahlung (z.&nbsp;B. BAR + EC) zählt bei jeder Zahlart eine Zahlung. Der Storno eines Zahlartwechsels ist in der Statistik <strong>keine Rückerstattung</strong>: Es wurde nichts zurückgegeben, der Verkauf wurde sofort neu gebucht.</p>
+    <table>
+        <thead>
+            <tr><th>Ansicht</th><th>Beschreibung</th><th>Sichtbar</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Rechnungen</td><td>Einzelne Rechnungen</td><td>immer</td></tr>
+            <tr><td>Tische</td><td>Umsatz pro Tisch, aufklappbar bis zu den Sitzungen</td><td><code>REPORT_ALL_READ</code></td></tr>
+            <tr><td>Mitarbeiter</td><td>Umsatz pro Bediener, benannt wie unter <em>Namen der Bediener</em> beschrieben</td><td><code>REPORT_ALL_READ</code></td></tr>
+        </tbody>
+    </table>
+
+    <p><strong>Zeitraum:</strong> Seit letztem Z-Bon (Standard), Heute, Gestern, Diese Woche, Dieser Monat oder ein frei gewählter Zeitraum &ndash; wählbar nur mit <code>REPORT_ALL_READ</code>.</p>
+    <p><strong>Filter:</strong> Zahlungsarten (für alle); Mitarbeiter und <em>Training</em> nur mit <code>REPORT_ALL_READ</code>.</p>
+    <p><strong>Zahlungen und Trinkgeld:</strong> Die Zeile <em>Zahlungen</em> unter den Kennzahlen nennt jede Zahlungsart mit ihrem Namen in der Sprache der Oberfläche (ohne Übersetzung der deutsche Name), alphabetisch sortiert (Groß-/Kleinschreibung und Umlaute zählen nicht: <em>Überweisung</em> steht bei U). Die Reihenfolge und damit die Farbe des Punkts vor jeder Zahlungsart bleibt beim Neuladen gleich. In derselben Sprache stehen die Zahlungsarten in den Rechnungszeilen, in der Liste <em>Zahlungen</em>, im Belegdetail (Back-Office und Kasse, auch im Belegverlauf und im Dialog <em>Zahlart ändern</em>) und in der Tabelle <em>Zahlungsarten</em> der <em>Finanzübersicht</em> unter <em>Analysen</em> (die Beträge bleiben je Zahlungsart dieselben; ein älterer Server liefert nur den deutschen Namen). Die Liste <em>Zahlungen</em> sortiert <em>Höchste</em> und <em>Niedrigste</em> nach dem Betrag mit Cent (16,90&nbsp;€ vor 9,90&nbsp;€); zuvor ließen diese beiden Sortierungen die Reihenfolge unverändert. Die Kennzahl <em>Trinkgeld</em> öffnet die <em>Trinkgeld Details</em>; mit <code>REPORT_ALL_READ</code> stehen darunter die <em>Top Trinkgeldempfänger</em>. Die gemeinsame anmeldefreie Bestellstation erscheint als <code>Terminal (ohne Anmeldung)</code>.</p>
+    <p id="kap-11-bedienernamen"><strong>Namen der Bediener:</strong> Die Mitarbeiter-Ansicht, die <em>Top Trinkgeldempfänger</em>, die Liste der <em>Stornierungen</em> und die Sitzungsliste nennen einen Bediener mit Vor- und Nachname aus der Personalakte &ndash; aber nur, wenn der angemeldete Benutzer <code>EMPLOYEE_READ</code> hält (das Recht, die Personalakte eines Kollegen zu lesen; Manager, Administrator, Buchhaltung und Prüfer haben es). Alle anderen sehen den <strong>Benutzernamen</strong>, auch für sich selbst; das gilt ebenso für eine eigene Gruppe mit <code>REPORT_ALL_READ</code> ohne <code>EMPLOYEE_READ</code>, die alle Umsätze, aber keine Personaldaten sieht. Ohne Personalakte steht auch mit <code>EMPLOYEE_READ</code> der Benutzername. Der Server entscheidet das bei jeder Anfrage; die Namen erscheinen nur in diesen Statistiken, nicht auf Belegen, im Z-Bon oder in einem Export.</p>
+    <p>Der Zahlungsarten-Filter richtet sich nach den Zahlungen eines Belegs: Nach einem Zahlartwechsel von BAR auf EC-Karte erscheint die Neubuchung unter EC-Karte, der ersetzte Beleg und sein Storno gemeinsam unter BAR. Eine geteilte Zahlung (z.&nbsp;B. BAR + EC) erscheint unter jeder ihrer Zahlarten. Eine stornierte Rechnung und ihr Stornobeleg erscheinen gemeinsam unter der Zahlart, die erstattet wurde.</p>
+    <p id="kap-11-verknuepfte-belege"><strong>Verknüpfte Belege:</strong> Neubuchungen, Stornobelege und die Rechnungen, zu denen sie gehören, tragen in der Liste einen Hinweis unter der Belegnummer:</p>
+    <ul>
+        <li><strong>„Neubuchung zu RE-…"</strong> auf dem neuen Beleg eines Zahlartwechsels; seine Zahlart ist die korrigierte. Derselbe Hinweis steht auf einem Beleg, der nach einem Storno mit „Tisch zur Neuabrechnung wieder öffnen" die zurückgelegten Positionen abrechnet &ndash; bei mehreren stornierten Belegen durch Komma getrennt, mit „(teilweise)", wenn er auch neu bestellte Positionen enthält.</li>
+        <li><strong>„Storno (Zahlartwechsel) zu RE-…"</strong> auf dem Stornobeleg eines Zahlartwechsels, <strong>„Storniert (Zahlartwechsel)"</strong> auf dem ersetzten Beleg.</li>
+        <li><strong>„Storno zu RE-…"</strong> auf einem Stornobeleg, <strong>„Storniert"</strong> auf der stornierten Rechnung.</li>
+        <li><strong>„Ausgleich zu RE-…"</strong> auf einem Forderungsausgleich an der Kasse, wenn die ausgeglichene Rechnung aus einem Kassenbeleg stammt.</li>
+    </ul>
+    <p>Im Belegdetail führen die Links <strong>„Neubuchung zu RE-…"</strong>, <strong>„Storno zu RE-…"</strong> (bzw. „Storno (Zahlartwechsel) zu RE-…"), <strong>„Storniert durch RE-…"</strong> und <strong>„Neu gebucht als RE-…"</strong> direkt zum verknüpften Beleg &ndash; im selben Fenster, mit <strong>„Zurück zu RE-…"</strong> zum vorherigen. Dasselbe gilt im Back-Office (Tagesbericht, Z-Bon › Belege, Z-Bon › Sitzung). Einzelheiten: <a href="kap-06-abrechnung.html#kap-06-verknuepfte-belege">Kapitel 06 › Verknüpfte Belege</a>.</p>
+    <p id="kap-11-belege-und-umsatz"><strong>Belegliste und Umsatz im Back-Office:</strong> Die Listen <em>Z-Bon › Rechnungen</em> und <em>Z-Bon › Sitzung › Rechnungen</em> zeigen <strong>jeden Beleg</strong> des Zeitraums bzw. der Sitzung &ndash; auch Stornobelege (mit und ohne Zahlartwechsel) und die stornierten Rechnungen, denn jeder signierte Beleg ist ein Kassenbeleg. Die Z-Bon-Liste wird vollständig geladen, auch über 50 Belege hinaus. Dasselbe gilt an der Kasse für den Reiter <em>Rechnungen</em> in der Tischansicht: Auch dort erscheinen Storno, stornierte Rechnung und Neubuchung mit ihren Hinweisen, und der Betrag einer stornierten Rechnung ist durchgestrichen. Der <strong>Umsatz</strong> einer Sitzung zählt dagegen nur die stehen gebliebenen Belege: Eine stornierte Rechnung und ihr Storno heben sich auf und fallen beide heraus, eine Neubuchung zählt.</p>
+    <p id="kap-11-forderungsausgleich"><strong>Forderungsausgleich ist kein Umsatz:</strong> Wird eine Rechnung, die an der Kasse <em>auf Rechnung</em> entstanden ist, später an der Kasse beglichen, entsteht ein Ausgleichsbeleg. Der Umsatz wurde bereits mit der Rechnung gebucht; das Kassieren der Forderung ist kein neuer Umsatz (im DSFinV-K-Export als Forderungsauflösung). Der Z-Bon lässt ihn deshalb aus dem <em>Gesamtumsatz</em> heraus und weist ihn als eigene Zeile <em>Forderungsausgleich</em> aus &ndash; und ebenso alle anderen Umsatzzahlen: die Umsatzkarte und die Tisch-, Sitzungs- und Mitarbeiterumsätze im Tagesbericht, Umsatzentwicklung, Katalog-Abgleich, der Bruttoumsatz der Finanzübersicht und des Monatsabschlusses. Ein Ausgleichsbeleg zählt auch nicht als Rechnung im Ø&nbsp;Bon. Die <strong>Zahlungsarten</strong> enthalten die Zahlung dagegen, denn das Geld ist eingegangen &ndash; wie im Z-Bon. Wo beides nebeneinander steht (Umsatz-Detail an der Kasse, Finanzübersicht im Back-Office), steht der Forderungsausgleich als eigener Betrag darunter: Zahlungsarten = Umsatz + Forderungsausgleich (zuzüglich Mitarbeitertrinkgeld, das ebenfalls kein Umsatz ist).</p>
+    <p><strong>Analysen › Bedienung:</strong> Oben steht der Zeitraum (Tag, Woche, Monat oder Jahr, vor- und zurückschaltbar; ein Tipp auf den Zeitraum öffnet die Auswahl). <em>Mitarbeiter</em> und <em>Vergleich</em> (mit dem vorherigen gleich langen Zeitraum) liegen hinter der Schaltfläche <strong>Filter</strong> und werden erst mit <strong>Anwenden</strong> übernommen; <em>Abbrechen</em> oder das Schließen verwirft die Auswahl. Auf breiten Fenstern erscheinen gesetzte Filter als entfernbare Chips unter der Leiste. Die Zeile darunter nennt die Zahl der Rechnungen im Zeitraum und die Zahl der gesetzten Filter. Auf dem Smartphone steht oben nur der Zeitraum mit <em>&lsaquo; &rsaquo;</em> und der Filter-Schaltfläche; Tag/Woche/Monat/Jahr wählen Sie dort im Filter. Die Kennzahlen erscheinen dort zunächst als eine Zusammenfassungszeile (Umsatz, Rechnungen, Ø Bon, bei offenen Tischen auch <em>Offen</em>) und klappen per Antippen zu den vollständigen Karten mit Trinkgeld und den Vergleichswerten auf. Die Bereiche <em>Umsatz</em>, <em>Steuern &amp; Zahlungen</em>, <em>Katalog</em>, <em>Aktionen</em> und <em>Monatsabschluss</em> wählen Sie auf dem Smartphone über die Auswahlliste, die den aktuellen Bereich anzeigt, oder durch Wischen; auf breiteren Fenstern stehen dafür weiterhin die Chips zur Verfügung.</p>
+    <p><strong>Analysen › Katalog und Aktionen:</strong> Beide zählen nur Belege, die stehen bleiben &ndash; dieselbe Regel wie Z-Bon und Umsatzkarten. Die Artikel einer stornierten Rechnung zählen nicht; nach einem Zahlartwechsel zählen sie einmal (auf der Neubuchung). Der <strong>Umsatz</strong> eines Artikels und einer Kategorie ist der berechnete Preis der Positionen: mit Extras, nach manuellen Positionsrabatten und abzüglich der Aktionen, die auf genau diese Position gewährt wurden. Aktionen auf den ganzen Beleg und das Inhabertrinkgeld gehören zu keiner Kategorie; sie stehen unter der Kategorientabelle als eigene Zeilen <em>Rabatte (Beleg)</em> und <em>Inhabertrinkgeld</em>. Die Schlusszeile <em>Umsatz</em> ergibt damit denselben Betrag wie die Umsatzkarte. Mitarbeitertrinkgeld ist kein Umsatz und erscheint nicht. Die Tabelle <em>Extras</em> zeigt die Aufpreise zum Listenpreis; sie sind im Kategorie-Umsatz bereits enthalten. Die Tabelle <em>Aktionen</em> stimmt mit den Rabatten des Z-Bons überein, sobald keine manuellen Positionsrabatte gebucht wurden.</p>
+    <p><strong>Sortierung:</strong> Neueste, Älteste, Höchste, Niedrigste.</p>
+    <p><strong>Nachladen:</strong> Die Liste lädt jeweils 20 Einträge und beim Blättern weitere nach.</p>
+
+    <h3>Rechnungssuche</h3>
+    <p>Über <strong>Rechnung suchen</strong> wird eine Rechnung über ihre <strong>Rechnungsnummer</strong> gefunden &ndash; eingetippt oder per <strong>QR-Code</strong> vom Beleg gescannt.</p>
+
+    <h3>Trainingsberichte</h3>
+    <p>Der Filter <strong>Training</strong> im Tagesbericht schaltet die Auswertung auf die im Trainingsmodus erstellten Rechnungen um. Er erscheint nur mit <code>REPORT_ALL_READ</code>. Trainingsrechnungen sind keine Umsätze und erscheinen ohne diesen Filter nicht.</p>
+
+    <h3>Eigene Sicht vs. betriebsweite Sicht</h3>
+    <table>
+        <thead>
+            <tr><th>Funktion</th><th>nur <code>REPORT_READ</code><br>(z.&nbsp;B. Kassierer)</th><th>mit <code>REPORT_ALL_READ</code><br>(z.&nbsp;B. Manager)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Eigene Zahlen (Tagesbericht, Ansicht Rechnungen)</td><td>&#10003;</td><td>&#10003;</td></tr>
+            <tr><td>Zahlen aller Mitarbeiter, Ansichten Tische/Mitarbeiter</td><td>&#10007;</td><td>&#10003;</td></tr>
+            <tr><td>Zeitraum wählen</td><td>&#10007;</td><td>&#10003;</td></tr>
+            <tr><td>Mitarbeiter- und Training-Filter</td><td>&#10007;</td><td>&#10003;</td></tr>
+            <tr><td>Rechnungssuche</td><td>&#10003;</td><td>&#10003;</td></tr>
+            <tr><td>Z-Bon Verlauf</td><td>&#10007;</td><td>nur mit <code>ZBON_MANAGE</code></td></tr>
+            <tr><td>Z-Bon erstellen</td><td>&#10007;</td><td>nur mit <code>ZBON_CLOSE</code> (z.&nbsp;B. Manager, nicht Buchhaltung/Prüfer)</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-10-mitarbeiter.html">&larr; Vorheriges: Mitarbeiterverwaltung</a>
+    <a href="kap-12-finanzdokumente.html">Nächstes: Finanzdokumente &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

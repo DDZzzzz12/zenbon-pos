@@ -1,0 +1,37 @@
+-- Migration from version 8 to version 9: local_choice_group_options.price_delta moves from
+-- INTEGER cents to exact decimal TEXT, read through DecimalColumnAdapter.
+--
+-- price_delta CAN BE NEGATIVE (a discount option, e.g. "no cheese -0.50"); the server column is
+-- decimal(19,4) with no non-negative constraint. So the explicit-sign conversion below is
+-- LOAD-BEARING, not defence in depth: SQLite truncates integer division toward zero, so the
+-- shorter form
+--   CAST(price_delta/100 AS TEXT) || '.' || substr('0' || CAST(price_delta%100 AS TEXT), -2)
+-- silently yields "0.99" for -99 (sign LOST) and "0.-5" for -5. Verified with sqlite3.
+--
+-- SQLite cannot retype a column in place, so the table is recreated. The column list below is
+-- copied verbatim from LocalChoiceGroupOptions.sq: 5 columns + the composite PRIMARY KEY, no
+-- FOREIGN KEY and no secondary indexes on this table.
+
+ALTER TABLE local_choice_group_options RENAME TO local_choice_group_options_old;
+
+CREATE TABLE local_choice_group_options (
+    group_id INTEGER NOT NULL,
+    option_id INTEGER NOT NULL,
+    price_delta TEXT NOT NULL,
+    sort_position INTEGER NOT NULL DEFAULT 0,
+    is_default INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (group_id, option_id)
+);
+
+INSERT INTO local_choice_group_options (
+    group_id, option_id, price_delta, sort_position, is_default
+)
+SELECT
+    group_id, option_id,
+    CASE WHEN price_delta < 0 THEN '-' ELSE '' END ||
+        CAST(abs(price_delta) / 100 AS TEXT) || '.' ||
+        substr('0' || CAST(abs(price_delta) % 100 AS TEXT), -2),
+    sort_position, is_default
+FROM local_choice_group_options_old;
+
+DROP TABLE local_choice_group_options_old;

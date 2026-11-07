@@ -1,0 +1,65 @@
+# package name -> area (spec section 4 with the section 10 changes). Names not listed are reported as unmapped by upward_refs.py.
+# name	area	note
+auth	platform
+audit	platform
+employee	platform
+setup	platform
+terminal	platform
+update	platform
+maintenance	platform
+backup	platform
+changelog	platform
+startpage	platform
+clienterror	platform
+scheduler	platform
+customexport	backoffice
+order	ecr
+table	ecr
+product	ecr
+payment	ecr
+bill	ecr
+cardTerminal	ecr
+printer	ecr
+reservation	ecr
+voucher	ecr
+promotion	ecr
+pfand	ecr
+openinghours	ecr
+customer	ecr
+tse	fiscal
+zBon	fiscal
+kassenbuch	fiscal
+dsfinvk	fiscal
+monthlyclose	fiscal
+report	fiscal	dto/report holds ZBonDto
+document	accounting
+salesinvoice	accounting
+partner	accounting
+debtor	accounting
+supplier	accounting
+contract	accounting
+allocation	accounting
+matching	accounting
+bank	accounting
+finance	accounting
+datevexportlog	accounting
+issuereport	accounting
+datev	accounting	DATEV account mapping
+datevxml	accounting	DATEV XML export
+export	accounting	dto/export holds DatevExportResult
+timetracking	backoffice
+statistics	backoffice
+auditlog	backoffice	audit-log screens (shared-ui) stay backoffice per spec 4
+admin	platform	route-permission dump + permission diagnostics; collaborates with RoutePermissions/auth
+csv	platform	CsvImportDto is the setup import response (sibling of dto/setup/CsvImportDto)
+extensions	platform	generic dynamic schema-field DTOs; no importer, no domain collaborator
+reports	platform	ReportsGranularity/period picker: pure date logic used by ui-till (29), shared-ui (56) and backoffice, so it must sit below ecr
+rotation	ecr	round-robin next-employee DTOs; only collaborator is features/order (RotationAssignmentService)
+settings	ecr	shared features.settings is only the LocationType API client over dto/table/LocationTypeDto (table/floor); the same name also resolves ui/shared features.settings.presentation (settings screens incl. TSE sections), a ui source that spec 5.3 exempts from area layering
+sync	platform	change-feed DTOs over the entry_log taxonomy; used by core-data, platform/audit, till sync
+websocket	platform	notification envelope + change-entity enums; cross-cutting transport used by core-data, printer, audit, till
+datevbuchungsstapelbelege	accounting	pos-server export/ DATEV Buchungsstapel Belege zip (sibling of datevxml)
+rTable	ecr	enums/rTable TableStatus: restaurant table (dto/table)
+room	ecr	enums/room RoomElementType: floor-plan element (dto/table)
+setting	platform	enums/setting mixes DATEV cadence (3) and restored-path (2) enums; platform because restore code (backup) uses it and may not depend up on accounting
+reason	platform	core/domain/reason action-reason catalogue (its test declares a dto.reason package)

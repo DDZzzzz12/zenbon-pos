@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 15 – Prüfprotokoll – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 15 – Prüfprotokoll (Audit Log)</h2>
+
+    <p>Das POS-System protokolliert alle geschäftsrelevanten Vorgänge in einem zweistufigen Audit-System. Dieses Kapitel beschreibt die Architektur, die verfügbaren Datenfelder, die API-Endpunkte und die Bedienoberfläche des Prüfprotokolls.</p>
+
+    <div class="alert alert-info">
+        <strong>Berechtigung:</strong> Alle Audit-Log-Funktionen erfordern die Befugnis <code>AUDIT_READ</code>. Standardmäßig halten sie die Berechtigungsgruppen <strong>MANAGER</strong>, <strong>ADMIN</strong>, <strong>Prüfer</strong> (AUDITOR) und <strong>Buchhaltung</strong> (ACCOUNTANT); Kassierer haben keinen Zugriff auf das Prüfprotokoll.
+    </div>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-15-architektur">Zwei-Tabellen-Architektur</h3>
+
+    <p>Das Audit-System besteht aus zwei getrennten Protokolltabellen, die unterschiedliche Detailstufen abdecken:</p>
+
+    <table>
+        <thead>
+            <tr><th>Tabelle</th><th>Zweck</th><th>Detailgrad</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>TransactionAuditLog</strong></td>
+                <td>Vollständige Transaktionsprotokollierung mit Vorher/Nachher-Zuständen, finanzieller Auswirkung und TSE-Referenz</td>
+                <td>Hoch – JSON-Snapshots, Dual-User-Tracking, Geräte- und IP-Erfassung</td>
+            </tr>
+            <tr>
+                <td><strong>EntryLog</strong></td>
+                <td>Einfache Betriebsprotokollierung für alltägliche Aktionen</td>
+                <td>Basis – Typ, Operation, Entität, Nachricht, Mitarbeiter</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-15-transaction-audit">TransactionAuditLog – Felder im Detail</h3>
+
+    <p>Die Haupttabelle <code>transaction_audit_log</code> erfasst jeden geschäftsrelevanten Vorgang mit umfassenden Informationen. Alle Einträge sind unveränderlich (immutable) und dienen der forensischen Analyse.</p>
+
+    <h4>Akteur-Informationen</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>transactionId</code></td><td>Eindeutige Transaktions-ID (UUID-Format), dient als externer Referenzschlüssel und zur Deduplizierung</td></tr>
+            <tr><td><code>employeeId</code></td><td>ID des Mitarbeiters, der die Aktion ausgeführt hat (indiziert für schnelle Suche)</td></tr>
+            <tr><td><code>employeeNumber</code></td><td>Mitarbeiternummer zur Identifikation</td></tr>
+            <tr><td><code>authorizationType</code></td><td>Art der Autorisierung: <code>DIRECT</code>, <code>TEMPORARY_SESSION</code> oder <code>APPROVAL_REQUEST</code></td></tr>
+            <tr><td><code>authorizingManagerId</code></td><td>ID des genehmigenden Managers (bei indirekter Autorisierung, indiziert)</td></tr>
+            <tr><td><code>authorizingManagerName</code></td><td>Name des genehmigenden Managers (denormalisiert für Berichte)</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Vorgangs-Informationen</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>operation</code></td><td>Art der Operation (z.&nbsp;B. CREATE_BILL, CANCEL_ORDER_ITEMS, TSE_QUEUE_CANCELLED) – indiziert; welche Werte tatsächlich geschrieben werden, steht unter <a href="#kap-15-operationen">Protokollierte Operationen</a></td></tr>
+            <tr><td><code>entityType</code></td><td>Typ der betroffenen Entität (z.&nbsp;B. ORDER, ORDER_ITEM, BILL, PAYMENT, TABLE, VOUCHER, ZBON, KASSENBUCH, CANCELLATION, TIME_ENTRY; bei TSE-Einträgen der Vorgangstyp wie BILL oder KASSENBUCH bzw. TSE_EXPLANATION) – indiziert</td></tr>
+            <tr><td><code>entityId</code></td><td>ID der betroffenen Entität – indiziert</td></tr>
+            <tr><td><code>entityName</code></td><td>Name oder Beschreibung der Entität (z.&nbsp;B. „Pizza Margherita", „Tisch 5", „Bestellung #123")</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Zustandsverfolgung (State Tracking)</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>beforeState</code></td><td>JSON-Snapshot des vollständigen Entitätszustands <em>vor</em> der Operation – ermöglicht Rückgängig-Analyse</td></tr>
+            <tr><td><code>afterState</code></td><td>JSON-Snapshot des vollständigen Entitätszustands <em>nach</em> der Operation</td></tr>
+            <tr><td><code>changesSummary</code></td><td>Menschenlesbare Zusammenfassung (z.&nbsp;B. „2 Positionen storniert, Erstattung: 15,50 EUR")</td></tr>
+            <tr><td><code>reason</code></td><td>Begründung für die Operation – besonders wichtig bei Stornierungen und Löschungen</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Kontext und Finanzen</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>timestamp</code></td><td>Zeitpunkt der Operation (ISO 8601, Ortszeit in der Zeitzone der Kasse) – indiziert für Zeitraumabfragen. Einträge aus TSE-Signierung, TSE-Verwaltung und Geschäftspartner-Änderungen, die vor v1.1.0 geschrieben wurden, tragen UTC und erscheinen in der Sommerzeit zwei Stunden zu früh; das Protokoll ist nur fortschreibbar, sie werden nicht umgeschrieben.</td></tr>
+            <tr><td><code>deviceId</code></td><td>Geräte-ID des POS-Terminals, auf dem die Aktion ausgeführt wurde – indiziert</td></tr>
+            <tr><td><code>ipAddress</code></td><td>IP-Adresse des anfragenden Clients</td></tr>
+            <tr><td><code>amountImpact</code></td><td>Finanzielle Auswirkung in Dezimalformat (positiv = Einnahme, negativ = Erstattung/Stornierung)</td></tr>
+            <tr><td><code>currencyCode</code></td><td>Währungscode (Standard: EUR)</td></tr>
+            <tr><td><code>fiscalRecordId</code></td><td>Referenz zum TSE-Datensatz – erforderlich für die deutsche Kassensicherungsverordnung (KassenSichV)</td></tr>
+            <tr><td><code>metadata</code></td><td>Zusätzlicher Kontext als JSON – flexibler Speicher für operationsspezifische Details. Enthält bewusst <em>keine</em> Entitäts-ID: diese steht in <code>entityId</code>, und eine zweite Kopie könnte davon abweichen</td></tr>
+            <tr><td><code>traceId</code></td><td>Die <code>X-Request-ID</code> der auslösenden Anfrage – verbindet den Audit-Eintrag mit der Server-Logzeile und der Fehlermeldung, die der Bediener gesehen hat. Leer bei Vorgängen ohne Anfrage (Zeitsteuerung, Systemstart)</td></tr>
+            <tr><td><code>createdAt</code></td><td>Systemzeitstempel der Datensatzerstellung</td></tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <strong>Fehlgeschlagene Vorgänge:</strong> Ein fehlgeschlagener Eintrag trägt als
+        <code>entityName</code> immer <code>Operation failed due to error</code>. Steht vor dem Vorgang
+        schon fest, welches Objekt er betrifft &ndash; etwa beim Stornieren einer Ausgangs- oder
+        Eingangsrechnung &ndash;, steht dessen ID in <code>entityId</code>, sodass auch ein abgelehnter
+        Versuch in der Historie dieser Rechnung auftaucht; sonst steht dort <code>FAILED</code>.
+        In der Liste wird für solche Einträge der Grund
+        (<code>reason</code>, z.&nbsp;B. <code>ERROR: IllegalStateException: …</code>) rot angezeigt –
+        vorher stand dort für jeden Fehler derselbe Text, sodass sich die Fehler erst nach dem
+        Aufklappen unterscheiden ließen. Über die <code>traceId</code> lässt sich derselbe Vorgang
+        anschließend in der Server-Logzeile wiederfinden.
+    </div>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-15-operationen">Protokollierte Operationen</h3>
+
+    <p>
+        Die Geschäftsvorgänge der Kasse werden über <code>ExceptionConverter.shouldAuditOperation</code>
+        protokolliert – bei Erfolg wie bei Fehlschlag, aber nur, wenn ihre Operation in der folgenden
+        Liste steht. Gruppiert nach Bereich:
+    </p>
+
+    <table>
+        <thead>
+            <tr><th>Bereich</th><th>Operationen</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Bestellungen</td><td>CREATE_ORDER, DELETE_ORDER</td></tr>
+            <tr><td>Bestellpositionen</td><td>CANCEL_ORDER_ITEMS, TRANSFER_ORDER_ITEMS</td></tr>
+            <tr><td>Rechnungen</td><td>CREATE_BILL, DELETE_BILL, REBOOK_BILL</td></tr>
+            <tr><td>Zahlungen</td><td>CREATE_PAYMENT, REFUND_PAYMENT</td></tr>
+            <tr><td>Gutscheine</td><td>CREATE_VOUCHER, REDEEM_VOUCHER</td></tr>
+            <tr><td>Tische</td><td>TRANSFER_TABLE, DELETE_TABLE_SESSION</td></tr>
+            <tr><td>Kassenbuch</td><td>CREATE_CASH_BOOK_ENTRY, CORRECT_CASH_BOOK_ENTRY, LINK_CASH_BOOK_DOCUMENT, REPLACE_CASH_BOOK_DOCUMENT, UNLINK_CASH_BOOK_DOCUMENT, SET_CASH_BOOK_SIGNING_TERMINAL</td></tr>
+            <tr><td>Geldtransit (Zeile nennt die gemeinsame Transfer-ID beider Buchungen)</td><td>CREATE_CASH_TRANSFER, REVERSE_CASH_TRANSFER</td></tr>
+            <tr><td>Trinkgeld-Auszahlung (Zeile nennt die Kassenbuch-Buchung und ihre Beleg-Nr.)</td><td>PAY_OUT_EMPLOYEE_TIP, REVERSE_EMPLOYEE_TIP_PAYOUT</td></tr>
+            <tr><td>Trinkgeld über Bank/Lohn (keine Kassenbuch-Buchung; Zeile nennt die Auszahlungs-ID)</td><td>SETTLE_EMPLOYEE_TIP_BANK_PAYROLL, REVERSE_EMPLOYEE_TIP_SETTLEMENT</td></tr>
+            <tr><td>Tagesabschluss (Zeile nennt den Z-Bon; Zustand nennt die signierende ClientID und ihre Herkunft: bestimmte Kasse, auslösende Kasse, kein Signierer nötig oder TSE-deaktiviert-Platzhalter)</td><td>CREATE_REPORT</td></tr>
+            <tr><td>Ausgangsrechnungen</td><td>CANCEL_SALES_INVOICE</td></tr>
+            <tr><td>Eingangsrechnungen</td><td>CANCEL_INCOMING_INVOICE</td></tr>
+            <tr><td>Zuordnung</td><td>REVERSE_ALLOCATION</td></tr>
+            <tr><td>Personal</td><td>CREATE_EMPLOYEE, UPDATE_EMPLOYEE, ASSIGN_PERMISSION_GROUP, DEACTIVATE_EMPLOYEE</td></tr>
+            <tr><td>Terminals (Zeile nennt das Terminal und seine Client-ID)</td><td>DEREGISTER_TSE_CLIENT, DEACTIVATE_TERMINAL, REACTIVATE_TERMINAL</td></tr>
+            <tr><td>Browser-Stationen (Zeile nennt den Betrieb und die aktivierten Rollen)</td><td>UPDATE_BROWSER_STATIONS</td></tr>
+            <tr><td>Web-Zugang: API-Dokumentation und Standard-Startseite (Zeile nennt den Betrieb, Zustand beide Werte)</td><td>UPDATE_WEB_ACCESS</td></tr>
+            <tr><td>TSE-Archivregister (Zeile nennt den Registereintrag und die Archivdatei; bei Ablehnung die Datei)</td><td>REGISTER_TSE_ARCHIVE</td></tr>
+            <tr><td>Problemmeldungen (Zeile nennt die GitHub-Issue-Nummer, nie Titel oder Text)</td><td>CREATE_ISSUE_REPORT</td></tr>
+            <tr><td>Zeiterfassung</td><td>CLOCK_IN, CLOCK_OUT, START_BREAK, END_BREAK, CREATE_MANUAL_TIME_ENTRY, DELETE_TIME_ENTRY</td></tr>
+        </tbody>
+    </table>
+
+    <div class="hint">
+        <strong>Diese Liste ist für die Kassenvorgänge abschließend.</strong> Findet sich zu einem
+        Vorgang kein Eintrag, steht seine Operation nicht in der Tabelle – das ist dann kein fehlender
+        Eintrag, sondern ein Vorgang, der bewusst nicht protokolliert wird.
+        <br><br>
+        <strong>Personal:</strong> Anlegen, Bearbeiten (einschließlich Rolle, Schulungsmodus und
+        Beschäftigungsstatus), Zuweisen einer Berechtigungsgruppe und Deaktivieren eines Mitarbeiters
+        werden mit der ID des betroffenen Mitarbeiters protokolliert &ndash; auch ein abgelehnter Versuch,
+        etwa eine Rolle, die Fähigkeiten verleihen würde, die der Handelnde selbst nicht besitzt (403).
+        Das Löschen über <code>DELETE /api/employees/{id}</code> deaktiviert nur und erscheint daher als
+        <code>DEACTIVATE_EMPLOYEE</code>. Eine Anfrage, der schon die Berechtigung
+        <code>EMPLOYEE_WRITE</code> fehlt, weist die Zugriffsprüfung schon vor dem Vorgang ab; sie
+        erscheint nicht in diesem Prüfprotokoll.
+        <br><br>
+        <strong>Zusätzlich</strong> schreiben einige Stellen ihre Einträge direkt, ohne diese Liste:
+        <ul>
+            <li><code>TSE_QUEUE_SIGNED</code> – ein Vorgang wurde aus der Warteschlange nachsigniert (Autorisierung <code>AUTOMATIC</code>)</li>
+            <li><code>TSE_POSSIBLE_DOUBLE_SIGN</code> – die TSE-Antwort ging verloren, der Vorgang wurde beim Nachsignieren unter neuer TANR erneut signiert (<code>AUTOMATIC</code>)</li>
+            <li><code>TSE_QUEUE_CANCELLED</code> – ein Bediener hat das Nachsignieren eines Vorgangs mit Begründung abgebrochen (<code>MANUAL</code>)</li>
+            <li><code>TSE_TRANSACTION_SUPERSEDED</code> – eine begonnene TSE-Transaktion ließ sich nicht wie erfasst abschließen und wurde durch eine neue TANR ersetzt (<code>AUTOMATIC</code>)</li>
+            <li><code>TSE_EXPLANATION_CREATED</code> – eine Erläuterung zu TSE-Befunden wurde erfasst (Web-Backoffice, <em>Geräte &rarr; TSE-Befunde</em>)</li>
+            <li><code>MERGE_BUSINESS_PARTNER</code> – zwei Geschäftspartner wurden zusammengeführt</li>
+            <li><code>VOID_RETURNED_DEBIT_ALLOCATION</code> – der Stornolauf hat eine Zuordnung aufgehoben, weil die Bank die zugrunde liegende Buchung zurückgegeben hat (Rücklastschrift); die Rechnung bzw. Rate ist wieder offen (<code>AUTOMATIC</code>)</li>
+        </ul>
+    </div>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-15-autorisierung">Autorisierungstypen</h3>
+
+    <p>Jeder Audit-Eintrag dokumentiert, wie die Aktion autorisiert wurde. Das Dual-User-Tracking erfasst sowohl den ausführenden Mitarbeiter als auch den genehmigenden Manager:</p>
+
+    <table>
+        <thead>
+            <tr><th>Typ</th><th>Beschreibung</th><th>Manager-Feld</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>DIRECT</code></td><td>Der Mitarbeiter hat die erforderliche Berechtigung selbst</td><td>Leer (nicht erforderlich)</td></tr>
+            <tr><td><code>TEMPORARY_SESSION</code></td><td>Autorisiert über eine per Manager-PIN geliehene Befugnis am Gerät</td><td>Manager-ID und -Name erfasst</td></tr>
+            <tr><td><code>APPROVAL_REQUEST</code></td><td>Autorisiert über eine Echtzeit-Genehmigungsanfrage an einen Manager</td><td>Manager-ID und -Name erfasst</td></tr>
+            <tr><td><code>AUTOMATIC</code> / <code>MANUAL</code></td><td>Nur bei den direkt geschriebenen TSE-Einträgen (siehe oben): vom System ausgelöst bzw. von einem Bediener</td><td>&ndash;</td></tr>
+        </tbody>
+    </table>
+
+    <p>
+        Eine Manager-PIN leiht dem Kassierer genau die eine angefragte Befugnis; der Kassierer bleibt
+        der Handelnde (<code>employeeId</code>), der Manager wird zusätzlich eingetragen.
+        Bei <code>TEMPORARY_SESSION</code> bedeuten die Manager-Felder genau: <em>Zum Zeitpunkt der
+        Aktion war für diesen Mitarbeiter an diesem Gerät eine von diesem Manager freigegebene Befugnis
+        aktiv</em> – nicht zwingend, dass der Manager gerade diese Aktion genehmigt hat. Bei
+        <code>APPROVAL_REQUEST</code> hat der Manager genau diese Aktion freigegeben.
+    </p>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-15-entry-log">EntryLog – Einfache Protokollierung</h3>
+
+    <p>Die Tabelle <code>entry_log</code> bietet eine kompakte Protokollierung für alltägliche Vorgänge mit weniger Detailtiefe als das TransactionAuditLog:</p>
+
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Typ</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>type</code></td><td>Enum (LogType)</td><td>Kategorisierung des Log-Eintrags</td></tr>
+            <tr><td><code>operation</code></td><td>Enum (LogOperation)</td><td>CREATE, UPDATE oder DELETE</td></tr>
+            <tr><td><code>entityId</code></td><td>String</td><td>ID der betroffenen Entität</td></tr>
+            <tr><td><code>entityName</code></td><td>String</td><td>Name der betroffenen Entität</td></tr>
+            <tr><td><code>message</code></td><td>String (optional)</td><td>Freitext-Nachricht mit weiteren Details</td></tr>
+            <tr><td><code>userId</code></td><td>Referenz</td><td>Fremdschlüssel auf den ausführenden Mitarbeiter</td></tr>
+            <tr><td><code>createdAt</code></td><td>DateTime</td><td>Erstellungszeitpunkt (automatisch gesetzt)</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-15-api">API-Endpunkte</h3>
+
+    <p>Die Transaktions-Endpunkte befinden sich unter <code>/api/audit/transactions</code>, das Eintragsprotokoll unter <code>/api/entry-logs/paginated</code>. Alle erfordern JWT-Authentifizierung und die Befugnis <code>AUDIT_READ</code>.</p>
+
+    <h4>Paginierte Abfrage mit Filtern</h4>
+    <p><code>GET /api/audit/transactions/paginated</code></p>
+    <table>
+        <thead>
+            <tr><th>Parameter</th><th>Typ</th><th>Standard</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>employeeId</code></td><td>String</td><td>–</td><td>Filter nach Mitarbeiter-ID</td></tr>
+            <tr><td><code>employeeNumber</code></td><td>String</td><td>–</td><td>Filter nach Mitarbeiternummer</td></tr>
+            <tr><td><code>operation</code></td><td>String</td><td>–</td><td>Filter nach Operationstyp (z.&nbsp;B. CREATE_ORDER)</td></tr>
+            <tr><td><code>entityType</code></td><td>String</td><td>–</td><td>Filter nach Entitätstyp (z.&nbsp;B. ORDER, PRODUCT)</td></tr>
+            <tr><td><code>entityId</code></td><td>String</td><td>–</td><td>Filter nach Entitäts-ID</td></tr>
+            <tr><td><code>entityName</code></td><td>String</td><td>–</td><td>Filter nach Entitätsname (Teilübereinstimmung)</td></tr>
+            <tr><td><code>search</code></td><td>String</td><td>–</td><td>Globale Suche (Groß-/Kleinschreibung ignoriert) über <code>entityName</code>, <code>entityId</code>, <code>transactionId</code>, <code>reason</code>, <code>changesSummary</code> und <code>employeeNumber</code></td></tr>
+            <tr><td><code>fromDate</code></td><td>String</td><td>–</td><td>Startdatum (ISO-Format, inklusive)</td></tr>
+            <tr><td><code>toDate</code></td><td>String</td><td>–</td><td>Enddatum (ISO-Format, inklusive)</td></tr>
+            <tr><td><code>amountMin</code></td><td>Dezimalzahl als String</td><td>–</td><td>Untere Grenze für <code>amountImpact</code> (inklusive; Einträge ohne Betrag werden ausgeschlossen)</td></tr>
+            <tr><td><code>amountMax</code></td><td>Dezimalzahl als String</td><td>–</td><td>Obere Grenze für <code>amountImpact</code> (inklusive; Einträge ohne Betrag werden ausgeschlossen)</td></tr>
+            <tr><td><code>authorizationType</code></td><td>String</td><td>–</td><td>Filter nach Autorisierungstyp (DIRECT, TEMPORARY_SESSION, APPROVAL_REQUEST)</td></tr>
+            <tr><td><code>page</code></td><td>Int</td><td>0</td><td>Seitennummer (0-basiert)</td></tr>
+            <tr><td><code>size</code></td><td>Int</td><td>20</td><td>Einträge pro Seite (min: 1, max: 100)</td></tr>
+        </tbody>
+    </table>
+    <p>Die Antwort enthält ein <code>logs</code>-Array und ein <code>pagination</code>-Objekt mit <code>currentPage</code>, <code>totalPages</code>, <code>totalItems</code>, <code>hasPrevious</code> und <code>hasNext</code>.</p>
+
+    <h4>Einfache Abfrage</h4>
+    <p><code>GET /api/audit/transactions</code></p>
+    <p>Gibt bis zu <code>limit</code> Einträge zurück (Standard: 100). Unterstützt die Filter: <code>employeeNumber</code>, <code>authorizingManagerId</code>, <code>operation</code>, <code>entityType</code>, <code>entityId</code>, <code>fromDate</code>, <code>toDate</code>.</p>
+
+    <h4>Eintragsprotokoll (EntryLog)</h4>
+    <p><code>GET /api/entry-logs/paginated</code></p>
+    <p>Filter: <code>type</code>, <code>operation</code>, <code>entityName</code>, <code>entityId</code>, <code>employeeNumber</code>, <code>fromDate</code>, <code>toDate</code>, <code>search</code>; Seiten über <code>page</code> (ab 0) und <code>size</code> (1–100, Standard 20).</p>
+
+    <div class="hint">
+        <strong>Entfernt in v1.1.0:</strong> Die Endpunkte <code>/api/audit/transactions/{transactionId}</code>, <code>/entity/{entityType}/{entityId}</code> und <code>/employee/{employeeId}</code> hatten keinen Aufrufer und wurden entfernt. Den Verlauf einer Entität liefert <code>GET /api/audit/transactions?entityType=…&amp;entityId=…</code>, die Einträge eines Mitarbeiters der Filter <code>employeeId</code> bzw. <code>employeeNumber</code> der paginierten Abfrage.
+    </div>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-15-ui">Bedienoberfläche</h3>
+
+    <p>Das Prüfprotokoll liegt im Web-Backoffice (<code>/admin</code>) unter <strong>Compliance &rarr; Audit-Log</strong>; an der Kasse gibt es kein Prüfprotokoll mehr. Die Oberfläche ist in zwei Tabs aufgeteilt, <strong>Änderung</strong> (Eintragsprotokoll) und <strong>Transaktion</strong> (Transaktionsprotokoll):</p>
+
+    <h4>Tab 1 – Änderung (Eintragsprotokoll)</h4>
+    <ul>
+        <li>Zeigt einfache Betriebsprotokolle aus der EntryLog-Tabelle</li>
+        <li>Jeder Eintrag wird als Karte dargestellt mit farblicher Kennzeichnung:
+            <ul>
+                <li><strong>CREATE</strong> – Primärfarbe (Blau)</li>
+                <li><strong>UPDATE</strong> – Tertiärfarbe</li>
+                <li><strong>DELETE</strong> – Fehlerfarbe (Rot)</li>
+            </ul>
+        </li>
+        <li>Karten zeigen: Operation, Typ, Entitätsname, Nachricht, Mitarbeiter-ID und Zeitstempel</li>
+        <li>Operation und Typ erscheinen in der Oberflächensprache, der technische Schlüssel steht als Zweittext darunter. Ein Soft-Delete (<code>DELETE</code> mit Nachricht <em>Deactivated&hellip;</em>) wird als <strong>Deaktiviert</strong> angezeigt.</li>
+        <li>Paginierung mit Vor-/Zurück-Navigation und Anzeige der Gesamtanzahl</li>
+    </ul>
+
+    <h4>Tab 2 – Transaktion (Transaktionsprotokoll)</h4>
+    <ul>
+        <li>Zeigt detaillierte Transaktions-Audit-Einträge aus dem TransactionAuditLog</li>
+        <li>Karten enthalten: Operation (mit Leerzeichen statt Unterstrichen), Entitätstyp, Entitätsname, Mitarbeiternummer, Zeitstempel</li>
+        <li>Optionale Anzeige von: Änderungszusammenfassung, Begründung (in Fehlerfarbe), finanzielle Auswirkung (positiv in Primärfarbe, negativ in Fehlerfarbe)</li>
+        <li>Operation und Entitätstyp erscheinen ebenfalls lokalisiert, der Rohschlüssel als Zweittext; die Entity-ID steht am unteren Kartenrand</li>
+    </ul>
+
+    <h4>Filterpanel</h4>
+    <p>Das Filterpanel lässt sich über das Filter-Symbol in der oberen Leiste ein- und ausblenden (mit Animation). Beide Tabs bieten eigene Filter:</p>
+
+    <table>
+        <thead>
+            <tr><th>Entry-Log-Filter</th><th>Transaction-Audit-Filter</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Globale Suche (Suchleiste, feldübergreifend)</td><td>Globale Suche (Suchleiste, feldübergreifend)</td></tr>
+            <tr><td>Typ (Dropdown, alle ChangeEntityType-Werte)</td><td>Entitätstyp (Dropdown, alle EntityType-Werte)</td></tr>
+            <tr><td>Operation (Dropdown: CREATE, UPDATE, DELETE)</td><td>Operation (Dropdown; es listet auch Werte, die nie geschrieben werden – maßgeblich ist die Liste unter <a href="#kap-15-operationen">Protokollierte Operationen</a>)</td></tr>
+            <tr><td>—</td><td>Autorisierungstyp (Dropdown: DIRECT, TEMPORARY_SESSION, APPROVAL_REQUEST)</td></tr>
+            <tr><td>Entitätsname (Freitextsuche)</td><td>Entitätsname (Freitextsuche)</td></tr>
+            <tr><td>Entitäts-ID (Textfeld)</td><td>—</td></tr>
+            <tr><td>Mitarbeiternummer (Textfeld)</td><td>Mitarbeiternummer (Textfeld)</td></tr>
+            <tr><td>—</td><td>Betrag von / bis (Bereichsfilter auf <code>amountImpact</code>)</td></tr>
+            <tr><td>Datumsbereich von/bis (mit Schnellauswahl)</td><td>Datumsbereich von/bis (mit Schnellauswahl)</td></tr>
+        </tbody>
+    </table>
+    <p>Die <strong>globale Suche</strong> durchsucht mehrere Felder gleichzeitig (Groß-/Kleinschreibung wird ignoriert): im Entry Log Entitätsname, Entitäts-ID und Nachricht; im Transaction Audit zusätzlich Transaktions-ID, Begründung, Änderungszusammenfassung und Mitarbeiternummer. Der <strong>Datumsbereich</strong> bietet Schnellauswahl-Schaltflächen (Heute, Diese Woche, Dieser Monat) sowie Datumsauswahl-Dialoge für individuelle Grenzen.</p>
+    <p>Filter werden <strong>automatisch angewendet</strong>: Eingaben lösen nach einer kurzen Verzögerung (300&nbsp;ms Entprellung) ein Neuladen aus, ein separater „Anwenden"-Button entfällt. Die Schaltfläche <strong>Alle löschen</strong> setzt sämtliche Filter des jeweiligen Tabs zurück.</p>
+
+    <h4>Paginierung</h4>
+    <p>Beide Tabs verwenden eine einheitliche Paginierungssteuerung am unteren Rand:</p>
+    <ul>
+        <li>Auswahl der Seitengröße (20, 50 oder 100 Einträge pro Seite)</li>
+        <li>Anzeige der Gesamtanzahl der Einträge (links)</li>
+        <li>Vor-/Zurück-Pfeile mit Deaktivierung an den Rändern</li>
+        <li>Seitenindikator: „Seite X von Y"</li>
+        <li>Ladeindikator während des Seitenwechsels</li>
+    </ul>
+
+    <div class="alert alert-info">
+        <strong>Tipp:</strong> Um den vollständigen Verlauf eines bestimmten Objekts nachzuvollziehen – z.&nbsp;B. alle Aktionen zu einem Beleg –, wählen Sie den Entitätstyp und geben die Entitäts-ID in die globale Suche ein (sie durchsucht auch <code>entityId</code>; API: <code>GET /api/audit/transactions?entityType=BILL&amp;entityId=…</code>).
+    </div>
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-14-compliance.html">&larr; Vorheriges: Compliance</a>
+    <a href="kap-16-fehlerbehebung.html">Nächstes: Fehlerbehebung &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

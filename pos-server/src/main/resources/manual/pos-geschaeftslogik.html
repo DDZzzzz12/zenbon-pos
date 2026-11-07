@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POS-System: Gesch&auml;ftslogik-Dokumentation</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+    --code-bg: #f3f4f6;
+    --table-header: #f9fafb;
+    --blockquote-bg: #eff6ff;
+    --blockquote-border: #93c5fd;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.7;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.4rem; margin-top: 2.5rem; margin-bottom: 0.75rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.3rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.8rem; margin-bottom: 0.5rem; }
+  h4 { font-size: 1rem; margin-top: 1.2rem; margin-bottom: 0.4rem; }
+  p { margin-bottom: 0.75rem; }
+  a { color: var(--accent); }
+  code {
+    background: var(--code-bg);
+    padding: 0.15em 0.35em;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  pre {
+    background: var(--code-bg);
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  blockquote {
+    background: var(--blockquote-bg);
+    border-left: 4px solid var(--blockquote-border);
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-style: italic;
+  }
+  blockquote p { margin-bottom: 0.4rem; }
+  blockquote p:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--table-header); font-weight: 600; }
+  tr:hover { background: #fafafa; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .meta { color: #6b7280; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .toc { background: var(--code-bg); padding: 1rem 1.5rem; border-radius: 6px; margin: 1rem 0 2rem; }
+  .toc ul { list-style: none; padding-left: 1.2rem; }
+  .toc > ul { padding-left: 0; }
+  .toc li { margin: 0.2rem 0; }
+  .toc a { text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .hint {
+    background: #fefce8;
+    border-left: 4px solid #facc15;
+    padding: 0.6rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  .status-ok { color: #16a34a; font-weight: 600; }
+  .status-warn { color: #d97706; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<h1>POS-System: Gesch&auml;ftslogik-Dokumentation</h1>
+<div class="meta">
+  <strong>Technische Referenzdokumentation</strong> der zentralen Gesch&auml;ftslogik des POS-Servers.<br>
+  <strong>Zielgruppe:</strong> Entwickler, Auditoren, Steuerberater.<br>
+  <strong>Stand:</strong> v1.1.0 (2026-09-24). Dateipfade der Form <code>server/.../</code> sind Kurzformen; ein Teil der
+  Tabellen und Hilfsklassen liegt inzwischen in den Datenmodulen der Bereiche (<code>ecr/data/</code>, <code>fiscal/data/</code>, <code>platform/data/</code>); das frühere Modul <code>core-data/</code> existiert nicht mehr.
+</div>
+
+<nav class="toc">
+<strong>Inhaltsverzeichnis</strong>
+<ul>
+  <li><a href="#s1">1. Einleitung &amp; &Uuml;berblick</a></li>
+  <li><a href="#s2">2. Mehrwertsteuersystem (MwSt / VAT)</a></li>
+  <li><a href="#s3">3. Bestellungen (Orders)</a></li>
+  <li><a href="#s4">4. Rechnungen (Bills)</a></li>
+  <li><a href="#s5">5. MwSt-Berechnung auf Rechnungen (BillVatDetail)</a></li>
+  <li><a href="#s6">6. Rechnungsstorno (Bill Deletion)</a></li>
+  <li><a href="#s7">7. Zahlungsarten (Payment Types)</a></li>
+  <li><a href="#s8">8. Prozessdaten (ProcessDataBuilder)</a></li>
+  <li><a href="#s9">9. Z-Bon (Tagesabschluss)</a></li>
+  <li><a href="#s10">10. Kassenbuch (Cash Book)</a></li>
+  <li><a href="#s11">11. Gutscheine (Voucher)</a></li>
+  <li><a href="#s12">12. Datenbank-Schema (&Uuml;bersicht)</a></li>
+  <li><a href="#s13">13. Gesch&auml;ftsregeln &amp; Validierungen</a></li>
+</ul>
+</nav>
+
+<hr>
+
+<h2 id="s1">1. Einleitung &amp; &Uuml;berblick</h2>
+
+<h3>1.1 Zweck der Dokumentation</h3>
+
+<p>Diese Dokumentation beschreibt die komplette Gesch&auml;ftslogik des POS-Systems auf dem Server. Sie dient als Referenz f&uuml;r:</p>
+
+<ul>
+<li><strong>Entwickler</strong>: Verst&auml;ndnis der Gesch&auml;ftsprozesse und Datenfl&uuml;sse</li>
+<li><strong>Auditoren</strong>: Nachvollziehbarkeit der fiskalischen Abl&auml;ufe (KassenSichV, DSFinV-K)</li>
+<li><strong>Steuerberater</strong>: Verst&auml;ndnis der MwSt-Berechnung und DATEV-Integration</li>
+</ul>
+
+<h3>1.2 Architektur-&Uuml;berblick</h3>
+
+<pre><code>&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;     HTTP/JSON      &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;     Exposed ORM     &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+&#x2502;   Client     &#x2502; &#x25C4;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x25BA; &#x2502;   Server     &#x2502; &#x25C4;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x25BA; &#x2502;  PostgreSQL  &#x2502;
+&#x2502;  (Android/   &#x2502;                     &#x2502;   (Ktor)     &#x2502;                      &#x2502;   Datenbank  &#x2502;
+&#x2502;   Desktop)   &#x2502;                     &#x2502;              &#x2502;                      &#x2502;              &#x2502;
+&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;                     &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;                      &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                                           &#x2502;
+                                           &#x2502; TSE-Signierung
+                                           &#x25BC;
+                                    &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+                                    &#x2502;     TSE      &#x2502;
+                                    &#x2502;  (Hardware/  &#x2502;
+                                    &#x2502;  Simulation) &#x2502;
+                                    &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</code></pre>
+
+<h3>1.3 Feature-Module</h3>
+
+<table>
+<tr><th>Modul</th><th>Paket</th><th>Aufgabe</th></tr>
+<tr><td><strong>order</strong></td><td><code>features.order</code></td><td>Bestellungsaufnahme und -verwaltung</td></tr>
+<tr><td><strong>bill</strong></td><td><code>features.bill</code></td><td>Rechnungserstellung und -storno</td></tr>
+<tr><td><strong>zBon</strong></td><td><code>features.zBon</code></td><td>Tagesabschluss (Z-Bon)</td></tr>
+<tr><td><strong>kassenbuch</strong></td><td><code>features.kassenbuch</code></td><td>Kassenbuch-Eintr&auml;ge und DATEV-Export</td></tr>
+<tr><td><strong>payment</strong></td><td><code>features.payment</code></td><td>Zahlungsarten und MwSt-Verwaltung</td></tr>
+<tr><td><strong>voucher</strong></td><td><code>features.voucher</code></td><td>Gutschein-Erstellung und -Einl&ouml;sung</td></tr>
+</table>
+
+<h3>1.4 Zentrale Entwurfsmuster</h3>
+
+<ul>
+<li><strong>Fehler als <code>PosException</code></strong>: Services signalisieren erwartete Fehler per <code>throw PosException(PosErrorCode, HttpStatusCode, &hellip;)</code>; der Server antwortet einheitlich im Format RFC&nbsp;7807 (<code>ProblemDetail</code> mit <code>code</code> und <code>traceId</code>). Das alte <code>Result&lt;T, DataError&gt;</code>-Muster ist in den Server-Features abgel&ouml;st und lebt nur noch in einigen Randmodulen.</li>
+<li><strong>dbQuery-Transaktionen</strong>: Services steuern die Transaktionsgrenzen via <code>dbQuery {}</code>. Repositories haben <strong>keine</strong> eigenen Transaktionen.</li>
+<li><strong>Service-Repository-Trennung</strong>: Repositories liefern Entities, Services liefern DTOs.</li>
+<li><strong>Zwei Phasen bei fiskalischen Vorg&auml;ngen</strong>: Phase&nbsp;1 schreibt Bestellung/Rechnung in einer Datenbanktransaktion (<code>REPEATABLE_READ</code>, bei Konflikt wiederholt), Phase&nbsp;2 signiert nach dem Commit mit der TSE. Die Signierpr&uuml;fung (Terminal, TSE-Modus) l&auml;uft <em>vor</em> Phase&nbsp;1, damit ein abgelehnter Vorgang nichts schreibt.</li>
+<li><strong>Geld exakt dezimal</strong>: Betr&auml;ge sind <code>BigDecimal</code> in der Datenbank (<code>DECIMAL(19,4)</code>) und Strings auf der Leitung &mdash; nie <code>Double</code>. Die Clients rechnen mit dem <code>:platform-money</code>-Modul und zeigen z.&nbsp;B. <code>16,90&nbsp;&euro;</code> an.</li>
+</ul>
+
+<hr>
+
+<h2 id="s2">2. Mehrwertsteuersystem (MwSt / VAT)</h2>
+
+<h3>2.1 VAT-Tabelle</h3>
+
+<p>Die Grundlage bildet die Tabelle <code>vat</code> mit String-Prim&auml;rschl&uuml;ssel:</p>
+
+<table>
+<tr><th>ID</th><th>vatClass</th><th>vatRate (Dezimal)</th><th>Bedeutung</th></tr>
+<tr><td><code>A</code></td><td>STANDARD_19</td><td>0.1900</td><td>19% Regelsteuersatz</td></tr>
+<tr><td><code>B</code></td><td>REDUCED_7</td><td>0.0700</td><td>7% erm&auml;&szlig;igter Satz</td></tr>
+<tr><td><code>C</code></td><td>ZERO</td><td>0.0000</td><td>0% steuerfrei</td></tr>
+</table>
+
+<p><strong>Dateipfad</strong>: <code>ecr/data/.../payment/database/tables/VatTable.kt</code></p>
+
+<p><strong>&Auml;nderungsschutz (v1.1.0):</strong> Ein Satz, der bereits verwendet wird, kann nicht mehr in place ge&auml;ndert werden &mdash;
+sonst w&uuml;rden historische Positionen r&uuml;ckwirkend umbewertet. F&uuml;r einen neuen Satz wird eine neue Klasse angelegt und die
+Zuordnung umgestellt; Umbenennen der Klasse und erneutes Speichern des identischen Satzes bleiben erlaubt.</p>
+
+<pre><code>VatTable : IdTable&lt;String&gt;("vat")
+  &#x251C;&#x2500; id: varchar(10)         &mdash; PK, z.B. "A", "B", "C"
+  &#x251C;&#x2500; vatClass: varchar(50)   &mdash; Unique Index, z.B. "STANDARD_19"
+  &#x2514;&#x2500; vatRate: decimal(5,4)   &mdash; z.B. 0.1900</code></pre>
+
+<h3>2.2 VatMappingConfig</h3>
+
+<p>Die MwSt-Zuordnung ist pro Produkttyp konfigurierbar und wird in der Shop-Konfiguration gespeichert.</p>
+
+<p><strong>Dateipfad</strong>: <code>platform/api/.../core/domain/models/setup/VatMappingConfig.kt</code></p>
+
+<pre><code>data class VatMappingConfig(
+    FOOD:    VatRules(default = "A", toGo = "B", reduced = "B"),
+    DRINKS:  VatRules(default = "A"),
+    RETAIL:  VatRules(default = "A"),
+    SERVICE: VatRules(default = "A"),
+    VOUCHER: VatRules(default = "C"),
+    OTHERS:  VatRules(default = "C")
+)
+
+data class VatRules(
+    default: String,        // Pflicht &mdash; Standard-MwSt-Klasse
+    toGo: String? = null,   // Optional &mdash; Au&szlig;er-Haus
+    reduced: String? = null  // Optional &mdash; Erm&auml;&szlig;igt
+)</code></pre>
+
+<h3>2.3 VatMappingUtil.determineVat()</h3>
+
+<p><strong>Dateipfad</strong>: <code>ecr/data/.../utils/config/VatMappingUtil.kt</code></p>
+
+<p><strong>Pfand</strong>: Pfand- und Pfandr&uuml;ckgabe-Positionen bestimmen ihre Klasse nicht &uuml;ber den Produkttyp, sondern
+&uuml;ber den <code>PfandType</code> des Produkts (<code>determineDepositVat</code>, Warenumschlie&szlig;ung nach Anhang&nbsp;C);
+ohne <code>PfandType</code> f&auml;llt sie mit Warnung auf Klasse A zur&uuml;ck.</p>
+
+<p><strong>Algorithmus</strong> (Priorit&auml;t absteigend):</p>
+
+<pre><code>1. Konfiguration aus ShopConfigurationManager laden
+2. VatRules f&uuml;r productType ermitteln
+3. Priorit&auml;tslogik:
+   &#x251C;&#x2500; isToGo == true  UND  toGo != null  &rarr;  toGo-Klasse verwenden
+   &#x251C;&#x2500; isReduced == true  UND  reduced != null  &rarr;  reduced-Klasse verwenden
+   &#x2514;&#x2500; Sonst  &rarr;  default-Klasse verwenden
+4. Vat-Entity per findById(vatClass) laden</code></pre>
+
+<h3>2.4 Fallback-Logik</h3>
+
+<p>Bei fehlender oder ung&uuml;ltiger Konfiguration greift die hardcodierte Zuordnung:</p>
+
+<table>
+<tr><th>Produkttyp</th><th>Dine-In</th><th>ToGo / Reduced</th><th>Klasse &rarr; Steuersatz</th></tr>
+<tr><td>FOOD</td><td>A &rarr; 19%</td><td>B &rarr; 7%</td><td>Speisen</td></tr>
+<tr><td>DRINKS</td><td>A &rarr; 19%</td><td>A &rarr; 19%</td><td>Getr&auml;nke</td></tr>
+<tr><td>RETAIL</td><td>A &rarr; 19%</td><td>A &rarr; 19%</td><td>Einzelhandel</td></tr>
+<tr><td>SERVICE</td><td>A &rarr; 19%</td><td>A &rarr; 19%</td><td>Dienstleistungen</td></tr>
+<tr><td>VOUCHER</td><td>C &rarr; 0%</td><td>C &rarr; 0%</td><td>Gutscheine</td></tr>
+<tr><td>OTHERS</td><td>C &rarr; 0%</td><td>C &rarr; 0%</td><td>Sonstige</td></tr>
+</table>
+
+<h3>2.5 Besonderheit FOOD</h3>
+
+<p>Speisen haben als einziger Produkttyp drei verschiedene MwSt-Szenarien:</p>
+
+<pre><code>FOOD + Dine-In          &rarr;  Klasse A  &rarr;  19%
+FOOD + ToGo             &rarr;  Klasse B  &rarr;   7%
+FOOD + Reduced (Senior) &rarr;  Klasse B  &rarr;   7%</code></pre>
+
+<hr>
+
+<h2 id="s3">3. Bestellungen (Orders)</h2>
+
+<h3>3.1 Tabellen</h3>
+
+<pre><code>t_order (Bestellungen)
+  &#x251C;&#x2500; id: BIGINT (PK, Auto-Inkrement)
+  &#x251C;&#x2500; orderNumber: varchar(100) UNIQUE
+  &#x251C;&#x2500; employeeId: FK &rarr; Employee
+  &#x251C;&#x2500; tableSessionId: FK &rarr; TableSession
+  &#x251C;&#x2500; orderStatus: Enum(DRAFT, CONFIRMED, IN_PREPARATION, READY, SERVED, COMPLETED, CANCELLED, REFUNDED)
+  &#x251C;&#x2500; orderTime: datetime
+  &#x251C;&#x2500; orderTotal: decimal(19,4)
+  &#x251C;&#x2500; tseTransactionId: FK &rarr; TseTransaction (nullable)
+  &#x251C;&#x2500; tseSigningStatus: Enum(SIGNED, QUEUED, PENDING, CANCELLED)
+  &#x251C;&#x2500; isTraining: boolean (default false)
+  &#x2514;&#x2500; terminalId: FK &rarr; Terminal (nullable)
+
+t_order_item (Bestellpositionen)
+  &#x251C;&#x2500; id: BIGINT (PK, Auto-Inkrement)
+  &#x251C;&#x2500; orders_id: FK &rarr; t_order (nullable &mdash; null bei Thekenverkauf)
+  &#x251C;&#x2500; table_session_id: FK &rarr; TableSession
+  &#x251C;&#x2500; bill_id: FK &rarr; Bill (nullable &mdash; null bis Rechnung erstellt)
+  &#x251C;&#x2500; product_id: FK &rarr; Product
+  &#x251C;&#x2500; unitPrice: decimal(19,4)
+  &#x251C;&#x2500; finalPrice: decimal(19,4)
+  &#x251C;&#x2500; itemStatus: Enum(OPEN, PAID, CANCELLED)
+  &#x251C;&#x2500; vat_id: FK &rarr; Vat
+  &#x251C;&#x2500; discount: decimal(4,2) &mdash; Standard 1.00 (kein Rabatt)
+  &#x251C;&#x2500; customPrice: boolean (default false)
+  &#x251C;&#x2500; takeAway: boolean
+  &#x251C;&#x2500; transferred: boolean (default false)
+  &#x2514;&#x2500; sideNotes: varchar(10000) (nullable)
+
+item_extras (gew&auml;hlte Optionen je Position, als Snapshot)
+  &#x251C;&#x2500; order_item_id: FK &rarr; t_order_item
+  &#x251C;&#x2500; product_extras_id: FK &rarr; ProductExtras (nullable)
+  &#x251C;&#x2500; option_name_snapshot: varchar(255)   &mdash; Name zum Verkaufszeitpunkt
+  &#x251C;&#x2500; price_delta_snapshot: decimal(19,4)  &mdash; Aufpreis der Platzierung
+  &#x251C;&#x2500; group_name_snapshot: varchar(255)    &mdash; Auswahlgruppe (null bei alten flachen Extras)
+  &#x251C;&#x2500; group_id: FK &rarr; ChoiceGroup (nullable) &mdash; nur zur Wiederaufl&ouml;sung
+  &#x2514;&#x2500; quantity: integer (default 1)</code></pre>
+
+<h3>3.2 OrderServiceImpl.createOrder() &mdash; Schritt f&uuml;r Schritt</h3>
+
+<p><strong>Dateipfad</strong>: <code>server/.../order/data/service/OrderServiceImpl.kt</code></p>
+
+<p><strong>Transaktionsisolation</strong>: <code>TRANSACTION_REPEATABLE_READ</code> (Phase&nbsp;1, bei Konflikt wiederholt)</p>
+
+<pre><code>Schritt 1: Validierung
+  &#x251C;&#x2500; request.validate()
+  &#x251C;&#x2500; Employee per employeeId laden (throw bei Fehler)
+  &#x251C;&#x2500; Session ermitteln (Server ist Quelle der Wahrheit):
+  &#x2502;    &bull; request.tableId (bevorzugt): Tisch-Zeile mit FOR UPDATE sperren,
+  &#x2502;      dann aktive Session holen/anlegen &mdash; eine veraltete tableInfoId
+  &#x2502;      wird ignoriert (verhindert Anh&auml;ngen an eine falsche Session)
+  &#x2502;    &bull; sonst (Alt-Pfad): TableSession per tableInfoId mit FOR UPDATE laden
+  &#x251C;&#x2500; Abgeschlossene Session ablehnen:
+  &#x2502;    session.completed &rArr; 409 SESSION_ALREADY_CLOSED
+  &#x2514;&#x2500; Training-Modus-Kompatibilit&auml;t pr&uuml;fen:
+     employee.trainingMode == session.isTraining
+
+Schritt 2: Order-Entity erstellen
+  &#x251C;&#x2500; orderNumber: automatisch generiert (unique)
+  &#x251C;&#x2500; orderStatus: DRAFT
+  &#x251C;&#x2500; orderTotal: 0 (wird in Schritt 3 berechnet)
+  &#x2514;&#x2500; orderTime: aktueller Zeitstempel
+
+Schritt 3: F&uuml;r jeden Artikel (itemRequest) im Request
+  &#x2502;
+  &#x251C;&#x2500; Produkt laden: Product.findById(itemRequest.productId)
+  &#x2502;
+  &#x251C;&#x2500; Preisbefugnis pr&uuml;fen (PriceAuthority):
+  &#x2502;    customPrice ohne PRICE_OVERRIDE und ohne product.allowCustomPrice &rArr; 403 CUSTOM_PRICE_NOT_ALLOWED
+  &#x2502;    discount &lt; 0.80 (mehr als 20 %) ohne DISCOUNT_GRANT              &rArr; 403 DISCOUNT_NOT_ALLOWED
+  &#x2502;    Gepr&uuml;ft wird die Befugnismenge, die die Routen-Autorisierung f&uuml;r
+  &#x2502;    diese Anfrage ermittelt hat (Gruppe, Stationsmaske, plus eine aktive
+  &#x2502;    Manager-PIN-Freigabe) &mdash; eine geliehene Befugnis gilt also auch hier.
+  &#x2502;
+  &#x251C;&#x2500; Optionen aufl&ouml;sen: Auswahlgruppen-Platzierungen (Gruppe &times; Option)
+  &#x2502;    liefern den Aufpreis; Min/Max je Gruppe wird gepr&uuml;ft
+  &#x2502;    (sonst CHOICE_SELECTION_INVALID). Alte flache Extras: Preis des Extras.
+  &#x2502;
+  &#x251C;&#x2500; MwSt bestimmen:
+  &#x2502;    vat = VatMappingUtil.determineVat(product.productType, itemRequest.takeAway)
+  &#x2502;          bzw. determineDepositVat(product) f&uuml;r Pfand/Pfandr&uuml;ckgabe
+  &#x2502;
+  &#x251C;&#x2500; Preisberechnung:
+  &#x2502;    unitPrice   = itemRequest.unitPrice  WENN customPrice == true
+  &#x2502;                  product.price           SONST
+  &#x2502;    extrasDelta = &Sigma;(Options-Aufpreis &times; Options-Menge)
+  &#x2502;    discount    = itemRequest.discount   (z.B. 0.9 f&uuml;r 10% Rabatt, 1.0 = kein Rabatt)
+  &#x2502;    finalPrice  = ((unitPrice + extrasDelta) &times; discount)   gerundet auf 2 Stellen, HALF_UP
+  &#x2502;
+  &#x251C;&#x2500; Pro Mengeneinheit (quantity):
+  &#x2502;    &#x250C;&#x2500; OrderItem.new { ... }     &larr; EINE Zeile pro St&uuml;ck!
+  &#x2502;    &#x2502;   itemStatus = OPEN
+  &#x2502;    &#x2502;   unitPrice, finalPrice, vat, discount, ...
+  &#x2502;    &#x2514;&#x2500; Optionen als Snapshot in item_extras schreiben
+  &#x2502;
+  &#x2514;&#x2500; orderTotal += finalPrice   (pro erstelltem Item)
+
+Schritt 4: Order finalisieren
+  &#x251C;&#x2500; createdOrder.orderTotal = orderTotal
+  &#x2514;&#x2500; createdOrder.orderStatus = CONFIRMED
+
+Schritt 5: TSE-Signierung (Bestellung-V1) &mdash; Phase 2, nach dem Commit
+  &#x251C;&#x2500; ProcessData erstellen: ProcessDataBuilder.build(BESTELLUNG_V1, items)
+  &#x251C;&#x2500; clientId: vom Terminal des Ger&auml;ts (vor Phase 1 gepr&uuml;ft)
+  &#x2514;&#x2500; tseService.signTransaction(...)
+     &#x251C;&#x2500; Erfolg &rarr; tseSigningStatus = SIGNED
+     &#x2514;&#x2500; Fehler (Entscheidung: TseSigningOutcomeResolver):
+        &#x251C;&#x2500; FAIL-Modus  &rarr; die bereits gespeicherte Bestellung wird storniert, Fehler TSE_SIGNING_FAILED
+        &#x2514;&#x2500; QUEUE-Modus &rarr; tseSigningStatus = QUEUED, in TseSigningQueue einreihen;
+                        der Grund der sp&auml;ten Signatur wird festgehalten (tse_late_signing)
+
+Schritt 6: Druckerintegration (optional)
+  &#x251C;&#x2500; Nur wenn ShopConfigurationManager.isPrinterSettingsEnabled()
+  &#x251C;&#x2500; Items nach PrinterLocation gruppieren (via Produktkategorie)
+  &#x2514;&#x2500; Je Drucker-Standort: printerService.printOrder(...)</code></pre>
+
+<h3>3.3 Preisberechnung im Detail</h3>
+
+<pre><code>Eingabe:
+  unitPrice   = Produktpreis oder benutzerdefinierter Preis
+  extrasPrice = &Sigma;(extras.price) f&uuml;r alle Extras dieses Items
+  discount    = Multiplikator (1.0 = 0%, 0.9 = 10% Rabatt, 0.5 = 50% Rabatt)
+
+Formel:
+  finalPrice = (unitPrice + extrasPrice) &times; discount     (2 Stellen, HALF_UP)
+
+Rechenbeispiel:
+  Burger:      unitPrice = 12,00&euro;
+  Extra K&auml;se:  extrasPrice = 1,50&euro;
+  Rabatt:      discount = 0.90 (10% Rabatt)
+
+  finalPrice = (12,00 + 1,50) &times; 0.90 = 13,50 &times; 0.90 = 12,15&euro;</code></pre>
+
+<h3>3.4 Wichtig: Eine Zeile pro Mengeneinheit</h3>
+
+<p>Wenn ein Kunde 3&times; Burger bestellt, werden <strong>3 separate OrderItem-Zeilen</strong> in der Datenbank erstellt &mdash; nicht eine Zeile mit <code>quantity = 3</code>. Jede Zeile hat ihren eigenen <code>unitPrice</code>, <code>finalPrice</code> und <code>vat</code>-Wert.</p>
+
+<pre><code>Beispiel: 3&times; Burger &aacute; 12,00&euro;
+
+t_order_item:
+  ID=101  product=Burger  unitPrice=12,00  finalPrice=12,00  itemStatus=OPEN
+  ID=102  product=Burger  unitPrice=12,00  finalPrice=12,00  itemStatus=OPEN
+  ID=103  product=Burger  unitPrice=12,00  finalPrice=12,00  itemStatus=OPEN</code></pre>
+
+<hr>
+
+<h2 id="s4">4. Rechnungen (Bills)</h2>
+
+<h3>4.1 Tabellen</h3>
+
+<pre><code>bill (Rechnungen)
+  &#x251C;&#x2500; id: BIGINT (PK, Auto-Inkrement)
+  &#x251C;&#x2500; employeeId: FK &rarr; Employee
+  &#x251C;&#x2500; tipRecipient: Enum(EMPLOYEE, OWNER) &mdash; beim Abrechnen aus der Rolle abgeleitet
+  &#x2502;                                     (ADMIN &rarr; OWNER, sonst EMPLOYEE); fiskalisch ma&szlig;geblich
+  &#x251C;&#x2500; tableSession: FK &rarr; TableSession
+  &#x251C;&#x2500; billNumber: varchar(100) UNIQUE &mdash; Format: RE-YYMMDD-SEQUENCE
+  &#x251C;&#x2500; billAmount: decimal(19,4)       &mdash; Summe aller Item-Preise
+  &#x251C;&#x2500; discountAmount: decimal(19,4)   &mdash; &Sigma;(unitPrice - finalPrice) bei Rabatt
+  &#x251C;&#x2500; promotionAmount: decimal(19,4)  &mdash; Summe der Aktionsabz&uuml;ge
+  &#x251C;&#x2500; rebooksBillId: FK &rarr; Bill &mdash; gesetzt auf der Neubuchung eines Zahlartwechsels (&rarr; stornierter Original-Beleg)
+  &#x251C;&#x2500; clearsSalesInvoiceId: FK &rarr; SalesInvoice &mdash; gesetzt auf einem Forderungsausgleich (kein Umsatz)
+  &#x251C;&#x2500; paidAmount: decimal(19,4)       &mdash; &Sigma;(payments.amount)
+  &#x251C;&#x2500; tips: decimal(19,4)             &mdash; Trinkgeld
+  &#x251C;&#x2500; startTime: datetime             &mdash; Session-Startzeit
+  &#x251C;&#x2500; endTime: datetime               &mdash; Zeitpunkt der Rechnungserstellung
+  &#x251C;&#x2500; deletingReason: varchar(10000)  &mdash; Stornierungsgrund (nullable)
+  &#x251C;&#x2500; deletedBillId: FK &rarr; Bill        &mdash; Ref. auf Original-Rechnung bei Storno (nullable)
+  &#x251C;&#x2500; stornoReason: Enum(ZAHLARTWECHSEL) &mdash; auf einem Storno-Beleg, wenn der Grund f&uuml;r Berichte z&auml;hlt (nullable)
+  &#x251C;&#x2500; zBonId: FK &rarr; ZBon               &mdash; Z-Bon-Zuordnung (nullable)
+  &#x251C;&#x2500; tseTransactionId: FK &rarr; TseTransaction (nullable)
+  &#x251C;&#x2500; tseSigningStatus: Enum(SIGNED, QUEUED, PENDING, CANCELLED)
+  &#x251C;&#x2500; isTraining: boolean (default false)
+  &#x2514;&#x2500; terminalId: FK &rarr; Terminal (nullable)
+
+bill_vat_detail (MwSt-Aufschl&uuml;sselung je Rechnung)
+  &#x251C;&#x2500; id: BIGINT (PK)
+  &#x251C;&#x2500; billId: FK &rarr; Bill
+  &#x251C;&#x2500; vatId: FK &rarr; Vat
+  &#x251C;&#x2500; totalAmount: decimal(19,4) &mdash; Bruttobetrag f&uuml;r diese MwSt-Gruppe
+  &#x251C;&#x2500; netAmount: decimal(19,4)   &mdash; Nettobetrag
+  &#x2514;&#x2500; vatAmount: decimal(19,4)   &mdash; MwSt-Betrag
+
+payment (Zahlungen)
+  &#x251C;&#x2500; id: BIGINT (PK)
+  &#x251C;&#x2500; billId: FK &rarr; Bill
+  &#x251C;&#x2500; paymentTypeId: FK &rarr; PaymentType
+  &#x251C;&#x2500; amount: decimal(19,4)
+  &#x251C;&#x2500; paymentStatus: Enum(COMPLETED, REFUNDED)
+  &#x251C;&#x2500; paymentTime: datetime
+  &#x251C;&#x2500; currency: varchar(10)
+  &#x251C;&#x2500; refundedBillId: FK &rarr; Bill (nullable &mdash; bei Storno)
+  &#x251C;&#x2500; refundTime: datetime (nullable)
+  &#x251C;&#x2500; transactionId: varchar(255) (nullable &mdash; externe Referenz)
+  &#x2514;&#x2500; creates_receivable: boolean  &mdash; beim Abrechnen aus der Zahlungsart eingefroren
+                                   (&bdquo;auf Rechnung&ldquo;), nie live nachgelesen</code></pre>
+
+<h3>4.2 Rechnungsnummern: Monatsz&auml;hler <code>bill_number_sequence</code></h3>
+
+<p><strong>Dateipfad</strong>: <code>server/.../bill/data/repository/BillRepositoryImpl.kt</code> (<code>generatedBillNumber</code>), Tabelle <code>bill_number_sequence</code> (V82)</p>
+
+<p><strong>Format</strong>: <code>RE-YYMMDD-N</code> (z.B. <code>RE-260506-39</code>); <code>N</code> z&auml;hlt je Monat ab 0.</p>
+
+<pre><code>1. Zeile des Monats (period = 'YYMM') lesen: SELECT &hellip; FOR UPDATE
+   &#x2514;&#x2500; fehlt sie: anlegen (INSERT &hellip; ON CONFLICT DO NOTHING), Startwert = h&ouml;chstes
+      bereits vergebenes N des Monats + 1, sonst 0
+2. N = next_value, dann next_value = N + 1  &mdash; in der Transaktion des Belegs
+3. Commit: Nummer und Beleg sind gemeinsam gespeichert
+   Rollback: auch der Z&auml;hler wird zur&uuml;ckgesetzt &rarr; keine L&uuml;cke</code></pre>
+
+<p>Die Zeilensperre serialisiert parallele Belege prozess&uuml;bergreifend. Unter <code>REPEATABLE_READ</code>
+erh&auml;lt eine wartende Transaktion nach dem Commit der anderen einen Serialisierungsfehler (40001) und wird mit
+frischem Snapshot wiederholt (<code>BillWriteConflict.retrying</code>, <code>RetryConfig.AGGRESSIVE</code>). Bleibt
+nach allen Wiederholungen ein Konflikt, antwortet der Server mit <strong>409 <code>BILL_NUMBER_COLLISION</code></strong>,
+nie mit 500 &ndash; ebenso f&uuml;r eine Unique-Verletzung auf <code>bill_number</code>.</p>
+
+<p><strong>Warum:</strong> Fr&uuml;her war <code>N</code> ein <code>count(*)</code> der Belege des Monats. Zwei parallele
+Transaktionen z&auml;hlten dieselben Zeilen, und die In-Process-Reservierung (<code>BillNumberTracker</code>) wurde vor dem
+Commit freigegeben: f&uuml;nf parallele Belege einer Kasse ergaben im Praxistest vier Belege und einen 500er mit doppelter
+<code>RE-260506-39</code>. Der <code>BillNumberTracker</code> bleibt als zweite Sicherung; eine Nummer wird nur
+<em>einmal</em> gezogen (jede Ziehung erh&ouml;ht den Z&auml;hler), eine abgelehnte Reservierung bricht die Transaktion ab.</p>
+
+<h4>Bestellnummern: derselbe Z&auml;hler-Mechanismus</h4>
+
+<p><strong>Dateipfad</strong>: <code>server/.../order/data/repository/OrderRepositoryImpl.kt</code> (<code>create</code>), Tabelle <code>order_number_sequence</code> (V82)</p>
+
+<p><strong>Format</strong>: <code>ORD-YYYYMMDD-N</code> (z.B. <code>ORD-20261008-7</code>); <code>N</code> ist ein durchlaufender Z&auml;hler (eine Zeile, <code>prefix = 'ORD'</code>), nicht je Tag zur&uuml;ckgesetzt. Die Zeile wird mit <code>SELECT &hellip; FOR UPDATE</code> gesperrt und in der Transaktion der Bestellung erh&ouml;ht; beim ersten Mal wird sie angelegt, Startwert = h&ouml;chstes bereits vergebenes <code>N</code> bzw. h&ouml;chste Bestell-ID + 1. Bei Rollback der Bestellung wird auch der Z&auml;hler zur&uuml;ckgesetzt. Ein Serialisierungsfehler (40001) einer wartenden Bestellung wird von <code>createOrder</code> mit <code>withRetryThrows</code> wiederholt; der TSE-Schritt l&auml;uft erst nach dem Commit.</p>
+
+<p><strong>Warum:</strong> Fr&uuml;her war <code>N</code> die h&ouml;chste Bestell-ID + 1, in der Bestell-Transaktion gelesen. Zwei Kellner, die im selben Moment bestellten, zogen dieselbe Nummer, und der Verlierer endete mit 500 (<code>t_order_order_number_unique</code>); der In-Process-<code>OrderNumberTracker</code> gab die Reservierung vor dem Commit frei und ist entfallen.</p>
+
+<h3>4.3 BillServiceImpl.createBillInternal() &mdash; Schritt f&uuml;r Schritt</h3>
+
+<p><strong>Dateipfad</strong>: <code>server/.../bill/data/service/BillServiceImpl.kt</code></p>
+
+<p><strong>Transaktionsisolation</strong>: <code>TRANSACTION_REPEATABLE_READ</code> (Phase&nbsp;1, bei Konflikt wiederholt)</p>
+
+<pre><code>Schritt 1: Rechnungsnummer generieren &amp; reservieren
+  billNumber = generateAndReserveBillNumber()   &rarr; z.B. "RE-250219-3" (Monatsz&auml;hler, Abschnitt 4.2)
+
+Schritt 2: Bill-Entity erstellen
+  Bill.new {
+    employeeId, tableSession, billNumber
+    billAmount = billAmount           (Summe der Item-Preise, ohne Trinkgeld)
+    tips = tips                       (Trinkgeldbetrag)
+    startTime = session.startTime
+    endTime = currentTimeStamp()
+    isTraining = employee.trainingMode
+  }
+
+Schritt 3: OrderItems validieren &amp; assoziieren
+  F&uuml;r jedes orderItem-ID im Request:
+    &#x251C;&#x2500; Item in der Session finden (throw bei Fehler)
+    &#x251C;&#x2500; Status pr&uuml;fen: itemStatus MUSS OPEN sein
+    &#x251C;&#x2500; item.bill = bill
+    &#x2514;&#x2500; item.itemStatus = PAID
+
+  Rabatt berechnen:
+    totalDiscount = &Sigma;(unitPrice - finalPrice)   f&uuml;r Items mit discount &lt; 1.0
+    bill.discountAmount = totalDiscount
+
+Schritt 4: Zahlungen erstellen
+  F&uuml;r jede PaymentRequest:
+    &#x251C;&#x2500; PaymentType per ID laden
+    &#x2514;&#x2500; Payment.new {
+         bill, paymentType
+         amount = toBigDecimal(dto.amount)
+         paymentStatus = COMPLETED
+         paymentTime = currentTimeStamp()
+         currency = ShopConfigurationManager.getDefaultCurrency()
+         createsReceivable = paymentType.createsReceivable   (Snapshot)
+       }
+
+  Aktionen anwenden (optional): erst ITEM_SPECIFIC, dann BILL_WIDE;
+    mehr als eine Aktion und eine davon nicht kombinierbar &rArr; 409 PROMOTION_NOT_COMBINABLE
+    bill.promotionAmount = &Sigma;(Aktionsabz&uuml;ge); Aufteilung auf MwSt-Gruppen per
+    Largest-Remainder-Verfahren (PromotionApportionment, cent-genau)
+
+  Validierung: &Sigma;(payments.amount) == billAmount &minus; promotionAmount + tips
+    (sonst PAYMENT_TOTAL_MISMATCH)
+
+Schritt 5: Gutschein-Einl&ouml;sung (optional)
+  F&uuml;r jede VoucherRedeemRequest:
+    &#x251C;&#x2500; Gutschein per Nummer laden (nur INTERNAL-Quelle)
+    &#x251C;&#x2500; VoucherRedeem-Entity erstellen
+    &#x251C;&#x2500; voucher.remainingValue aktualisieren
+    &#x2514;&#x2500; Wenn Restbetrag == 0: voucher.fullyRedeemedAt setzen
+
+Schritt 6: MwSt-Aufschl&uuml;sselung (BillVatDetail)
+  &#x251C;&#x2500; Items nach MwSt-Rate gruppieren:
+  &#x2502;    vatToTotalPrice = items.groupBy { it.vat }
+  &#x2502;                           .mapValues { &Sigma;(finalPrice) }
+  &#x2502;
+  &#x251C;&#x2500; tipRecipient == OWNER (TrinkgeldAG, steuerbar): Trinkgeld verteilen
+  &#x2502;    Gewichte (OwnerTipWeights): Brutto nach Aktionen, ersatzweise Brutto
+  &#x2502;    vor Aktionen, ersatzweise Positionsanzahl
+  &#x2502;    Aufteilung per Largest-Remainder auf 2 Stellen (Summe == tips exakt,
+  &#x2502;    identisch zum DSFinV-K-Export)
+  &#x2502;      total = gruppenTotal + Trinkgeldanteil
+  &#x2502;      &rarr; createBillVat(bill, total, vat)
+  &#x2502;    Sonderfall: Rechnung ohne Positionen &rarr; eine 0%-Zeile &bdquo;Nicht steuerbar&ldquo;
+  &#x2502;
+  &#x2514;&#x2500; tipRecipient == EMPLOYEE (TrinkgeldAN): Trinkgeld NICHT in MwSt-Gruppen
+       F&uuml;r jede MwSt-Gruppe:
+         &rarr; createBillVat(bill, gruppenTotal, vat)
+       Das Trinkgeld erh&auml;lt KEINE eigene BillVatDetail-Zeile (nicht steuerbar,
+       kein Umsatz); es geht &uuml;ber ProcessDataBuilder.nonTaxableExtra in den
+       5. Brutto-Slot ("nicht steuerbar") der TSE-Signatur ein.
+
+Schritt 7: Finalisierung
+  bill.paidAmount = &Sigma;(payments.amount)
+  bill.endTime = currentTimeStamp()
+
+Schritt 8: MwSt-Validierung
+  vatSum = &Sigma;(bill.vatDetails.totalAmount)
+  &#x251C;&#x2500; OWNER:     vatSum == paidAmount
+  &#x2514;&#x2500; EMPLOYEE:  vatSum == paidAmount &minus; tips   (Trinkgeld nicht steuerbar)
+  paidAmount = billAmount &minus; promotionAmount + tips
+  Bei Abweichung &rarr; Validierungsfehler, die Rechnung wird nicht angelegt
+
+Schritt 9: TSE-Signierung (Kassenbeleg-V1) &mdash; Phase 2, nach dem Commit
+  bonType = AV_TRAINING (Training) oder BELEG (Normal)
+  processData = ProcessDataBuilder.build(KASSENBELEG_V1, bonType, vatDetails, payments)
+  clientId = terminalRepository.findByDeviceId(deviceId)
+  tseService.signTransaction(...)
+    &#x251C;&#x2500; Erfolg &rarr; tseSigningStatus = SIGNED
+    &#x2514;&#x2500; Fehler:
+       &#x251C;&#x2500; FAIL-Modus  &rarr; Exception &rarr; Rollback
+       &#x2514;&#x2500; QUEUE-Modus &rarr; tseSigningStatus = QUEUED, in Queue einreihen
+
+Schritt 10: Session-Pr&uuml;fung
+  Wenn keine OPEN-Items mehr in Session:
+    &#x251C;&#x2500; tableSessionRepository.completeSession(...)
+    &#x2514;&#x2500; NotificationService.notifyTableStatusUpdate(...)</code></pre>
+
+<p><strong>Sperrung &amp; Schutz vor abgeschlossenen Sessions</strong>: <code>createBill</code>
+sperrt die Session-Zeile per <code>FOR UPDATE</code> und lehnt eine bereits
+abgeschlossene Session mit <code>409 SESSION_ALREADY_CLOSED</code> ab &mdash; ebenso
+die Bestellerstellung und der Storno von Positionen. Damit kann keine neue
+Bestellung an eine soeben abgerechnete Session angeh&auml;ngt werden.</p>
+
+<p><strong>Invariante</strong>: Ein Tisch darf niemals eine abgeschlossene Session
+(<code>completed = true</code>) als <code>currentSession</code> referenzieren.
+Durchgesetzt zentral in <code>TableSession.end()</code> (setzt <code>completed</code>
+und r&auml;umt den Tisch-Zeiger, sobald der Tisch noch auf diese Session zeigt).
+Bereits besch&auml;digte Datens&auml;tze repariert der Admin-Endpunkt
+<code>POST /api/tables/repair-completed-sessions</code>: offene Positionen werden
+auf eine frische Session verschoben, sonst wird der verwaiste Zeiger gel&ouml;scht.</p>
+
+<h3>4.4 Thekenverkauf ohne Tischzuordnung (Gutschein)</h3>
+
+<p><strong>Der fr&uuml;here Quick-Sale-Flow wurde entfernt.</strong> Er war der einzige Nutzer der
+zweistufigen TSE-API (StartTransaction &hellip; FinishTransaction) und damit der einzige Weg, auf dem
+ein Vorgang nach Transaktionsbeginn abgebrochen werden konnte &mdash; der Fall
+<code>AVBelegabbruch</code> nach DSFinV-K Anhang B S.&nbsp;46, f&uuml;r den der DSFinV-K-Export keinen
+Produzenten besitzt.</p>
+
+<p>Der verbliebene Anwendungsfall ohne Tischzuordnung ist der <strong>Gutscheinverkauf an der
+Theke</strong> (<code>VoucherService.createVoucher</code> mit <code>sessionId = null</code>):</p>
+
+<pre><code>1. Session auf dem virtuellen VOUCHER-Tisch &ouml;ffnen
+2. Gutschein-Position direkt an die Session h&auml;ngen (ohne Order-Entity, orders_id = null)
+3. Bill erstellen via BillService.createBill(...)
+   &rarr; signiert atomar per quickSign (Start + Finish in einem WormAPI-Aufruf)
+   &rarr; es kann keine Transaktion offen bleiben</code></pre>
+
+<p>Die fiskalische Form ist unver&auml;ndert: <strong>genau ein Kassenbeleg-V1-Vorgang</strong>, keine
+zus&auml;tzliche <code>AVBestellung</code>.</p>
+
+<hr>
+
+<h2 id="s5">5. MwSt-Berechnung auf Rechnungen (BillVatDetail)</h2>
+
+<h3>5.1 Formel: createBillVat()</h3>
+
+<p><strong>Dateipfad</strong>: <code>server/.../bill/data/service/BillServiceImpl.kt</code></p>
+
+<pre><code>Eingabe:
+  totalAmount = Bruttobetrag der MwSt-Gruppe (inklusive anteiliges Trinkgeld bei OWNER)
+  vat.vatRate  = z.B. 0.19 (f&uuml;r 19%)
+
+Berechnung:
+  vatRate_multiplier = vat.vatRate + 1.0        z.B. 1.19
+  netAmount          = totalAmount &divide; vatRate_multiplier   (Scale 2, HALF_UP)
+  vatAmount          = totalAmount &minus; netAmount
+
+Ergebnis:
+  BillVatDetail { bill, vat, totalAmount, netAmount, vatAmount }</code></pre>
+
+<h3>5.2 MwSt-Gruppenverteilung bei Inhaber-Trinkgeld (OWNER)</h3>
+
+<pre><code>Wenn bill.tipRecipient == OWNER (abgerechnet von ADMIN):
+  1. Items nach MwSt-Rate gruppieren:
+     Gruppe A (19%): gruppenTotal_A = &Sigma;(finalPrice) der A-Items
+     Gruppe B (7%):  gruppenTotal_B = &Sigma;(finalPrice) der B-Items
+
+  2. Gesamtsumme:
+     sumAlleGruppen = gruppenTotal_A + gruppenTotal_B
+
+  3. Anteile per Largest-Remainder (PromotionApportionment.apportion):
+     jeden Idealanteil tips &times; gruppenTotal &divide; sumAlleGruppen auf Cent abrunden,
+     verbleibende Cents nacheinander an die gr&ouml;&szlig;ten Rundungsreste
+     &rarr; &Sigma;(Anteile) == tips exakt
+
+  4. Trinkgeld verteilen:
+     total_A = gruppenTotal_A + anteil_A
+     total_B = gruppenTotal_B + anteil_B
+
+  5. createBillVat() f&uuml;r jede Gruppe aufrufen</code></pre>
+
+<h3>5.3 Rechenbeispiel</h3>
+
+<pre><code>Gegeben:
+  Item A1: finalPrice = 80,00&euro;, MwSt-Klasse A (19%)
+  Item A2: finalPrice = 20,00&euro;, MwSt-Klasse A (19%)
+  Item B1: finalPrice = 50,00&euro;, MwSt-Klasse B (7%)
+  Tips = 10,00&euro;
+  Employee = ADMIN (tipRecipient = OWNER)
+
+Schritt 1 &mdash; Gruppierung:
+  Gruppe A: 80,00 + 20,00 = 100,00&euro;
+  Gruppe B: 50,00&euro;
+  Gesamt:   150,00&euro;
+
+Schritt 2 &mdash; Trinkgeldverteilung (OWNER, Largest-Remainder):
+  Idealanteile: A = 6,6667  B = 3,3333   &rarr; abgerundet 6,66 + 3,33 = 9,99
+  Rest 0,01 an den gr&ouml;&szlig;ten Rundungsrest (A: 0,0067)  &rarr;  A = 6,67  B = 3,33
+
+  total_A = 100,00 + 6,67 = 106,67&euro;
+  total_B =  50,00 + 3,33 =  53,33&euro;
+
+Schritt 3 &mdash; MwSt-Berechnung (createBillVat):
+  Gruppe A (19%):
+    vatRate_multiplier = 1,19
+    netAmount  = 106,67 &divide; 1,19 = 89,64&euro;    (Scale 2, HALF_UP)
+    vatAmount  = 106,67 &minus; 89,64 = 17,03&euro;
+
+  Gruppe B (7%):
+    vatRate_multiplier = 1,07
+    netAmount  = 53,33 &divide; 1,07 = 49,84&euro;     (Scale 2, HALF_UP)
+    vatAmount  = 53,33 &minus; 49,84 = 3,49&euro;
+
+Validierung (OWNER):
+  &Sigma;(vatDetails.totalAmount) = 106,67 + 53,33 = 160,00&euro;
+  paidAmount                = 150,00 + 10,00      = 160,00&euro;  &#x2713;</code></pre>
+
+<pre><code>Gleiches Beispiel mit Mitarbeiter-Trinkgeld (EMPLOYEE, Nicht-ADMIN):
+
+  Gruppe A: total = 100,00&euro; (ohne Trinkgeld)
+    netAmount = 100,00 &divide; 1,19 = 84,03&euro;
+    vatAmount = 100,00 &minus; 84,03 = 15,97&euro;
+
+  Gruppe B: total = 50,00&euro; (ohne Trinkgeld)
+    netAmount = 50,00 &divide; 1,07 = 46,73&euro;
+    vatAmount = 50,00 &minus; 46,73 = 3,27&euro;
+
+Validierung (EMPLOYEE):
+  &Sigma;(vatDetails.totalAmount) = 100,00 + 50,00 = 150,00&euro;
+  billAmount                = 150,00&euro;  &#x2713;
+  (Tips = 10,00&euro; separat, NICHT in MwSt-Gruppen &mdash; nicht steuerbar,
+   keine eigene BillVatDetail-Zeile)</code></pre>
+
+<h3>5.4 Rundungsregeln</h3>
+
+<table>
+<tr><th>Kontext</th><th>Dezimalstellen</th><th>Rundungsmodus</th></tr>
+<tr><td>Geldbetr&auml;ge (Datenbank)</td><td>4</td><td>&mdash;</td></tr>
+<tr><td>Positionspreis <code>finalPrice</code></td><td>2</td><td>HALF_UP</td></tr>
+<tr><td>Netto-/MwSt-Berechnung (MwSt = Brutto &minus; Netto)</td><td>2</td><td>HALF_UP</td></tr>
+<tr><td>Prozentabzug einer Aktion (je Artikel und auf den ganzen Beleg)</td><td>2</td><td>HALF_UP, beim Anwenden der Aktion</td></tr>
+<tr><td>Aufteilung von Aktionen und Inhaber-Trinkgeld</td><td>2</td><td>Largest-Remainder (Summe exakt)</td></tr>
+<tr><td>Anzeige / DATEV-Export</td><td>2</td><td>HALF_UP</td></tr>
+</table>
+
+<hr>
+
+<h2 id="s6">6. Rechnungsstorno (Bill Deletion)</h2>
+
+<h3>6.1 Neun-Schritt atomarer Prozess</h3>
+
+<p><strong>Dateipfad</strong>: <code>server/.../bill/data/service/BillServiceImpl.kt</code></p>
+
+<p><strong>Transaktionsisolation</strong>: <code>TRANSACTION_REPEATABLE_READ</code> (Phase&nbsp;1, bei Konflikt wiederholt)</p>
+
+<pre><code>Schritt 1: Entities finden
+  &#x251C;&#x2500; Employee per employeeId laden
+  &#x251C;&#x2500; Bill per billId laden
+  &#x2514;&#x2500; TableSession per bill.tableSession laden
+
+Schritt 2: Validierung &mdash; DREI Guards, jeder antwortet mit HTTP 409
+  &#x251C;&#x2500; (a) Bill darf nicht bereits storniert sein und selbst kein Storno-Beleg sein:
+  &#x2502;      bill.deletingReason == null UND bill.deletedBill == null
+  &#x251C;&#x2500; (b) Der Gesch&auml;ftstag darf nicht abgeschlossen sein (Runde 3, KABS-1):
+  &#x2502;      kein Z-Bon f&uuml;r den Tag der Rechnung
+  &#x2502;      Grund: nach dem Abschluss sind die Daten in einem exportierten
+  &#x2502;      Kassenabschluss eingefroren. Ein Storno w&uuml;rde reversedByBill auf den
+  &#x2502;      Einl&ouml;sungen des Originals setzen (und damit die businesscases des
+  &#x2502;      geschlossenen Abschlusses r&uuml;ckwirkend ver&auml;ndern), und die
+  &#x2502;      Bargeldr&uuml;ckgabe erreichte den aktuellen Abschluss nie.
+  &#x2514;&#x2500; (c) F&uuml;r die Rechnung darf keine ausgestellte Ausgangsrechnung existieren
+         (SALES_INVOICE_IMMUTABLE): erst die Ausgangsrechnung per Gutschrift
+         (Typ 381) stornieren. Gilt ebenso f&uuml;r den Zahlartwechsel.
+
+Berechtigung: Storno erfordert die F&auml;higkeit BILL_VOID
+  (DELETE /api/v1/bills/{id}; vorgegeben ab Filialleitung), der Zahlartwechsel
+  BILL_CHANGE_PAYMENT (vorgegeben ab Kasse). Beide k&ouml;nnen per Manager-PIN
+  f&uuml;r genau diesen Vorgang geliehen werden (ElevationScope.TILL_OVERRIDES).
+
+Schritt 3: Storno-Rechnung erstellen (negierte Betr&auml;ge)
+  Bill.new {
+    billNumber   = neue Rechnungsnummer (RE-YYMMDD-SEQUENCE)
+    billAmount   = original.billAmount.negate()
+    discountAmount = original.discountAmount.negate()
+    tips         = original.tips.negate()
+    paidAmount   = original.paidAmount.negate()
+    deletedBill  = original                    &larr; Referenz auf Original
+    deletingReason = Stornierungsgrund
+    isTraining   = original.isTraining
+  }
+
+Schritt 4: Zahlungen als REFUNDED markieren
+  F&uuml;r jede Zahlung der Originalrechnung:
+    payment.paymentStatus = REFUNDED
+    payment.refundTime    = currentTimeStamp()
+    payment.refundedBillId = reverseBill
+
+Schritt 5: MwSt-Details umkehren
+  F&uuml;r jedes BillVatDetail der Originalrechnung:
+    BillVatDetail.new {
+      bill        = reverseBill
+      totalAmount = original.totalAmount.negate()
+      netAmount   = original.netAmount.negate()
+      vatAmount   = original.vatAmount.negate()
+      vat         = original.vat
+    }
+
+Schritt 6: Gutscheine r&uuml;ckg&auml;ngig machen
+  F&uuml;r jede VoucherRedeem der Originalrechnung:
+    redeemVoucher(reverseBill, negierter Betrag)
+    &rarr; Erh&ouml;ht voucher.remainingValue wieder
+
+Schritt 7: TSE-Signierung
+  bonType = AV_TRAINING (Training) oder AV_BELEGSTORNO (Normal)
+  processData = ProcessDataBuilder.build(KASSENBELEG_V1, bonType, reversed vatDetails, original payments)
+  &rarr; Signierung mit FAIL- oder QUEUE-Modus
+
+Schritt 8: Session wieder&ouml;ffnen (falls n&ouml;tig)
+  Wenn session.completed == true:
+    session.completed = false
+    session.endTime   = null
+    table.tableStatus = OCCUPIED
+    table.currentSession = session
+
+Schritt 9: Neue OPEN-Items erstellen
+  F&uuml;r jedes Item der Originalrechnung (nur wenn order != null, keine Thekenverkaufs-Items):
+    OrderItem.new {
+      order      = null    &larr; Kein Link zur Original-Order (TSE-Signatur bewahren)
+      session    = original.session
+      bill       = null    &larr; Nicht abgerechnet
+      itemStatus = OPEN    &larr; Kann erneut abgerechnet werden
+      ... (alle anderen Felder kopiert)
+    }</code></pre>
+
+<h3 id="s6-zahlartwechsel">6.2 Zahlartwechsel = Storno + Neubuchung</h3>
+
+<p><strong>Endpunkt</strong>: <code>POST /api/v1/bills/{id}/rebook</code> (Befugnis <code>BILL_CHANGE_PAYMENT</code>, Pr&uuml;fprotokoll <code>REBOOK_BILL</code>). Eine Transaktion (<code>REPEATABLE_READ</code>, bei Konflikt wiederholt):</p>
+
+<pre><code>Schritt 1: Pr&uuml;fen (alles vor dem ersten Schreibzugriff)
+  &#x251C;&#x2500; Handelnder darf abrechnen (kein Bestellstations-Konto)
+  &#x251C;&#x2500; Bill ist ein bestehender Verkauf; kein Gutscheinverkauf, kein
+  &#x2502;   Forderungsausgleich (409 BILL_REBOOK_UNSUPPORTED)
+  &#x251C;&#x2500; Storno-Guards (a)&ndash;(c) wie oben
+  &#x2514;&#x2500; Neue Zahlung: &Sigma; payments == billAmount &minus; promotionAmount + tips,
+      und Zahlung, Gutscheine oder Trinkgeld weichen ab (409 BILL_REBOOK_NO_CHANGE)
+      Trinkgeld kleiner als bisher nur mit BILL_VOID
+      (403 BILL_REBOOK_TIP_DECREASE_FORBIDDEN)
+
+Schritt 2: Rechnungsentwurf zum Beleg verwerfen (ausgestellte Rechnung &rarr; Guard (c))
+
+Schritt 3: Storno wie in 6.1, mit stornoReason = ZAHLARTWECHSEL,
+  alle Positionen dupliziert, Session wird NICHT wieder ge&ouml;ffnet
+
+Schritt 4: Neubuchung &uuml;ber den normalen Abrechnungsweg
+  &#x251C;&#x2500; Positionen = die Duplikate aus Schritt 3
+  &#x251C;&#x2500; employee     = urspr&uuml;nglicher Bediener
+  &#x251C;&#x2500; tipRecipient = wie auf dem Original; isTraining wie auf dem Original
+  &#x251C;&#x2500; Zahlungen, Gutschein-Einl&ouml;sungen und gesamtes Trinkgeld aus der Anfrage
+  &#x251C;&#x2500; Aktionen des Originals, bewertet zum Zeitpunkt des Originals;
+  &#x2502;   anderer Abzug als beim Verkauf &rarr; 409 BILL_REBOOK_PROMOTION_CHANGED
+  &#x2514;&#x2500; rebooksBill = Original
+
+Schritt 5 (nach dem Commit): TSE-Signierung, Storno zuerst, dann Neubuchung
+  (jeweils signiert oder in die Warteschlange, je nach TSE-Modus)</code></pre>
+
+<p>Tisch und Sitzung bleiben unber&uuml;hrt. Die Antwort ist die Neubuchung.</p>
+
+<hr>
+
+<h2 id="s7">7. Zahlungsarten (Payment Types)</h2>
+
+<h3>7.1 PaymentTypeTable</h3>
+
+<p><strong>Dateipfad</strong>: <code>ecr/data/.../payment/database/tables/PaymentTypeTable.kt</code></p>
+
+<pre><code>payment_type
+  &#x251C;&#x2500; id: BIGINT (PK, Auto-Inkrement)
+  &#x251C;&#x2500; name: varchar(100) UNIQUE   &mdash; z.B. "BAR", "CARD", "VOUCHER"
+  &#x251C;&#x2500; enName: varchar(100)        &mdash; Englischer Name (nullable)
+  &#x251C;&#x2500; chName: varchar(100)        &mdash; Chinesischer Name (nullable)
+  &#x251C;&#x2500; isCash: boolean (default false) &mdash; true = Barzahlung
+  &#x251C;&#x2500; isVoucher: boolean (default false) &mdash; true = Gutschein-Zahlart
+  &#x251C;&#x2500; creates_receivable: boolean (default false) &mdash; &bdquo;auf Rechnung&ldquo;:
+  &#x2502;      der Betrag ist eine Forderung, keine Einnahme; im DSFinV-K-Export
+  &#x2502;      ZAHLART_TYP &bdquo;Keine&ldquo;. &Auml;nderungen wirken nur auf k&uuml;nftige Abrechnungen,
+  &#x2502;      weil payment.creates_receivable beim Abrechnen eingefroren wird.
+  &#x251C;&#x2500; isActive: boolean           &mdash; Ist Zahlungsart verf&uuml;gbar?
+  &#x2514;&#x2500; updatedAt: datetime</code></pre>
+
+<h3>7.2 Unterst&uuml;tzte Methoden</h3>
+
+<p>Bei der Ersteinrichtung angelegt:</p>
+
+<table>
+<tr><th>Name</th><th>isCash</th><th>creates_receivable</th><th>Beschreibung</th></tr>
+<tr><td>BAR</td><td>true</td><td>false</td><td>Barzahlung</td></tr>
+<tr><td>KREDITKARTE</td><td>false</td><td>false</td><td>Kreditkartenzahlung</td></tr>
+<tr><td>EC-KARTE</td><td>false</td><td>false</td><td>Debitkartenzahlung</td></tr>
+<tr><td>&Uuml;BERWEISUNG</td><td>false</td><td><strong>true</strong></td><td>Auf Rechnung &mdash; ausgeglichen &uuml;ber den Bankabgleich oder &bdquo;Forderung begleichen&ldquo; an der Kasse
+    (auf Bestandsinstallationen mit v1.1.0 umgestellt)</td></tr>
+<tr><td>GUTSCHEIN</td><td>false</td><td>false</td><td>Gutscheineinl&ouml;sung (<code>isVoucher</code>), angelegt mit der Gutschein-Konfiguration</td></tr>
+<tr><td>(weitere)</td><td>frei</td><td>frei</td><td>Im Web-Admin unter System &rarr; Einstellungen &rarr; Zahlungsarten</td></tr>
+</table>
+
+<h3>7.3 W&auml;hrung</h3>
+
+<p>Die Standard-W&auml;hrung wird konfiguriert via <code>ShopConfigurationManager.getDefaultCurrency()</code> (Standard: <code>"EUR"</code>).</p>
+
+<h3>7.4 Zahlungsvalidierung</h3>
+
+<pre><code>&Sigma;(payments.amount) == billAmount &minus; promotionAmount + tips
+
+Beispiel:
+  billAmount      = 100,00&euro;
+  promotionAmount =   0,00&euro;
+  tips            =  10,00&euro;
+  payments:  BAR 60,00&euro; + EC-KARTE 50,00&euro; = 110,00&euro;  &#x2713;</code></pre>
+
+<p>Eine Forderung wird an der Kasse mit einem eigenen, TSE-signierten Ausgleichsbeleg beglichen
+(<code>bill.clears_sales_invoice_id</code>): nur bar oder unbar, nicht mit einer Zahlart, die selbst eine Forderung
+er&ouml;ffnet, und nicht &uuml;ber den offenen Betrag hinaus. Dieser Beleg ist kein Umsatz.</p>
+
+<hr>
+
+<h2 id="s8">8. Prozessdaten (ProcessDataBuilder)</h2>
+
+<p><strong>Dateipfad</strong>: <code>server/.../utils/builder/ProcessDataBuilder.kt</code></p>
+
+<h3>8.1 Kassenbeleg-V1 Format</h3>
+
+<pre><code>Format: BonType^MwSt-Werte^Zahlungen
+
+MwSt-Werte (5 feste Positionen, Bruttoumsätze):
+  19%_7%_10.5%_5.5%_0%
+
+  Beispiel: "BELEG^100.00_50.00_0.00_0.00_0.00^110.00:Bar_50.00:Unbar"
+
+Zahlungen:
+  Betrag:Bar           &mdash; Barzahlung in EUR
+  Betrag:Bar:USD       &mdash; Barzahlung in Fremdw&auml;hrung
+  Betrag:Unbar         &mdash; Unbare Zahlung in EUR
+  Betrag:Unbar:USD     &mdash; Unbare Zahlung in Fremdw&auml;hrung
+
+Storno-Vorzeichen:
+  Bei einer Storno-R&uuml;ckerstattung (refundedBillId != null) wird der Betrag negiert
+  &mdash; einheitlich f&uuml;r alle Tender: Bar und Unbar, EUR und Fremdw&auml;hrung.
+  Beispiel Storno einer Kartenzahlung: "AVBelegstorno^...^-30.00:Unbar"
+  Zahlungen einer Zahlart&auml;nderung tragen ihr Vorzeichen bereits im Betrag
+  (refundedBillId == null) und werden nicht zus&auml;tzlich negiert.
+
+Reihenfolge:
+  1. Barzahlungen (EUR zuerst, dann alphabetisch nach W&auml;hrung)
+  2. Unbare Zahlungen (EUR zuerst, dann alphabetisch nach W&auml;hrung)
+     Unbare Zahlungen werden nach W&auml;hrung gruppiert und summiert</code></pre>
+
+<h3>8.2 Bestellung-V1 Format</h3>
+
+<pre><code>Zeilenweises Format:
+  Menge;"Produktname";Preis
+
+Beispiel:
+  2;"Cheeseburger";24.00
+  1;"Cola";3.50
+
+Anf&uuml;hrungszeichen im Produktnamen werden verdoppelt ("" statt ")</code></pre>
+
+<h3>8.3 SonstigerVorgang</h3>
+
+<pre><code>Freitext &mdash; wird direkt als processData verwendet.
+
+Einsatz (nur noch zwei Erzeuger, siehe 10.7):
+  &#x2022; Z-Bon-Tagesabschluss-Aggregat
+  &#x2022; Kassenbuch-Eintr&auml;ge, deren BON_TYP nicht &bdquo;Beleg&ldquo; ist
+    (praktisch nur Legacy-CLOSING_BALANCE)
+
+NICHT mehr f&uuml;r bargeldbewegende Kassenbuch-Eintr&auml;ge: Privateinlage,
+Geldtransit, Barausgabe usw. signieren seit TSER-2 als Kassenbeleg-V1.</code></pre>
+
+<h3>8.4 BonType-Werte</h3>
+
+<table>
+<tr><th>BonType</th><th>Einsatz</th></tr>
+<tr><td><code>BELEG</code></td><td>Normaler Kassenbeleg</td></tr>
+<tr><td><code>AV_TRAINING</code></td><td>Trainingsbeleg (nicht fiskalisch relevant)</td></tr>
+<tr><td><code>AV_BELEGSTORNO</code></td><td>Stornierungsbeleg</td></tr>
+</table>
+
+<hr>
+
+<h2 id="s9">9. Z-Bon (Tagesabschluss)</h2>
+
+<h3>9.1 Tabellen</h3>
+
+<pre><code>zbon (Z-Bon)
+  &#x251C;&#x2500; zbon_id: BIGINT (PK, Auto-Inkrement)
+  &#x251C;&#x2500; shop_info_id: FK &rarr; ShopInfo
+  &#x251C;&#x2500; employee_id: FK &rarr; Employee
+  &#x251C;&#x2500; start_time: datetime
+  &#x251C;&#x2500; end_time: datetime
+  &#x251C;&#x2500; cancelled_amount: decimal(19,4)
+  &#x251C;&#x2500; zbon_nummer: BIGINT              &mdash; gedruckte Z-Nr. (DSFinV-K Z_NR), max + 1, l&uuml;ckenlos
+  &#x251C;&#x2500; total_discounts: decimal(19,4)
+  &#x251C;&#x2500; total_promotions: decimal(19,4)
+  &#x251C;&#x2500; total_pos_revenue: decimal(19,4)   &mdash; Umsatz nach Aktionen, inkl. Inhaber-Trinkgeld
+  &#x251C;&#x2500; total_receivable_cleared: decimal(19,4) &mdash; Forderungsausgleich (kein Umsatz)
+  &#x251C;&#x2500; refund_amount / storno_bill_count, training_revenue / training_bill_count
+  &#x251C;&#x2500; stamm_*: Stammdaten-Snapshot des Betriebs und der Kasse zum Abschluss
+  &#x251C;&#x2500; admin_tip_revenue: decimal(19,4)
+  &#x251C;&#x2500; opening_balance: decimal(19,4)
+  &#x251C;&#x2500; expenses: decimal(19,4)
+  &#x251C;&#x2500; cash_revenue: decimal(19,4)
+  &#x251C;&#x2500; closing_balance: decimal(19,4)
+  &#x251C;&#x2500; created_at: datetime
+  &#x2514;&#x2500; tips_paid_out: boolean
+
+tax_group (MwSt-Gruppen je Z-Bon)
+  &#x251C;&#x2500; id: BIGINT (PK)
+  &#x251C;&#x2500; vat_id: FK &rarr; Vat
+  &#x251C;&#x2500; net_amount: decimal(19,4)
+  &#x251C;&#x2500; tax_amount: decimal(19,4)
+  &#x251C;&#x2500; gross_amount: decimal(19,4)
+  &#x2514;&#x2500; zbon_id: FK &rarr; ZBon
+
+zbon_payment_summary (Zahlungsart-Zusammenfassung)
+  &#x251C;&#x2500; id: BIGINT (PK)
+  &#x251C;&#x2500; zbon_id: FK &rarr; ZBon
+  &#x251C;&#x2500; payment_type_name: FK &rarr; PaymentType
+  &#x251C;&#x2500; currency: varchar(3)
+  &#x2514;&#x2500; amount: decimal(19,4)
+
+employee_zbon_summary (Mitarbeiter-Auswertung)
+  &#x251C;&#x2500; id: BIGINT (PK)
+  &#x251C;&#x2500; z_bon_id: FK &rarr; ZBon
+  &#x251C;&#x2500; employee_id: FK &rarr; Employee
+  &#x251C;&#x2500; tips: decimal(19,4)
+  &#x251C;&#x2500; total_revenue: decimal(19,4)
+  &#x251C;&#x2500; created_at: datetime
+  &#x251C;&#x2500; is_paid_out: boolean
+  &#x2514;&#x2500; paid_out_at: datetime (nullable)
+
+employee_zbon_payment_breakdown (Zahlungsart je Mitarbeiter)
+  &#x251C;&#x2500; id: BIGINT (PK)
+  &#x251C;&#x2500; employee_zbon_summary_id: FK &rarr; EmployeeZBonSummary
+  &#x251C;&#x2500; payment_type_id: FK &rarr; PaymentType
+  &#x251C;&#x2500; currency: varchar(3)
+  &#x2514;&#x2500; amount: decimal(19,4)</code></pre>
+
+<h3>9.2 ZBonServiceImpl.createReport() &mdash; Schritt f&uuml;r Schritt</h3>
+
+<p><strong>Dateipfad</strong>: <code>server/.../zBon/data/service/ZBonServiceImpl.kt</code></p>
+
+<p><strong>Transaktionsisolation</strong>: <code>TRANSACTION_REPEATABLE_READ</code>, serialisiert &uuml;ber eine Postgres-Advisory-Lock
+(<code>pg_advisory_xact_lock(1)</code>), damit nie zwei Abschl&uuml;sse gleichzeitig entstehen.</p>
+
+<pre><code>Schritt 1: Validierung
+  &#x251C;&#x2500; Employee per JWT-Token laden
+  &#x251C;&#x2500; ShopInfo laden
+  &#x2514;&#x2500; validateSessionAndTableStatus():
+     Alle nicht-Training-Sessions m&uuml;ssen geschlossen sein.
+     Keine offenen Tische mit aktiven Bestellungen.
+  &#x2514;&#x2500; OpenBusinessCheck: gibt es gar nichts zu schlie&szlig;en (weder Belege noch
+     Kassenbuch-Bewegungen im Kassenbuch der Kasse) &rArr; Validierungsfehler,
+     bevor eine Z-Bon-Zeile angelegt wird
+
+Schritt 2: Z-Bon-Entity erstellen
+  ZBon.new {
+    startTime = vorheriger Z-Bon.endTime
+               ODER 00:00:00 wenn kein vorheriger Z-Bon oder anderes Datum
+    endTime   = wird sp&auml;ter aktualisiert
+    zbonNummer = max(zbon_nummer) + 1   (in derselben Transaktion; ein
+                 abgebrochener Versuch verbraucht keine Nummer)
+    Alle Finanzfelder = 0 (werden in sp&auml;teren Schritten berechnet)
+  }
+
+Schritt 3: Rechnungen sammeln
+  bills = Bill.find {
+    zBonId == null                          // Noch keinem Z-Bon zugeordnet
+    AND startTime &gt; report.startTime        // Nach Z-Bon-Startzeit
+  }
+  &rarr; bills.forEach { it.zBon = report }     // Z-Bon zuordnen (auch Training)
+  &rarr; Training-Belege: nur trainingRevenue / trainingBillCount, nie Umsatz
+  &rarr; Ein Abschluss ohne Belege ist erlaubt, wenn Kassenbuch-Bewegungen offen sind
+    (z.B. nur eine Privateinlage)
+  &rarr; Aufteilung der echten Belege:
+     Storno-Belege            &rarr; refundAmount, stornoBillCount
+     Forderungsausgleich      &rarr; totalReceivableCleared (kein Umsatz; nur der
+                                 Bar-Anteil erh&ouml;ht den Kassenbestand)
+     Verkaufsbelege           &rarr; Umsatz
+
+Schritt 4: MwSt-Aggregation
+  bills &rarr; flatMap { vatDetails } &rarr; groupBy { vat }
+  F&uuml;r jede MwSt-Rate:
+    VatGroup.new {
+      vat         = vatRate-Entity
+      netAmount   = &Sigma;(vatDetails.netAmount)
+      vatAmount   = &Sigma;(vatDetails.vatAmount)
+      grossAmount = &Sigma;(vatDetails.totalAmount)
+      zBon        = report
+    }
+
+Schritt 5: Zahlungsart-Aggregation
+  bills &rarr; flatMap { payments } &rarr; groupBy { currency }
+    &rarr; je W&auml;hrung: groupBy { paymentType }
+  F&uuml;r jede (PaymentType, Currency)-Kombination:
+    ZBonPaymentSummary.new {
+      zBon, paymentType, currency
+      amount = &Sigma;(payments.amount)
+    }
+  Barzahlungen separat summieren f&uuml;r Saldo-Berechnung
+
+Schritt 6: Mitarbeiter-Auswertung
+  billsByEmployee = bills.groupBy { employeeId }
+  adminTipTotal   = &Sigma;(bills.tips mit tipRecipient = OWNER)
+                    &rarr; wird zu totalPosRevenue addiert (nach dem am Beleg gespeicherten
+                      Empf&auml;nger, nicht der heutigen Rolle &ndash; wie MwSt.-Zeilen und DSFinV-K)
+
+  F&uuml;r jeden Mitarbeiter:
+    &#x251C;&#x2500; tipSum     = &Sigma;(employeeBills.tips mit tipRecipient = EMPLOYEE)
+    &#x2502;    (nie ein Inhaber-Trinkgeld &ndash; das steht nur in adminTip)
+    &#x251C;&#x2500; revenueSum = &Sigma;(employeeBills.billAmount &minus; employeeBills.promotionAmount)
+    &#x2502;
+    &#x2514;&#x2500; F&uuml;r jeden Mitarbeiter (auch ADMIN):
+         EmployeeZBonSummary.new {
+           employee, tipAmount = tipSum, totalRevenue = revenueSum
+         }
+         (das gemeinsame Ger&auml;tekonto erscheint als &bdquo;Terminal (ohne Anmeldung)&ldquo;)
+
+         Zahlungsart-Aufschl&uuml;sselung je Mitarbeiter:
+         employeeBills &rarr; flatMap { payments }
+           &rarr; groupBy { (paymentType, currency) }
+         F&uuml;r jede Gruppe:
+           EmployeeZBonPaymentBreakdown.new { ... }
+
+Schritt 7: Stornos &amp; Gutscheine zuordnen
+  &#x251C;&#x2500; Cancellations (nach startTime, ohne Z-Bon, nicht-Training):
+  &#x2502;    &rarr; zBon = report
+  &#x2502;    &rarr; cancelledAmount = &Sigma;(cancellation.orderItem.finalPrice)
+  &#x2502;
+  &#x251C;&#x2500; Vouchers (erstellt im Zeitraum):
+  &#x2502;    &rarr; zBon = report
+  &#x2502;
+  &#x2514;&#x2500; VoucherRedeems (eingel&ouml;st im Zeitraum, nicht durch Storno umgekehrt):
+       &rarr; voucherRedeem.zBon = report
+
+Schritt 8: Kassenbuch-Eintrag erstellen
+  Typ: CASH_SALE
+
+  Einzelposten (LineItems):
+    &#x251C;&#x2500; (+) MwSt-Einnahmen: eine Zeile pro MwSt-Rate
+    &#x2502;       vorzBetrag = "+{brutto}", ustSatz = "19" / "7" / ...
+    &#x2502;       belegtext = "Einnahme MwSt. 19%"
+    &#x2502;
+    &#x2514;&#x2500; (-) Unbare Zahlungen: eine Zeile pro unbarer Zahlungsart
+            vorzBetrag = "-{betrag}"
+            belegtext = "Unbare Zahlung: CARD"
+
+  TSE-Signierung: keine. Das Z-Bon-Aggregat wird nicht mehr signiert
+    (Status NOT_APPLICABLE, keine TSE-Transaktion; AEAO zu &sect; 146a
+    Nr. 1.11.2). Signiert werden nur die Bargeldbewegungen des Abschlusses
+    (Kassendifferenz, Trinkgeld-Auszahlungen, Aufstockung, t&auml;glicher
+    Geldtransit), siehe 10.7. Ein Abschluss ohne solche Bewegungen signiert nichts.
+
+Schritt 9: Saldo-Berechnung (nur Kassenb&uuml;cher der Kasse; ein Tresor hat seinen
+          eigenen Kassensturz)
+  openingBalance  = vorheriger Z-Bon.closingBalance   (oder 0,00 wenn erster)
+  Kassenbuch-Eintr&auml;ge nach Eintragstyp einsortiert (zBonBucket), nur bei
+  typneutralen Eintr&auml;gen nach Vorzeichen:
+    EXPENSE  &rarr; expenses      (z.B. Barausgabe; auch die Storno-Seite einer
+                              korrigierten Barausgabe)
+    REVENUE  &rarr; cashRevenue
+    NEUTRAL  &rarr; transfers     (Geldtransit, Kassendifferenz &hellip; &mdash; weder
+                              Einnahme noch Ausgabe)
+  closingBalance  = openingBalance + expenses + cashRevenue + transfers
+
+  report.openingBalance  = openingBalance
+  report.expenses        = expenses
+  report.cashRevenue     = cashRevenue
+  report.closingBalance  = closingBalance
+  report.endTime         = currentTimeStamp()
+
+Schritt 10: Kassenbuch-Eintr&auml;ge sperren
+  Alle Kassenbuch-Header im Zeitraum:
+    header.isLocked = true
+    header.zBon = report (wenn noch nicht zugeordnet)
+
+  Validierung: Keine ungesperrten Eintr&auml;ge mehr vorhanden
+
+Schritt 11: Sessions zuordnen
+  Alle abgeschlossenen, nicht-Training-Sessions ohne Z-Bon:
+    session.zBon = report</code></pre>
+
+<h3>9.3 Z-Bon Finanzfelder</h3>
+
+<table>
+<tr><th>Feld</th><th>Berechnung</th></tr>
+<tr><td><code>totalPosRevenue</code></td><td><code>&Sigma;(Verkaufsbelege.billAmount - promotionAmount) + adminTipTotal</code> &mdash; ohne Forderungsausgleich, ohne Training</td></tr>
+<tr><td><code>totalReceivableCleared</code></td><td><code>&Sigma;(Ausgleichsbelege.billAmount)</code> &mdash; getrennt ausgewiesen, kein Umsatz</td></tr>
+<tr><td><code>totalDiscounts</code></td><td><code>&Sigma;(bills.discountAmount + bills.promotionAmount)</code></td></tr>
+<tr><td><code>totalPromotions</code></td><td>Summe der Aktionsabz&uuml;ge (mit Aufstellung je Aktion)</td></tr>
+<tr><td><code>adminTip</code></td><td><code>&Sigma;(bills.tips, tipRecipient = OWNER)</code> &mdash; Inhaber-Trinkgeld nach dem am Beleg gespeicherten Empf&auml;nger</td></tr>
+<tr><td><code>cancelledAmount</code></td><td><code>&Sigma;(cancellations.orderItem.finalPrice)</code></td></tr>
+<tr><td><code>refundAmount</code></td><td>Betrag der Storno-Belege</td></tr>
+<tr><td><code>openingBalance</code></td><td>Vorheriger Z-Bon <code>closingBalance</code></td></tr>
+<tr><td><code>expenses</code></td><td>Kassenbuch-Eintr&auml;ge des Typs Ausgabe (Geldtransit z&auml;hlt <strong>nicht</strong> als Ausgabe)</td></tr>
+<tr><td><code>cashRevenue</code></td><td>Kassenbuch-Eintr&auml;ge des Typs Einnahme</td></tr>
+<tr><td><code>closingBalance</code></td><td><code>openingBalance + expenses + cashRevenue + transfers</code></td></tr>
+</table>
+
+<h3>9.4 Nummerierung</h3>
+
+<p>Der Datenbank-PK (<code>zbon_id</code>) ist eine BIGSERIAL-Sequenz und kann L&uuml;cken haben. Ma&szlig;geblich ist die gedruckte
+Z-Nummer <code>zbon_nummer</code>: Sie wird als <code>max(zbon_nummer) + 1</code> in der Abschluss-Transaktion berechnet und ist damit
+aufsteigend und l&uuml;ckenlos. Seit v1.1.0 ist sie auch das Feld <code>Z_NR</code> im DSFinV-K-Export (vorher die Datenbank-ID).</p>
+
+<div class="hint">
+<strong>Bereits gedruckte Z-Bons</strong> werden nicht neu berechnet. Vor v1.1.0 wurden Aktionen nicht vom Umsatz abgezogen, ein
+Geldtransit als Ausgabe gez&auml;hlt und stornierte Gutscheineinl&ouml;sungen mitgez&auml;hlt; korrekt sind nur Abschl&uuml;sse ab v1.1.0.
+</div>
+
+<hr>
+
+<h2 id="s10">10. Kassenbuch (Cash Book)</h2>
+
+<h3>10.1 Tabellen</h3>
+
+<pre><code>kassenbuch_header (Kassenbuch-Kopf)
+  &#x251C;&#x2500; id: BIGINT (PK, Auto-Inkrement)
+  &#x251C;&#x2500; shop_id: FK &rarr; ShopInfo
+  &#x251C;&#x2500; employee_id: FK &rarr; Employee
+  &#x251C;&#x2500; entry_type: Enum(KassenbuchEntryType)
+  &#x251C;&#x2500; cash_book_id: FK &rarr; CashBook &mdash; Kassenbuch (Kasse oder Tresor)
+  &#x251C;&#x2500; counterparty_book_id: FK &rarr; CashBook (nullable) &mdash; Gegenkasse bei Transfer
+  &#x251C;&#x2500; beleg_nr: varchar(20) &mdash; Format JJJJ-MM-NNNN (z.B. "2026-09-0024"), je Kassenbuch und Monat fortlaufend
+  &#x251C;&#x2500; beleg_datum: varchar(10) &mdash; Format TT.MM.JJJJ
+  &#x251C;&#x2500; belegtext: varchar(60)
+  &#x251C;&#x2500; waehrung: varchar(3) &mdash; Standard "EUR"
+  &#x251C;&#x2500; bu: varchar(4) (nullable) &mdash; Buchungsschl&uuml;ssel
+  &#x251C;&#x2500; gegenkonto: varchar(5) (nullable) &mdash; Gegenkonto (SKR04)
+  &#x251C;&#x2500; kost1: varchar(36) (nullable) &mdash; Kostenstelle 1
+  &#x251C;&#x2500; kost2: varchar(36) (nullable) &mdash; Kostenstelle 2
+  &#x251C;&#x2500; nachricht: varchar(120) (nullable)
+  &#x251C;&#x2500; total_amount: decimal(19,4) &mdash; &Sigma;(lineItem.vorzBetrag)
+  &#x251C;&#x2500; current_balance: decimal(19,4) &mdash; Laufender Saldo nach diesem Eintrag
+  &#x251C;&#x2500; tse_transaction_id: FK &rarr; TseTransaction (nullable)
+  &#x251C;&#x2500; zbon_id: FK &rarr; ZBon (nullable)
+  &#x251C;&#x2500; tse_signing_status: Enum(SIGNED, QUEUED, PENDING)
+  &#x251C;&#x2500; late_booking_reason: varchar(500) (nullable) &mdash; Begr&uuml;ndung einer Nachbuchung
+  &#x251C;&#x2500; corrects_header_id / correction_role &mdash; Korrekturbuchung und ihr Original
+  &#x251C;&#x2500; is_zbon_aggregate: boolean &mdash; Tagesabschluss-Aggregat (nicht im DSFinV-K-Export)
+  &#x251C;&#x2500; is_locked: boolean (default false) &mdash; Gesperrt nach Z-Bon
+  &#x2514;&#x2500; created_at: datetime
+
+kassenbuch_line_item (Kassenbuch-Einzelposten)
+  &#x251C;&#x2500; id: BIGINT (PK)
+  &#x251C;&#x2500; header_id: FK &rarr; KassenbuchHeader (CASCADE DELETE)
+  &#x251C;&#x2500; line_number: integer &mdash; Position im Header (0-indexiert)
+  &#x251C;&#x2500; vorz_betrag: varchar(14) &mdash; "+100,50" oder "-75,25"
+  &#x251C;&#x2500; ust_satz: varchar(5) (nullable) &mdash; "19", "7", "0"
+  &#x251C;&#x2500; belegtext: varchar(60) (nullable)
+  &#x251C;&#x2500; kostmenge: decimal(16,4) (nullable)
+  &#x251C;&#x2500; skonto: decimal(10,2) (nullable)
+  &#x2514;&#x2500; sub_balance: decimal(19,4) &mdash; Laufender Saldo nach dieser Zeile
+
+  UNIQUE INDEX (header_id, line_number)</code></pre>
+
+<h3>10.2 Die 17 Eintragstypen (KassenbuchEntryType)</h3>
+
+<p><strong>Dateipfad</strong>: <code>ecr/api/.../core/domain/enums/kassenbuch/KassenbuchEntryType.kt</code></p>
+
+<div class="hint">
+<strong>Konten:</strong> Die Spalten Konto/Gegenkonto zeigen typische SKR03-Werte zur Orientierung. Ma&szlig;geblich ist seit v1.1.0 die
+<em>DATEV-Kontenzuordnung</em> im Web-Admin (Compliance &rarr; Datenexport; SKR03/SKR04 vorbelegt, Vorgaben in
+<code>DatevAccountMappingDefaults</code>). Ohne Zuordnung verweigert der Buchungsstapel-Export mit 409.
+</div>
+
+<p><strong>Einnahmen (+) &mdash; isIncoming = true:</strong></p>
+
+<table>
+<tr><th>Typ</th><th>displayName</th><th>Konto</th><th>Gegenkonto</th><th>Beschreibung</th></tr>
+<tr><td>CASH_TRANSFER_IN</td><td>Geldtransit (Zugang)</td><td>1000</td><td>1360</td><td>Bank/Tresor/andere Kasse &rarr; Kasse</td></tr>
+<tr><td>CASH_SALE</td><td>Barverkauf</td><td>1000</td><td>8400</td><td>POS-Barverk&auml;ufe</td></tr>
+<tr><td>CASH_PAYMENT</td><td>Barzahlung</td><td>1000</td><td>8400</td><td>Barzahlung von Kunden</td></tr>
+<tr><td>CASH_DEPOSIT</td><td>Bargeldeinlage</td><td>1000</td><td>9000</td><td>Einlage in Kasse/Tresor</td></tr>
+<tr><td>PRIVATE_DEPOSIT</td><td>Privateinlage</td><td>1000</td><td>1890</td><td>Private Einlage des Inhabers (nicht steuerbar)</td></tr>
+<tr><td>CASH_SURPLUS</td><td>Kassendifferenz Plus</td><td>1000</td><td>8603</td><td>&Uuml;berschuss bei Abstimmung</td></tr>
+<tr><td>OPENING_BALANCE</td><td>Anfangsbestand</td><td>1000</td><td>9000</td><td>Anfangssaldo der Periode</td></tr>
+<tr><td>CORRECTION_IN</td><td>Korrektur</td><td>1000</td><td>1000</td><td>Fehlerkorrektur (Einnahme)</td></tr>
+<tr><td>CHANGE_FUND</td><td>Wechselgeld</td><td>1000</td><td>9000</td><td>Wechselgeldbestand</td></tr>
+</table>
+
+<p><strong>Ausgaben (-) &mdash; isIncoming = false:</strong></p>
+
+<table>
+<tr><th>Typ</th><th>displayName</th><th>Konto</th><th>Gegenkonto</th><th>Beschreibung</th></tr>
+<tr><td>CASH_TRANSFER_OUT</td><td>Geldtransit (Abgang)</td><td>1000</td><td>1360</td><td>Kasse &rarr; Bank/Tresor/andere Kasse</td></tr>
+<tr><td>CASH_EXPENSE</td><td>Barausgabe</td><td>4000</td><td>1000</td><td>Betriebliche Barausgaben</td></tr>
+<tr><td>CASH_WITHDRAWAL</td><td>Barentnahme</td><td>1000</td><td>9000</td><td>Entnahme aus Kasse</td></tr>
+<tr><td>PRIVATE_WITHDRAWAL</td><td>Privatentnahme</td><td>1000</td><td>1800</td><td>Private Entnahme des Inhabers</td></tr>
+<tr><td>REFUND</td><td>R&uuml;ckerstattung</td><td>8400</td><td>1000</td><td>Barr&uuml;ckerstattung an Kunden</td></tr>
+<tr><td>CASH_SHORTAGE</td><td>Kassendifferenz Minus</td><td>1000</td><td>4900</td><td>Fehlbetrag bei Abstimmung</td></tr>
+<tr><td>CLOSING_BALANCE</td><td>Endbestand</td><td>1000</td><td>9000</td><td>Legacy &mdash; neue Eintr&auml;ge werden abgelehnt (siehe 10.7)</td></tr>
+<tr><td>CORRECTION_OUT</td><td>Korrektur</td><td>1000</td><td>1000</td><td>Fehlerkorrektur (Ausgabe)</td></tr>
+</table>
+
+<h3>10.3 Saldo-Berechnung</h3>
+
+<p><strong>Dateipfad</strong>: <code>server/.../kassenbuch/data/repository/KassenbuchRepositoryImpl.kt</code></p>
+
+<pre><code>Eingabe:
+  lastBalance    = current_balance des vorherigen Headers (oder 0 bei erstem Eintrag)
+  lineItemsData  = Liste der Einzelposten mit vorzBetrag
+  entryType      = KassenbuchEntryType (mit isIncoming)
+
+Berechnung:
+  1. totalAmount = &Sigma;(parseBigDecimal(lineItem.vorzBetrag))
+
+  2. Saldo des Headers:
+     Einnahme (isIncoming = true):  currentBalance = lastBalance + |totalAmount|
+     Ausgabe  (isIncoming = false): currentBalance = lastBalance &minus; |totalAmount|
+
+  3. Sub-Saldo je Einzelposten (laufend):
+     runningBalance = lastBalance
+     F&uuml;r jede Zeile:
+       lineAmount = parseBigDecimal(lineItem.vorzBetrag)
+       Einnahme: runningBalance += |lineAmount|
+       Ausgabe:  runningBalance &minus;= |lineAmount|
+       lineItem.subBalance = runningBalance
+
+Rechenbeispiel:
+  lastBalance = 500,00&euro;
+  Einnahme: CASH_SALE (isIncoming = true)
+  Zeile 1: vorzBetrag = "+71,50" (19% MwSt)
+  Zeile 2: vorzBetrag = "+28,50" (7% MwSt)
+
+  totalAmount = 71,50 + 28,50 = 100,00&euro;
+  currentBalance = 500,00 + 100,00 = 600,00&euro;
+
+  Zeile 1: subBalance = 500,00 + 71,50 = 571,50&euro;
+  Zeile 2: subBalance = 571,50 + 28,50 = 600,00&euro;</code></pre>
+
+<h3>10.4 belegNr-Generierung</h3>
+
+<pre><code>Algorithmus (KassenbuchRepositoryImpl.nextBelegNrBlocking):
+  1. Pr&auml;fix = JJJJ-MM des aktuellen Monats
+  2. MAX(belegNr) mit diesem Pr&auml;fix im selben Kassenbuch ermitteln
+  3. N&auml;chste Nummer = laufende Nummer + 1 (vierstellig), sonst 0001
+     &rarr; z.B. "2026-09-0024"
+
+&rarr; Monatlicher Reset: Jeden Monat beginnt die Nummerierung bei 0001
+&rarr; Z&auml;hlung je Kassenbuch (Kasse und Tresor getrennt)
+&rarr; Storno eines Eintrags: belegNr "STORNO-&lt;Original&gt;"</code></pre>
+
+<h3>10.5 vorzBetrag-Formatierung</h3>
+
+<pre><code>Eingabe: "100.50" oder "100,50" (beide akzeptiert)
+
+Verarbeitung:
+  1. Punkt durch Komma ersetzen: "100,50"
+  2. Vorzeichen pr&uuml;fen:
+     Bereits mit +/&minus;? &rarr; unver&auml;ndert
+     Sonst:
+       isIncoming = true  &rarr; "+100,50"
+       isIncoming = false &rarr; "&minus;100,50"
+
+Ausgabe: "+100,50" oder "&minus;100,50" (Komma als Dezimaltrennzeichen)</code></pre>
+
+<h3>10.6 DATEV-Export</h3>
+
+<p>Das fr&uuml;here 13-Spalten-CSV (<code>KassenbuchCsvExporter</code>) gibt es nicht mehr. Kassenbuch-Daten gehen heute &uuml;ber:</p>
+
+<ul>
+<li><strong>DATEV-Kassenbuch-XML</strong> (<code>DatevXmlExportServiceImpl</code>) &mdash; siehe <a href="datev-xml-export.html">DATEV XML Export</a>; nicht von der Kontenzuordnung abh&auml;ngig.</li>
+<li><strong>DATEV-Buchungsstapel</strong> (EXTF, mit und ohne Belege; <code>DatevBuchungsstapelExportServiceImpl</code>) &mdash; verlangt die
+    <em>DATEV-Kontenzuordnung</em> und antwortet ohne sie mit 409. Ohne Zuordnung wurden fr&uuml;her Barausgaben verkehrt gebucht, jeder Steuersatz
+    auf das 19-%-Automatikkonto gelegt und unbare Einnahmen vom Umsatz abgezogen.</li>
+</ul>
+
+<p>Beide lassen sich &uuml;ber die geplante Aufgabe <em>Auto DATEV Export</em> regelm&auml;&szlig;ig erzeugen (siehe
+<a href="scheduled-tasks.html">Geplante Aufgaben</a>).</p>
+
+<h3>10.7 TSE-Integration</h3>
+
+<p>Jeder Kassenbuch-Eintrag wird TSE-signiert. <strong>Der processType folgt dem BON_TYP des Eintragstyps</strong>
+(<code>KassenbuchDsfinvkMapping.getBonTyp</code>) &mdash; er ist nicht pauschal <code>SonstigerVorgang</code>:</p>
+
+<pre><code>BON_TYP &bdquo;Beleg&ldquo; (alle Eintragstypen au&szlig;er CLOSING_BALANCE)
+  processType = PROCESS_TYPE_RECEIPT ("Kassenbeleg-V1")
+  processData = Beleg^&lt;5 USt-Buckets&gt;^&lt;Zahlungen&gt;   (siehe 8.1)
+                Buckets kind-bewusst: NON_CASH_PAYMENT-Zeilen sind
+                Zahlart, kein Umsatz, und erscheinen nur als Unbar.
+  &rarr; Privateinlage, Geldtransit, Barausgabe usw. (TSER-2;
+    Anhang I S. 119/120)
+
+BON_TYP &bdquo;AVSonstige&ldquo; (nur CLOSING_BALANCE)
+  processType = PROCESS_TYPE_OTHER ("SonstigerVorgang")
+  processData = Serialisierte Eintragsdaten (Freitext)
+  &rarr; Legacy: neue CLOSING_BALANCE-Eintr&auml;ge werden vom Service
+    abgelehnt (KABS-3) &mdash; ein Z&auml;hlprotokoll geh&ouml;rt in den
+    Kassensturz/DifferenzSollIst.
+
+Gemeinsam:
+  referenceId = belegNr
+  clientId    = Terminal-Identifier per deviceId
+                (Tagesabschluss: TSE-Client der f&uuml;r die Ladenkasse bestimmten
+                 Kasse, sonst der aufrufenden Kasse)</code></pre>
+
+<p>Das <strong>Z-Bon-Tagesabschluss-Aggregat</strong> ist die Ausnahme von dieser Regel: es ist zwar formal ein
+CASH_SALE-Eintrag (BON_TYP &bdquo;Beleg&ldquo;), wird aber <strong>nicht mehr TSE-signiert</strong>
+(Status <code>NOT_APPLICABLE</code>, keine TSE-Transaktion; AEAO zu &sect;&nbsp;146a Nr.&nbsp;1.11.2).
+<em>(Historie: vom 05.08.2026 bis 09.10.2026 signierte es bewusst als <code>SonstigerVorgang</code>.)</em>
+Signiert bleiben die Bargeldbewegungen des Abschlusses &mdash; Kassendifferenz, Trinkgeld-Auszahlungen,
+Aufstockung und t&auml;glicher Geldtransit &mdash; unter dem TSE-Client der f&uuml;r die Ladenkasse bestimmten
+Kasse, sonst der aufrufenden Kasse; ein Abschluss ohne solche Bewegungen signiert nichts. Es wird vom DSFinV-K-Export vollst&auml;ndig ausgeschlossen
+(<code>is_zbon_aggregate</code>), weil es nur Buchhaltung &uuml;ber bereits exportierte Bons ist &mdash; als
+Kassenbeleg signiert h&auml;tte es den Tagesumsatz, den die TSE bereits belegweise signiert hat, im TAR ein zweites
+Mal deklariert. Details siehe <code>manual/tse-dokumentation.html</code>, Nachtrag 05.08.2026.</p>
+
+<hr>
+
+<h2 id="s11">11. Gutscheine (Voucher)</h2>
+
+<h3>11.1 Einl&ouml;sung bei Rechnungserstellung</h3>
+
+<p>In <code>BillServiceImpl.createBillInternal()</code> werden Gutscheine wie folgt eingel&ouml;st:</p>
+
+<pre><code>F&uuml;r jede VoucherRedeemRequest:
+  1. Gutschein per voucherNumber laden (nur INTERNAL-Quelle)
+  2. VoucherRedeem-Entity erstellen:
+     &#x251C;&#x2500; bill = aktuelle Rechnung
+     &#x251C;&#x2500; voucher = geladener Gutschein
+     &#x2514;&#x2500; redeemAmount = eingel&ouml;ster Betrag
+  3. Gutschein-Saldo aktualisieren:
+     remainingAmount = voucher.remainingValue &minus; redeemAmount
+     &#x251C;&#x2500; remainingAmount &lt;= 0:
+     &#x2502;    voucher.remainingValue = 0
+     &#x2502;    voucher.fullyRedeemedAt = currentTimeStamp()
+     &#x2514;&#x2500; remainingAmount &gt; 0:
+          voucher.remainingValue = remainingAmount</code></pre>
+
+<h3>11.2 Training-Modus</h3>
+
+<p>Im Training-Modus wird der Gutschein-Saldo <strong>NICHT</strong> ver&auml;ndert. Training-Rechnungen sind nicht fiskalisch relevant.</p>
+
+<h3>11.3 Storno-R&uuml;ckg&auml;ngigmachung</h3>
+
+<p>Bei Rechnungsstorno wird die Gutscheineinl&ouml;sung r&uuml;ckg&auml;ngig gemacht:</p>
+
+<pre><code>F&uuml;r jede VoucherRedeem der Originalrechnung:
+  redeemVoucher(reverseBill, negierter Betrag)
+  &rarr; voucher.remainingValue wird wieder erh&ouml;ht</code></pre>
+
+<h3>11.4 Z-Bon-Integration</h3>
+
+<p>W&auml;hrend der Z-Bon-Erstellung werden alle Gutschein-Erstellungen und -Einl&ouml;sungen des Zeitraums dem Z-Bon zugeordnet:</p>
+
+<pre><code>Voucher.find { zBonId == null AND startTime &lt; createdAt &lt; endTime }
+  &rarr; voucher.zBon = report
+
+VoucherRedeem.find { zBonId == null AND reversedByBill == null
+                     AND startTime &lt; redeemedAt &lt; endTime }
+  &rarr; voucherRedeem.zBon = report
+  (eine durch Storno umgekehrte Einl&ouml;sung wird nie einem Abschluss zugeordnet)</code></pre>
+
+<hr>
+
+<h2 id="s12">12. Datenbank-Schema (&Uuml;bersicht)</h2>
+
+<h3>12.1 Beziehungsdiagramm</h3>
+
+<pre><code>                              &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+                              &#x2502;   Employee   &#x2502;
+                              &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                                     &#x2502; erstellt
+                    &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x253C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+                    &#x25BC;                &#x25BC;                &#x25BC;
+             &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;    &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;    &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+             &#x2502;  t_order  &#x2502;    &#x2502;   Bill   &#x2502;    &#x2502;    ZBon      &#x2502;
+             &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;    &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;    &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                  &#x2502;               &#x2502;                  &#x2502;
+     &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;          &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;                  &#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+     &#x25BC;            &#x25BC;          &#x25BC;    &#x25BC;                  &#x25BC;                    &#x25BC;
+&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510; &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510; &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510; &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510; &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;    &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+&#x2502;t_order_  &#x2502; &#x2502; item_  &#x2502; &#x2502;Pay-  &#x2502; &#x2502;BillVat-  &#x2502; &#x2502;VatGroup  &#x2502;    &#x2502;ZBonPayment-      &#x2502;
+&#x2502;  item    &#x2502; &#x2502;extras  &#x2502; &#x2502;ment  &#x2502; &#x2502;Detail    &#x2502; &#x2502;          &#x2502;    &#x2502;Summary           &#x2502;
+&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518; &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518; &#x2514;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2518; &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518; &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;    &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+      &#x2502;                    &#x2502;          &#x2502;             &#x2502;
+      &#x2502;                    &#x25BC;          &#x25BC;             &#x2502;          &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+      &#x2502;              &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510; &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;          &#x2502;          &#x2502;EmployeeZBon-     &#x2502;
+      &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x25BA; Payment  &#x2502; &#x2502; Vat  &#x2502;&#x25C4;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;          &#x2502;Summary           &#x2502;
+                     &#x2502;  Type    &#x2502; &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;                     &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                     &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;                                      &#x2502;
+                                                               &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x25BC;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;    &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;                    &#x2502;EmployeeZBon-   &#x2502;
+&#x2502;Kassenbuch-       &#x2502;    &#x2502;Kassenbuch-      &#x2502;                    &#x2502;PaymentBreakdown&#x2502;
+&#x2502;Header            &#x2502;&#x25C4;&#x2500;&#x2500;&#x2500;&#x2502;LineItem         &#x2502;                    &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;    &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</code></pre>
+
+<h3>12.2 Alle relevanten Tabellen</h3>
+
+<h4>Bestellungen</h4>
+
+<table>
+<tr><th>Tabelle</th><th>PK-Typ</th><th>Tabellenname</th><th>Beschreibung</th></tr>
+<tr><td>OrdersTable</td><td>BIGINT</td><td><code>t_order</code></td><td>Bestellungskopf</td></tr>
+<tr><td>OrderItemTable</td><td>BIGINT</td><td><code>t_order_item</code></td><td>Einzelne Bestellpositionen</td></tr>
+<tr><td>ItemExtrasTable</td><td>Composite</td><td><code>item_extras</code></td><td>Extras-Zuordnung (Many-to-Many)</td></tr>
+</table>
+
+<h4>Rechnungen</h4>
+
+<table>
+<tr><th>Tabelle</th><th>PK-Typ</th><th>Tabellenname</th><th>Beschreibung</th></tr>
+<tr><td>BillTable</td><td>BIGINT</td><td><code>bill</code></td><td>Rechnungskopf</td></tr>
+<tr><td>BillVatDetailTable</td><td>BIGINT</td><td><code>bill_vat_detail</code></td><td>MwSt-Aufschl&uuml;sselung je Rechnung</td></tr>
+<tr><td>PaymentTable</td><td>BIGINT</td><td><code>payment</code></td><td>Einzelne Zahlungen</td></tr>
+</table>
+
+<h4>MwSt &amp; Zahlungsarten</h4>
+
+<table>
+<tr><th>Tabelle</th><th>PK-Typ</th><th>Tabellenname</th><th>Beschreibung</th></tr>
+<tr><td>VatTable</td><td>String</td><td><code>vat</code></td><td>MwSt-Klassen (A, B, C)</td></tr>
+<tr><td>PaymentTypeTable</td><td>BIGINT</td><td><code>payment_type</code></td><td>Zahlungsarten (BAR, CARD, etc.)</td></tr>
+</table>
+
+<h4>Z-Bon (Tagesabschluss)</h4>
+
+<table>
+<tr><th>Tabelle</th><th>PK-Typ</th><th>Tabellenname</th><th>Beschreibung</th></tr>
+<tr><td>ZBonTable</td><td>BIGINT</td><td><code>zbon</code></td><td>Tagesabschluss-Kopf</td></tr>
+<tr><td>VatGroupTable</td><td>BIGINT</td><td><code>tax_group</code></td><td>Aggregierte MwSt je Z-Bon</td></tr>
+<tr><td>ZBonPaymentSummaryTable</td><td>BIGINT</td><td><code>zbon_payment_summary</code></td><td>Zahlungsart-Zusammenfassung</td></tr>
+<tr><td>EmployeeZBonSummaryTable</td><td>BIGINT</td><td><code>employee_zbon_summary</code></td><td>Mitarbeiter-Umsatz &amp; Trinkgeld</td></tr>
+<tr><td>EmployeeZBonPaymentBreakdownTable</td><td>BIGINT</td><td><code>employee_zbon_payment_breakdown</code></td><td>Zahlungsart je Mitarbeiter</td></tr>
+</table>
+
+<h4>Kassenbuch</h4>
+
+<table>
+<tr><th>Tabelle</th><th>PK-Typ</th><th>Tabellenname</th><th>Beschreibung</th></tr>
+<tr><td>KassenbuchHeaderTable</td><td>BIGINT</td><td><code>kassenbuch_header</code></td><td>Kassenbuch-Kopf (ein Beleg)</td></tr>
+<tr><td>KassenbuchLineItemTable</td><td>BIGINT</td><td><code>kassenbuch_line_item</code></td><td>Einzelposten (Multi-MwSt-Zeilen)</td></tr>
+</table>
+
+<hr>
+
+<h2 id="s13">13. Gesch&auml;ftsregeln &amp; Validierungen</h2>
+
+<h3>13.1 Bestellungen</h3>
+
+<table>
+<tr><th>Regel</th><th>Beschreibung</th></tr>
+<tr><td><strong>Eine Zeile pro Mengeneinheit</strong></td><td>Jede bestellte Einheit erzeugt eine eigene <code>t_order_item</code>-Zeile</td></tr>
+<tr><td><strong>MwSt bei Bestellzeitpunkt</strong></td><td>MwSt-Rate wird beim Erstellen der Bestellung fixiert und im Item gespeichert</td></tr>
+<tr><td><strong>Preise unver&auml;nderlich</strong></td><td>Nach Bestellbest&auml;tigung sind unitPrice und finalPrice unver&auml;nderlich</td></tr>
+<tr><td><strong>Preisbefugnis</strong></td><td>Individueller Preis nur mit <code>PRICE_OVERRIDE</code> oder <code>allowCustomPrice</code> am Produkt; Rabatt &uuml;ber 20&nbsp;% nur mit <code>DISCOUNT_GRANT</code> (403 sonst). Beide Befugnisse z&auml;hlen auch, wenn sie per Manager-PIN geliehen sind; die Bestellung wird dann als <code>CREATE_ORDER</code> mit <code>TEMPORARY_SESSION</code> und dem freigebenden Manager protokolliert</td></tr>
+<tr><td><strong>Tisch &ouml;ffnet mit der ersten Bestellung</strong></td><td>Die Tischsitzung entsteht in derselben Transaktion wie die erste Bestellung; <code>GET /api/tables/{id}/currentSession</code> liest nur (Ausnahme &uuml;bergangsweise f&uuml;r Kassen der Vorversion)</td></tr>
+<tr><td><strong>Training-Modus-Isolation</strong></td><td><code>employee.trainingMode</code> muss mit <code>session.isTraining</code> &uuml;bereinstimmen</td></tr>
+</table>
+
+<h3>13.2 Rechnungen</h3>
+
+<table>
+<tr><th>Regel</th><th>Beschreibung</th></tr>
+<tr><td><strong>Items m&uuml;ssen OPEN sein</strong></td><td>Nur Items mit <code>itemStatus = OPEN</code> k&ouml;nnen abgerechnet werden</td></tr>
+<tr><td><strong>Zahlungssumme = Gesamtbetrag</strong></td><td><code>&Sigma;(payments.amount)</code> muss exakt <code>billAmount &minus; promotionAmount + tips</code> entsprechen</td></tr>
+<tr><td><strong>Aktionen</strong></td><td>Eine nicht kombinierbare Aktion muss die einzige auf dem Beleg sein (409 <code>PROMOTION_NOT_COMBINABLE</code>); Abz&uuml;ge werden cent-genau per Largest-Remainder auf die MwSt-Gruppen verteilt</td></tr>
+<tr><td><strong>Inhaber-Trinkgeld in MwSt</strong></td><td>Bei <code>tipRecipient = OWNER</code> (ADMIN) wird Trinkgeld per Largest-Remainder auf die MwSt-Gruppen verteilt</td></tr>
+<tr><td><strong>Mitarbeiter-Trinkgeld separat</strong></td><td>Bei <code>tipRecipient = EMPLOYEE</code> bleibt Trinkgeld au&szlig;erhalb der MwSt-Gruppen: nicht steuerbar, keine <code>BillVatDetail</code>-Zeile, signiert im 5. Brutto-Slot</td></tr>
+<tr><td><strong>MwSt-Summe = Validierung</strong></td><td><code>&Sigma;(vatDetails.totalAmount)</code> muss <code>paidAmount</code> (OWNER) oder <code>paidAmount &minus; tips</code> (EMPLOYEE, Trinkgeld nicht steuerbar) entsprechen</td></tr>
+<tr><td><strong>Auf Rechnung</strong></td><td>Zahlungen mit <code>creates_receivable</code> sind Forderungen, keine Einnahme; der Ausgleich an der Kasse ist ein eigener Beleg ohne Umsatz, ohne &Uuml;berzahlung</td></tr>
+<tr><td><strong>Storno / Zahlartwechsel</strong></td><td>Nicht nach dem Z-Bon des Tages, nicht auf einem Storno-Beleg, nicht bei ausgestellter Ausgangsrechnung; Zahlartwechsel = Storno + Neubuchung (nicht f&uuml;r Gutscheinverk&auml;ufe und Forderungsausgleiche); Berechtigung <code>BILL_VOID</code> bzw. <code>BILL_CHANGE_PAYMENT</code> (per Manager-PIN leihbar)</td></tr>
+<tr><td><strong>L&uuml;ckenlose Nummernvergabe</strong></td><td>Monatsz&auml;hler <code>bill_number_sequence</code> (FOR UPDATE) verhindert doppelte Rechnungsnummern bei Nebenl&auml;ufigkeit; Restkonflikt = 409</td></tr>
+<tr><td><strong>REPEATABLE_READ + Wiederholung</strong></td><td>Rechnungserstellung, -storno und Zahlartwechsel in <code>REPEATABLE_READ</code>, bei Konflikt automatisch wiederholt</td></tr>
+</table>
+
+<h3>13.3 Z-Bon</h3>
+
+<table>
+<tr><th>Regel</th><th>Beschreibung</th></tr>
+<tr><td><strong>Keine offenen Sessions</strong></td><td>Alle nicht-Training-Sessions m&uuml;ssen vor Z-Bon geschlossen sein</td></tr>
+<tr><td><strong>Nicht leer</strong></td><td>Es muss offener Gesch&auml;ftsbetrieb vorhanden sein &mdash; Belege <em>oder</em> Kassenbuch-Bewegungen der Kasse</td></tr>
+<tr><td><strong>Z-Nummer</strong></td><td><code>zbon_nummer = max + 1</code>, l&uuml;ckenlos; zugleich <code>Z_NR</code> im DSFinV-K-Export</td></tr>
+<tr><td><strong>Stammdaten gesperrt</strong></td><td>Name, Anschrift, Steuernummer und USt-IdNr des Betriebs sind nur bei geschlossenem Tag &auml;nderbar; der Z-Bon speichert einen Stammdaten-Snapshot</td></tr>
+<tr><td><strong>Kontinuierliche Perioden</strong></td><td>startTime = vorheriger Z-Bon endTime</td></tr>
+<tr><td><strong>Saldo-Kontinuit&auml;t</strong></td><td>openingBalance = vorheriger Z-Bon closingBalance</td></tr>
+<tr><td><strong>ADMIN-Trinkgeld &rarr; Umsatz</strong></td><td>ADMIN-Trinkgelder flie&szlig;en zus&auml;tzlich in totalPosRevenue</td></tr>
+<tr><td><strong>Forderungsausgleich &ne; Umsatz</strong></td><td>Ausgleichsbelege stehen in <code>totalReceivableCleared</code>; nur ihr Bar-Anteil erh&ouml;ht den Kassenbestand</td></tr>
+<tr><td><strong>Kassenbuch-Sperre</strong></td><td>Nach Z-Bon werden alle Kassenbuch-Eintr&auml;ge gesperrt (isLocked = true)</td></tr>
+<tr><td><strong>Serialisiert</strong></td><td>Z-Bon-Erstellung in <code>REPEATABLE_READ</code> unter einer Advisory-Lock</td></tr>
+</table>
+
+<h3>13.4 Kassenbuch</h3>
+
+<table>
+<tr><th>Regel</th><th>Beschreibung</th></tr>
+<tr><td><strong>Monatlicher belegNr-Reset</strong></td><td>Belegnummern (<code>JJJJ-MM-NNNN</code>) beginnen jeden Monat und je Kassenbuch bei 0001</td></tr>
+<tr><td><strong>Belegdatum</strong></td><td>Nicht in der Zukunft und nicht &auml;lter als die Frist des Betriebs (Standard 31 Tage, 1&ndash;366); &auml;lter und bis zu einem Jahr nur mit Begr&uuml;ndung und Manager-Freigabe. Liegt das Datum in einer abgeschlossenen Periode, wird der Eintrag in die offene Periode gebucht und beh&auml;lt sein Datum; abgeschlossene Perioden bleiben unber&uuml;hrt.</td></tr>
+<tr><td><strong>Transfer zwischen Kassenb&uuml;chern</strong></td><td>Zwei Buchungen (Kasse und Gegenkasse); eine einseitige Korrektur wird abgelehnt &mdash; das Paar wird storniert</td></tr>
+<tr><td><strong>Vorzeichen-Pflicht</strong></td><td>vorzBetrag muss immer +/&minus; Vorzeichen haben</td></tr>
+<tr><td><strong>Laufender Saldo</strong></td><td>currentBalance wird kumulativ &uuml;ber alle Eintr&auml;ge fortgeschrieben</td></tr>
+<tr><td><strong>Gesperrte Eintr&auml;ge</strong></td><td>Eintr&auml;ge mit isLocked = true k&ouml;nnen nicht ver&auml;ndert werden</td></tr>
+<tr><td><strong>DATEV</strong></td><td>Buchungsstapel nur mit DATEV-Kontenzuordnung (409 sonst); Kassenbuch-XML unabh&auml;ngig davon</td></tr>
+</table>
+
+<h3>13.5 TSE-Signierung</h3>
+
+<table>
+<tr><th>Regel</th><th>Beschreibung</th></tr>
+<tr><td><strong>Alle Gesch&auml;ftsvorf&auml;lle signiert</strong></td><td>Bestellungen, Rechnungen, Stornos, Kassenbuch-Eintr&auml;ge, Z-Bons</td></tr>
+<tr><td><strong>FAIL-Modus</strong></td><td>Bei TSE-Fehler &rarr; der in Phase&nbsp;1 gespeicherte Vorgang wird storniert und abgelehnt</td></tr>
+<tr><td><strong>QUEUE-Modus</strong></td><td>Bei TSE-Fehler &rarr; in Nachsignierungs-Warteschlange einreihen; der Grund der sp&auml;ten Signatur wird dauerhaft festgehalten</td></tr>
+<tr><td><strong>Nur Kassen-Terminals signieren</strong></td><td>Der Web-Admin und nicht gekoppelte Ger&auml;te k&ouml;nnen keine fiskalischen Vorg&auml;nge ausl&ouml;sen; gepr&uuml;ft vor Phase&nbsp;1</td></tr>
+<tr><td><strong>Training-BonType</strong></td><td>Training-Vorg&auml;nge erhalten BonType.AV_TRAINING</td></tr>
+<tr><td><strong>Storno-BonType</strong></td><td>Stornierungen erhalten BonType.AV_BELEGSTORNO</td></tr>
+</table>
+
+<hr>
+
+<h3>Dateipfad-Referenz</h3>
+
+<table>
+<tr><th>Komponente</th><th>Pfad</th></tr>
+<tr><td>OrderServiceImpl</td><td><code>server/.../order/data/service/OrderServiceImpl.kt</code></td></tr>
+<tr><td>OrderItemRepositoryImpl</td><td><code>server/.../order/data/repository/OrderItemRepositoryImpl.kt</code></td></tr>
+<tr><td>OrdersTable</td><td><code>server/.../order/database/tables/OrdersTable.kt</code></td></tr>
+<tr><td>OrderItemTable</td><td><code>server/.../order/database/tables/OrderItemTable.kt</code></td></tr>
+<tr><td>ItemExtrasTable</td><td><code>server/.../order/database/tables/ItemExtrasTable.kt</code></td></tr>
+<tr><td>BillServiceImpl</td><td><code>server/.../bill/data/service/BillServiceImpl.kt</code></td></tr>
+<tr><td>BillNumberTracker</td><td><code>server/.../bill/data/service/BillNumberTracker.kt</code></td></tr>
+<tr><td>BillTable</td><td><code>server/.../bill/database/tables/BillTable.kt</code></td></tr>
+<tr><td>BillNumberSequenceTable</td><td><code>ecr/data/.../bill/database/tables/BillNumberSequenceTable.kt</code></td></tr>
+<tr><td>BillVatDetailTable</td><td><code>ecr/data/.../bill/database/tables/BillVatDetailTable.kt</code></td></tr>
+<tr><td>PaymentTable</td><td><code>ecr/data/.../payment/database/tables/PaymentTable.kt</code></td></tr>
+<tr><td>PaymentTypeTable</td><td><code>ecr/data/.../payment/database/tables/PaymentTypeTable.kt</code></td></tr>
+<tr><td>VatTable</td><td><code>ecr/data/.../payment/database/tables/VatTable.kt</code></td></tr>
+<tr><td>VatMappingUtil</td><td><code>ecr/data/.../utils/config/VatMappingUtil.kt</code></td></tr>
+<tr><td>PriceAuthority</td><td><code>platform/api/.../core/auth/PriceAuthority.kt</code></td></tr>
+<tr><td>PromotionApportionment</td><td><code>server/.../utils/PromotionApportionment.kt</code></td></tr>
+<tr><td>VatMappingConfig</td><td><code>platform/api/.../core/domain/models/setup/VatMappingConfig.kt</code></td></tr>
+<tr><td>ProcessDataBuilder</td><td><code>server/.../utils/builder/ProcessDataBuilder.kt</code></td></tr>
+<tr><td>DecimalFormatter</td><td><code>server/.../utils/formatter/DecimalFormatter.kt</code></td></tr>
+<tr><td>ZBonServiceImpl</td><td><code>server/.../zBon/data/service/ZBonServiceImpl.kt</code></td></tr>
+<tr><td>ZBonRepositoryImpl</td><td><code>server/.../zBon/data/repository/ZBonRepositoryImpl.kt</code></td></tr>
+<tr><td>ZBonTable</td><td><code>server/.../zBon/database/tables/ZBonTable.kt</code></td></tr>
+<tr><td>VatGroupTable</td><td><code>server/.../zBon/database/tables/VatGroupTable.kt</code></td></tr>
+<tr><td>ZBonPaymentSummaryTable</td><td><code>server/.../zBon/database/tables/ZBonPaymentSummaryTable.kt</code></td></tr>
+<tr><td>EmployeeZBonSummaryTable</td><td><code>server/.../zBon/database/tables/EmployeeZBonSummaryTable.kt</code></td></tr>
+<tr><td>EmployeeZBonPaymentBreakdownTable</td><td><code>server/.../zBon/database/tables/EmployeeZBonPaymentBreakdownTable.kt</code></td></tr>
+<tr><td>KassenbuchServiceImpl</td><td><code>server/.../kassenbuch/data/service/KassenbuchServiceImpl.kt</code></td></tr>
+<tr><td>KassenbuchRepositoryImpl</td><td><code>server/.../kassenbuch/data/repository/KassenbuchRepositoryImpl.kt</code></td></tr>
+<tr><td>KassenbuchHeaderTable</td><td><code>server/.../kassenbuch/database/tables/KassenbuchHeaderTable.kt</code></td></tr>
+<tr><td>KassenbuchLineItemTable</td><td><code>server/.../kassenbuch/database/tables/KassenbuchLineItemTable.kt</code></td></tr>
+<tr><td>KassenbuchEntryType</td><td><code>ecr/api/.../core/domain/enums/kassenbuch/KassenbuchEntryType.kt</code></td></tr>
+<tr><td>DatevXmlExportServiceImpl</td><td><code>server/.../kassenbuch/data/service/DatevXmlExportServiceImpl.kt</code></td></tr>
+<tr><td>DatevBuchungsstapelExportServiceImpl</td><td><code>server/.../kassenbuch/data/service/DatevBuchungsstapelExportServiceImpl.kt</code></td></tr>
+</table>
+
+</body>
+</html>

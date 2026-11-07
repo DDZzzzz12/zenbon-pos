@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS local_product_choice_groups (
+    product_id INTEGER NOT NULL,
+    group_id INTEGER NOT NULL,
+    sort_position INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (product_id, group_id)
+);
+
+insertOrReplace:
+INSERT OR REPLACE INTO local_product_choice_groups(product_id, group_id, sort_position)
+VALUES (?, ?, ?);
+
+getByProduct:
+SELECT * FROM local_product_choice_groups WHERE product_id = ? ORDER BY sort_position;
+
+getAllProductIds:
+SELECT DISTINCT product_id FROM local_product_choice_groups;
+
+deleteByProduct:
+DELETE FROM local_product_choice_groups WHERE product_id = ?;
+
+deleteByGroup:
+DELETE FROM local_product_choice_groups WHERE group_id = ?;
+
+clearAll:
+DELETE FROM local_product_choice_groups;

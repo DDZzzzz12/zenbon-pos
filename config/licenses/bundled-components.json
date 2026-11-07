@@ -1,0 +1,68 @@
+{
+  "_comment": [
+    "Shipped third-party content that is NOT a Gradle or npm dependency: fonts, the bundled Java runtime,",
+    "native binaries inside a dependency jar whose POM names only the packaging license. Listed in the",
+    "notices and the SBOM. 'files' are repository globs; every font file under a module's src/ must be",
+    "covered by an entry here or the check fails. 'verify': 'font-name-table' reads the font's own",
+    "license record (OpenType name ID 13); 'license-file' requires 'licenseFile' to carry the license."
+  ],
+  "fontGlobs": ["*/src/**/*.ttf", "*/src/**/*.otf", "*/src/**/*.woff", "*/src/**/*.woff2", "ui/*/src/**/*.ttf", "ui/*/src/**/*.otf", "ui/*/src/**/*.woff", "ui/*/src/**/*.woff2", "platform/*/src/**/*.ttf", "platform/*/src/**/*.otf", "platform/*/src/**/*.woff", "platform/*/src/**/*.woff2", "accounting/*/src/**/*.ttf", "accounting/*/src/**/*.otf", "accounting/*/src/**/*.woff", "accounting/*/src/**/*.woff2", "fiscal/*/src/**/*.ttf", "fiscal/*/src/**/*.otf", "fiscal/*/src/**/*.woff", "fiscal/*/src/**/*.woff2", "ecr/*/src/**/*.ttf", "ecr/*/src/**/*.otf", "ecr/*/src/**/*.woff", "ecr/*/src/**/*.woff2", "backoffice/*/src/**/*.ttf", "backoffice/*/src/**/*.otf", "backoffice/*/src/**/*.woff", "backoffice/*/src/**/*.woff2"],
+  "components": [
+    {
+      "name": "Inter (font)",
+      "version": "3.x",
+      "copyright": "Copyright 2016 The Inter Project Authors",
+      "url": "https://github.com/rsms/inter",
+      "license": "OFL-1.1",
+      "scope": ["server", "apk", "deb"],
+      "files": [
+        "ui/till/src/commonMain/composeResources/font/inter_*.ttf",
+        "accounting/document/src/main/resources/fonts/inter_*.ttf"
+      ],
+      "verify": "font-name-table",
+      "note": "UI font of the till (APK, Linux client, /pos browser till) and of generated PDF documents (server)."
+    },
+    {
+      "name": "Noto Sans SC, GB2312 subset (font)",
+      "version": "2.x subset",
+      "copyright": "Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'",
+      "url": "https://github.com/notofonts/noto-cjk",
+      "license": "OFL-1.1",
+      "scope": ["server"],
+      "files": ["pos-server/src/main/resources/static/font/NotoSansSC-GB2312-v2.otf"],
+      "verify": "license-file",
+      "licenseFile": "pos-server/src/main/resources/static/font/LICENSE.txt",
+      "note": "Served by pos-server at /font for the web admin panel's Chinese UI; the subset drops the font's own license record, so the OFL text ships beside it."
+    },
+    {
+      "name": "Java runtime (Eclipse Temurin 21, jlinked)",
+      "version": "21",
+      "copyright": "Copyright Oracle and/or its affiliates and the Eclipse Adoptium contributors",
+      "url": "https://adoptium.net",
+      "license": "GPL-2.0-with-classpath-exception",
+      "scope": ["server", "deb"],
+      "files": [],
+      "note": "The server package's jre/ folder is a jlink image of the build JDK (Eclipse Temurin 21 in the release workflow), as is the runtime inside the Linux .deb. Its own legal notices are in jre/legal/."
+    },
+    {
+      "name": "PostgreSQL server binaries (inside io.zonky.test.postgres:embedded-postgres-binaries-linux-amd64)",
+      "version": "16",
+      "copyright": "Portions Copyright (c) 1996-2024, The PostgreSQL Global Development Group; Portions Copyright (c) 1994, The Regents of the University of California",
+      "url": "https://www.postgresql.org",
+      "license": "PostgreSQL",
+      "scope": ["server"],
+      "files": [],
+      "note": "The embedded database. The Maven artifact is Apache-2.0 packaging; the PostgreSQL binaries it carries are under the PostgreSQL License."
+    },
+    {
+      "name": "Alpine.js",
+      "version": "3.17.4",
+      "copyright": "Copyright (c) 2019-2025 Caleb Porzio and contributors",
+      "url": "https://github.com/alpinejs/alpine",
+      "license": "MIT",
+      "scope": ["server"],
+      "files": ["pos-server/src/main/resources/maintenance/vendor/alpine.min.js"],
+      "note": "Vendored, unmodified cdn.min.js (sha256 232519394c6c8fdba6f362b1d9da16106db513cdbf899011f00daab4051df31c). Drives the maintainer log-search page at /maintenance/; no CDN, because shops often run offline."
+    }
+  ]
+}

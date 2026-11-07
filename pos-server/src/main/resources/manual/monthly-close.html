@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monthly Close — POS System Documentation</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+    --code-bg: #f3f4f6;
+    --table-header: #f9fafb;
+    --blockquote-bg: #eff6ff;
+    --blockquote-border: #93c5fd;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.7;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.4rem; margin-top: 2.5rem; margin-bottom: 0.75rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.3rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.8rem; margin-bottom: 0.5rem; }
+  h4 { font-size: 1rem; margin-top: 1.2rem; margin-bottom: 0.4rem; }
+  p { margin-bottom: 0.75rem; }
+  a { color: var(--accent); }
+  code {
+    background: var(--code-bg);
+    padding: 0.15em 0.35em;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  pre {
+    background: var(--code-bg);
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  blockquote {
+    background: var(--blockquote-bg);
+    border-left: 4px solid var(--blockquote-border);
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-style: italic;
+  }
+  blockquote p { margin-bottom: 0.4rem; }
+  blockquote p:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--table-header); font-weight: 600; }
+  tr:hover { background: #fafafa; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .meta { color: #6b7280; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .toc { background: var(--code-bg); padding: 1rem 1.5rem; border-radius: 6px; margin: 1rem 0 2rem; }
+  .toc ul { list-style: none; padding-left: 1.2rem; }
+  .toc > ul { padding-left: 0; }
+  .toc li { margin: 0.2rem 0; }
+  .toc a { text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .hint {
+    background: #fefce8;
+    border-left: 4px solid #facc15;
+    padding: 0.6rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  .status-ok { color: #16a34a; font-weight: 600; }
+  .status-warn { color: #d97706; font-weight: 600; }
+  .status-fail { color: #dc2626; font-weight: 600; }
+  .badge {
+    display: inline-block;
+    padding: 0.15em 0.5em;
+    border-radius: 3px;
+    font-size: 0.8em;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+  .badge-ok { background: #dcfce7; color: #15803d; }
+  .badge-fail { background: #fee2e2; color: #b91c1c; }
+  .badge-warn { background: #fef9c3; color: #a16207; }
+</style>
+</head>
+<body>
+
+<h1>Monthly Close</h1>
+<div class="meta">
+  <strong>Audience:</strong> Managers, accountants, and business owners &mdash; see <a href="#access">Access</a> for the permissions involved<br>
+  <strong>Location:</strong> Web back office (<code>/admin</code>) &rarr; <em>Kasse &amp; Abschluss &rarr; Analysen</em> (screen title <em>Berichte</em>), block <em>Monatsabschluss</em>; exports under <em>Compliance &rarr; Datenexport</em><br>
+  <strong>Updated:</strong> 2026-09-24
+</div>
+
+<div class="hint"><strong>Moved in v1.1.0:</strong> The till app no longer has a <em>Monthly Close</em> tab or a data-export screen. The month-end review now lives in the web back office on the <em>Berichte</em> screen, and every DATEV export (including the automatic export and its cadence) is run and configured under <em>Compliance &rarr; Datenexport</em>. The back office is German by default; the German labels are quoted below.</div>
+
+<nav class="toc">
+<strong>Contents</strong>
+<ul>
+  <li><a href="#overview">1. Purpose and Overview</a></li>
+  <li><a href="#kpi-cards">2. KPI Cards and Sparklines</a></li>
+  <li><a href="#sections">3. The Sections of the Block</a>
+    <ul>
+      <li><a href="#sec-checklist">3.1 Checklist</a></li>
+      <li><a href="#sec-discrepancies">3.2 Discrepancies</a></li>
+      <li><a href="#sec-zbon">3.3 Z-Bon Roll-Up</a></li>
+      <li><a href="#sec-kassenbuch">3.4 Kassenbuch Roll-Up</a></li>
+    </ul>
+  </li>
+  <li><a href="#checklist">4. Month-End Checklist</a></li>
+  <li><a href="#export-cadence">5. Automatic DATEV Export and its Cadence</a></li>
+  <li><a href="#export-by-cadence">6. How the Automatic Export Catches Up</a></li>
+  <li><a href="#re-export">7. Ad-Hoc Export</a></li>
+  <li><a href="#weekly-close">8. Weekly Close (Week View)</a></li>
+  <li><a href="#closed-days">9. Closed Days and Z-Bon Gaps</a></li>
+  <li><a href="#access">10. Access</a></li>
+</ul>
+</nav>
+
+<hr>
+
+<h2 id="overview">1. Purpose and Overview</h2>
+
+<p>The <strong>Monatsabschluss</strong> (monthly close) block is the tool for month-end reconciliation. It shows, for one period, whether all business activity is internally consistent, fiscally complete and ready for handoff to the accountant (DATEV).</p>
+
+<p>Open the web back office, go to <strong>Kasse &amp; Abschluss &rarr; Analysen</strong> and choose the period with the stepper at the top of the <em>Berichte</em> screen (<em>Tag</em>, <em>Woche</em>, <em>Monat</em> or <em>Jahr</em>, with back and forward arrows). The <em>Monatsabschluss</em> block below the sales figures follows the selected period and reloads whenever it changes.</p>
+
+<blockquote>
+  <p>The block is a report, not a workflow: nothing is stored when you open it, there is no &ldquo;close month&rdquo; button, and no row can be ticked off. Every status is recomputed on each request.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="kpi-cards">2. KPI Cards and Sparklines</h2>
+
+<p>At the top of the block, seven KPI cards summarise the closing figures of the period. Each card shows the value, a <strong>sparkline</strong> of the daily series, and a <strong>delta</strong> against the previous period of the same length.</p>
+
+<table>
+  <thead>
+    <tr><th>Card</th><th>What it shows</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Bruttoumsatz (gross revenue)</td><td>Revenue including VAT, derived from the bills (after promotions, without employee tips) &mdash; also for periods that are already closed. See 3.3 for why it can differ from the Z-Bon roll-up on pre-1.1.0 closings.</td></tr>
+    <tr><td>Nettoumsatz (net revenue)</td><td>Gross minus VAT.</td></tr>
+    <tr><td>Mehrwertsteuer gesamt (VAT total)</td><td>Sum of all VAT in the period.</td></tr>
+    <tr><td>Anzahl Belege (bills)</td><td>Count of bills.</td></tr>
+    <tr><td>R&uuml;ckerstattungen ohne Zahlartwechsel (refunds)</td><td>Money actually handed back: Stornos <strong>without</strong> the Stornos of a Zahlartwechsel (Storno + Neubuchung), which refund nothing. It equals the Z-Bon roll-up&rsquo;s <em>R&uuml;ckerstattungen</em> minus its <em>davon Zahlartwechsel</em>.</td></tr>
+    <tr><td>Trinkgeld (tips)</td><td>Tips recorded.</td></tr>
+    <tr><td>Kassenbestand am Ende (cash-book closing)</td><td>Balance of the fiscal cash book (Ladenkasse) at the end of the period. Other books &mdash; the Tresor, other Nebenkassen &mdash; are not included; a balance always belongs to exactly one book.</td></tr>
+  </tbody>
+</table>
+
+<div class="hint">All figures are <strong>shop-wide</strong>: they count every employee&rsquo;s bills, whoever opens the block. Revenue, VAT, refunds and tips always cover the same set of bills, so net revenue can never come out negative because of a mismatch. Cash is recognised by the payment type&rsquo;s &ldquo;cash&rdquo; flag, whatever it is called (e.g. BAR). The Kassenbuch roll-up lists the fiscal Ladenkasse&rsquo;s entries only.</div>
+
+<hr>
+
+<h2 id="sections">3. The Sections of the Block</h2>
+
+<p>Below the KPI cards the block shows four sections, in this order.</p>
+
+<h3 id="sec-checklist">3.1 Checklist</h3>
+
+<p>The readiness checks described in <a href="#checklist">Section 4</a>, each with its status and, where there is something to say, a localized detail line (see 3.2). A check that does not apply to the shop&rsquo;s configuration is not shown at all.</p>
+
+<h3 id="sec-discrepancies">3.2 Discrepancies (<em>Differenzen</em>)</h3>
+
+<p>The checklist filtered to what is actually wrong. Each row can be expanded to a detail line and shows the number of affected records. The detail line is shown in the language of the back office (German, English or Chinese) &mdash; e.g. <em>Kein DATEV-Export deckt den ganzen Zeitraum ab f&uuml;r: Kassenbuch</em> or, for check 3, the VAT difference as amounts in euro. The server sends a code with the figures, not a sentence; only a back office older than the server shows its English fallback text. When nothing is wrong, the section says so explicitly &mdash; an empty <em>Differenzen</em> section is the answer you came for.</p>
+
+<h3 id="sec-zbon">3.3 Z-Bon Roll-Up (<em>Z-Bon-Zusammenfassung</em>)</h3>
+
+<p>Every Z-Bon (end-of-day closing) in the period, with number, start, end, gross, net, VAT, tips, refunds (<em>R&uuml;ckerstattungen</em> &mdash; the stored fiscal Storno total, as printed on the Z-Bon, Zahlartwechsel included), <em>davon Zahlartwechsel</em> and cancellations (<em>Streichungen</em>), plus a totals row. All figures are the closings&rsquo; stored values.</p>
+
+<p><strong>Reconciliation line.</strong> When the stored Z-Bon gross differs from the revenue the closings&rsquo; own bills give, a line under the table shows both, the difference and the affected Z-Bon numbers. The known cause is closings created <strong>before version 1.1.0</strong>: they stored the gross as &Sigma; billed amount <em>before</em> promotions (e.g. a free item on a stamp card), while their net, VAT and payments exclude the promotion. Since 1.1.0 the gross is stored after promotions, so newer closings reconcile exactly. Stored Z-Bons are fiscal records and are never changed; the revenue cards follow the bills.</p>
+
+<p>Above the table a timeline draws one bar per Z-Bon against the period and a full-height error bar for any gap between Z-Bons that contains bills. A gap without bills is not drawn &mdash; the shop was closed, which is not a finding.</p>
+
+<h3 id="sec-kassenbuch">3.4 Kassenbuch Roll-Up (<em>Kassenbuch-Zusammenfassung</em>)</h3>
+
+<p>The opening balance of the fiscal Ladenkasse, the period&rsquo;s cash-book entries grouped by entry type with their subtotals, and the closing balance. All amounts are signed by the server; nothing is re-summed in the browser.</p>
+
+<div class="hint">The VAT breakdown by rate and the payment-method breakdown are part of the server&rsquo;s response but are not shown as separate sections in this block. Use the other panels of the <em>Berichte</em> screen or the <em>Tagesbericht</em> for them.</div>
+
+<hr>
+
+<h2 id="checklist">4. Month-End Checklist</h2>
+
+<p>Each check shows <span class="badge badge-ok">OK</span>, <span class="badge badge-warn">Warning</span> or <span class="badge badge-fail">FAILED</span>, in this order:</p>
+
+<table>
+  <thead>
+    <tr><th>#</th><th>Check</th><th>What it verifies</th><th>If not OK: where to look</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Z-Bon-Kette intakt <code>zbon_chain_integrity</code></td>
+      <td>No two Z-Bons of the period overlap in time. Gaps between Z-Bons (closed days) are not flagged here.</td>
+      <td>Section 3.3. An overlap points to a data-integrity problem; contact support.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Belege au&szlig;erhalb Z-Bon <code>no_bills_outside_zbon</code></td>
+      <td>No bill falls into a gap between two Z-Bons. FAILED with the number of gaps that contain bills.</td>
+      <td>Section 3.3 (red bar in the timeline). Bills outside every Z-Bon are missing from the daily closings and therefore from DSFinV-K and DATEV.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Mehrwertsteuer konsistent <code>vat_consistent</code></td>
+      <td>The VAT summed over the period&rsquo;s bills matches the VAT total of the Z-Bon roll-up within &euro;0.01. The comparison is on the total only, not per rate.</td>
+      <td>Section 3.3. Check for bills changed or cancelled after their Z-Bon.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Keine offenen Belege <code>no_open_bills</code></td>
+      <td>No bill in the period is still unassigned to a Z-Bon (cancelled bills excepted). An open bill means the Z-Bon for that day has not been run.</td>
+      <td>Run the Z-Bon at the till (<a href="kap-11-berichte.html#kap-11-zbon">Chapter 11</a>).</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Alle Belege TSE-signiert <code>all_tse_signed</code></td>
+      <td>No bill in the period has a TSE status of pending, processing, queued or failed. Cancelled bills and bills with TSE disabled are not counted.</td>
+      <td>Section 3.2. Check the TSE status at the till (Settings &rarr; TSE) and the back office <em>Ger&auml;te &rarr; TSE-Befunde</em>.</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Keine simulierten TSE-Signaturen <code>no_simulated_signatures</code></td>
+      <td>No bill, Kassenbuch entry, order or cancellation in the period is marked <code>SIGNED</code> while its TSE transaction carries the simulator&rsquo;s serial number (<code>SIM-TSE-001</code>, in any stored encoding). Such a Vorgang has no valid TSE signature (&sect;&nbsp;146a AO) although its status says it has &mdash; the state a NORMAL-configured shop without reachable TSE hardware produced before 2026-09-19. Check 5 looks at the status only and passes these rows; this check fails with the number of affected Vorg&auml;nge. Records from a configured SIMULATION setup (status <code>SIMULATION</code>) are not counted.</td>
+      <td>Section 3.2. WORM data cannot be corrected: do not edit the rows. Document the affected period (e.g. an Eigenbeleg explaining it) and contact support &mdash; re-queuing the affected Vorg&auml;nge for Nachsignieren is a separate, owner-approved step.</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Keine m&ouml;glichen Doppelsignaturen <code>no_possible_double_sign</code></td>
+      <td>Reports Vorg&auml;nge for which the TSE response was lost after the request was sent and the signing queue re-signed the payload under a new transaction number. The device may already hold a signature for the original payload, so the WORM log can permanently carry two signatures for the one Vorgang. WARNING, not FAILED: nothing is provably wrong, only unprovable either way.</td>
+      <td>Section 3.2. WORM data cannot be corrected: document the affected period (e.g. an Eigenbeleg) and contact support. Re-queuing for Nachsignieren is a separate, owner-approved step.</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Alle TSE-Transaktionsnummern nachvollziehbar <code>tse_tanr_continuity</code></td>
+      <td>Per TSE (by its hex serial), lists transaction numbers the POS has no ordinary record of &mdash; gaps in the device&rsquo;s numbering and numbers recorded twice (e.g. after a device was stored under two serial encodings) &mdash; that no entry in the TSE explanation register currently covers. WARNING, not FAILED: BSI TR-03153-1 &sect;9.4 makes a repeated call, and therefore a fresh transaction number, the prescribed reaction to a failed or unanswered TSE call, so a gap is explainable rather than wrong in itself. The check only reports what nobody has explained yet.</td>
+      <td>Back office &rarr; <em>Ger&auml;te &rarr; TSE-Befunde</em>. Open the finding and add an explanation, or verify it is already covered by an existing register entry.</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Alle Bargeldbewegungen dokumentiert <code>all_cash_documented</code></td>
+      <td>Every cash-book entry of the period has a linked document (Beleg). FAILED with the number of entries without one.</td>
+      <td>Attach the missing Beleg at the till (<em>Finanzdokumente</em> &rarr; entry &rarr; <em>Beleg hinzuf&uuml;gen</em>), see <a href="kap-12-finanzdokumente.html#kap-12-dokumente">Chapter 12</a>.</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>DATEV exportiert <code>datev_exported</code></td>
+      <td>An <strong>automatic</strong> DATEV export covers the period: in the <em>Monat</em> view, one export covering the whole month; in the <em>Woche</em> view, every ISO week of the period. A Kassenbuch export is always required; an AP-ledger (Eingangsrechnungen) export only when its automatic cadence is switched on <em>and</em> the period holds at least one creditor invoice. Ad-hoc exports (source <em>Manuell</em>) do not satisfy this check.</td>
+      <td>Section 5. With the automatic export switched off, this check cannot pass; that alone does not make the month financially wrong.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="hint"><strong>Tip:</strong> Checks 1&ndash;6 and 9 are data-integrity checks. Checks 7&ndash;8 are TSE advisory checks. Check 10 is a reminder about the handoff. Passing checks 1&ndash;9 with an empty <em>Differenzen</em> section means the period is financially sound regardless of whether the DATEV export has run.</div>
+
+<hr>
+
+<h2 id="export-cadence">5. Automatic DATEV Export and its Cadence</h2>
+
+<p>The automatic DATEV export is configured in the back office under <strong>Compliance &rarr; Datenexport</strong>, section <em>DATEV XML Konfiguration</em> &rarr; <em>Automatischer Export</em>. It has a master switch (<em>Aktiviert</em>), a run hour, and a separate cadence per export type:</p>
+
+<table>
+  <thead>
+    <tr><th>Setting</th><th>Options</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Kassenbuch-Frequenz</td><td>Aus &middot; W&ouml;chentlich &middot; Monatlich</td></tr>
+    <tr><td>Kreditorenbuch-Frequenz (AP ledger)</td><td>Aus &middot; W&ouml;chentlich &middot; Monatlich</td></tr>
+    <tr><td>Buchungsstapel-Frequenz</td><td>Aus &middot; W&ouml;chentlich &middot; Monatlich</td></tr>
+  </tbody>
+</table>
+
+<p>The export runs as a scheduled job (visible under <em>System &rarr; Geplante Aufgaben</em>). A type set to <em>Aus</em> is skipped. The Buchungsstapel export additionally requires a saved DATEV account mapping; without one it is refused (see <a href="kap-12-finanzdokumente.html#kap-12-export">Chapter 12, DATEV-Export</a>).</p>
+
+<hr>
+
+<h2 id="export-by-cadence">6. How the Automatic Export Catches Up</h2>
+
+<p>Each run inspects the export log per type and exports <strong>every complete period</strong> (ISO week or calendar month, per the type&rsquo;s cadence) that has no automatic log row yet, working forward from the last one. The current, incomplete week or month is always skipped.</p>
+
+<ul style="padding-left:1.5rem; margin-bottom:0.75rem;">
+  <li>Each exported period produces its own log row (source <em>Automatisch</em>) and its own file on the server.</li>
+  <li>Files are written to the directory configured as <em>Server-Exportpfad</em> in the DATEV XML configuration, in a subfolder named after the period (e.g. <code>2026-05</code> for a month or <code>2026-W23</code> for an ISO week).</li>
+  <li>Use <em>Herunterladen</em> on a log row under <em>Compliance &rarr; Datenexport &rarr; DATEV-Export</em> to retrieve a copy.</li>
+</ul>
+
+<p>If a period fails (for example because the file cannot be written), the run <strong>stops for that type</strong> and leaves the later periods for the next run. Exporting a later period first would advance the log past the failed one, and it would never be caught up. The scheduled job is then recorded as <em>Fehlgeschlagen</em>, listing each failed and each deferred period, and the <em>Automatischer Export</em> panel shows that status &mdash; not <em>Erfolgreich</em>. Check 10 stays FAILED until the failed period has been exported. See <a href="scheduled-tasks.html">Geplante Aufgaben</a>.</p>
+
+<p>The export log is append-only: prior rows are never modified. Exporting does not lock a period or prevent further business activity.</p>
+
+<hr>
+
+<h2 id="re-export">7. Ad-Hoc Export</h2>
+
+<p>For a one-off extract &mdash; e.g. re-sending a period to the accountant &mdash; use the buttons in the <em>DATEV-Export</em> section under <strong>Compliance &rarr; Datenexport</strong>: <em>Kassenbuch (DATEV-XML)</em>, <em>Eingangsrechnungen (DATEV-XML)</em>, <em>Buchungsstapel (CSV)</em>, <em>Buchungsstapel + Belege (ZIP)</em>, <em>Alle drei exportieren</em> and <em>Ausgangsrechnungen (DATEV Debitoren)</em>.</p>
+
+<ol style="padding-left:1.5rem; margin-bottom:0.75rem;">
+  <li>Click the button for the export you need. The <em>Ad-hoc-Export</em> dialog opens.</li>
+  <li>Choose <em>Startdatum</em> and <em>Enddatum</em> and confirm with <em>Exportieren</em>.</li>
+  <li>The file is downloaded by your browser.</li>
+</ol>
+
+<blockquote>
+  <p><strong>Ad-hoc exports are logged.</strong> Each ad-hoc export writes a row to the DATEV export log with source <em>Manuell</em>. Manual rows are shown in the log but are ignored by the automatic catch-up and by checklist item 10, so an ad-hoc export never shifts the automatic export history.</p>
+</blockquote>
+
+<p>If the Buchungsstapel export carries notices (e.g. receipts dated into an earlier period or an earlier fiscal year), they are shown above the export list after the download.</p>
+
+<hr>
+
+<h2 id="weekly-close">8. Weekly Close (Week View)</h2>
+
+<p>Businesses that reconcile weekly select <strong>Woche</strong> in the period stepper of the <em>Berichte</em> screen. The block then covers one ISO week (Monday 00:00 to the following Monday 00:00), and checklist item 10 is evaluated per ISO week instead of per month.</p>
+
+<div class="hint">Weeks are numbered according to ISO 8601: the week containing the first Thursday of the year is week 1. In folder names they appear as <code>YYYY-W<em>nn</em></code>, e.g. <code>2026-W23</code>.</div>
+
+<p>For weekly DATEV files, set the relevant cadences in <a href="#export-cadence">Section 5</a> to <em>W&ouml;chentlich</em>; the automatic export then writes each week to its own folder, for example:</p>
+<pre><code>&lt;exportPath&gt;/2026-W23/&hellip;</code></pre>
+
+<hr>
+
+<h2 id="closed-days">9. Closed Days and Z-Bon Gaps</h2>
+
+<p>Not every calendar day has business activity. The block handles this correctly:</p>
+
+<ul style="padding-left:1.5rem; margin-bottom:0.75rem;">
+  <li>A <strong>gap between two Z-Bons without bills</strong> is a closed period. It produces no finding and is not drawn in the timeline.</li>
+  <li>A <strong>gap that contains bills</strong> is a genuine problem: checklist item 2 shows FAILED and the timeline draws a red bar.</li>
+  <li><strong>Bills after the last Z-Bon</strong> that have not been closed yet show up in checklist item 4 until the Z-Bon is run.</li>
+</ul>
+
+<p>A Z-Bon covers the time from the previous closing to its own, not a calendar day, so a closing after midnight needs no adjustment. For planned closures of several days (e.g. a summer break), no configuration is needed: simply run a Z-Bon on the first trading day.</p>
+
+<hr>
+
+<h2 id="access">10. Access</h2>
+
+<table>
+  <thead>
+    <tr><th>What</th><th>Permission</th><th>Default groups</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Open <em>Kasse &amp; Abschluss &rarr; Analysen</em></td><td><code>REPORT_ALL_READ</code></td><td>Manager, Accountant (Buchhaltung), Auditor (Pr&uuml;fer)</td></tr>
+    <tr><td>Monthly-close figures (<code>GET /api/v1/monthly-close</code>)</td><td><code>MONTHLY_CLOSE</code></td><td>Manager (and Administrator)</td></tr>
+    <tr><td>Open <em>Compliance &rarr; Datenexport</em></td><td><code>DSFINVK_EXPORT</code></td><td>Manager, Accountant, Auditor</td></tr>
+    <tr><td>Ad-hoc export, export log, download</td><td><code>ACCOUNTING_READ</code></td><td>Manager, Accountant, Auditor</td></tr>
+  </tbody>
+</table>
+
+<div class="hint">The <em>Monatsabschluss</em> block is shown only to users holding <code>MONTHLY_CLOSE</code> &ndash; the same permission the server checks for the figures; in the default groups that means managers (and administrators).</div>
+
+<hr>
+
+<div class="meta" style="margin-top:2rem;">
+  <a href="index.html">&larr; Back to Manual Index</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+-- Migration from version 9 to version 10: local_product_extras.price moves from INTEGER cents
+-- to exact decimal TEXT, read through DecimalColumnAdapter.
+--
+-- SQLite cannot retype a column in place, so the table is recreated. The column list is copied
+-- from LocalProductExtras.sq verbatim — every column must survive or the recreate silently
+-- drops data. Only `price` changes type.
+--
+-- The conversion uses integer arithmetic only. The explicit sign is required: SQLite truncates
+-- integer division toward zero, so the shorter form
+--   CAST(price/100 AS TEXT) || '.' || substr('0' || CAST(price%100 AS TEXT), -2)
+-- is silently WRONG between -99 and -1 (verified with sqlite3 in 7.sqm).
+--
+-- DROP TABLE also drops the table's index, so it is recreated at the end.
+
+ALTER TABLE local_product_extras RENAME TO local_product_extras_old;
+
+CREATE TABLE local_product_extras (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    en_name TEXT,
+    ch_name TEXT,
+    description TEXT,
+    price TEXT NOT NULL,
+    is_active INTEGER NOT NULL DEFAULT 1,
+    linked_product_id INTEGER
+);
+
+INSERT INTO local_product_extras (
+    id, name, en_name, ch_name, description, price, is_active, linked_product_id
+)
+SELECT
+    id, name, en_name, ch_name, description,
+    CASE WHEN price < 0 THEN '-' ELSE '' END ||
+        CAST(abs(price) / 100 AS TEXT) || '.' ||
+        substr('0' || CAST(abs(price) % 100 AS TEXT), -2),
+    is_active, linked_product_id
+FROM local_product_extras_old;
+
+DROP TABLE local_product_extras_old;
+
+CREATE INDEX IF NOT EXISTS idx_local_product_extras_is_active ON local_product_extras(is_active);

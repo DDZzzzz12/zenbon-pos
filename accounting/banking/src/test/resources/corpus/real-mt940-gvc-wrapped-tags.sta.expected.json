@@ -1,0 +1,6 @@
+{
+  "_source": "wolph/mt940 mt940_tests/self-provided/gv_codes.sta, BSD-3-Clause (c) 2014 Rick van Hattem.",
+  "_exercises": "The strongest evidence for the no-separator rejoin: a real export splits SVWZ+ across the ?24/?25 boundary as 'S' + 'VWZ+', and CRED+ across ?23/?24 as 'A' + 'B12CDE...'. Any separator inserted while rejoining destroys both. Refused only because the file is a fragment with no :62F: at all.",
+  "outcome": "Failure",
+  "_note": "Fails on 'statement states no closing balance' — D9a working as designed on a truncated export, not a parse defect."
+}

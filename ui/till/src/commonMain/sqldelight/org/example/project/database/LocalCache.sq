@@ -1,0 +1,52 @@
+-- Client-side local storage for caching and offline support
+-- This is NOT a duplicate of server tables, just local app data
+
+-- Cache metadata for tracking when data was last synced
+CREATE TABLE IF NOT EXISTS cache_metadata (
+    key TEXT NOT NULL PRIMARY KEY,
+    last_synced INTEGER NOT NULL,
+    expires_at INTEGER,
+    data_hash TEXT
+);
+
+-- User preferences and app settings
+CREATE TABLE IF NOT EXISTS user_preferences (
+    key TEXT NOT NULL PRIMARY KEY,
+    value TEXT NOT NULL,
+    updated_at INTEGER NOT NULL
+);
+
+-- Cache metadata queries
+insertCacheMetadata:
+INSERT OR REPLACE INTO cache_metadata(key, last_synced, expires_at, data_hash)
+VALUES (?, ?, ?, ?);
+
+getCacheMetadata:
+SELECT * FROM cache_metadata WHERE key = ?;
+
+isCacheExpired:
+SELECT COUNT(*) > 0 FROM cache_metadata
+WHERE key = ? AND (expires_at IS NULL OR expires_at > ?);
+
+clearExpiredCache:
+DELETE FROM cache_metadata WHERE expires_at IS NOT NULL AND expires_at < ?;
+
+-- User preferences queries
+setPreference:
+INSERT OR REPLACE INTO user_preferences(key, value, updated_at)
+VALUES (?, ?, ?);
+
+getPreference:
+SELECT value FROM user_preferences WHERE key = ?;
+
+getAllPreferences:
+SELECT * FROM user_preferences;
+
+deletePreference:
+DELETE FROM user_preferences WHERE key = ?;
+
+clearAllPreferences:
+DELETE FROM user_preferences;
+
+
+

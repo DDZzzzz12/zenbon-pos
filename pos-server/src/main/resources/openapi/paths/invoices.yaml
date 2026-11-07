@@ -1,0 +1,104 @@
+# paths/invoices.yaml
+# Normalized invoice endpoints — InvoiceRoutes.kt
+# Both endpoints require JWT authentication and MANAGER role.
+#
+# Keyed on **invoice id, not document id**: `source_document_id` is deliberately
+# non-unique, since one scanned PDF may hold several invoices, so a document id
+# cannot address an invoice unambiguously. The document-keyed read and creation
+# live in paths/documents.yaml. Tagged Documents so Swagger UI keeps the whole
+# document-capture workflow in one group.
+
+InvoiceById:
+  put:
+    tags:
+      - Documents
+    summary: Replace the supplier-asserted content of an invoice
+    description: |
+      Replaces the supplier-asserted header of an invoice, and optionally its VAT
+      breakdown. Requires MANAGER role.
+
+      **Full replace, not a patch.** Every supplier field the normalized model holds
+      is in the body, and an omitted field is written as null — the capture form
+      loads the whole aggregate and posts the whole header back. A caller that sends
+      a partial body will null the columns it left out.
+
+      **409 `INVOICE_SUPPLIER_CONTENT_READ_ONLY` when the invoice's
+      `extractionSource` is `EINVOICE_XML`.** That content came from the supplier's
+      own XML and a typed replacement holds nothing better. Booking is unaffected —
+      it lives apart and goes through `PUT /api/invoices/{id}/booking`.
+
+      Provenance is not settable here: `extractionSource` and `eInvoiceFormat` are
+      carried forward from the stored invoice.
+    security:
+      - BearerAuth: []
+    parameters:
+      - $ref: '../components/components.yaml#/components/parameters/PathLongId'
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../components/components.yaml#/components/schemas/InvoiceContentRequest'
+    responses:
+      '200':
+        description: The invoice after the replacement.
+        content:
+          application/json:
+            schema:
+              $ref: '../components/components.yaml#/components/schemas/Invoice'
+      '400':
+        $ref: '../components/components.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../components/components.yaml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../components/components.yaml#/components/responses/NotFound'
+      '409':
+        description: |
+          `INVOICE_SUPPLIER_CONTENT_READ_ONLY` — the invoice carries `EINVOICE_XML`
+          provenance, so its supplier content cannot be overwritten by hand.
+        content:
+          text/plain:
+            schema:
+              $ref: '../components/components.yaml#/components/schemas/ErrorResponse'
+      '500':
+        $ref: '../components/components.yaml#/components/responses/InternalServerError'
+
+InvoiceBooking:
+  put:
+    tags:
+      - Documents
+    summary: Update the booking fields of an invoice
+    description: |
+      Updates only our booking decisions for an invoice; supplier-asserted content is
+      untouched, so this works on `EINVOICE_XML` invoices too. Requires MANAGER role.
+
+      **A null field means "leave unchanged", never "clear"**, so a partial edit is
+      structurally incapable of wiping a field the caller did not mention. Clearing
+      is said out loud by naming the field in `clearFields`. Setting and clearing the
+      same field in one request is rejected with 400 (`VALIDATION_FAILED`) rather
+      than resolved silently.
+    security:
+      - BearerAuth: []
+    parameters:
+      - $ref: '../components/components.yaml#/components/parameters/PathLongId'
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../components/components.yaml#/components/schemas/UpdateInvoiceBookingRequest'
+    responses:
+      '200':
+        description: The invoice after the booking update.
+        content:
+          application/json:
+            schema:
+              $ref: '../components/components.yaml#/components/schemas/Invoice'
+      '400':
+        $ref: '../components/components.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../components/components.yaml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../components/components.yaml#/components/responses/NotFound'
+      '500':
+        $ref: '../components/components.yaml#/components/responses/InternalServerError'

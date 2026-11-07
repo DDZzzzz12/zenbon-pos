@@ -1,0 +1,5 @@
+-- Migration from version 1 to version 2: Add training mode column to local_rtables.
+-- The local_rtables table was dropped in 3.sqm and later recreated as local_r_tables
+-- (5.sqm), so this migration is now a historical no-op for current installs.
+-- Keeping the file preserves the version-1 -> version-2 boundary for the verifier.
+SELECT 1;

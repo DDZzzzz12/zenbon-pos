@@ -1,0 +1,801 @@
+partner subject root=business_partner
+partner offering partner.name | group=null | label=Name | type=TEXT | capability=CREDITOR_READ | field column=business_partner.name
+partner offering partner.legal_name | group=null | label=Firmierung | type=TEXT | capability=CREDITOR_READ | field column=business_partner.legal_name
+partner offering partner.vat_id | group=null | label=USt-IdNr. | type=TEXT | capability=CREDITOR_READ | field column=business_partner.vat_id
+partner offering partner.tax_number | group=null | label=Steuernummer | type=TEXT | capability=CREDITOR_READ | field column=business_partner.tax_number
+partner offering partner.street | group=null | label=Straße | type=TEXT | capability=CREDITOR_READ | field column=business_partner.street
+partner offering partner.zip | group=null | label=PLZ | type=TEXT | capability=CREDITOR_READ | field column=business_partner.zip
+partner offering partner.city | group=null | label=Ort | type=TEXT | capability=CREDITOR_READ | field column=business_partner.city
+partner offering partner.country | group=null | label=Land | type=TEXT | capability=CREDITOR_READ | field column=business_partner.country
+partner offering partner.email | group=null | label=E-Mail | type=TEXT | capability=CREDITOR_READ | field column=business_partner.email
+partner offering partner.phone | group=null | label=Telefon | type=TEXT | capability=CREDITOR_READ | field column=business_partner.phone
+partner offering partner.created_at | group=null | label=Angelegt am | type=DATE | capability=CREDITOR_READ | field column=business_partner.created_at
+partner offering supplier:by:partner_id.creditor_no | group=Kreditor-Rolle | label=Kreditorennummer | type=TEXT | capability=CREDITOR_READ | field column=supplier.creditor_no
+partner offering supplier:by:partner_id.default_account_no | group=Kreditor-Rolle | label=Sachkonto | type=TEXT | capability=CREDITOR_READ | field column=supplier.default_account_no
+partner offering supplier:by:partner_id.default_bu_code | group=Kreditor-Rolle | label=BU-Schlüssel | type=TEXT | capability=CREDITOR_READ | field column=supplier.default_bu_code
+partner offering supplier:by:partner_id.default_cost_center | group=Kreditor-Rolle | label=Kostenstelle | type=TEXT | capability=CREDITOR_READ | field column=supplier.default_cost_center
+partner offering supplier:by:partner_id.payment_terms_days | group=Kreditor-Rolle | label=Zahlungsziel (Tage) | type=NUMBER | capability=CREDITOR_READ | field column=supplier.payment_terms_days
+partner offering supplier:by:partner_id.sepa_creditor_id | group=Kreditor-Rolle | label=SEPA-Gläubiger-ID | type=TEXT | capability=CREDITOR_READ | field column=supplier.sepa_creditor_id
+partner offering supplier:by:partner_id.is_provisional | group=Kreditor-Rolle | label=Provisorisch | type=BOOLEAN | capability=CREDITOR_READ | field column=supplier.is_provisional
+partner offering supplier:by:partner_id.is_active | group=Kreditor-Rolle | label=Aktiv | type=BOOLEAN | capability=CREDITOR_READ | field column=supplier.is_active
+partner offering debtor:by:partner_id.debtor_no | group=Debitor-Rolle | label=Debitorennummer | type=TEXT | capability=DEBTOR_READ | field column=debtor.debtor_no
+partner offering debtor:by:partner_id.default_revenue_account_no | group=Debitor-Rolle | label=Erlöskonto | type=TEXT | capability=DEBTOR_READ | field column=debtor.default_revenue_account_no
+partner offering debtor:by:partner_id.default_bu_code | group=Debitor-Rolle | label=BU-Schlüssel | type=TEXT | capability=DEBTOR_READ | field column=debtor.default_bu_code
+partner offering debtor:by:partner_id.payment_terms_days | group=Debitor-Rolle | label=Zahlungsziel (Tage) | type=NUMBER | capability=DEBTOR_READ | field column=debtor.payment_terms_days
+partner offering debtor:by:partner_id.einvoice_format | group=Debitor-Rolle | label=E-Rechnungsformat | type=TEXT | capability=DEBTOR_READ | field column=debtor.einvoice_format
+partner offering debtor:by:partner_id.is_active | group=Debitor-Rolle | label=Aktiv | type=BOOLEAN | capability=DEBTOR_READ | field column=debtor.is_active
+partner offering debtor:by:partner_id.customers:via:customer_id.customer_number | group=Debitor-Rolle → Kunde | label=Kundennummer | type=TEXT | capability=CUSTOMER_LIST | field column=customers.customer_number
+partner offering debtor:by:partner_id.customers:via:customer_id.first_name | group=Debitor-Rolle → Kunde | label=Vorname | type=TEXT | capability=CUSTOMER_LIST | field column=customers.first_name
+partner offering debtor:by:partner_id.customers:via:customer_id.last_name | group=Debitor-Rolle → Kunde | label=Nachname | type=TEXT | capability=CUSTOMER_LIST | field column=customers.last_name
+partner offering debtor:by:partner_id.customers:via:customer_id.email | group=Debitor-Rolle → Kunde | label=E-Mail | type=TEXT | capability=CUSTOMER_LIST | field column=customers.email
+partner offering debtor:by:partner_id.customers:via:customer_id.phone | group=Debitor-Rolle → Kunde | label=Telefon | type=TEXT | capability=CUSTOMER_LIST | field column=customers.phone
+partner offering debtor:by:partner_id.customers:via:customer_id.marketing_consent | group=Debitor-Rolle → Kunde | label=Werbe-Einwilligung | type=BOOLEAN | capability=CUSTOMER_LIST | field column=customers.marketing_consent
+partner offering debtor:by:partner_id.customers:via:customer_id.last_purchase_at | group=Debitor-Rolle → Kunde | label=Letzter Einkauf | type=DATE | capability=CUSTOMER_LIST | field column=customers.last_purchase_at
+partner offering debtor:by:partner_id.customers:via:customer_id.is_active | group=Debitor-Rolle → Kunde | label=Aktiv | type=BOOLEAN | capability=CUSTOMER_LIST | field column=customers.is_active
+partner offering debtor:by:partner_id.customers:via:customer_id.created_at | group=Debitor-Rolle → Kunde | label=Angelegt am | type=DATE | capability=CUSTOMER_LIST | field column=customers.created_at
+partner offering supplier_bank_account:by:partner_id~list | group=Bankverbindung | label=IBANs | type=TEXT | capability=CREDITOR_READ | aggregate table=supplier_bank_account period=false
+partner offering supplier_bank_account:by:partner_id~count | group=Bankverbindung | label=Anzahl Bankverbindungen | type=NUMBER | capability=CREDITOR_READ | aggregate table=supplier_bank_account period=false
+partner offering supplier:by:partner_id.invoice:by:supplier_id~count@period | group=Kreditor-Rolle → Eingangsrechnung | label=Anzahl Rechnungen (Zeitraum) | type=NUMBER | capability=CREDITOR_READ | aggregate table=invoice period=true
+partner offering supplier:by:partner_id.invoice:by:supplier_id~count | group=Kreditor-Rolle → Eingangsrechnung | label=Anzahl Rechnungen (gesamt) | type=NUMBER | capability=CREDITOR_READ | aggregate table=invoice period=false
+partner offering supplier:by:partner_id.invoice:by:supplier_id~sum@period | group=Kreditor-Rolle → Eingangsrechnung | label=Rechnungssumme (Zeitraum) | type=MONEY | capability=CREDITOR_READ | aggregate table=invoice period=true
+partner offering supplier:by:partner_id.invoice:by:supplier_id~sum | group=Kreditor-Rolle → Eingangsrechnung | label=Rechnungssumme (gesamt) | type=MONEY | capability=CREDITOR_READ | aggregate table=invoice period=false
+partner offering supplier:by:partner_id.invoice:by:supplier_id~first@period | group=Kreditor-Rolle → Eingangsrechnung | label=Erste Rechnung (Zeitraum) | type=DATE | capability=CREDITOR_READ | aggregate table=invoice period=true
+partner offering supplier:by:partner_id.invoice:by:supplier_id~first | group=Kreditor-Rolle → Eingangsrechnung | label=Erste Rechnung (gesamt) | type=DATE | capability=CREDITOR_READ | aggregate table=invoice period=false
+partner offering supplier:by:partner_id.invoice:by:supplier_id~last@period | group=Kreditor-Rolle → Eingangsrechnung | label=Letzte Rechnung (Zeitraum) | type=DATE | capability=CREDITOR_READ | aggregate table=invoice period=true
+partner offering supplier:by:partner_id.invoice:by:supplier_id~last | group=Kreditor-Rolle → Eingangsrechnung | label=Letzte Rechnung (gesamt) | type=DATE | capability=CREDITOR_READ | aggregate table=invoice period=false
+partner offering debtor:by:partner_id.sales_invoice:by:debtor_id~count@period | group=Debitor-Rolle → Ausgangsrechnung | label=Anzahl Ausgangsrechnungen (Zeitraum) | type=NUMBER | capability=INVOICE_READ | aggregate table=sales_invoice period=true
+partner offering debtor:by:partner_id.sales_invoice:by:debtor_id~count | group=Debitor-Rolle → Ausgangsrechnung | label=Anzahl Ausgangsrechnungen (gesamt) | type=NUMBER | capability=INVOICE_READ | aggregate table=sales_invoice period=false
+partner offering debtor:by:partner_id.sales_invoice:by:debtor_id~sum@period | group=Debitor-Rolle → Ausgangsrechnung | label=Umsatz (Zeitraum) | type=MONEY | capability=INVOICE_READ | aggregate table=sales_invoice period=true
+partner offering debtor:by:partner_id.sales_invoice:by:debtor_id~sum | group=Debitor-Rolle → Ausgangsrechnung | label=Umsatz (gesamt) | type=MONEY | capability=INVOICE_READ | aggregate table=sales_invoice period=false
+partner offering debtor:by:partner_id.sales_invoice:by:debtor_id~first@period | group=Debitor-Rolle → Ausgangsrechnung | label=Erste Ausgangsrechnung (Zeitraum) | type=DATE | capability=INVOICE_READ | aggregate table=sales_invoice period=true
+partner offering debtor:by:partner_id.sales_invoice:by:debtor_id~first | group=Debitor-Rolle → Ausgangsrechnung | label=Erste Ausgangsrechnung (gesamt) | type=DATE | capability=INVOICE_READ | aggregate table=sales_invoice period=false
+partner offering debtor:by:partner_id.sales_invoice:by:debtor_id~last@period | group=Debitor-Rolle → Ausgangsrechnung | label=Letzte Ausgangsrechnung (Zeitraum) | type=DATE | capability=INVOICE_READ | aggregate table=sales_invoice period=true
+partner offering debtor:by:partner_id.sales_invoice:by:debtor_id~last | group=Debitor-Rolle → Ausgangsrechnung | label=Letzte Ausgangsrechnung (gesamt) | type=DATE | capability=INVOICE_READ | aggregate table=sales_invoice period=false
+partner path supplier:by:partner_id | label=Kreditor-Rolle | supplier on business_partner.id=supplier.partner_id | cardinality=ONE
+partner path debtor:by:partner_id | label=Debitor-Rolle | debtor on business_partner.id=debtor.partner_id | cardinality=ONE
+partner path debtor:by:partner_id.customers:via:customer_id | label=Debitor-Rolle → Kunde | debtor on business_partner.id=debtor.partner_id ; customers on debtor.customer_id=customers.customer_id | cardinality=ONE
+partner path supplier_bank_account:by:partner_id | label=Bankverbindung | supplier_bank_account on business_partner.id=supplier_bank_account.partner_id | cardinality=MANY
+partner path supplier:by:partner_id.invoice:by:supplier_id | label=Kreditor-Rolle → Eingangsrechnung | supplier on business_partner.id=supplier.partner_id ; invoice on supplier.id=invoice.supplier_id | cardinality=MANY
+partner path debtor:by:partner_id.sales_invoice:by:debtor_id | label=Debitor-Rolle → Ausgangsrechnung | debtor on business_partner.id=debtor.partner_id ; sales_invoice on debtor.id=sales_invoice.debtor_id | cardinality=MANY
+partner requires partner.name = [CREDITOR_READ]
+partner requires partner.legal_name = [CREDITOR_READ]
+partner requires partner.vat_id = [CREDITOR_READ]
+partner requires partner.tax_number = [CREDITOR_READ]
+partner requires partner.street = [CREDITOR_READ]
+partner requires partner.zip = [CREDITOR_READ]
+partner requires partner.city = [CREDITOR_READ]
+partner requires partner.country = [CREDITOR_READ]
+partner requires partner.email = [CREDITOR_READ]
+partner requires partner.phone = [CREDITOR_READ]
+partner requires partner.created_at = [CREDITOR_READ]
+partner requires supplier:by:partner_id.creditor_no = [CREDITOR_READ]
+partner requires supplier:by:partner_id.default_account_no = [CREDITOR_READ]
+partner requires supplier:by:partner_id.default_bu_code = [CREDITOR_READ]
+partner requires supplier:by:partner_id.default_cost_center = [CREDITOR_READ]
+partner requires supplier:by:partner_id.payment_terms_days = [CREDITOR_READ]
+partner requires supplier:by:partner_id.sepa_creditor_id = [CREDITOR_READ]
+partner requires supplier:by:partner_id.is_provisional = [CREDITOR_READ]
+partner requires supplier:by:partner_id.is_active = [CREDITOR_READ]
+partner requires debtor:by:partner_id.debtor_no = [CREDITOR_READ, DEBTOR_READ]
+partner requires debtor:by:partner_id.default_revenue_account_no = [CREDITOR_READ, DEBTOR_READ]
+partner requires debtor:by:partner_id.default_bu_code = [CREDITOR_READ, DEBTOR_READ]
+partner requires debtor:by:partner_id.payment_terms_days = [CREDITOR_READ, DEBTOR_READ]
+partner requires debtor:by:partner_id.einvoice_format = [CREDITOR_READ, DEBTOR_READ]
+partner requires debtor:by:partner_id.is_active = [CREDITOR_READ, DEBTOR_READ]
+partner requires debtor:by:partner_id.customers:via:customer_id.customer_number = [CREDITOR_READ, CUSTOMER_LIST, DEBTOR_READ]
+partner requires debtor:by:partner_id.customers:via:customer_id.first_name = [CREDITOR_READ, CUSTOMER_LIST, DEBTOR_READ]
+partner requires debtor:by:partner_id.customers:via:customer_id.last_name = [CREDITOR_READ, CUSTOMER_LIST, DEBTOR_READ]
+partner requires debtor:by:partner_id.customers:via:customer_id.email = [CREDITOR_READ, CUSTOMER_LIST, DEBTOR_READ]
+partner requires debtor:by:partner_id.customers:via:customer_id.phone = [CREDITOR_READ, CUSTOMER_LIST, DEBTOR_READ]
+partner requires debtor:by:partner_id.customers:via:customer_id.marketing_consent = [CREDITOR_READ, CUSTOMER_LIST, DEBTOR_READ]
+partner requires debtor:by:partner_id.customers:via:customer_id.last_purchase_at = [CREDITOR_READ, CUSTOMER_LIST, DEBTOR_READ]
+partner requires debtor:by:partner_id.customers:via:customer_id.is_active = [CREDITOR_READ, CUSTOMER_LIST, DEBTOR_READ]
+partner requires debtor:by:partner_id.customers:via:customer_id.created_at = [CREDITOR_READ, CUSTOMER_LIST, DEBTOR_READ]
+partner requires supplier_bank_account:by:partner_id~list = [CREDITOR_READ]
+partner requires supplier_bank_account:by:partner_id~count = [CREDITOR_READ]
+partner requires supplier:by:partner_id.invoice:by:supplier_id~count@period = [CREDITOR_READ]
+partner requires supplier:by:partner_id.invoice:by:supplier_id~count = [CREDITOR_READ]
+partner requires supplier:by:partner_id.invoice:by:supplier_id~sum@period = [CREDITOR_READ]
+partner requires supplier:by:partner_id.invoice:by:supplier_id~sum = [CREDITOR_READ]
+partner requires supplier:by:partner_id.invoice:by:supplier_id~first@period = [CREDITOR_READ]
+partner requires supplier:by:partner_id.invoice:by:supplier_id~first = [CREDITOR_READ]
+partner requires supplier:by:partner_id.invoice:by:supplier_id~last@period = [CREDITOR_READ]
+partner requires supplier:by:partner_id.invoice:by:supplier_id~last = [CREDITOR_READ]
+partner requires debtor:by:partner_id.sales_invoice:by:debtor_id~count@period = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+partner requires debtor:by:partner_id.sales_invoice:by:debtor_id~count = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+partner requires debtor:by:partner_id.sales_invoice:by:debtor_id~sum@period = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+partner requires debtor:by:partner_id.sales_invoice:by:debtor_id~sum = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+partner requires debtor:by:partner_id.sales_invoice:by:debtor_id~first@period = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+partner requires debtor:by:partner_id.sales_invoice:by:debtor_id~first = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+partner requires debtor:by:partner_id.sales_invoice:by:debtor_id~last@period = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+partner requires debtor:by:partner_id.sales_invoice:by:debtor_id~last = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+invoice subject root=invoice
+invoice offering invoice.invoice_number | group=null | label=Rechnungsnummer | type=TEXT | capability=CREDITOR_READ | field column=invoice.invoice_number
+invoice offering invoice.issue_date | group=null | label=Rechnungsdatum | type=DATE | capability=CREDITOR_READ | field column=invoice.issue_date
+invoice offering invoice.due_date | group=null | label=Fälligkeit | type=DATE | capability=CREDITOR_READ | field column=invoice.due_date
+invoice offering invoice.tax_inclusive_total | group=null | label=Bruttobetrag | type=MONEY | capability=CREDITOR_READ | field column=invoice.tax_inclusive_total
+invoice offering supplier:via:supplier_id.creditor_no | group=Kreditor-Rolle | label=Kreditorennummer | type=TEXT | capability=CREDITOR_READ | field column=supplier.creditor_no
+invoice offering supplier:via:supplier_id.default_account_no | group=Kreditor-Rolle | label=Sachkonto | type=TEXT | capability=CREDITOR_READ | field column=supplier.default_account_no
+invoice offering supplier:via:supplier_id.default_bu_code | group=Kreditor-Rolle | label=BU-Schlüssel | type=TEXT | capability=CREDITOR_READ | field column=supplier.default_bu_code
+invoice offering supplier:via:supplier_id.default_cost_center | group=Kreditor-Rolle | label=Kostenstelle | type=TEXT | capability=CREDITOR_READ | field column=supplier.default_cost_center
+invoice offering supplier:via:supplier_id.payment_terms_days | group=Kreditor-Rolle | label=Zahlungsziel (Tage) | type=NUMBER | capability=CREDITOR_READ | field column=supplier.payment_terms_days
+invoice offering supplier:via:supplier_id.sepa_creditor_id | group=Kreditor-Rolle | label=SEPA-Gläubiger-ID | type=TEXT | capability=CREDITOR_READ | field column=supplier.sepa_creditor_id
+invoice offering supplier:via:supplier_id.is_provisional | group=Kreditor-Rolle | label=Provisorisch | type=BOOLEAN | capability=CREDITOR_READ | field column=supplier.is_provisional
+invoice offering supplier:via:supplier_id.is_active | group=Kreditor-Rolle | label=Aktiv | type=BOOLEAN | capability=CREDITOR_READ | field column=supplier.is_active
+invoice offering invoice_booking:by:invoice_id.account_no | group=Buchung | label=Gegenkonto | type=TEXT | capability=CREDITOR_READ | field column=invoice_booking.account_no
+invoice offering invoice_booking:by:invoice_id.bp_account_no | group=Buchung | label=Kreditorenkonto | type=TEXT | capability=CREDITOR_READ | field column=invoice_booking.bp_account_no
+invoice offering invoice_booking:by:invoice_id.bu_code | group=Buchung | label=BU-Schlüssel | type=TEXT | capability=CREDITOR_READ | field column=invoice_booking.bu_code
+invoice offering invoice_booking:by:invoice_id.booking_text | group=Buchung | label=Buchungstext | type=TEXT | capability=CREDITOR_READ | field column=invoice_booking.booking_text
+invoice offering invoice_booking:by:invoice_id.cost_category_id | group=Buchung | label=Kostenstelle | type=TEXT | capability=CREDITOR_READ | field column=invoice_booking.cost_category_id
+invoice offering invoice_booking:by:invoice_id.paid_at | group=Buchung | label=Bezahlt am | type=DATE | capability=CREDITOR_READ | field column=invoice_booking.paid_at
+invoice offering supplier:via:supplier_id.business_partner:via:partner_id.name | group=Kreditor-Rolle → Geschäftspartner | label=Name | type=TEXT | capability=CREDITOR_READ | field column=business_partner.name
+invoice offering supplier:via:supplier_id.business_partner:via:partner_id.legal_name | group=Kreditor-Rolle → Geschäftspartner | label=Firmierung | type=TEXT | capability=CREDITOR_READ | field column=business_partner.legal_name
+invoice offering supplier:via:supplier_id.business_partner:via:partner_id.vat_id | group=Kreditor-Rolle → Geschäftspartner | label=USt-IdNr. | type=TEXT | capability=CREDITOR_READ | field column=business_partner.vat_id
+invoice offering supplier:via:supplier_id.business_partner:via:partner_id.tax_number | group=Kreditor-Rolle → Geschäftspartner | label=Steuernummer | type=TEXT | capability=CREDITOR_READ | field column=business_partner.tax_number
+invoice offering supplier:via:supplier_id.business_partner:via:partner_id.street | group=Kreditor-Rolle → Geschäftspartner | label=Straße | type=TEXT | capability=CREDITOR_READ | field column=business_partner.street
+invoice offering supplier:via:supplier_id.business_partner:via:partner_id.zip | group=Kreditor-Rolle → Geschäftspartner | label=PLZ | type=TEXT | capability=CREDITOR_READ | field column=business_partner.zip
+invoice offering supplier:via:supplier_id.business_partner:via:partner_id.city | group=Kreditor-Rolle → Geschäftspartner | label=Ort | type=TEXT | capability=CREDITOR_READ | field column=business_partner.city
+invoice offering supplier:via:supplier_id.business_partner:via:partner_id.country | group=Kreditor-Rolle → Geschäftspartner | label=Land | type=TEXT | capability=CREDITOR_READ | field column=business_partner.country
+invoice offering supplier:via:supplier_id.business_partner:via:partner_id.email | group=Kreditor-Rolle → Geschäftspartner | label=E-Mail | type=TEXT | capability=CREDITOR_READ | field column=business_partner.email
+invoice offering supplier:via:supplier_id.business_partner:via:partner_id.phone | group=Kreditor-Rolle → Geschäftspartner | label=Telefon | type=TEXT | capability=CREDITOR_READ | field column=business_partner.phone
+invoice offering supplier:via:supplier_id.business_partner:via:partner_id.created_at | group=Kreditor-Rolle → Geschäftspartner | label=Angelegt am | type=DATE | capability=CREDITOR_READ | field column=business_partner.created_at
+invoice path supplier:via:supplier_id | label=Kreditor-Rolle | supplier on invoice.supplier_id=supplier.id | cardinality=ONE
+invoice path invoice_booking:by:invoice_id | label=Buchung | invoice_booking on invoice.id=invoice_booking.invoice_id | cardinality=ONE
+invoice path supplier:via:supplier_id.business_partner:via:partner_id | label=Kreditor-Rolle → Geschäftspartner | supplier on invoice.supplier_id=supplier.id ; business_partner on supplier.partner_id=business_partner.id | cardinality=ONE
+invoice requires invoice.invoice_number = [CREDITOR_READ]
+invoice requires invoice.issue_date = [CREDITOR_READ]
+invoice requires invoice.due_date = [CREDITOR_READ]
+invoice requires invoice.tax_inclusive_total = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.creditor_no = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.default_account_no = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.default_bu_code = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.default_cost_center = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.payment_terms_days = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.sepa_creditor_id = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.is_provisional = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.is_active = [CREDITOR_READ]
+invoice requires invoice_booking:by:invoice_id.account_no = [CREDITOR_READ]
+invoice requires invoice_booking:by:invoice_id.bp_account_no = [CREDITOR_READ]
+invoice requires invoice_booking:by:invoice_id.bu_code = [CREDITOR_READ]
+invoice requires invoice_booking:by:invoice_id.booking_text = [CREDITOR_READ]
+invoice requires invoice_booking:by:invoice_id.cost_category_id = [CREDITOR_READ]
+invoice requires invoice_booking:by:invoice_id.paid_at = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.business_partner:via:partner_id.name = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.business_partner:via:partner_id.legal_name = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.business_partner:via:partner_id.vat_id = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.business_partner:via:partner_id.tax_number = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.business_partner:via:partner_id.street = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.business_partner:via:partner_id.zip = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.business_partner:via:partner_id.city = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.business_partner:via:partner_id.country = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.business_partner:via:partner_id.email = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.business_partner:via:partner_id.phone = [CREDITOR_READ]
+invoice requires supplier:via:supplier_id.business_partner:via:partner_id.created_at = [CREDITOR_READ]
+sales_invoice subject root=sales_invoice
+sales_invoice offering sales_invoice.invoice_number | group=null | label=Rechnungsnummer | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.invoice_number
+sales_invoice offering sales_invoice.issue_date | group=null | label=Rechnungsdatum | type=DATE | capability=INVOICE_READ | field column=sales_invoice.issue_date
+sales_invoice offering sales_invoice.service_date | group=null | label=Leistungsdatum | type=DATE | capability=INVOICE_READ | field column=sales_invoice.service_date
+sales_invoice offering sales_invoice.due_date | group=null | label=Fälligkeit | type=DATE | capability=INVOICE_READ | field column=sales_invoice.due_date
+sales_invoice offering sales_invoice.buyer_name | group=null | label=Käufer | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.buyer_name
+sales_invoice offering sales_invoice.buyer_vat_id | group=null | label=USt-IdNr. des Käufers | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.buyer_vat_id
+sales_invoice offering sales_invoice.buyer_city | group=null | label=Ort des Käufers | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.buyer_city
+sales_invoice offering sales_invoice.status | group=null | label=Status | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.status
+sales_invoice offering sales_invoice.currency | group=null | label=Währung | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.currency
+sales_invoice offering sales_invoice.tax_exclusive_total | group=null | label=Nettobetrag | type=MONEY | capability=INVOICE_READ | field column=sales_invoice.tax_exclusive_total
+sales_invoice offering sales_invoice.tax_total | group=null | label=Steuerbetrag | type=MONEY | capability=INVOICE_READ | field column=sales_invoice.tax_total
+sales_invoice offering sales_invoice.tax_inclusive_total | group=null | label=Bruttobetrag | type=MONEY | capability=INVOICE_READ | field column=sales_invoice.tax_inclusive_total
+sales_invoice offering sales_invoice.open_amount | group=null | label=Offener Betrag | type=MONEY | capability=INVOICE_READ | field column=sales_invoice.open_amount
+sales_invoice offering bill:via:bill_id.bill_number | group=Kassenbeleg (Grundlage) | label=Belegnummer | type=TEXT | capability=BILL_READ | field column=bill.bill_number
+sales_invoice offering bill:via:bill_id.end_time | group=Kassenbeleg (Grundlage) | label=Belegdatum | type=DATE | capability=BILL_READ | field column=bill.end_time
+sales_invoice offering bill:via:bill_id.bill_amount | group=Kassenbeleg (Grundlage) | label=Bruttobetrag | type=MONEY | capability=BILL_READ | field column=bill.bill_amount
+sales_invoice offering bill:via:bill_id.discount_amount | group=Kassenbeleg (Grundlage) | label=Rabatt | type=MONEY | capability=BILL_READ | field column=bill.discount_amount
+sales_invoice offering bill:via:bill_id.promotion_amount | group=Kassenbeleg (Grundlage) | label=Aktionsabzug | type=MONEY | capability=BILL_READ | field column=bill.promotion_amount
+sales_invoice offering bill:via:bill_id.paid_amount | group=Kassenbeleg (Grundlage) | label=Gezahlt | type=MONEY | capability=BILL_READ | field column=bill.paid_amount
+sales_invoice offering bill:via:bill_id.tips | group=Kassenbeleg (Grundlage) | label=Trinkgeld | type=MONEY | capability=BILL_READ | field column=bill.tips
+sales_invoice offering bill:via:bill_id.tip_recipient | group=Kassenbeleg (Grundlage) | label=Trinkgeldempfänger | type=TEXT | capability=BILL_READ | field column=bill.tip_recipient
+sales_invoice offering bill:via:bill_id.is_training | group=Kassenbeleg (Grundlage) | label=Schulungsbeleg | type=BOOLEAN | capability=BILL_READ | field column=bill.is_training
+sales_invoice offering debtor:via:debtor_id.debtor_no | group=Debitor-Rolle | label=Debitorennummer | type=TEXT | capability=DEBTOR_READ | field column=debtor.debtor_no
+sales_invoice offering debtor:via:debtor_id.default_revenue_account_no | group=Debitor-Rolle | label=Erlöskonto | type=TEXT | capability=DEBTOR_READ | field column=debtor.default_revenue_account_no
+sales_invoice offering debtor:via:debtor_id.default_bu_code | group=Debitor-Rolle | label=BU-Schlüssel | type=TEXT | capability=DEBTOR_READ | field column=debtor.default_bu_code
+sales_invoice offering debtor:via:debtor_id.payment_terms_days | group=Debitor-Rolle | label=Zahlungsziel (Tage) | type=NUMBER | capability=DEBTOR_READ | field column=debtor.payment_terms_days
+sales_invoice offering debtor:via:debtor_id.einvoice_format | group=Debitor-Rolle | label=E-Rechnungsformat | type=TEXT | capability=DEBTOR_READ | field column=debtor.einvoice_format
+sales_invoice offering debtor:via:debtor_id.is_active | group=Debitor-Rolle | label=Aktiv | type=BOOLEAN | capability=DEBTOR_READ | field column=debtor.is_active
+sales_invoice offering employees:via:issued_by.employee_number | group=Personal (ausgestellt von) | label=Personalnummer | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employee_number
+sales_invoice offering employees:via:issued_by.role | group=Personal (ausgestellt von) | label=Rolle | type=TEXT | capability=EMPLOYEE_READ | field column=employees.role
+sales_invoice offering employees:via:issued_by.employment_status | group=Personal (ausgestellt von) | label=Beschäftigungsstatus | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employment_status
+sales_invoice offering employees:via:issued_by.created_at | group=Personal (ausgestellt von) | label=Angelegt am | type=DATE | capability=EMPLOYEE_READ | field column=employees.created_at
+sales_invoice offering employees:via:cancelled_by.employee_number | group=Personal (storniert von) | label=Personalnummer | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employee_number
+sales_invoice offering employees:via:cancelled_by.role | group=Personal (storniert von) | label=Rolle | type=TEXT | capability=EMPLOYEE_READ | field column=employees.role
+sales_invoice offering employees:via:cancelled_by.employment_status | group=Personal (storniert von) | label=Beschäftigungsstatus | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employment_status
+sales_invoice offering employees:via:cancelled_by.created_at | group=Personal (storniert von) | label=Angelegt am | type=DATE | capability=EMPLOYEE_READ | field column=employees.created_at
+sales_invoice offering sales_invoice_booking:by:sales_invoice_id.revenue_account_no | group=Buchung (Ausgang) | label=Erlöskonto | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.revenue_account_no
+sales_invoice offering sales_invoice_booking:by:sales_invoice_id.bp_account_no | group=Buchung (Ausgang) | label=Personenkonto | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.bp_account_no
+sales_invoice offering sales_invoice_booking:by:sales_invoice_id.bu_code | group=Buchung (Ausgang) | label=BU-Schlüssel | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.bu_code
+sales_invoice offering sales_invoice_booking:by:sales_invoice_id.cost_center | group=Buchung (Ausgang) | label=Kostenstelle | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.cost_center
+sales_invoice offering sales_invoice_booking:by:sales_invoice_id.booking_text | group=Buchung (Ausgang) | label=Buchungstext | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.booking_text
+sales_invoice offering sales_invoice_booking:by:sales_invoice_id.posted_at | group=Buchung (Ausgang) | label=Gebucht am | type=DATE | capability=INVOICE_READ | field column=sales_invoice_booking.posted_at
+sales_invoice offering bill:via:bill_id.employees:via:employee_id.employee_number | group=Kassenbeleg (Grundlage) → Personal | label=Personalnummer | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employee_number
+sales_invoice offering bill:via:bill_id.employees:via:employee_id.role | group=Kassenbeleg (Grundlage) → Personal | label=Rolle | type=TEXT | capability=EMPLOYEE_READ | field column=employees.role
+sales_invoice offering bill:via:bill_id.employees:via:employee_id.employment_status | group=Kassenbeleg (Grundlage) → Personal | label=Beschäftigungsstatus | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employment_status
+sales_invoice offering bill:via:bill_id.employees:via:employee_id.created_at | group=Kassenbeleg (Grundlage) → Personal | label=Angelegt am | type=DATE | capability=EMPLOYEE_READ | field column=employees.created_at
+sales_invoice offering debtor:via:debtor_id.business_partner:via:partner_id.name | group=Debitor-Rolle → Geschäftspartner | label=Name | type=TEXT | capability=CREDITOR_READ | field column=business_partner.name
+sales_invoice offering debtor:via:debtor_id.business_partner:via:partner_id.legal_name | group=Debitor-Rolle → Geschäftspartner | label=Firmierung | type=TEXT | capability=CREDITOR_READ | field column=business_partner.legal_name
+sales_invoice offering debtor:via:debtor_id.business_partner:via:partner_id.vat_id | group=Debitor-Rolle → Geschäftspartner | label=USt-IdNr. | type=TEXT | capability=CREDITOR_READ | field column=business_partner.vat_id
+sales_invoice offering debtor:via:debtor_id.business_partner:via:partner_id.tax_number | group=Debitor-Rolle → Geschäftspartner | label=Steuernummer | type=TEXT | capability=CREDITOR_READ | field column=business_partner.tax_number
+sales_invoice offering debtor:via:debtor_id.business_partner:via:partner_id.street | group=Debitor-Rolle → Geschäftspartner | label=Straße | type=TEXT | capability=CREDITOR_READ | field column=business_partner.street
+sales_invoice offering debtor:via:debtor_id.business_partner:via:partner_id.zip | group=Debitor-Rolle → Geschäftspartner | label=PLZ | type=TEXT | capability=CREDITOR_READ | field column=business_partner.zip
+sales_invoice offering debtor:via:debtor_id.business_partner:via:partner_id.city | group=Debitor-Rolle → Geschäftspartner | label=Ort | type=TEXT | capability=CREDITOR_READ | field column=business_partner.city
+sales_invoice offering debtor:via:debtor_id.business_partner:via:partner_id.country | group=Debitor-Rolle → Geschäftspartner | label=Land | type=TEXT | capability=CREDITOR_READ | field column=business_partner.country
+sales_invoice offering debtor:via:debtor_id.business_partner:via:partner_id.email | group=Debitor-Rolle → Geschäftspartner | label=E-Mail | type=TEXT | capability=CREDITOR_READ | field column=business_partner.email
+sales_invoice offering debtor:via:debtor_id.business_partner:via:partner_id.phone | group=Debitor-Rolle → Geschäftspartner | label=Telefon | type=TEXT | capability=CREDITOR_READ | field column=business_partner.phone
+sales_invoice offering debtor:via:debtor_id.business_partner:via:partner_id.created_at | group=Debitor-Rolle → Geschäftspartner | label=Angelegt am | type=DATE | capability=CREDITOR_READ | field column=business_partner.created_at
+sales_invoice offering debtor:via:debtor_id.customers:via:customer_id.customer_number | group=Debitor-Rolle → Kunde | label=Kundennummer | type=TEXT | capability=CUSTOMER_LIST | field column=customers.customer_number
+sales_invoice offering debtor:via:debtor_id.customers:via:customer_id.first_name | group=Debitor-Rolle → Kunde | label=Vorname | type=TEXT | capability=CUSTOMER_LIST | field column=customers.first_name
+sales_invoice offering debtor:via:debtor_id.customers:via:customer_id.last_name | group=Debitor-Rolle → Kunde | label=Nachname | type=TEXT | capability=CUSTOMER_LIST | field column=customers.last_name
+sales_invoice offering debtor:via:debtor_id.customers:via:customer_id.email | group=Debitor-Rolle → Kunde | label=E-Mail | type=TEXT | capability=CUSTOMER_LIST | field column=customers.email
+sales_invoice offering debtor:via:debtor_id.customers:via:customer_id.phone | group=Debitor-Rolle → Kunde | label=Telefon | type=TEXT | capability=CUSTOMER_LIST | field column=customers.phone
+sales_invoice offering debtor:via:debtor_id.customers:via:customer_id.marketing_consent | group=Debitor-Rolle → Kunde | label=Werbe-Einwilligung | type=BOOLEAN | capability=CUSTOMER_LIST | field column=customers.marketing_consent
+sales_invoice offering debtor:via:debtor_id.customers:via:customer_id.last_purchase_at | group=Debitor-Rolle → Kunde | label=Letzter Einkauf | type=DATE | capability=CUSTOMER_LIST | field column=customers.last_purchase_at
+sales_invoice offering debtor:via:debtor_id.customers:via:customer_id.is_active | group=Debitor-Rolle → Kunde | label=Aktiv | type=BOOLEAN | capability=CUSTOMER_LIST | field column=customers.is_active
+sales_invoice offering debtor:via:debtor_id.customers:via:customer_id.created_at | group=Debitor-Rolle → Kunde | label=Angelegt am | type=DATE | capability=CUSTOMER_LIST | field column=customers.created_at
+sales_invoice offering employees:via:issued_by.employee_info:by:employee_id.first_name | group=Personal (ausgestellt von) → Personaldaten | label=Vorname | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.first_name
+sales_invoice offering employees:via:issued_by.employee_info:by:employee_id.last_name | group=Personal (ausgestellt von) → Personaldaten | label=Nachname | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.last_name
+sales_invoice offering employees:via:issued_by.employee_info:by:employee_id.job_title | group=Personal (ausgestellt von) → Personaldaten | label=Position | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.job_title
+sales_invoice offering employees:via:issued_by.employee_info:by:employee_id.hire_date | group=Personal (ausgestellt von) → Personaldaten | label=Eintrittsdatum | type=DATE | capability=EMPLOYEE_READ | field column=employee_info.hire_date
+sales_invoice offering employees:via:cancelled_by.employee_info:by:employee_id.first_name | group=Personal (storniert von) → Personaldaten | label=Vorname | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.first_name
+sales_invoice offering employees:via:cancelled_by.employee_info:by:employee_id.last_name | group=Personal (storniert von) → Personaldaten | label=Nachname | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.last_name
+sales_invoice offering employees:via:cancelled_by.employee_info:by:employee_id.job_title | group=Personal (storniert von) → Personaldaten | label=Position | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.job_title
+sales_invoice offering employees:via:cancelled_by.employee_info:by:employee_id.hire_date | group=Personal (storniert von) → Personaldaten | label=Eintrittsdatum | type=DATE | capability=EMPLOYEE_READ | field column=employee_info.hire_date
+sales_invoice offering sales_invoice_line:by:sales_invoice_id~count | group=Rechnungsposition (Ausgang) | label=Anzahl Positionen | type=NUMBER | capability=INVOICE_READ | aggregate table=sales_invoice_line period=false
+sales_invoice offering sales_invoice_vat_breakdown:by:sales_invoice_id~count | group=Steueraufteilung (Ausgang) | label=Anzahl Steuersätze | type=NUMBER | capability=INVOICE_READ | aggregate table=sales_invoice_vat_breakdown period=false
+sales_invoice offering bill:via:bill_id.bill_vat_detail:by:bill_id~count | group=Kassenbeleg (Grundlage) → Steueraufteilung (Kassenbeleg) | label=Anzahl Steuersätze | type=NUMBER | capability=BILL_READ | aggregate table=bill_vat_detail period=false
+sales_invoice offering bill:via:bill_id.bill_vat_detail:by:bill_id~sum | group=Kassenbeleg (Grundlage) → Steueraufteilung (Kassenbeleg) | label=Steuerbetrag | type=MONEY | capability=BILL_READ | aggregate table=bill_vat_detail period=false
+sales_invoice offering bill:by:clears_sales_invoice_id.bill_vat_detail:by:bill_id~count | group=Kassenbeleg (Begleichung) → Steueraufteilung (Kassenbeleg) | label=Anzahl Steuersätze | type=NUMBER | capability=BILL_READ | aggregate table=bill_vat_detail period=false
+sales_invoice offering bill:by:clears_sales_invoice_id.bill_vat_detail:by:bill_id~sum | group=Kassenbeleg (Begleichung) → Steueraufteilung (Kassenbeleg) | label=Steuerbetrag | type=MONEY | capability=BILL_READ | aggregate table=bill_vat_detail period=false
+sales_invoice path bill:via:bill_id | label=Kassenbeleg (Grundlage) | bill on sales_invoice.bill_id=bill.id | cardinality=ONE
+sales_invoice path debtor:via:debtor_id | label=Debitor-Rolle | debtor on sales_invoice.debtor_id=debtor.id | cardinality=ONE
+sales_invoice path employees:via:issued_by | label=Personal (ausgestellt von) | employees on sales_invoice.issued_by=employees.employee_id | cardinality=ONE
+sales_invoice path employees:via:cancelled_by | label=Personal (storniert von) | employees on sales_invoice.cancelled_by=employees.employee_id | cardinality=ONE
+sales_invoice path sales_invoice_booking:by:sales_invoice_id | label=Buchung (Ausgang) | sales_invoice_booking on sales_invoice.id=sales_invoice_booking.sales_invoice_id | cardinality=ONE
+sales_invoice path bill:via:bill_id.employees:via:employee_id | label=Kassenbeleg (Grundlage) → Personal | bill on sales_invoice.bill_id=bill.id ; employees on bill.employee_id=employees.employee_id | cardinality=ONE
+sales_invoice path debtor:via:debtor_id.business_partner:via:partner_id | label=Debitor-Rolle → Geschäftspartner | debtor on sales_invoice.debtor_id=debtor.id ; business_partner on debtor.partner_id=business_partner.id | cardinality=ONE
+sales_invoice path debtor:via:debtor_id.customers:via:customer_id | label=Debitor-Rolle → Kunde | debtor on sales_invoice.debtor_id=debtor.id ; customers on debtor.customer_id=customers.customer_id | cardinality=ONE
+sales_invoice path employees:via:issued_by.employee_info:by:employee_id | label=Personal (ausgestellt von) → Personaldaten | employees on sales_invoice.issued_by=employees.employee_id ; employee_info on employees.employee_id=employee_info.employee_id | cardinality=ONE
+sales_invoice path employees:via:cancelled_by.employee_info:by:employee_id | label=Personal (storniert von) → Personaldaten | employees on sales_invoice.cancelled_by=employees.employee_id ; employee_info on employees.employee_id=employee_info.employee_id | cardinality=ONE
+sales_invoice path bill:by:clears_sales_invoice_id | label=Kassenbeleg (Begleichung) | bill on sales_invoice.id=bill.clears_sales_invoice_id | cardinality=MANY
+sales_invoice path sales_invoice_line:by:sales_invoice_id | label=Rechnungsposition (Ausgang) | sales_invoice_line on sales_invoice.id=sales_invoice_line.sales_invoice_id | cardinality=MANY
+sales_invoice path sales_invoice_vat_breakdown:by:sales_invoice_id | label=Steueraufteilung (Ausgang) | sales_invoice_vat_breakdown on sales_invoice.id=sales_invoice_vat_breakdown.sales_invoice_id | cardinality=MANY
+sales_invoice path bill:via:bill_id.bill_vat_detail:by:bill_id | label=Kassenbeleg (Grundlage) → Steueraufteilung (Kassenbeleg) | bill on sales_invoice.bill_id=bill.id ; bill_vat_detail on bill.id=bill_vat_detail.bill_id | cardinality=MANY
+sales_invoice path employees:via:issued_by.bill:by:employee_id | label=Personal (ausgestellt von) → Kassenbeleg | employees on sales_invoice.issued_by=employees.employee_id ; bill on employees.employee_id=bill.employee_id | cardinality=MANY
+sales_invoice path employees:via:issued_by.kassenbuch_header:by:employee_id | label=Personal (ausgestellt von) → Kassenbuch-Eintrag | employees on sales_invoice.issued_by=employees.employee_id ; kassenbuch_header on employees.employee_id=kassenbuch_header.employee_id | cardinality=MANY
+sales_invoice path employees:via:cancelled_by.bill:by:employee_id | label=Personal (storniert von) → Kassenbeleg | employees on sales_invoice.cancelled_by=employees.employee_id ; bill on employees.employee_id=bill.employee_id | cardinality=MANY
+sales_invoice path employees:via:cancelled_by.kassenbuch_header:by:employee_id | label=Personal (storniert von) → Kassenbuch-Eintrag | employees on sales_invoice.cancelled_by=employees.employee_id ; kassenbuch_header on employees.employee_id=kassenbuch_header.employee_id | cardinality=MANY
+sales_invoice path bill:by:clears_sales_invoice_id.employees:via:employee_id | label=Kassenbeleg (Begleichung) → Personal | bill on sales_invoice.id=bill.clears_sales_invoice_id ; employees on bill.employee_id=employees.employee_id | cardinality=MANY
+sales_invoice path bill:by:clears_sales_invoice_id.bill_vat_detail:by:bill_id | label=Kassenbeleg (Begleichung) → Steueraufteilung (Kassenbeleg) | bill on sales_invoice.id=bill.clears_sales_invoice_id ; bill_vat_detail on bill.id=bill_vat_detail.bill_id | cardinality=MANY
+sales_invoice requires sales_invoice.invoice_number = [INVOICE_READ]
+sales_invoice requires sales_invoice.issue_date = [INVOICE_READ]
+sales_invoice requires sales_invoice.service_date = [INVOICE_READ]
+sales_invoice requires sales_invoice.due_date = [INVOICE_READ]
+sales_invoice requires sales_invoice.buyer_name = [INVOICE_READ]
+sales_invoice requires sales_invoice.buyer_vat_id = [INVOICE_READ]
+sales_invoice requires sales_invoice.buyer_city = [INVOICE_READ]
+sales_invoice requires sales_invoice.status = [INVOICE_READ]
+sales_invoice requires sales_invoice.currency = [INVOICE_READ]
+sales_invoice requires sales_invoice.tax_exclusive_total = [INVOICE_READ]
+sales_invoice requires sales_invoice.tax_total = [INVOICE_READ]
+sales_invoice requires sales_invoice.tax_inclusive_total = [INVOICE_READ]
+sales_invoice requires sales_invoice.open_amount = [INVOICE_READ]
+sales_invoice requires bill:via:bill_id.bill_number = [BILL_READ, INVOICE_READ]
+sales_invoice requires bill:via:bill_id.end_time = [BILL_READ, INVOICE_READ]
+sales_invoice requires bill:via:bill_id.bill_amount = [BILL_READ, INVOICE_READ]
+sales_invoice requires bill:via:bill_id.discount_amount = [BILL_READ, INVOICE_READ]
+sales_invoice requires bill:via:bill_id.promotion_amount = [BILL_READ, INVOICE_READ]
+sales_invoice requires bill:via:bill_id.paid_amount = [BILL_READ, INVOICE_READ]
+sales_invoice requires bill:via:bill_id.tips = [BILL_READ, INVOICE_READ]
+sales_invoice requires bill:via:bill_id.tip_recipient = [BILL_READ, INVOICE_READ]
+sales_invoice requires bill:via:bill_id.is_training = [BILL_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.debtor_no = [DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.default_revenue_account_no = [DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.default_bu_code = [DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.payment_terms_days = [DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.einvoice_format = [DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.is_active = [DEBTOR_READ, INVOICE_READ]
+sales_invoice requires employees:via:issued_by.employee_number = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires employees:via:issued_by.role = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires employees:via:issued_by.employment_status = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires employees:via:issued_by.created_at = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires employees:via:cancelled_by.employee_number = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires employees:via:cancelled_by.role = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires employees:via:cancelled_by.employment_status = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires employees:via:cancelled_by.created_at = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires sales_invoice_booking:by:sales_invoice_id.revenue_account_no = [INVOICE_READ]
+sales_invoice requires sales_invoice_booking:by:sales_invoice_id.bp_account_no = [INVOICE_READ]
+sales_invoice requires sales_invoice_booking:by:sales_invoice_id.bu_code = [INVOICE_READ]
+sales_invoice requires sales_invoice_booking:by:sales_invoice_id.cost_center = [INVOICE_READ]
+sales_invoice requires sales_invoice_booking:by:sales_invoice_id.booking_text = [INVOICE_READ]
+sales_invoice requires sales_invoice_booking:by:sales_invoice_id.posted_at = [INVOICE_READ]
+sales_invoice requires bill:via:bill_id.employees:via:employee_id.employee_number = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires bill:via:bill_id.employees:via:employee_id.role = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires bill:via:bill_id.employees:via:employee_id.employment_status = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires bill:via:bill_id.employees:via:employee_id.created_at = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.business_partner:via:partner_id.name = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.business_partner:via:partner_id.legal_name = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.business_partner:via:partner_id.vat_id = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.business_partner:via:partner_id.tax_number = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.business_partner:via:partner_id.street = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.business_partner:via:partner_id.zip = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.business_partner:via:partner_id.city = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.business_partner:via:partner_id.country = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.business_partner:via:partner_id.email = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.business_partner:via:partner_id.phone = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.business_partner:via:partner_id.created_at = [CREDITOR_READ, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.customers:via:customer_id.customer_number = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.customers:via:customer_id.first_name = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.customers:via:customer_id.last_name = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.customers:via:customer_id.email = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.customers:via:customer_id.phone = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.customers:via:customer_id.marketing_consent = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.customers:via:customer_id.last_purchase_at = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.customers:via:customer_id.is_active = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires debtor:via:debtor_id.customers:via:customer_id.created_at = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+sales_invoice requires employees:via:issued_by.employee_info:by:employee_id.first_name = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires employees:via:issued_by.employee_info:by:employee_id.last_name = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires employees:via:issued_by.employee_info:by:employee_id.job_title = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires employees:via:issued_by.employee_info:by:employee_id.hire_date = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires employees:via:cancelled_by.employee_info:by:employee_id.first_name = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires employees:via:cancelled_by.employee_info:by:employee_id.last_name = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires employees:via:cancelled_by.employee_info:by:employee_id.job_title = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires employees:via:cancelled_by.employee_info:by:employee_id.hire_date = [EMPLOYEE_READ, INVOICE_READ]
+sales_invoice requires sales_invoice_line:by:sales_invoice_id~count = [INVOICE_READ]
+sales_invoice requires sales_invoice_vat_breakdown:by:sales_invoice_id~count = [INVOICE_READ]
+sales_invoice requires bill:via:bill_id.bill_vat_detail:by:bill_id~count = [BILL_READ, INVOICE_READ]
+sales_invoice requires bill:via:bill_id.bill_vat_detail:by:bill_id~sum = [BILL_READ, INVOICE_READ]
+sales_invoice requires bill:by:clears_sales_invoice_id.bill_vat_detail:by:bill_id~count = [BILL_READ, INVOICE_READ]
+sales_invoice requires bill:by:clears_sales_invoice_id.bill_vat_detail:by:bill_id~sum = [BILL_READ, INVOICE_READ]
+produkt subject root=product
+produkt offering produkt.product_number | group=null | label=Artikelnummer | type=TEXT | capability=CATALOG_READ | field column=product.product_number
+produkt offering produkt.name | group=null | label=Name | type=TEXT | capability=CATALOG_READ | field column=product.name
+produkt offering produkt.product_code | group=null | label=Produktcode | type=TEXT | capability=CATALOG_READ | field column=product.product_code
+produkt offering produkt.price | group=null | label=Preis | type=MONEY | capability=CATALOG_READ | field column=product.price
+produkt offering produkt.product_type | group=null | label=Produktart | type=TEXT | capability=CATALOG_READ | field column=product.product_type
+produkt offering produkt.is_active | group=null | label=Aktiv | type=BOOLEAN | capability=CATALOG_READ | field column=product.is_active
+produkt offering produkt.updated_at | group=null | label=Zuletzt geändert am | type=DATE | capability=CATALOG_READ | field column=product.updated_at
+produkt offering product_category:via:category_id.name | group=Warengruppe | label=Name | type=TEXT | capability=CATALOG_READ | field column=product_category.name
+produkt offering product_category:via:category_id.is_active | group=Warengruppe | label=Aktiv | type=BOOLEAN | capability=CATALOG_READ | field column=product_category.is_active
+produkt path product_category:via:category_id | label=Warengruppe | product_category on product.category_id=product_category.id | cardinality=ONE
+produkt requires produkt.product_number = [CATALOG_READ]
+produkt requires produkt.name = [CATALOG_READ]
+produkt requires produkt.product_code = [CATALOG_READ]
+produkt requires produkt.price = [CATALOG_READ]
+produkt requires produkt.product_type = [CATALOG_READ]
+produkt requires produkt.is_active = [CATALOG_READ]
+produkt requires produkt.updated_at = [CATALOG_READ]
+produkt requires product_category:via:category_id.name = [CATALOG_READ]
+produkt requires product_category:via:category_id.is_active = [CATALOG_READ]
+kunde subject root=customers
+kunde offering kunde.customer_number | group=null | label=Kundennummer | type=TEXT | capability=CUSTOMER_LIST | field column=customers.customer_number
+kunde offering kunde.first_name | group=null | label=Vorname | type=TEXT | capability=CUSTOMER_LIST | field column=customers.first_name
+kunde offering kunde.last_name | group=null | label=Nachname | type=TEXT | capability=CUSTOMER_LIST | field column=customers.last_name
+kunde offering kunde.email | group=null | label=E-Mail | type=TEXT | capability=CUSTOMER_LIST | field column=customers.email
+kunde offering kunde.phone | group=null | label=Telefon | type=TEXT | capability=CUSTOMER_LIST | field column=customers.phone
+kunde offering kunde.marketing_consent | group=null | label=Werbe-Einwilligung | type=BOOLEAN | capability=CUSTOMER_LIST | field column=customers.marketing_consent
+kunde offering kunde.last_purchase_at | group=null | label=Letzter Einkauf | type=DATE | capability=CUSTOMER_LIST | field column=customers.last_purchase_at
+kunde offering kunde.is_active | group=null | label=Aktiv | type=BOOLEAN | capability=CUSTOMER_LIST | field column=customers.is_active
+kunde offering kunde.created_at | group=null | label=Angelegt am | type=DATE | capability=CUSTOMER_LIST | field column=customers.created_at
+kunde offering debtor:by:customer_id.sales_invoice:by:debtor_id~count@period | group=Debitor-Rolle → Ausgangsrechnung | label=Anzahl Ausgangsrechnungen (Zeitraum) | type=NUMBER | capability=INVOICE_READ | aggregate table=sales_invoice period=true
+kunde offering debtor:by:customer_id.sales_invoice:by:debtor_id~count | group=Debitor-Rolle → Ausgangsrechnung | label=Anzahl Ausgangsrechnungen (gesamt) | type=NUMBER | capability=INVOICE_READ | aggregate table=sales_invoice period=false
+kunde offering debtor:by:customer_id.sales_invoice:by:debtor_id~sum@period | group=Debitor-Rolle → Ausgangsrechnung | label=Umsatz (Zeitraum) | type=MONEY | capability=INVOICE_READ | aggregate table=sales_invoice period=true
+kunde offering debtor:by:customer_id.sales_invoice:by:debtor_id~sum | group=Debitor-Rolle → Ausgangsrechnung | label=Umsatz (gesamt) | type=MONEY | capability=INVOICE_READ | aggregate table=sales_invoice period=false
+kunde offering debtor:by:customer_id.sales_invoice:by:debtor_id~first@period | group=Debitor-Rolle → Ausgangsrechnung | label=Erste Ausgangsrechnung (Zeitraum) | type=DATE | capability=INVOICE_READ | aggregate table=sales_invoice period=true
+kunde offering debtor:by:customer_id.sales_invoice:by:debtor_id~first | group=Debitor-Rolle → Ausgangsrechnung | label=Erste Ausgangsrechnung (gesamt) | type=DATE | capability=INVOICE_READ | aggregate table=sales_invoice period=false
+kunde offering debtor:by:customer_id.sales_invoice:by:debtor_id~last@period | group=Debitor-Rolle → Ausgangsrechnung | label=Letzte Ausgangsrechnung (Zeitraum) | type=DATE | capability=INVOICE_READ | aggregate table=sales_invoice period=true
+kunde offering debtor:by:customer_id.sales_invoice:by:debtor_id~last | group=Debitor-Rolle → Ausgangsrechnung | label=Letzte Ausgangsrechnung (gesamt) | type=DATE | capability=INVOICE_READ | aggregate table=sales_invoice period=false
+kunde path debtor:by:customer_id | label=Debitor-Rolle | debtor on customers.customer_id=debtor.customer_id | cardinality=MANY
+kunde path debtor:by:customer_id.business_partner:via:partner_id | label=Debitor-Rolle → Geschäftspartner | debtor on customers.customer_id=debtor.customer_id ; business_partner on debtor.partner_id=business_partner.id | cardinality=MANY
+kunde path debtor:by:customer_id.sales_invoice:by:debtor_id | label=Debitor-Rolle → Ausgangsrechnung | debtor on customers.customer_id=debtor.customer_id ; sales_invoice on debtor.id=sales_invoice.debtor_id | cardinality=MANY
+kunde requires kunde.customer_number = [CUSTOMER_LIST]
+kunde requires kunde.first_name = [CUSTOMER_LIST]
+kunde requires kunde.last_name = [CUSTOMER_LIST]
+kunde requires kunde.email = [CUSTOMER_LIST]
+kunde requires kunde.phone = [CUSTOMER_LIST]
+kunde requires kunde.marketing_consent = [CUSTOMER_LIST]
+kunde requires kunde.last_purchase_at = [CUSTOMER_LIST]
+kunde requires kunde.is_active = [CUSTOMER_LIST]
+kunde requires kunde.created_at = [CUSTOMER_LIST]
+kunde requires debtor:by:customer_id.sales_invoice:by:debtor_id~count@period = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+kunde requires debtor:by:customer_id.sales_invoice:by:debtor_id~count = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+kunde requires debtor:by:customer_id.sales_invoice:by:debtor_id~sum@period = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+kunde requires debtor:by:customer_id.sales_invoice:by:debtor_id~sum = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+kunde requires debtor:by:customer_id.sales_invoice:by:debtor_id~first@period = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+kunde requires debtor:by:customer_id.sales_invoice:by:debtor_id~first = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+kunde requires debtor:by:customer_id.sales_invoice:by:debtor_id~last@period = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+kunde requires debtor:by:customer_id.sales_invoice:by:debtor_id~last = [CUSTOMER_LIST, DEBTOR_READ, INVOICE_READ]
+gutschein subject root=voucher
+gutschein offering gutschein.voucher_number | group=null | label=Gutscheinnummer | type=TEXT | capability=VOUCHER_REPORT | field column=voucher.voucher_number
+gutschein offering gutschein.status | group=null | label=Status | type=TEXT | capability=VOUCHER_REPORT | field column=voucher.status
+gutschein offering gutschein.original_value | group=null | label=Ausgabewert | type=MONEY | capability=VOUCHER_REPORT | field column=voucher.original_value
+gutschein offering gutschein.remaining_value | group=null | label=Restwert | type=MONEY | capability=VOUCHER_REPORT | field column=voucher.remaining_value
+gutschein offering gutschein.created_at | group=null | label=Ausgegeben am | type=DATE | capability=VOUCHER_REPORT | field column=voucher.created_at
+gutschein offering gutschein.fully_redeemed_at | group=null | label=Vollständig eingelöst am | type=DATE | capability=VOUCHER_REPORT | field column=voucher.fully_redeemed_at
+gutschein offering gutschein.invalidated_at | group=null | label=Storniert am | type=DATE | capability=VOUCHER_REPORT | field column=voucher.invalidated_at
+gutschein requires gutschein.voucher_number = [VOUCHER_REPORT]
+gutschein requires gutschein.status = [VOUCHER_REPORT]
+gutschein requires gutschein.original_value = [VOUCHER_REPORT]
+gutschein requires gutschein.remaining_value = [VOUCHER_REPORT]
+gutschein requires gutschein.created_at = [VOUCHER_REPORT]
+gutschein requires gutschein.fully_redeemed_at = [VOUCHER_REPORT]
+gutschein requires gutschein.invalidated_at = [VOUCHER_REPORT]
+bill subject root=bill
+bill offering bill.bill_number | group=null | label=Belegnummer | type=TEXT | capability=BILL_READ | field column=bill.bill_number
+bill offering bill.end_time | group=null | label=Belegdatum | type=DATE | capability=BILL_READ | field column=bill.end_time
+bill offering bill.bill_amount | group=null | label=Bruttobetrag | type=MONEY | capability=BILL_READ | field column=bill.bill_amount
+bill offering bill.discount_amount | group=null | label=Rabatt | type=MONEY | capability=BILL_READ | field column=bill.discount_amount
+bill offering bill.promotion_amount | group=null | label=Aktionsabzug | type=MONEY | capability=BILL_READ | field column=bill.promotion_amount
+bill offering bill.paid_amount | group=null | label=Gezahlt | type=MONEY | capability=BILL_READ | field column=bill.paid_amount
+bill offering bill.tips | group=null | label=Trinkgeld | type=MONEY | capability=BILL_READ | field column=bill.tips
+bill offering bill.tip_recipient | group=null | label=Trinkgeldempfänger | type=TEXT | capability=BILL_READ | field column=bill.tip_recipient
+bill offering bill.is_training | group=null | label=Schulungsbeleg | type=BOOLEAN | capability=BILL_READ | field column=bill.is_training
+bill offering employees:via:employee_id.employee_number | group=Personal | label=Personalnummer | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employee_number
+bill offering employees:via:employee_id.role | group=Personal | label=Rolle | type=TEXT | capability=EMPLOYEE_READ | field column=employees.role
+bill offering employees:via:employee_id.employment_status | group=Personal | label=Beschäftigungsstatus | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employment_status
+bill offering employees:via:employee_id.created_at | group=Personal | label=Angelegt am | type=DATE | capability=EMPLOYEE_READ | field column=employees.created_at
+bill offering sales_invoice:via:clears_sales_invoice_id.invoice_number | group=Ausgangsrechnung (beglichen) | label=Rechnungsnummer | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.invoice_number
+bill offering sales_invoice:via:clears_sales_invoice_id.issue_date | group=Ausgangsrechnung (beglichen) | label=Rechnungsdatum | type=DATE | capability=INVOICE_READ | field column=sales_invoice.issue_date
+bill offering sales_invoice:via:clears_sales_invoice_id.service_date | group=Ausgangsrechnung (beglichen) | label=Leistungsdatum | type=DATE | capability=INVOICE_READ | field column=sales_invoice.service_date
+bill offering sales_invoice:via:clears_sales_invoice_id.due_date | group=Ausgangsrechnung (beglichen) | label=Fälligkeit | type=DATE | capability=INVOICE_READ | field column=sales_invoice.due_date
+bill offering sales_invoice:via:clears_sales_invoice_id.buyer_name | group=Ausgangsrechnung (beglichen) | label=Käufer | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.buyer_name
+bill offering sales_invoice:via:clears_sales_invoice_id.buyer_vat_id | group=Ausgangsrechnung (beglichen) | label=USt-IdNr. des Käufers | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.buyer_vat_id
+bill offering sales_invoice:via:clears_sales_invoice_id.buyer_city | group=Ausgangsrechnung (beglichen) | label=Ort des Käufers | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.buyer_city
+bill offering sales_invoice:via:clears_sales_invoice_id.status | group=Ausgangsrechnung (beglichen) | label=Status | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.status
+bill offering sales_invoice:via:clears_sales_invoice_id.currency | group=Ausgangsrechnung (beglichen) | label=Währung | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.currency
+bill offering sales_invoice:via:clears_sales_invoice_id.tax_exclusive_total | group=Ausgangsrechnung (beglichen) | label=Nettobetrag | type=MONEY | capability=INVOICE_READ | field column=sales_invoice.tax_exclusive_total
+bill offering sales_invoice:via:clears_sales_invoice_id.tax_total | group=Ausgangsrechnung (beglichen) | label=Steuerbetrag | type=MONEY | capability=INVOICE_READ | field column=sales_invoice.tax_total
+bill offering sales_invoice:via:clears_sales_invoice_id.tax_inclusive_total | group=Ausgangsrechnung (beglichen) | label=Bruttobetrag | type=MONEY | capability=INVOICE_READ | field column=sales_invoice.tax_inclusive_total
+bill offering sales_invoice:via:clears_sales_invoice_id.open_amount | group=Ausgangsrechnung (beglichen) | label=Offener Betrag | type=MONEY | capability=INVOICE_READ | field column=sales_invoice.open_amount
+bill offering sales_invoice:by:bill_id.invoice_number | group=Ausgangsrechnung (zum Kassenbeleg) | label=Rechnungsnummer | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.invoice_number
+bill offering sales_invoice:by:bill_id.issue_date | group=Ausgangsrechnung (zum Kassenbeleg) | label=Rechnungsdatum | type=DATE | capability=INVOICE_READ | field column=sales_invoice.issue_date
+bill offering sales_invoice:by:bill_id.service_date | group=Ausgangsrechnung (zum Kassenbeleg) | label=Leistungsdatum | type=DATE | capability=INVOICE_READ | field column=sales_invoice.service_date
+bill offering sales_invoice:by:bill_id.due_date | group=Ausgangsrechnung (zum Kassenbeleg) | label=Fälligkeit | type=DATE | capability=INVOICE_READ | field column=sales_invoice.due_date
+bill offering sales_invoice:by:bill_id.buyer_name | group=Ausgangsrechnung (zum Kassenbeleg) | label=Käufer | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.buyer_name
+bill offering sales_invoice:by:bill_id.buyer_vat_id | group=Ausgangsrechnung (zum Kassenbeleg) | label=USt-IdNr. des Käufers | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.buyer_vat_id
+bill offering sales_invoice:by:bill_id.buyer_city | group=Ausgangsrechnung (zum Kassenbeleg) | label=Ort des Käufers | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.buyer_city
+bill offering sales_invoice:by:bill_id.status | group=Ausgangsrechnung (zum Kassenbeleg) | label=Status | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.status
+bill offering sales_invoice:by:bill_id.currency | group=Ausgangsrechnung (zum Kassenbeleg) | label=Währung | type=TEXT | capability=INVOICE_READ | field column=sales_invoice.currency
+bill offering sales_invoice:by:bill_id.tax_exclusive_total | group=Ausgangsrechnung (zum Kassenbeleg) | label=Nettobetrag | type=MONEY | capability=INVOICE_READ | field column=sales_invoice.tax_exclusive_total
+bill offering sales_invoice:by:bill_id.tax_total | group=Ausgangsrechnung (zum Kassenbeleg) | label=Steuerbetrag | type=MONEY | capability=INVOICE_READ | field column=sales_invoice.tax_total
+bill offering sales_invoice:by:bill_id.tax_inclusive_total | group=Ausgangsrechnung (zum Kassenbeleg) | label=Bruttobetrag | type=MONEY | capability=INVOICE_READ | field column=sales_invoice.tax_inclusive_total
+bill offering sales_invoice:by:bill_id.open_amount | group=Ausgangsrechnung (zum Kassenbeleg) | label=Offener Betrag | type=MONEY | capability=INVOICE_READ | field column=sales_invoice.open_amount
+bill offering employees:via:employee_id.employee_info:by:employee_id.first_name | group=Personal → Personaldaten | label=Vorname | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.first_name
+bill offering employees:via:employee_id.employee_info:by:employee_id.last_name | group=Personal → Personaldaten | label=Nachname | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.last_name
+bill offering employees:via:employee_id.employee_info:by:employee_id.job_title | group=Personal → Personaldaten | label=Position | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.job_title
+bill offering employees:via:employee_id.employee_info:by:employee_id.hire_date | group=Personal → Personaldaten | label=Eintrittsdatum | type=DATE | capability=EMPLOYEE_READ | field column=employee_info.hire_date
+bill offering sales_invoice:via:clears_sales_invoice_id.debtor:via:debtor_id.debtor_no | group=Ausgangsrechnung (beglichen) → Debitor-Rolle | label=Debitorennummer | type=TEXT | capability=DEBTOR_READ | field column=debtor.debtor_no
+bill offering sales_invoice:via:clears_sales_invoice_id.debtor:via:debtor_id.default_revenue_account_no | group=Ausgangsrechnung (beglichen) → Debitor-Rolle | label=Erlöskonto | type=TEXT | capability=DEBTOR_READ | field column=debtor.default_revenue_account_no
+bill offering sales_invoice:via:clears_sales_invoice_id.debtor:via:debtor_id.default_bu_code | group=Ausgangsrechnung (beglichen) → Debitor-Rolle | label=BU-Schlüssel | type=TEXT | capability=DEBTOR_READ | field column=debtor.default_bu_code
+bill offering sales_invoice:via:clears_sales_invoice_id.debtor:via:debtor_id.payment_terms_days | group=Ausgangsrechnung (beglichen) → Debitor-Rolle | label=Zahlungsziel (Tage) | type=NUMBER | capability=DEBTOR_READ | field column=debtor.payment_terms_days
+bill offering sales_invoice:via:clears_sales_invoice_id.debtor:via:debtor_id.einvoice_format | group=Ausgangsrechnung (beglichen) → Debitor-Rolle | label=E-Rechnungsformat | type=TEXT | capability=DEBTOR_READ | field column=debtor.einvoice_format
+bill offering sales_invoice:via:clears_sales_invoice_id.debtor:via:debtor_id.is_active | group=Ausgangsrechnung (beglichen) → Debitor-Rolle | label=Aktiv | type=BOOLEAN | capability=DEBTOR_READ | field column=debtor.is_active
+bill offering sales_invoice:via:clears_sales_invoice_id.employees:via:issued_by.employee_number | group=Ausgangsrechnung (beglichen) → Personal (ausgestellt von) | label=Personalnummer | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employee_number
+bill offering sales_invoice:via:clears_sales_invoice_id.employees:via:issued_by.role | group=Ausgangsrechnung (beglichen) → Personal (ausgestellt von) | label=Rolle | type=TEXT | capability=EMPLOYEE_READ | field column=employees.role
+bill offering sales_invoice:via:clears_sales_invoice_id.employees:via:issued_by.employment_status | group=Ausgangsrechnung (beglichen) → Personal (ausgestellt von) | label=Beschäftigungsstatus | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employment_status
+bill offering sales_invoice:via:clears_sales_invoice_id.employees:via:issued_by.created_at | group=Ausgangsrechnung (beglichen) → Personal (ausgestellt von) | label=Angelegt am | type=DATE | capability=EMPLOYEE_READ | field column=employees.created_at
+bill offering sales_invoice:via:clears_sales_invoice_id.employees:via:cancelled_by.employee_number | group=Ausgangsrechnung (beglichen) → Personal (storniert von) | label=Personalnummer | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employee_number
+bill offering sales_invoice:via:clears_sales_invoice_id.employees:via:cancelled_by.role | group=Ausgangsrechnung (beglichen) → Personal (storniert von) | label=Rolle | type=TEXT | capability=EMPLOYEE_READ | field column=employees.role
+bill offering sales_invoice:via:clears_sales_invoice_id.employees:via:cancelled_by.employment_status | group=Ausgangsrechnung (beglichen) → Personal (storniert von) | label=Beschäftigungsstatus | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employment_status
+bill offering sales_invoice:via:clears_sales_invoice_id.employees:via:cancelled_by.created_at | group=Ausgangsrechnung (beglichen) → Personal (storniert von) | label=Angelegt am | type=DATE | capability=EMPLOYEE_READ | field column=employees.created_at
+bill offering sales_invoice:via:clears_sales_invoice_id.sales_invoice_booking:by:sales_invoice_id.revenue_account_no | group=Ausgangsrechnung (beglichen) → Buchung (Ausgang) | label=Erlöskonto | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.revenue_account_no
+bill offering sales_invoice:via:clears_sales_invoice_id.sales_invoice_booking:by:sales_invoice_id.bp_account_no | group=Ausgangsrechnung (beglichen) → Buchung (Ausgang) | label=Personenkonto | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.bp_account_no
+bill offering sales_invoice:via:clears_sales_invoice_id.sales_invoice_booking:by:sales_invoice_id.bu_code | group=Ausgangsrechnung (beglichen) → Buchung (Ausgang) | label=BU-Schlüssel | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.bu_code
+bill offering sales_invoice:via:clears_sales_invoice_id.sales_invoice_booking:by:sales_invoice_id.cost_center | group=Ausgangsrechnung (beglichen) → Buchung (Ausgang) | label=Kostenstelle | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.cost_center
+bill offering sales_invoice:via:clears_sales_invoice_id.sales_invoice_booking:by:sales_invoice_id.booking_text | group=Ausgangsrechnung (beglichen) → Buchung (Ausgang) | label=Buchungstext | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.booking_text
+bill offering sales_invoice:via:clears_sales_invoice_id.sales_invoice_booking:by:sales_invoice_id.posted_at | group=Ausgangsrechnung (beglichen) → Buchung (Ausgang) | label=Gebucht am | type=DATE | capability=INVOICE_READ | field column=sales_invoice_booking.posted_at
+bill offering sales_invoice:by:bill_id.debtor:via:debtor_id.debtor_no | group=Ausgangsrechnung (zum Kassenbeleg) → Debitor-Rolle | label=Debitorennummer | type=TEXT | capability=DEBTOR_READ | field column=debtor.debtor_no
+bill offering sales_invoice:by:bill_id.debtor:via:debtor_id.default_revenue_account_no | group=Ausgangsrechnung (zum Kassenbeleg) → Debitor-Rolle | label=Erlöskonto | type=TEXT | capability=DEBTOR_READ | field column=debtor.default_revenue_account_no
+bill offering sales_invoice:by:bill_id.debtor:via:debtor_id.default_bu_code | group=Ausgangsrechnung (zum Kassenbeleg) → Debitor-Rolle | label=BU-Schlüssel | type=TEXT | capability=DEBTOR_READ | field column=debtor.default_bu_code
+bill offering sales_invoice:by:bill_id.debtor:via:debtor_id.payment_terms_days | group=Ausgangsrechnung (zum Kassenbeleg) → Debitor-Rolle | label=Zahlungsziel (Tage) | type=NUMBER | capability=DEBTOR_READ | field column=debtor.payment_terms_days
+bill offering sales_invoice:by:bill_id.debtor:via:debtor_id.einvoice_format | group=Ausgangsrechnung (zum Kassenbeleg) → Debitor-Rolle | label=E-Rechnungsformat | type=TEXT | capability=DEBTOR_READ | field column=debtor.einvoice_format
+bill offering sales_invoice:by:bill_id.debtor:via:debtor_id.is_active | group=Ausgangsrechnung (zum Kassenbeleg) → Debitor-Rolle | label=Aktiv | type=BOOLEAN | capability=DEBTOR_READ | field column=debtor.is_active
+bill offering sales_invoice:by:bill_id.employees:via:issued_by.employee_number | group=Ausgangsrechnung (zum Kassenbeleg) → Personal (ausgestellt von) | label=Personalnummer | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employee_number
+bill offering sales_invoice:by:bill_id.employees:via:issued_by.role | group=Ausgangsrechnung (zum Kassenbeleg) → Personal (ausgestellt von) | label=Rolle | type=TEXT | capability=EMPLOYEE_READ | field column=employees.role
+bill offering sales_invoice:by:bill_id.employees:via:issued_by.employment_status | group=Ausgangsrechnung (zum Kassenbeleg) → Personal (ausgestellt von) | label=Beschäftigungsstatus | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employment_status
+bill offering sales_invoice:by:bill_id.employees:via:issued_by.created_at | group=Ausgangsrechnung (zum Kassenbeleg) → Personal (ausgestellt von) | label=Angelegt am | type=DATE | capability=EMPLOYEE_READ | field column=employees.created_at
+bill offering sales_invoice:by:bill_id.employees:via:cancelled_by.employee_number | group=Ausgangsrechnung (zum Kassenbeleg) → Personal (storniert von) | label=Personalnummer | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employee_number
+bill offering sales_invoice:by:bill_id.employees:via:cancelled_by.role | group=Ausgangsrechnung (zum Kassenbeleg) → Personal (storniert von) | label=Rolle | type=TEXT | capability=EMPLOYEE_READ | field column=employees.role
+bill offering sales_invoice:by:bill_id.employees:via:cancelled_by.employment_status | group=Ausgangsrechnung (zum Kassenbeleg) → Personal (storniert von) | label=Beschäftigungsstatus | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employment_status
+bill offering sales_invoice:by:bill_id.employees:via:cancelled_by.created_at | group=Ausgangsrechnung (zum Kassenbeleg) → Personal (storniert von) | label=Angelegt am | type=DATE | capability=EMPLOYEE_READ | field column=employees.created_at
+bill offering sales_invoice:by:bill_id.sales_invoice_booking:by:sales_invoice_id.revenue_account_no | group=Ausgangsrechnung (zum Kassenbeleg) → Buchung (Ausgang) | label=Erlöskonto | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.revenue_account_no
+bill offering sales_invoice:by:bill_id.sales_invoice_booking:by:sales_invoice_id.bp_account_no | group=Ausgangsrechnung (zum Kassenbeleg) → Buchung (Ausgang) | label=Personenkonto | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.bp_account_no
+bill offering sales_invoice:by:bill_id.sales_invoice_booking:by:sales_invoice_id.bu_code | group=Ausgangsrechnung (zum Kassenbeleg) → Buchung (Ausgang) | label=BU-Schlüssel | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.bu_code
+bill offering sales_invoice:by:bill_id.sales_invoice_booking:by:sales_invoice_id.cost_center | group=Ausgangsrechnung (zum Kassenbeleg) → Buchung (Ausgang) | label=Kostenstelle | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.cost_center
+bill offering sales_invoice:by:bill_id.sales_invoice_booking:by:sales_invoice_id.booking_text | group=Ausgangsrechnung (zum Kassenbeleg) → Buchung (Ausgang) | label=Buchungstext | type=TEXT | capability=INVOICE_READ | field column=sales_invoice_booking.booking_text
+bill offering sales_invoice:by:bill_id.sales_invoice_booking:by:sales_invoice_id.posted_at | group=Ausgangsrechnung (zum Kassenbeleg) → Buchung (Ausgang) | label=Gebucht am | type=DATE | capability=INVOICE_READ | field column=sales_invoice_booking.posted_at
+bill offering bill_vat_detail:by:bill_id~count | group=Steueraufteilung (Kassenbeleg) | label=Anzahl Steuersätze | type=NUMBER | capability=BILL_READ | aggregate table=bill_vat_detail period=false
+bill offering bill_vat_detail:by:bill_id~sum | group=Steueraufteilung (Kassenbeleg) | label=Steuerbetrag | type=MONEY | capability=BILL_READ | aggregate table=bill_vat_detail period=false
+bill offering sales_invoice:via:clears_sales_invoice_id.sales_invoice_line:by:sales_invoice_id~count | group=Ausgangsrechnung (beglichen) → Rechnungsposition (Ausgang) | label=Anzahl Positionen | type=NUMBER | capability=INVOICE_READ | aggregate table=sales_invoice_line period=false
+bill offering sales_invoice:via:clears_sales_invoice_id.sales_invoice_vat_breakdown:by:sales_invoice_id~count | group=Ausgangsrechnung (beglichen) → Steueraufteilung (Ausgang) | label=Anzahl Steuersätze | type=NUMBER | capability=INVOICE_READ | aggregate table=sales_invoice_vat_breakdown period=false
+bill offering sales_invoice:by:bill_id.sales_invoice_line:by:sales_invoice_id~count | group=Ausgangsrechnung (zum Kassenbeleg) → Rechnungsposition (Ausgang) | label=Anzahl Positionen | type=NUMBER | capability=INVOICE_READ | aggregate table=sales_invoice_line period=false
+bill offering sales_invoice:by:bill_id.sales_invoice_vat_breakdown:by:sales_invoice_id~count | group=Ausgangsrechnung (zum Kassenbeleg) → Steueraufteilung (Ausgang) | label=Anzahl Steuersätze | type=NUMBER | capability=INVOICE_READ | aggregate table=sales_invoice_vat_breakdown period=false
+bill path employees:via:employee_id | label=Personal | employees on bill.employee_id=employees.employee_id | cardinality=ONE
+bill path sales_invoice:via:clears_sales_invoice_id | label=Ausgangsrechnung (beglichen) | sales_invoice on bill.clears_sales_invoice_id=sales_invoice.id | cardinality=ONE
+bill path sales_invoice:by:bill_id | label=Ausgangsrechnung (zum Kassenbeleg) | sales_invoice on bill.id=sales_invoice.bill_id | cardinality=ONE
+bill path employees:via:employee_id.employee_info:by:employee_id | label=Personal → Personaldaten | employees on bill.employee_id=employees.employee_id ; employee_info on employees.employee_id=employee_info.employee_id | cardinality=ONE
+bill path sales_invoice:via:clears_sales_invoice_id.debtor:via:debtor_id | label=Ausgangsrechnung (beglichen) → Debitor-Rolle | sales_invoice on bill.clears_sales_invoice_id=sales_invoice.id ; debtor on sales_invoice.debtor_id=debtor.id | cardinality=ONE
+bill path sales_invoice:via:clears_sales_invoice_id.employees:via:issued_by | label=Ausgangsrechnung (beglichen) → Personal (ausgestellt von) | sales_invoice on bill.clears_sales_invoice_id=sales_invoice.id ; employees on sales_invoice.issued_by=employees.employee_id | cardinality=ONE
+bill path sales_invoice:via:clears_sales_invoice_id.employees:via:cancelled_by | label=Ausgangsrechnung (beglichen) → Personal (storniert von) | sales_invoice on bill.clears_sales_invoice_id=sales_invoice.id ; employees on sales_invoice.cancelled_by=employees.employee_id | cardinality=ONE
+bill path sales_invoice:via:clears_sales_invoice_id.sales_invoice_booking:by:sales_invoice_id | label=Ausgangsrechnung (beglichen) → Buchung (Ausgang) | sales_invoice on bill.clears_sales_invoice_id=sales_invoice.id ; sales_invoice_booking on sales_invoice.id=sales_invoice_booking.sales_invoice_id | cardinality=ONE
+bill path sales_invoice:by:bill_id.debtor:via:debtor_id | label=Ausgangsrechnung (zum Kassenbeleg) → Debitor-Rolle | sales_invoice on bill.id=sales_invoice.bill_id ; debtor on sales_invoice.debtor_id=debtor.id | cardinality=ONE
+bill path sales_invoice:by:bill_id.employees:via:issued_by | label=Ausgangsrechnung (zum Kassenbeleg) → Personal (ausgestellt von) | sales_invoice on bill.id=sales_invoice.bill_id ; employees on sales_invoice.issued_by=employees.employee_id | cardinality=ONE
+bill path sales_invoice:by:bill_id.employees:via:cancelled_by | label=Ausgangsrechnung (zum Kassenbeleg) → Personal (storniert von) | sales_invoice on bill.id=sales_invoice.bill_id ; employees on sales_invoice.cancelled_by=employees.employee_id | cardinality=ONE
+bill path sales_invoice:by:bill_id.sales_invoice_booking:by:sales_invoice_id | label=Ausgangsrechnung (zum Kassenbeleg) → Buchung (Ausgang) | sales_invoice on bill.id=sales_invoice.bill_id ; sales_invoice_booking on sales_invoice.id=sales_invoice_booking.sales_invoice_id | cardinality=ONE
+bill path bill_vat_detail:by:bill_id | label=Steueraufteilung (Kassenbeleg) | bill_vat_detail on bill.id=bill_vat_detail.bill_id | cardinality=MANY
+bill path employees:via:employee_id.sales_invoice:by:issued_by | label=Personal → Ausgangsrechnung (ausgestellt) | employees on bill.employee_id=employees.employee_id ; sales_invoice on employees.employee_id=sales_invoice.issued_by | cardinality=MANY
+bill path employees:via:employee_id.sales_invoice:by:cancelled_by | label=Personal → Ausgangsrechnung (storniert) | employees on bill.employee_id=employees.employee_id ; sales_invoice on employees.employee_id=sales_invoice.cancelled_by | cardinality=MANY
+bill path employees:via:employee_id.kassenbuch_header:by:employee_id | label=Personal → Kassenbuch-Eintrag | employees on bill.employee_id=employees.employee_id ; kassenbuch_header on employees.employee_id=kassenbuch_header.employee_id | cardinality=MANY
+bill path sales_invoice:via:clears_sales_invoice_id.sales_invoice_line:by:sales_invoice_id | label=Ausgangsrechnung (beglichen) → Rechnungsposition (Ausgang) | sales_invoice on bill.clears_sales_invoice_id=sales_invoice.id ; sales_invoice_line on sales_invoice.id=sales_invoice_line.sales_invoice_id | cardinality=MANY
+bill path sales_invoice:via:clears_sales_invoice_id.sales_invoice_vat_breakdown:by:sales_invoice_id | label=Ausgangsrechnung (beglichen) → Steueraufteilung (Ausgang) | sales_invoice on bill.clears_sales_invoice_id=sales_invoice.id ; sales_invoice_vat_breakdown on sales_invoice.id=sales_invoice_vat_breakdown.sales_invoice_id | cardinality=MANY
+bill path sales_invoice:by:bill_id.sales_invoice_line:by:sales_invoice_id | label=Ausgangsrechnung (zum Kassenbeleg) → Rechnungsposition (Ausgang) | sales_invoice on bill.id=sales_invoice.bill_id ; sales_invoice_line on sales_invoice.id=sales_invoice_line.sales_invoice_id | cardinality=MANY
+bill path sales_invoice:by:bill_id.sales_invoice_vat_breakdown:by:sales_invoice_id | label=Ausgangsrechnung (zum Kassenbeleg) → Steueraufteilung (Ausgang) | sales_invoice on bill.id=sales_invoice.bill_id ; sales_invoice_vat_breakdown on sales_invoice.id=sales_invoice_vat_breakdown.sales_invoice_id | cardinality=MANY
+bill suppressed employees:via:employee_id.sales_invoice:by:issued_by~count@period
+bill suppressed employees:via:employee_id.sales_invoice:by:issued_by~count
+bill suppressed employees:via:employee_id.sales_invoice:by:issued_by~sum@period
+bill suppressed employees:via:employee_id.sales_invoice:by:issued_by~sum
+bill suppressed employees:via:employee_id.sales_invoice:by:issued_by~first@period
+bill suppressed employees:via:employee_id.sales_invoice:by:issued_by~first
+bill suppressed employees:via:employee_id.sales_invoice:by:issued_by~last@period
+bill suppressed employees:via:employee_id.sales_invoice:by:issued_by~last
+bill suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~count@period
+bill suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~count
+bill suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~sum@period
+bill suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~sum
+bill suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~first@period
+bill suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~first
+bill suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~last@period
+bill suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~last
+bill requires bill.bill_number = [BILL_READ]
+bill requires bill.end_time = [BILL_READ]
+bill requires bill.bill_amount = [BILL_READ]
+bill requires bill.discount_amount = [BILL_READ]
+bill requires bill.promotion_amount = [BILL_READ]
+bill requires bill.paid_amount = [BILL_READ]
+bill requires bill.tips = [BILL_READ]
+bill requires bill.tip_recipient = [BILL_READ]
+bill requires bill.is_training = [BILL_READ]
+bill requires employees:via:employee_id.employee_number = [BILL_READ, EMPLOYEE_READ]
+bill requires employees:via:employee_id.role = [BILL_READ, EMPLOYEE_READ]
+bill requires employees:via:employee_id.employment_status = [BILL_READ, EMPLOYEE_READ]
+bill requires employees:via:employee_id.created_at = [BILL_READ, EMPLOYEE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.invoice_number = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.issue_date = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.service_date = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.due_date = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.buyer_name = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.buyer_vat_id = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.buyer_city = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.status = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.currency = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.tax_exclusive_total = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.tax_total = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.tax_inclusive_total = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.open_amount = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.invoice_number = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.issue_date = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.service_date = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.due_date = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.buyer_name = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.buyer_vat_id = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.buyer_city = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.status = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.currency = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.tax_exclusive_total = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.tax_total = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.tax_inclusive_total = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.open_amount = [BILL_READ, INVOICE_READ]
+bill requires employees:via:employee_id.employee_info:by:employee_id.first_name = [BILL_READ, EMPLOYEE_READ]
+bill requires employees:via:employee_id.employee_info:by:employee_id.last_name = [BILL_READ, EMPLOYEE_READ]
+bill requires employees:via:employee_id.employee_info:by:employee_id.job_title = [BILL_READ, EMPLOYEE_READ]
+bill requires employees:via:employee_id.employee_info:by:employee_id.hire_date = [BILL_READ, EMPLOYEE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.debtor:via:debtor_id.debtor_no = [BILL_READ, DEBTOR_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.debtor:via:debtor_id.default_revenue_account_no = [BILL_READ, DEBTOR_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.debtor:via:debtor_id.default_bu_code = [BILL_READ, DEBTOR_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.debtor:via:debtor_id.payment_terms_days = [BILL_READ, DEBTOR_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.debtor:via:debtor_id.einvoice_format = [BILL_READ, DEBTOR_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.debtor:via:debtor_id.is_active = [BILL_READ, DEBTOR_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.employees:via:issued_by.employee_number = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.employees:via:issued_by.role = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.employees:via:issued_by.employment_status = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.employees:via:issued_by.created_at = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.employees:via:cancelled_by.employee_number = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.employees:via:cancelled_by.role = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.employees:via:cancelled_by.employment_status = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.employees:via:cancelled_by.created_at = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.sales_invoice_booking:by:sales_invoice_id.revenue_account_no = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.sales_invoice_booking:by:sales_invoice_id.bp_account_no = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.sales_invoice_booking:by:sales_invoice_id.bu_code = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.sales_invoice_booking:by:sales_invoice_id.cost_center = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.sales_invoice_booking:by:sales_invoice_id.booking_text = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.sales_invoice_booking:by:sales_invoice_id.posted_at = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.debtor:via:debtor_id.debtor_no = [BILL_READ, DEBTOR_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.debtor:via:debtor_id.default_revenue_account_no = [BILL_READ, DEBTOR_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.debtor:via:debtor_id.default_bu_code = [BILL_READ, DEBTOR_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.debtor:via:debtor_id.payment_terms_days = [BILL_READ, DEBTOR_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.debtor:via:debtor_id.einvoice_format = [BILL_READ, DEBTOR_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.debtor:via:debtor_id.is_active = [BILL_READ, DEBTOR_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.employees:via:issued_by.employee_number = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.employees:via:issued_by.role = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.employees:via:issued_by.employment_status = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.employees:via:issued_by.created_at = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.employees:via:cancelled_by.employee_number = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.employees:via:cancelled_by.role = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.employees:via:cancelled_by.employment_status = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.employees:via:cancelled_by.created_at = [BILL_READ, EMPLOYEE_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.sales_invoice_booking:by:sales_invoice_id.revenue_account_no = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.sales_invoice_booking:by:sales_invoice_id.bp_account_no = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.sales_invoice_booking:by:sales_invoice_id.bu_code = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.sales_invoice_booking:by:sales_invoice_id.cost_center = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.sales_invoice_booking:by:sales_invoice_id.booking_text = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.sales_invoice_booking:by:sales_invoice_id.posted_at = [BILL_READ, INVOICE_READ]
+bill requires bill_vat_detail:by:bill_id~count = [BILL_READ]
+bill requires bill_vat_detail:by:bill_id~sum = [BILL_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.sales_invoice_line:by:sales_invoice_id~count = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:via:clears_sales_invoice_id.sales_invoice_vat_breakdown:by:sales_invoice_id~count = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.sales_invoice_line:by:sales_invoice_id~count = [BILL_READ, INVOICE_READ]
+bill requires sales_invoice:by:bill_id.sales_invoice_vat_breakdown:by:sales_invoice_id~count = [BILL_READ, INVOICE_READ]
+kassenbuch subject root=kassenbuch_header
+kassenbuch offering kassenbuch.beleg_nr | group=null | label=Belegnummer | type=TEXT | capability=CASHBOOK_READ | field column=kassenbuch_header.beleg_nr
+kassenbuch offering kassenbuch.beleg_datum | group=null | label=Belegdatum | type=TEXT | capability=CASHBOOK_READ | field column=kassenbuch_header.beleg_datum
+kassenbuch offering kassenbuch.entry_type | group=null | label=Buchungsart | type=TEXT | capability=CASHBOOK_READ | field column=kassenbuch_header.entry_type
+kassenbuch offering kassenbuch.belegtext | group=null | label=Belegtext | type=TEXT | capability=CASHBOOK_READ | field column=kassenbuch_header.belegtext
+kassenbuch offering kassenbuch.total_amount | group=null | label=Betrag | type=MONEY | capability=CASHBOOK_READ | field column=kassenbuch_header.total_amount
+kassenbuch offering kassenbuch.current_balance | group=null | label=Saldo | type=MONEY | capability=CASHBOOK_READ | field column=kassenbuch_header.current_balance
+kassenbuch offering kassenbuch.correction_role | group=null | label=Korrekturart | type=TEXT | capability=CASHBOOK_READ | field column=kassenbuch_header.correction_role
+kassenbuch offering kassenbuch.is_locked | group=null | label=Abgeschlossen | type=BOOLEAN | capability=CASHBOOK_READ | field column=kassenbuch_header.is_locked
+kassenbuch offering kassenbuch.created_at | group=null | label=Erfasst am | type=DATE | capability=CASHBOOK_READ | field column=kassenbuch_header.created_at
+kassenbuch offering cash_book:via:cash_book_id.name | group=Kasse | label=Name | type=TEXT | capability=CASHBOOK_READ | field column=cash_book.name
+kassenbuch offering cash_book:via:cash_book_id.is_fiscal | group=Kasse | label=Fiskalkasse | type=BOOLEAN | capability=CASHBOOK_READ | field column=cash_book.is_fiscal
+kassenbuch offering cash_book:via:cash_book_id.datev_account | group=Kasse | label=Sachkonto | type=TEXT | capability=CASHBOOK_READ | field column=cash_book.datev_account
+kassenbuch offering cash_book:via:cash_book_id.is_active | group=Kasse | label=Aktiv | type=BOOLEAN | capability=CASHBOOK_READ | field column=cash_book.is_active
+kassenbuch offering cash_book:via:counterparty_book_id.name | group=Gegenkasse (Geldtransit) | label=Name | type=TEXT | capability=CASHBOOK_READ | field column=cash_book.name
+kassenbuch offering cash_book:via:counterparty_book_id.is_fiscal | group=Gegenkasse (Geldtransit) | label=Fiskalkasse | type=BOOLEAN | capability=CASHBOOK_READ | field column=cash_book.is_fiscal
+kassenbuch offering cash_book:via:counterparty_book_id.datev_account | group=Gegenkasse (Geldtransit) | label=Sachkonto | type=TEXT | capability=CASHBOOK_READ | field column=cash_book.datev_account
+kassenbuch offering cash_book:via:counterparty_book_id.is_active | group=Gegenkasse (Geldtransit) | label=Aktiv | type=BOOLEAN | capability=CASHBOOK_READ | field column=cash_book.is_active
+kassenbuch offering employees:via:employee_id.employee_number | group=Personal | label=Personalnummer | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employee_number
+kassenbuch offering employees:via:employee_id.role | group=Personal | label=Rolle | type=TEXT | capability=EMPLOYEE_READ | field column=employees.role
+kassenbuch offering employees:via:employee_id.employment_status | group=Personal | label=Beschäftigungsstatus | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employment_status
+kassenbuch offering employees:via:employee_id.created_at | group=Personal | label=Angelegt am | type=DATE | capability=EMPLOYEE_READ | field column=employees.created_at
+kassenbuch offering employees:via:employee_id.employee_info:by:employee_id.first_name | group=Personal → Personaldaten | label=Vorname | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.first_name
+kassenbuch offering employees:via:employee_id.employee_info:by:employee_id.last_name | group=Personal → Personaldaten | label=Nachname | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.last_name
+kassenbuch offering employees:via:employee_id.employee_info:by:employee_id.job_title | group=Personal → Personaldaten | label=Position | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.job_title
+kassenbuch offering employees:via:employee_id.employee_info:by:employee_id.hire_date | group=Personal → Personaldaten | label=Eintrittsdatum | type=DATE | capability=EMPLOYEE_READ | field column=employee_info.hire_date
+kassenbuch offering kassenbuch_line_item:by:header_id~count | group=Kassenbuch-Position | label=Anzahl Positionen | type=NUMBER | capability=CASHBOOK_READ | aggregate table=kassenbuch_line_item period=false
+kassenbuch offering kassenbuch_line_item:by:header_id~sum | group=Kassenbuch-Position | label=Positionssumme | type=MONEY | capability=CASHBOOK_READ | aggregate table=kassenbuch_line_item period=false
+kassenbuch path cash_book:via:cash_book_id | label=Kasse | cash_book on kassenbuch_header.cash_book_id=cash_book.id | cardinality=ONE
+kassenbuch path cash_book:via:counterparty_book_id | label=Gegenkasse (Geldtransit) | cash_book on kassenbuch_header.counterparty_book_id=cash_book.id | cardinality=ONE
+kassenbuch path employees:via:employee_id | label=Personal | employees on kassenbuch_header.employee_id=employees.employee_id | cardinality=ONE
+kassenbuch path employees:via:employee_id.employee_info:by:employee_id | label=Personal → Personaldaten | employees on kassenbuch_header.employee_id=employees.employee_id ; employee_info on employees.employee_id=employee_info.employee_id | cardinality=ONE
+kassenbuch path kassenbuch_line_item:by:header_id | label=Kassenbuch-Position | kassenbuch_line_item on kassenbuch_header.id=kassenbuch_line_item.header_id | cardinality=MANY
+kassenbuch path employees:via:employee_id.bill:by:employee_id | label=Personal → Kassenbeleg | employees on kassenbuch_header.employee_id=employees.employee_id ; bill on employees.employee_id=bill.employee_id | cardinality=MANY
+kassenbuch path employees:via:employee_id.sales_invoice:by:issued_by | label=Personal → Ausgangsrechnung (ausgestellt) | employees on kassenbuch_header.employee_id=employees.employee_id ; sales_invoice on employees.employee_id=sales_invoice.issued_by | cardinality=MANY
+kassenbuch path employees:via:employee_id.sales_invoice:by:cancelled_by | label=Personal → Ausgangsrechnung (storniert) | employees on kassenbuch_header.employee_id=employees.employee_id ; sales_invoice on employees.employee_id=sales_invoice.cancelled_by | cardinality=MANY
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:issued_by~count@period
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:issued_by~count
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:issued_by~sum@period
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:issued_by~sum
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:issued_by~first@period
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:issued_by~first
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:issued_by~last@period
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:issued_by~last
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~count@period
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~count
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~sum@period
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~sum
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~first@period
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~first
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~last@period
+kassenbuch suppressed employees:via:employee_id.sales_invoice:by:cancelled_by~last
+kassenbuch requires kassenbuch.beleg_nr = [CASHBOOK_READ]
+kassenbuch requires kassenbuch.beleg_datum = [CASHBOOK_READ]
+kassenbuch requires kassenbuch.entry_type = [CASHBOOK_READ]
+kassenbuch requires kassenbuch.belegtext = [CASHBOOK_READ]
+kassenbuch requires kassenbuch.total_amount = [CASHBOOK_READ]
+kassenbuch requires kassenbuch.current_balance = [CASHBOOK_READ]
+kassenbuch requires kassenbuch.correction_role = [CASHBOOK_READ]
+kassenbuch requires kassenbuch.is_locked = [CASHBOOK_READ]
+kassenbuch requires kassenbuch.created_at = [CASHBOOK_READ]
+kassenbuch requires cash_book:via:cash_book_id.name = [CASHBOOK_READ]
+kassenbuch requires cash_book:via:cash_book_id.is_fiscal = [CASHBOOK_READ]
+kassenbuch requires cash_book:via:cash_book_id.datev_account = [CASHBOOK_READ]
+kassenbuch requires cash_book:via:cash_book_id.is_active = [CASHBOOK_READ]
+kassenbuch requires cash_book:via:counterparty_book_id.name = [CASHBOOK_READ]
+kassenbuch requires cash_book:via:counterparty_book_id.is_fiscal = [CASHBOOK_READ]
+kassenbuch requires cash_book:via:counterparty_book_id.datev_account = [CASHBOOK_READ]
+kassenbuch requires cash_book:via:counterparty_book_id.is_active = [CASHBOOK_READ]
+kassenbuch requires employees:via:employee_id.employee_number = [CASHBOOK_READ, EMPLOYEE_READ]
+kassenbuch requires employees:via:employee_id.role = [CASHBOOK_READ, EMPLOYEE_READ]
+kassenbuch requires employees:via:employee_id.employment_status = [CASHBOOK_READ, EMPLOYEE_READ]
+kassenbuch requires employees:via:employee_id.created_at = [CASHBOOK_READ, EMPLOYEE_READ]
+kassenbuch requires employees:via:employee_id.employee_info:by:employee_id.first_name = [CASHBOOK_READ, EMPLOYEE_READ]
+kassenbuch requires employees:via:employee_id.employee_info:by:employee_id.last_name = [CASHBOOK_READ, EMPLOYEE_READ]
+kassenbuch requires employees:via:employee_id.employee_info:by:employee_id.job_title = [CASHBOOK_READ, EMPLOYEE_READ]
+kassenbuch requires employees:via:employee_id.employee_info:by:employee_id.hire_date = [CASHBOOK_READ, EMPLOYEE_READ]
+kassenbuch requires kassenbuch_line_item:by:header_id~count = [CASHBOOK_READ]
+kassenbuch requires kassenbuch_line_item:by:header_id~sum = [CASHBOOK_READ]
+personal subject root=employees
+personal offering personal.employee_number | group=null | label=Personalnummer | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employee_number
+personal offering personal.role | group=null | label=Rolle | type=TEXT | capability=EMPLOYEE_READ | field column=employees.role
+personal offering personal.employment_status | group=null | label=Beschäftigungsstatus | type=TEXT | capability=EMPLOYEE_READ | field column=employees.employment_status
+personal offering personal.created_at | group=null | label=Angelegt am | type=DATE | capability=EMPLOYEE_READ | field column=employees.created_at
+personal offering employee_info:by:employee_id.first_name | group=Personaldaten | label=Vorname | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.first_name
+personal offering employee_info:by:employee_id.last_name | group=Personaldaten | label=Nachname | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.last_name
+personal offering employee_info:by:employee_id.job_title | group=Personaldaten | label=Position | type=TEXT | capability=EMPLOYEE_READ | field column=employee_info.job_title
+personal offering employee_info:by:employee_id.hire_date | group=Personaldaten | label=Eintrittsdatum | type=DATE | capability=EMPLOYEE_READ | field column=employee_info.hire_date
+personal path employee_info:by:employee_id | label=Personaldaten | employee_info on employees.employee_id=employee_info.employee_id | cardinality=ONE
+personal path bill:by:employee_id | label=Kassenbeleg | bill on employees.employee_id=bill.employee_id | cardinality=MANY
+personal path sales_invoice:by:issued_by | label=Ausgangsrechnung (ausgestellt) | sales_invoice on employees.employee_id=sales_invoice.issued_by | cardinality=MANY
+personal path sales_invoice:by:cancelled_by | label=Ausgangsrechnung (storniert) | sales_invoice on employees.employee_id=sales_invoice.cancelled_by | cardinality=MANY
+personal path kassenbuch_header:by:employee_id | label=Kassenbuch-Eintrag | kassenbuch_header on employees.employee_id=kassenbuch_header.employee_id | cardinality=MANY
+personal path bill:by:employee_id.sales_invoice:via:clears_sales_invoice_id | label=Kassenbeleg → Ausgangsrechnung (beglichen) | bill on employees.employee_id=bill.employee_id ; sales_invoice on bill.clears_sales_invoice_id=sales_invoice.id | cardinality=MANY
+personal path bill:by:employee_id.bill_vat_detail:by:bill_id | label=Kassenbeleg → Steueraufteilung (Kassenbeleg) | bill on employees.employee_id=bill.employee_id ; bill_vat_detail on bill.id=bill_vat_detail.bill_id | cardinality=MANY
+personal path bill:by:employee_id.sales_invoice:by:bill_id | label=Kassenbeleg → Ausgangsrechnung (zum Kassenbeleg) | bill on employees.employee_id=bill.employee_id ; sales_invoice on bill.id=sales_invoice.bill_id | cardinality=MANY
+personal path sales_invoice:by:issued_by.bill:via:bill_id | label=Ausgangsrechnung (ausgestellt) → Kassenbeleg (Grundlage) | sales_invoice on employees.employee_id=sales_invoice.issued_by ; bill on sales_invoice.bill_id=bill.id | cardinality=MANY
+personal path sales_invoice:by:issued_by.debtor:via:debtor_id | label=Ausgangsrechnung (ausgestellt) → Debitor-Rolle | sales_invoice on employees.employee_id=sales_invoice.issued_by ; debtor on sales_invoice.debtor_id=debtor.id | cardinality=MANY
+personal path sales_invoice:by:issued_by.bill:by:clears_sales_invoice_id | label=Ausgangsrechnung (ausgestellt) → Kassenbeleg (Begleichung) | sales_invoice on employees.employee_id=sales_invoice.issued_by ; bill on sales_invoice.id=bill.clears_sales_invoice_id | cardinality=MANY
+personal path sales_invoice:by:issued_by.sales_invoice_line:by:sales_invoice_id | label=Ausgangsrechnung (ausgestellt) → Rechnungsposition (Ausgang) | sales_invoice on employees.employee_id=sales_invoice.issued_by ; sales_invoice_line on sales_invoice.id=sales_invoice_line.sales_invoice_id | cardinality=MANY
+personal path sales_invoice:by:issued_by.sales_invoice_vat_breakdown:by:sales_invoice_id | label=Ausgangsrechnung (ausgestellt) → Steueraufteilung (Ausgang) | sales_invoice on employees.employee_id=sales_invoice.issued_by ; sales_invoice_vat_breakdown on sales_invoice.id=sales_invoice_vat_breakdown.sales_invoice_id | cardinality=MANY
+personal path sales_invoice:by:issued_by.sales_invoice_booking:by:sales_invoice_id | label=Ausgangsrechnung (ausgestellt) → Buchung (Ausgang) | sales_invoice on employees.employee_id=sales_invoice.issued_by ; sales_invoice_booking on sales_invoice.id=sales_invoice_booking.sales_invoice_id | cardinality=MANY
+personal path sales_invoice:by:cancelled_by.bill:via:bill_id | label=Ausgangsrechnung (storniert) → Kassenbeleg (Grundlage) | sales_invoice on employees.employee_id=sales_invoice.cancelled_by ; bill on sales_invoice.bill_id=bill.id | cardinality=MANY
+personal path sales_invoice:by:cancelled_by.debtor:via:debtor_id | label=Ausgangsrechnung (storniert) → Debitor-Rolle | sales_invoice on employees.employee_id=sales_invoice.cancelled_by ; debtor on sales_invoice.debtor_id=debtor.id | cardinality=MANY
+personal path sales_invoice:by:cancelled_by.bill:by:clears_sales_invoice_id | label=Ausgangsrechnung (storniert) → Kassenbeleg (Begleichung) | sales_invoice on employees.employee_id=sales_invoice.cancelled_by ; bill on sales_invoice.id=bill.clears_sales_invoice_id | cardinality=MANY
+personal path sales_invoice:by:cancelled_by.sales_invoice_line:by:sales_invoice_id | label=Ausgangsrechnung (storniert) → Rechnungsposition (Ausgang) | sales_invoice on employees.employee_id=sales_invoice.cancelled_by ; sales_invoice_line on sales_invoice.id=sales_invoice_line.sales_invoice_id | cardinality=MANY
+personal path sales_invoice:by:cancelled_by.sales_invoice_vat_breakdown:by:sales_invoice_id | label=Ausgangsrechnung (storniert) → Steueraufteilung (Ausgang) | sales_invoice on employees.employee_id=sales_invoice.cancelled_by ; sales_invoice_vat_breakdown on sales_invoice.id=sales_invoice_vat_breakdown.sales_invoice_id | cardinality=MANY
+personal path sales_invoice:by:cancelled_by.sales_invoice_booking:by:sales_invoice_id | label=Ausgangsrechnung (storniert) → Buchung (Ausgang) | sales_invoice on employees.employee_id=sales_invoice.cancelled_by ; sales_invoice_booking on sales_invoice.id=sales_invoice_booking.sales_invoice_id | cardinality=MANY
+personal path kassenbuch_header:by:employee_id.cash_book:via:cash_book_id | label=Kassenbuch-Eintrag → Kasse | kassenbuch_header on employees.employee_id=kassenbuch_header.employee_id ; cash_book on kassenbuch_header.cash_book_id=cash_book.id | cardinality=MANY
+personal path kassenbuch_header:by:employee_id.cash_book:via:counterparty_book_id | label=Kassenbuch-Eintrag → Gegenkasse (Geldtransit) | kassenbuch_header on employees.employee_id=kassenbuch_header.employee_id ; cash_book on kassenbuch_header.counterparty_book_id=cash_book.id | cardinality=MANY
+personal path kassenbuch_header:by:employee_id.kassenbuch_line_item:by:header_id | label=Kassenbuch-Eintrag → Kassenbuch-Position | kassenbuch_header on employees.employee_id=kassenbuch_header.employee_id ; kassenbuch_line_item on kassenbuch_header.id=kassenbuch_line_item.header_id | cardinality=MANY
+personal suppressed sales_invoice:by:issued_by~count@period
+personal suppressed sales_invoice:by:issued_by~count
+personal suppressed sales_invoice:by:issued_by~sum@period
+personal suppressed sales_invoice:by:issued_by~sum
+personal suppressed sales_invoice:by:issued_by~first@period
+personal suppressed sales_invoice:by:issued_by~first
+personal suppressed sales_invoice:by:issued_by~last@period
+personal suppressed sales_invoice:by:issued_by~last
+personal suppressed sales_invoice:by:cancelled_by~count@period
+personal suppressed sales_invoice:by:cancelled_by~count
+personal suppressed sales_invoice:by:cancelled_by~sum@period
+personal suppressed sales_invoice:by:cancelled_by~sum
+personal suppressed sales_invoice:by:cancelled_by~first@period
+personal suppressed sales_invoice:by:cancelled_by~first
+personal suppressed sales_invoice:by:cancelled_by~last@period
+personal suppressed sales_invoice:by:cancelled_by~last
+personal suppressed bill:by:employee_id.sales_invoice:via:clears_sales_invoice_id~count@period
+personal suppressed bill:by:employee_id.sales_invoice:via:clears_sales_invoice_id~count
+personal suppressed bill:by:employee_id.sales_invoice:via:clears_sales_invoice_id~sum@period
+personal suppressed bill:by:employee_id.sales_invoice:via:clears_sales_invoice_id~sum
+personal suppressed bill:by:employee_id.sales_invoice:via:clears_sales_invoice_id~first@period
+personal suppressed bill:by:employee_id.sales_invoice:via:clears_sales_invoice_id~first
+personal suppressed bill:by:employee_id.sales_invoice:via:clears_sales_invoice_id~last@period
+personal suppressed bill:by:employee_id.sales_invoice:via:clears_sales_invoice_id~last
+personal suppressed bill:by:employee_id.bill_vat_detail:by:bill_id~count
+personal suppressed bill:by:employee_id.bill_vat_detail:by:bill_id~sum
+personal suppressed bill:by:employee_id.sales_invoice:by:bill_id~count@period
+personal suppressed bill:by:employee_id.sales_invoice:by:bill_id~count
+personal suppressed bill:by:employee_id.sales_invoice:by:bill_id~sum@period
+personal suppressed bill:by:employee_id.sales_invoice:by:bill_id~sum
+personal suppressed bill:by:employee_id.sales_invoice:by:bill_id~first@period
+personal suppressed bill:by:employee_id.sales_invoice:by:bill_id~first
+personal suppressed bill:by:employee_id.sales_invoice:by:bill_id~last@period
+personal suppressed bill:by:employee_id.sales_invoice:by:bill_id~last
+personal suppressed sales_invoice:by:issued_by.sales_invoice_line:by:sales_invoice_id~count
+personal suppressed sales_invoice:by:issued_by.sales_invoice_vat_breakdown:by:sales_invoice_id~count
+personal suppressed sales_invoice:by:cancelled_by.sales_invoice_line:by:sales_invoice_id~count
+personal suppressed sales_invoice:by:cancelled_by.sales_invoice_vat_breakdown:by:sales_invoice_id~count
+personal suppressed kassenbuch_header:by:employee_id.kassenbuch_line_item:by:header_id~count
+personal suppressed kassenbuch_header:by:employee_id.kassenbuch_line_item:by:header_id~sum
+personal requires personal.employee_number = [EMPLOYEE_READ]
+personal requires personal.role = [EMPLOYEE_READ]
+personal requires personal.employment_status = [EMPLOYEE_READ]
+personal requires personal.created_at = [EMPLOYEE_READ]
+personal requires employee_info:by:employee_id.first_name = [EMPLOYEE_READ]
+personal requires employee_info:by:employee_id.last_name = [EMPLOYEE_READ]
+personal requires employee_info:by:employee_id.job_title = [EMPLOYEE_READ]
+personal requires employee_info:by:employee_id.hire_date = [EMPLOYEE_READ]

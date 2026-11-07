@@ -1,0 +1,858 @@
+openapi: 3.0.0
+info:
+  title: POS System API
+  version: 1.0.0
+  description: API documentation for the Point of Sale system.
+servers:
+  - url: http://localhost:8080
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          $ref: '#/components/schemas/TokenResponse'
+        employee:
+          $ref: '#/components/schemas/EmployeeInfo'
+    TokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+    EmployeeInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+        role:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+
+tags:
+  - name: Auth
+  - name: Audit
+  - name: Approval
+  - name: Bill
+  - name: Customer
+  - name: Employee
+  - name: Kassenbuch
+  - name: Order
+  - name: PaymentType
+  - name: Product
+  - name: ProductCategory
+  - name: ProductExtras
+  - name: Setup
+  - name: Statistics
+  - name: Table
+  - name: Voucher
+  - name: ZBon
+
+paths:
+  # Auth Routes
+  /api/auth/login:
+    post:
+      tags: [Auth]
+      summary: User authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Unauthorized
+  /api/auth/refresh:
+    post:
+      tags: [Auth]
+      summary: Refresh token
+      responses:
+        '200':
+          description: Token refreshed
+  /api/auth/validate:
+    get:
+      tags: [Auth]
+      summary: Validate token
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Token is valid
+  /api/auth/logout:
+    post:
+      tags: [Auth]
+      summary: Logout
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Logged out
+  /api/auth/me:
+    get:
+      tags: [Auth]
+      summary: Get current user info
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User info retrieved
+
+  # Audit Routes
+  /api/audit/transactions:
+    get:
+      tags: [Audit]
+      summary: Query transaction audit logs
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: employeeNumber
+          in: query
+          schema:
+            type: string
+        - name: fromDate
+          in: query
+          schema:
+            type: string
+        - name: toDate
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Logs retrieved
+  /api/audit/transactions/{transactionId}:
+    get:
+      tags: [Audit]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Log retrieved
+
+  # Approval Routes
+  /api/auth/approvals/pending:
+    get:
+      tags: [Approval]
+      summary: Get pending approvals
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Pending approvals list
+  /api/auth/approvals/{requestId}/approve:
+    post:
+      tags: [Approval]
+      summary: Approve request
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: requestId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Approved
+  /api/auth/approvals/{requestId}/deny:
+    post:
+      tags: [Approval]
+      summary: Deny request
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: requestId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+      responses:
+        '200':
+          description: Denied
+
+  # Bill Routes
+  /api/v1/bills:
+    get:
+      tags: [Bill]
+      summary: Get all bills
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of bills
+    post:
+      tags: [Bill]
+      summary: Create bill
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Bill created
+  /api/v1/bills/{id}:
+    get:
+      tags: [Bill]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Bill details
+    delete:
+      tags: [Bill]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Bill deleted (soft)
+  /api/v1/bills/statistics:
+    get:
+      tags: [Bill]
+      summary: Bill statistics
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: startDate
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Statistics
+  /api/v1/bills/{billId}/print:
+    post:
+      tags: [Bill]
+      summary: Print bill
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: billId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Print job created
+
+  # Customer Routes
+  /api/customers:
+    get:
+      tags: [Customer]
+      summary: Get customers
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of customers
+    post:
+      tags: [Customer]
+      summary: Create customer
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Customer created
+  /api/customers/{id}:
+    get:
+      tags: [Customer]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Customer details
+    put:
+      tags: [Customer]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Customer updated
+    delete:
+      tags: [Customer]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Customer deleted
+
+  # Employee Routes
+  /api/employees:
+    get:
+      tags: [Employee]
+      summary: Get employees
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of employees
+    post:
+      tags: [Employee]
+      summary: Create employee
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Employee created
+  /api/employees/{id}:
+    get:
+      tags: [Employee]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Employee details
+    put:
+      tags: [Employee]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Employee updated
+    delete:
+      tags: [Employee]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Employee deleted
+  /api/employees/me:
+    get:
+      tags: [Employee]
+      summary: Get current employee details
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Employee details
+
+  # Kassenbuch Routes
+  /api/v1/kassenbuch:
+    post:
+      tags: [Kassenbuch]
+      summary: Create cash book entry
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Entry created
+  /api/v1/kassenbuch/balance:
+    get:
+      tags: [Kassenbuch]
+      summary: Get current balance
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Current balance
+  /api/v1/kassenbuch/entries:
+    get:
+      tags: [Kassenbuch]
+      summary: Get entries
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: startDate
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of entries
+
+  # Order Routes
+  /api/orders:
+    get:
+      tags: [Order]
+      summary: Get all orders
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of orders
+    post:
+      tags: [Order]
+      summary: Create order
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Order created
+  /api/orders/session/{sessionId}:
+    get:
+      tags: [Order]
+      summary: Get orders by session
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Session orders
+  /api/items/cancel/{sourceTableId}:
+    post:
+      tags: [Order]
+      summary: Cancel order items
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: sourceTableId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Items cancelled
+
+  # Product Routes
+  /api/products:
+    get:
+      tags: [Product]
+      summary: Get products
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of products
+    post:
+      tags: [Product]
+      summary: Create product
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Product created
+  /api/products/{id}:
+    get:
+      tags: [Product]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product details
+    put:
+      tags: [Product]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product updated
+    delete:
+      tags: [Product]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product deleted
+  /api/products/favourites:
+    get:
+      tags: [Product]
+      summary: Get favourite products
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Favourite products list
+
+  # Product Category Routes
+  /api/product-categories:
+    get:
+      tags: [ProductCategory]
+      summary: Get categories
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of categories
+    post:
+      tags: [ProductCategory]
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Category created
+  /api/product-categories/{id}:
+    get:
+      tags: [ProductCategory]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Category details
+    put:
+      tags: [ProductCategory]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Category updated
+    delete:
+      tags: [ProductCategory]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Category deleted
+
+  # Table Routes
+  /api/tables:
+    get:
+      tags: [Table]
+      summary: Get tables
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of tables
+    post:
+      tags: [Table]
+      summary: Create table
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Table created
+  /api/tables/{id}:
+    get:
+      tags: [Table]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Table details
+    put:
+      tags: [Table]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Table updated
+  /api/tables/{id}/currentSession:
+    get:
+      tags: [Table]
+      summary: Get current table session
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Session details
+
+  # Statistics Routes
+  /api/statistics/sales/overview:
+    get:
+      tags: [Statistics]
+      summary: Sales overview
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: start_date
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: end_date
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Sales overview data
+
+  # Z-Bon Routes
+  /api/z-bon:
+    get:
+      tags: [ZBon]
+      summary: Get all Z-reports
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of reports
+    post:
+      tags: [ZBon]
+      summary: Create Z-report
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Report created
+  /api/z-bon/latest:
+    get:
+      tags: [ZBon]
+      summary: Get latest Z-report
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Latest report
+
+  # Configuration Routes
+  /api/v1/config/{shopId}/vat-mapping:
+    get:
+      tags: [Setup]
+      summary: Get VAT mapping
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: shopId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: VAT mapping config
+    put:
+      tags: [Setup]
+      summary: Update VAT mapping
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: shopId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Config updated
+
+  # Printer Location Routes
+  /api/printer-location:
+    get:
+      tags: [Setup]
+      summary: Get printer locations
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of locations
+    post:
+      tags: [Setup]
+      summary: Create printer location
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Location created
+
+  # Voucher Routes
+  /api/vouchers:
+    get:
+      tags: [Voucher]
+      summary: Get all vouchers
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of vouchers
+    post:
+      tags: [Voucher]
+      summary: Create voucher
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Voucher created
+  /api/vouchers/validate:
+    post:
+      tags: [Voucher]
+      summary: Validate voucher
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Validation result

@@ -1,0 +1,43 @@
+-- Local product category storage
+-- Stores synced product category data for offline access
+
+CREATE TABLE IF NOT EXISTS local_product_categories (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    en_name TEXT,
+    ch_name TEXT,
+    description TEXT,
+    is_active INTEGER NOT NULL DEFAULT 1,
+    sort_position REAL NOT NULL DEFAULT 0.0
+);
+
+CREATE INDEX IF NOT EXISTS idx_local_product_categories_is_active ON local_product_categories(is_active);
+
+-- Insert or update a product category
+insertOrUpdateProductCategory:
+INSERT OR REPLACE INTO local_product_categories(id, name, en_name, ch_name, description, is_active, sort_position)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+-- Get all active product categories ordered by sort position and name
+getAllProductCategories:
+SELECT * FROM local_product_categories WHERE is_active = 1 ORDER BY sort_position, name;
+
+-- Get all product categories (including inactive) ordered by sort position and name
+getAllProductCategoriesIncludingInactive:
+SELECT * FROM local_product_categories ORDER BY sort_position, name;
+
+-- Get a specific product category by ID
+getProductCategoryById:
+SELECT * FROM local_product_categories WHERE id = ?;
+
+-- Delete a specific product category
+deleteProductCategory:
+DELETE FROM local_product_categories WHERE id = ?;
+
+-- Clear all product categories
+clearAllProductCategories:
+DELETE FROM local_product_categories;
+
+-- Update product category sort position
+updateProductCategorySortPosition:
+UPDATE local_product_categories SET sort_position = ? WHERE id = ?;

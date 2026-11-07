@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 12 – Finanzdokumente – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+            <li><a href="kap-12-finanzdokumente.html#kap-12-kassenbuecher">Kassen &amp; Tresor</a></li>
+            <li><a href="kap-12-finanzdokumente.html#kap-12-kassensturz">Kassensturz</a></li>
+            <li><a href="kap-12-finanzdokumente.html#kap-12-korrektur">Korrektur / Storno</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 12 – Finanzdokumente <span class="badge badge-manager">Manager+</span></h2>
+
+    <p>Die Finanzdokumente-Ansicht bündelt Kassenbuch, Bankbelege und Rechnungen in einer integrierten Oberfläche. Der Zugang richtet sich nicht mehr nach der Rolle, sondern nach den <strong>Berechtigungen</strong> der Berechtigungsgruppe: An der Kasse erscheint <em>Finanzdokumente</em> mit <code>CASHBOOK_READ</code>; im Verwaltungsbereich verlangt jeder Menüpunkt seine eigene Leseberechtigung (die Abschnitte unten nennen sie). Die Standardgruppen <strong>Manager</strong>, <strong>Buchhaltung</strong> und <strong>Prüfer</strong> dürfen lesen; Prüfer ändern nichts.</p>
+
+    <div class="alert alert-warning">
+        <strong>Vollständig nur im Web-Admin:</strong> Die Kasse zeigt unter <em>Finanzdokumente</em>
+        ausschließlich das fiskalische Kassenbuch der Ladenkasse (mit Belegupload und Korrektur).
+        Die Belegübersicht, die Belegsuche und die Bankbeleg-Ansicht sind dort entfallen; sie stehen
+        im <strong>Web-Admin</strong> unter dem Menüpunkt <strong>Belege</strong> zur Verfügung.
+    </div>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-kassenbuch">Kassenbuch</h3>
+
+    <p>Das Kassenbuch dokumentiert alle Bargeldbewegungen des Geschäfts in DATEV-konformer Form. Jeder Eintrag erzeugt eine oder mehrere Buchungszeilen mit lückenloser Belegnummerierung.</p>
+
+    <h4 id="kap-12-wo">Wo Sie das Kassenbuch finden</h4>
+
+    <p>Das vollständige Kassenbuch liegt im <strong>Verwaltungsbereich</strong> (Browser) unter <em>Kasse &amp; Abschluss &rarr; Kassenbuch</em>. Sichtbar ist es mit der Berechtigung <code>CASHBOOK_READ</code> (standardmäßig Manager, Buchhaltung und Prüfer); buchen setzt <code>CASHBOOK_WRITE</code> voraus, den Kassensturz <code>CASHBOOK_CLOSE</code>. Die Kassen-App am Tresen zeigt unter <em>Finanzdokumente &rarr; Kassenbuch</em> immer <strong>eine</strong> Kasse, standardmäßig die fiskalische Ladenkasse. Führt der Betrieb weitere aktive Kassen (etwa einen Tresor), erscheint darüber eine Auswahl <strong>Kasse</strong>; Eintragsliste, <em>Einnahmen</em>, <em>Ausgaben</em> und <em>Kassenbestand</em> beziehen sich dann alle auf die gewählte Kasse, sodass sich die drei Kennzahlen gegenseitig abstimmen lassen. Eine gemischte Ansicht aller Kassen gibt es dort bewusst nicht (siehe <em>Bestände werden nie addiert</em>). In der Kassen-App werden Einträge mit Belegupload angelegt (immer in der Ladenkasse &ndash; war eine andere Kasse gewählt, wechselt die Ansicht nach dem Buchen zur Ladenkasse), Geldtransits gebucht, Korrekturen erfasst und Belege nachgereicht oder ersetzt. Buchungen in einer Nebenkasse, der Kassensturz, die Kassenverwaltung und die zeitraumübergreifende Suche finden im Verwaltungsbereich statt; dessen Detailansicht ist eine reine Ansicht (ohne Korrektur und ohne Belegverknüpfung).</p>
+
+    <ul>
+        <li><strong>Reiter je Kasse</strong> &ndash; ein Reiter <em>Alle Kassen</em> sowie je ein Reiter pro Kasse mit deren eigenem Saldo. Salden werden <strong>nie addiert</strong>: jede Kasse führt ihren eigenen Bestand. Auf dem Smartphone ist es eine Auswahl <em>Kasse</em> (mit demselben Saldo je Kasse); <em>Kassen verwalten</em> öffnen Sie dort über das Zahnrad daneben.</li>
+        <li><strong>Zeitraum</strong> &ndash; Tag, Woche, Monat oder Jahr, vor- und zurückschaltbar. Auf dem Smartphone steht oben nur <em>&lsaquo; Oktober 2026 &rsaquo;</em> (ein Tipp auf den Zeitraum öffnet die Auswahl); Tag/Woche/Monat/Jahr wählen Sie dort unter <em>Filter</em> &rarr; <em>Zeitraum</em> und übernehmen mit <em>Anwenden</em>.</li>
+        <li><strong>Suche</strong> &ndash; das Feld filtert zunächst nur den geladenen Zeitraum. Findet sich dort nichts, bietet die Ansicht <em>Alle Zeiträume durchsuchen</em> an; die Treffer über alle Zeiträume verlassen Sie mit <em>Zurück zur Zeitraumansicht</em> über der Trefferliste. Auf dem Smartphone (und bei schmalem Fenster) liegt das Suchfeld unter <em>Filter</em>; die Zeile unter dem Zeitraum nennt die Zahl der Buchungen. Solange eine Suche gilt, steht dort auf dem Smartphone zusätzlich <em>1 Filter &middot; Zurücksetzen</em>; bei schmalem Fenster erscheint die Suche stattdessen als entfernbarer Filter-Chip mit <em>Alle Filter entfernen</em>.</li>
+        <li><strong>Detailbereich</strong> &ndash; neben der Tabelle; bei einem Geldtransit führt ein Verweis direkt zur <strong>Gegenbuchung</strong> in der anderen Kasse.</li>
+        <li><strong>Kassen verwalten</strong> &ndash; Nebenkassen anlegen und bearbeiten (jeder Name nur einmal: Groß-/Kleinschreibung und Leerzeichen am Rand zählen nicht, und auch deaktivierte Kassen behalten ihren Namen &ndash; ein doppelter Name wird mit <em>409</em> abgelehnt und im Formular markiert; die fiskalische Ladenkasse ist ab der Einrichtung des Betriebs in der Liste; eine deaktivierte Kasse bleibt dort mit dem Zusatz <em>Deaktiviert</em> stehen und lässt sich wieder aktivieren, erscheint aber nicht mehr in der Kassenauswahl), die Zielkasse für die automatische Umbuchung der Tageseinnahme festlegen (siehe <em>Die Tageseinnahme wird automatisch umgebucht</em>) und einstellen, wie viele Tage ein Belegdatum höchstens zurückliegen darf (siehe <em>Belege nach dem Abschluss</em>).</li>
+    </ul>
+
+    <div class="alert alert-info">
+        <p><strong>Warum manche Schaltflächen fehlen:</strong> <em>Kassensturz</em> und <em>Neue Buchung</em> erscheinen nur auf einer <strong>Nebenkasse</strong>. Die Ladenkasse wird per Z-Bon abgeschlossen, nicht per Kassensturz, und eine Buchung in der Ladenkasse muss von der TSE signiert werden &ndash; das setzt ein angemeldetes Kassenterminal voraus und ist deshalb der Kassen-App vorbehalten. Auf dem Reiter der Ladenkasse steht stattdessen deren Z-Bon-Status.</p>
+    </div>
+
+    <div class="alert alert-warning">
+        <p><strong>Belegdatum und Zeitraum können auseinanderfallen.</strong> In der zeitraumübergreifenden Suche werden beide Spalten angezeigt. Ein Eintrag gehört zu dem Zeitraum, in dem er <strong>signiert</strong> wurde, nicht zu dem Datum, das auf dem Beleg steht &ndash; bei einer nachträglich erfassten Buchung sind das zwei verschiedene Zeiträume. Ein Klick auf den Treffer springt zum Zeitraum der Signatur; das ist der Zeitraum, in dem die Buchung auch im Export erscheint.</p>
+    </div>
+
+    <!-- =============================== -->
+    
+    <h4>Geldtransit (Bargeld zwischen Kassen bewegen)</h4>
+    <p>
+        Über <strong>Geldtransit</strong> im Kassenbuch der <strong>Kassen-App</strong> wird Bargeld zwischen zwei Kassen des
+        Geschäfts umgebucht – etwa von der Ladenkasse in den Tresor. Die nächtliche Umbuchung der
+        Tageseinnahmen läuft automatisch; dieses Formular ist für alles andere: einen zu hohen
+        Wechselgeldbestand verringern oder eine Bewegung außerhalb des Tagesabschlusses.
+    </p>
+    <div class="alert alert-warning">
+        <strong>Nicht als einfache Auszahlung buchen.</strong> Wird das Geld stattdessen über das
+        normale Buchungsformular als <em>Barauszahlung</em> erfasst, entsteht eine einseitige
+        Buchung gegen <strong>Bank</strong> – nicht gegen den Tresor. Der Tresor erhält das Geld in
+        seinem eigenen Buch nie, und beide Kassen weichen dauerhaft um den Betrag voneinander ab.
+        Der Geldtransit erzeugt dagegen immer <em>beide</em> Buchungen mit je eigenem Eigenbeleg.
+    </div>
+    <p>
+        Das Formular prüft vorab, was auch der Server prüft: Quelle und Ziel müssen unterschiedlich
+        sein, beide Kassen aktiv, und der Betrag darf den Bestand der <em>gewählten Quellkasse</em>
+        nicht übersteigen. Der angezeigte verfügbare Betrag bezieht sich stets auf die oben gewählte
+        Quelle.
+    </p>
+<h3 id="kap-12-kassenbuecher">Ladenkasse und Nebenkassen (Tresor)</h3>
+
+    <p>Ein Betrieb führt in der Regel mehr als einen Bargeldbestand: die <strong>Ladenkasse</strong> (die Schublade am Kassenplatz) und daneben oft einen <strong>Tresor</strong>, eine Portokasse oder eine sonstige Nebenkasse. Diese Bestände werden getrennt geführt, weil sie rechtlich unterschiedlich behandelt werden.</p>
+
+    <table>
+        <thead>
+            <tr><th></th><th>Ladenkasse (fiskalisch)</th><th>Tresor / Nebenkasse</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Anzahl je Betrieb</td><td>genau eine</td><td>beliebig viele</td></tr>
+            <tr><td>TSE-Signierung</td><td><strong>ja</strong> &ndash; jeder Eintrag</td><td><strong>nein</strong></td></tr>
+            <tr><td>Im Z-Bon enthalten</td><td>ja</td><td>nein</td></tr>
+            <tr><td>In der DSFinV-K-Ausgabe</td><td>ja</td><td>nein</td></tr>
+            <tr><td>Abschluss durch</td><td>Z-Bon (Kassenabschluss)</td><td>Kassensturz (siehe unten)</td></tr>
+            <tr><td>DATEV-Sachkonto</td><td>1000 (Kasse)</td><td>1010 (Nebenkasse), frei wählbar</td></tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <p><strong>Warum wird der Tresor nicht signiert?</strong> Die TSE-Pflicht nach &sect;&nbsp;146a AO gilt für das <em>elektronische Aufzeichnungssystem</em> &ndash; also die Kasse am Verkaufsort. Ein Tresor ist kein solches System: Er ist normale Buchführung. Wird Bargeld aus der Schublade in den Tresor gebracht, ist <em>dieser Vorgang</em> ein signierter Geldtransit der Ladenkasse; was danach im Tresor geschieht, wird ordnungsgemäß, aber ohne TSE gebucht.</p>
+    </div>
+
+    <p>Praktischer Nebeneffekt: Der in der DSFinV-K ausgewiesene <strong>Kassenbestand</strong> entspricht wieder dem tatsächlichen Inhalt der Schublade. Ohne diese Trennung würde er auch das Tresorgeld enthalten und damit einen Bestand ausweisen, den niemand nachzählen kann.</p>
+
+    <p>Jede Kasse führt <strong>ihren eigenen Saldo</strong> und <strong>ihren eigenen Belegnummernkreis</strong>. Die Nummern beider Kassen laufen also unabhängig voneinander lückenlos weiter &ndash; ein gemeinsamer Nummernvorrat würde in jeder Kasse Lücken hinterlassen, was bei einer Prüfung erklärungsbedürftig ist.</p>
+
+    <h4 id="kap-12-geldtransit">Geldtransit zwischen zwei Kassen</h4>
+
+    <p>Eine Umbuchung &ndash; typischerweise die Tageseinnahme am Abend von der Ladenkasse in den Tresor &ndash; wird als <strong>ein</strong> Vorgang erfasst und in <strong>beiden</strong> Kassen gebucht:</p>
+
+    <ul>
+        <li>Ladenkasse: Auszahlung (negativ), <strong>TSE-signiert</strong></li>
+        <li>Tresor: Einzahlung (positiv), nicht signiert</li>
+        <li>Beide Buchungen entstehen gemeinsam oder gar nicht &ndash; eine halb gebuchte Umbuchung kann es nicht geben</li>
+        <li>Jede Seite erhält einen <strong>eigenen Eigenbeleg</strong> mit eigener Belegnummer, der auf die Gegenseite verweist</li>
+        <li>Beide Seiten buchen gegen das DATEV-Konto 1460 (Geldtransit), das sich dadurch wieder ausgleicht</li>
+    </ul>
+
+    <p>Es kann nicht mehr Geld umgebucht werden, als die abgebende Kasse hält (<a href="#kap-12-kassenminus">Kassenminus-Sperre</a>; bei der Ladenkasse zählen die noch nicht abgeschlossenen Bareinnahmen mit). Der Server lehnt eine zu hohe Umbuchung mit <code>409 KASSENBUCH_INSUFFICIENT_CASH</code> ab &ndash; keine der beiden Seiten wird gebucht. Eine Korrektur erfolgt immer für den <strong>gesamten</strong> Vorgang (beide Seiten zugleich) &ndash; nur eine Seite zu stornieren würde die beiden Kassenbücher dauerhaft widersprüchlich machen.</p>
+
+    <h4 id="kap-12-transit-automatisch">Die Tageseinnahme wird automatisch umgebucht</h4>
+
+    <p>Ist eine <strong>Zielkasse</strong> hinterlegt, bucht der Z-Bon die Umbuchung selbst: Beim Tagesabschluss wandert die Tageseinnahme von der Ladenkasse in diese Kasse &ndash; ohne dass jemand daran denken muss.</p>
+
+    <table>
+        <thead>
+            <tr><th>Was</th><th>Wert</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Betrag</td><td>genau die <strong>Bareinnahme des Tages</strong></td></tr>
+            <tr><td>Ladenkasse</td><td>Auszahlung, TSE-signiert</td></tr>
+            <tr><td>Zielkasse</td><td>Einzahlung, Belegtext &bdquo;Tageseinnahmen&ldquo;, nicht signiert</td></tr>
+            <tr><td>Ohne hinterlegte Zielkasse</td><td>keine Umbuchung &ndash; der Z-Bon verhält sich wie bisher</td></tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <p><strong>Das Wechselgeld bleibt liegen.</strong> Umgebucht wird die Tageseinnahme, nicht der gezählte Schubladeninhalt. Der Wechselgeldbestand war schon vor Geschäftsbeginn da und gehört nicht zu den Einnahmen &ndash; er bleibt deshalb unberührt in der Ladenkasse. Der Bestand der Ladenkasse fällt nach dem Abschluss also auf den Wechselgeldbestand zurück, nicht auf null.</p>
+    </div>
+
+    <p>An einem Tag ohne Bareinnahme wird nichts gebucht &ndash; es entsteht keine Umbuchung über 0,00&nbsp;€. Eine deaktivierte Kasse kann kein Ziel sein, und die Ladenkasse kann nicht an sich selbst überweisen.</p>
+
+    <p>Die Umbuchung entsteht <strong>innerhalb</strong> des Tagesabschlusses und wird von diesem mit abgeschlossen. Für Bewegungen außerhalb des Abschlusses &ndash; etwa wenn der Wechselgeldbestand zu groß geworden ist &ndash; gibt es die manuelle Umbuchung an der Kasse.</p>
+
+    <div class="alert alert-warning">
+        <p><strong>Kassensturz der Ladenkasse.</strong> Der umgebuchte Betrag ist ein <em>errechneter</em> Wert. Zählen Sie die Schublade beim Z-Bon und tragen Sie das Ergebnis im Feld <strong>Gezählter Kassenbestand</strong> ein (siehe <a href="kap-11-berichte.html#kap-11-zbon">Kapitel 11</a>). Vorbelegt ist der erwartete Bestand: <strong>Buchbestand plus die noch nicht verbuchten Bareinnahmen</strong> des Tages &ndash; die Bareinnahmen kommen erst mit dem Z-Bon ins Kassenbuch, liegen aber schon in der Schublade. Weicht die Zählung davon ab, bucht der Abschluss die Kassendifferenz selbst (TSE-signiert, mit Eigenbeleg), und zwar nur, wenn der Z-Bon auch tatsächlich erstellt wird. Ohne Zählung läuft der Buchbestand der Ladenkasse unbemerkt vom tatsächlichen Bargeld weg.</p>
+    </div>
+
+    <h4 id="kap-12-signierende-kasse">Signierende Kasse der Ladenkasse</h4>
+
+    <p>Die <strong>signierende Kasse</strong> ist das Kassenterminal, dessen TSE-Client die Bargeldbewegungen eines Tagesabschlusses signiert &ndash; Zählung (Kassendifferenz), Trinkgeld-Auszahlung, Aufstockung und täglicher Geldtransit &ndash;, <strong>egal von welchem Gerät aus abgeschlossen wird</strong>. Sie wird gebraucht, sobald der Abschluss im <a href="kap-11-berichte.html#kap-11-zbon-admin">Admin-Panel</a> ausgelöst wird, denn ein Browser hat keinen eigenen TSE-Client.</p>
+
+    <p><strong>Bei deaktivierter TSE</strong> wird nichts signiert; der Tagesabschluss (und ein manueller Kassenbucheintrag) braucht dann keine signierende Kasse und l&auml;uft auch aus dem Admin-Panel. Eine bestimmte, aber deaktivierte Kasse wird weiterhin abgelehnt.</p>
+    <p><strong>Festlegen:</strong> <em>Kassenbuch</em> &rarr; <em>Kassen verwalten</em> &rarr; <em>Ladenkasse</em> bearbeiten &rarr; Feld <em>Signierende Kasse</em> &rarr; <em>Speichern</em>. Aus dem Dialog <em>Z-Bon erstellen</em> im Admin-Panel öffnet die Schaltfläche <em>Signierende Kasse festlegen</em> die Kassenverwaltung. Das Feld erscheint nur an der Ladenkasse und nur mit der Berechtigung <code>TERMINAL_MANAGE</code>; dieselbe Berechtigung verlangt der Server. Die Auswahl wird erst mit <em>Speichern</em> wirksam, jede Änderung steht im Audit-Protokoll (<code>SET_CASH_BOOK_SIGNING_TERMINAL</code>).</p>
+
+    <table>
+        <thead>
+            <tr><th>Eine Kasse steht zur Wahl, wenn sie &hellip;</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>zu diesem Geschäft gehört und <strong>aktiv</strong> ist,</td></tr>
+            <tr><td><strong>fiskalisch</strong> ist und mit einem <strong>TSE-Client im Normalbetrieb</strong> angemeldet ist,</td></tr>
+            <tr><td>die Rolle <strong>Kasse</strong> (CASHIER) hat &ndash; eine Bestellstation steht nicht zur Wahl, denn die Schublade der Ladenkasse gehört an eine Kasse.</td></tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li><strong>Vorschlag:</strong> Ist genau eine Kasse geeignet und noch keine bestimmt, schlägt das Formular sie vor. Gespeichert wird erst, wenn Sie <em>Speichern</em> drücken.</li>
+        <li><strong>Zurücksetzen:</strong> <em>Keine (die abschließende Kasse signiert)</em> hebt die Bestimmung auf. Dann signiert wieder die Kasse, an der der Abschluss ausgelöst wird &ndash; so verhalten sich bestehende Installationen, solange nichts bestimmt ist. Von einem Gerät ohne Kasse (Admin-Panel) ist dann nur der einfache Abschluss möglich.</li>
+        <li><strong>Spätere Änderungen:</strong> Die Eignung wird beim Abschluss erneut geprüft. Wird die bestimmte Kasse später deaktiviert oder abgemeldet, lehnt der Abschluss mit Zählung, Auszahlung oder Geldtransit ab, statt unter einer unpassenden Kasse zu signieren.</li>
+        <li><strong>Mehrere Kassen im Geschäft:</strong> Bestimmen Sie die signierende Kasse, bevor Sie im Admin-Panel abschließen.</li>
+        <li><strong>DSFinV-K:</strong> Im Export steht die signierende Kasse als <code>TERMINAL_ID</code> der betroffenen Buchungen und in <code>slaves.csv</code>, genau so, als wäre der Abschluss an dieser Kasse ausgelöst worden.</li>
+    </ul>
+
+    <h4 id="kap-12-kassensturz">Kassensturz (Abschluss einer Nebenkasse)</h4>
+
+    <p>Die Ladenkasse wird täglich per Z-Bon abgeschlossen. Eine Nebenkasse wird stattdessen per <strong>Kassensturz</strong> abgeschlossen &ndash; üblicherweise monatlich, einstellbar je Kasse (wöchentlich, monatlich, vierteljährlich oder manuell).</p>
+
+    <ol class="steps">
+        <li>Kasse auswählen &ndash; das System zeigt den abzuschließenden Zeitraum und den <strong>Buchbestand</strong></li>
+        <li>Bargeld zählen und den <strong>gezählten Bestand</strong> eingeben</li>
+        <li>Weicht die Zählung ab, bucht das System automatisch eine <strong>Kassendifferenz</strong> (Überschuss oder Fehlbetrag) mit eigenem Eigenbeleg</li>
+        <li>Der Zeitraum wird gesperrt</li>
+    </ol>
+
+    <p>Nach dem Abschluss stimmt der Buchbestand wieder mit dem gezählten Bestand überein &ndash; genau das ist der Zweck. Ein Abschluss ohne Differenzbuchung wäre wirkungslos: Das Kassenbuch bliebe wissentlich falsch und die Abweichung würde sich in den nächsten Zeitraum fortschreiben.</p>
+
+    <p>Die Zeiträume schließen lückenlos aneinander an; der nächste beginnt am Tag nach dem letzten Abschluss. Ein abgeschlossener Zeitraum kann <strong>nicht wieder geöffnet</strong> werden &ndash; ein Fehler wird, wie bei jedem Kassenbucheintrag, über eine Stornobuchung im Folgezeitraum korrigiert.</p>
+
+    <p><strong>Zweiter Kassensturz am selben Tag.</strong> Wurde nach einem Kassensturz noch am selben Tag in dieser Kasse gebucht, ist ein weiterer Kassensturz möglich; er deckt den heutigen Tag erneut ab und sperrt die seitdem gebuchten Einträge. Ohne neue Buchung wird er dagegen abgelehnt (&bdquo;nichts Neues abzuschließen&ldquo;), damit eine Zählung nicht beliebig oft wiederholt und der Bestand jedes Mal erneut verschoben werden kann.</p>
+
+    <div class="alert alert-warning">
+        <p><strong>Achtung:</strong> Solange eine Kasse einen nicht abgeschlossenen Zeitraum hat, lassen sich die <strong>Stammdaten des Betriebs</strong> (Name, Steuernummer, Anschrift) nicht ändern. Das gilt für alle Kassen, nicht nur die Ladenkasse. Wird die Änderung abgelehnt, nennt die Meldung die betroffene Kasse und den passenden Abschluss &ndash; für die Ladenkasse den Z-Bon, für einen Tresor oder eine andere Nebenkasse deren Kassensturz (ein Z-Bon schließt eine Nebenkasse nicht ab).</p>
+    </div>
+
+    <h4 id="kap-12-eintrag-erstellen">Neuen Eintrag erstellen</h4>
+    <ol class="steps">
+        <li><strong>Neuer Eintrag</strong> antippen</li>
+        <li>Typ wählen: Einnahme oder Ausgabe (siehe Tabelle Buchungstypen)</li>
+        <li>Belegdatum eingeben (Format: TT.MM.JJJJ) &ndash; das Datum, das <strong>auf dem Beleg</strong> steht. Es darf nicht in der Zukunft liegen und höchstens so viele Tage zurück, wie unter <strong>Kassen verwalten</strong> eingestellt ist (Standard: 31 Tage). An der Kasse bietet die Datumsauswahl nur diese Tage an.</li>
+        <li>Belegtext eingeben (max. 60 Zeichen &ndash; DATEV-Limit)</li>
+        <li>Mindestens eine Position mit Bruttobetrag und MwSt.-Satz hinzufügen</li>
+        <li>Optional: DATEV-Felder ausfüllen (Gegenkonto, Buchungsschlüssel, Kostenstellen, Nachricht)</li>
+        <li><strong>Beleg hochladen</strong> (Pflicht) &ndash; Eigenbeleg oder Rechnung als PDF/Bild auswählen; das Dokument wird zuerst hochgeladen und vom Server beim Anlegen des Eintrags verbindlich verknüpft (<code>documentId</code>). Auf Android öffnet sich dabei die Dateiauswahl des Systems (Downloads, Google Drive, USB-Stick, Galerie) &ndash; eine Speicherberechtigung ist nicht nötig. Am Desktop erscheint der eingebaute Dateibrowser. Dasselbe gilt für den Beleg einer Korrektur und für <strong>Dokument hochladen</strong>.</li>
+        <li><strong>Speichern</strong> &ndash; Belegnummer wird automatisch vergeben</li>
+    </ol>
+
+    <h4 id="kap-12-beleg-nach-abschluss">Belege nach dem Abschluss</h4>
+    <p>Ein Beleg darf ein Datum aus einem <strong>bereits abgeschlossenen</strong> Zeitraum tragen &ndash; etwa die Quittung von gestern, die erst heute abgegeben wird, oder eine Barausgabe am Abend nach dem Z-Bon bzw. nach dem Kassensturz einer Nebenkasse. Die Buchung landet dann im <strong>offenen</strong> Zeitraum (maßgeblich ist der Zeitpunkt der Buchung, bei der Ladenkasse der Signaturzeitpunkt) und <strong>behält ihr Belegdatum</strong>. Der abgeschlossene Zeitraum, sein Z-Bon und bereits erstellte Exporte bleiben unverändert.</p>
+    <div class="alert alert-info">
+        <p><strong>Die Buchung erfolgt an dem Tag, an dem das Geld die Kasse verlässt.</strong> Erstatten Sie z.&nbsp;B. einem Mitarbeiter eine Auslage aus der Kasse, buchen Sie die Auszahlung sofort; das Datum der Quittung tragen Sie als Belegdatum ein. So stimmt der gezählte Kassenbestand jederzeit mit dem Kassenbuch überein.</p>
+    </div>
+    <p>Abgelehnt werden nur ein Belegdatum in der <strong>Zukunft</strong> und eines, das weiter zurückliegt als die Einstellung <strong>Belegdatum: höchstens Tage zurück</strong> unter <strong>Kassen verwalten</strong> (1&ndash;366 Tage, Standard 31). Die Grenze gilt für alle Kassenbücher; sie verhindert vor allem Tippfehler wie ein falsches Jahr.</p>
+
+    <h5 id="kap-12-verspaetete-buchung">Verspätete Buchung über die Grenze hinaus</h5>
+    <p>Ein echter Nachzügler &ndash; etwa eine Lieferantenrechnung, die erst Wochen später auftaucht &ndash; lässt sich trotzdem buchen, <strong>bis zu einem Jahr zurück</strong>:</p>
+    <ol class="steps">
+        <li>Belegdatum wie auf dem Beleg eintragen. Liegt es über der Grenze, erscheint das Feld <strong>Grund für die verspätete Buchung</strong>.</li>
+        <li>Grund eintragen (Pflicht, z.&nbsp;B. &bdquo;Lieferantenrechnung verspätet erhalten&ldquo;). Er wird <strong>mit dem Eintrag gespeichert</strong> und in den Eintragsdetails angezeigt.</li>
+        <li><strong>Speichern.</strong> Wer die Berechtigung <code>CASHBOOK_BACKDATE</code> hat (standardmäßig Manager), bucht sofort. Alle anderen erhalten die Meldung <em>&bdquo;Anfrage an Manager gesendet&ldquo;</em>: Ein Manager bestätigt die Anfrage auf seinem Gerät, erst dann wird gebucht. Im Prüfprotokoll steht die Buchung dann mit Autorisierungsart <code>APPROVAL_REQUEST</code> und dem Namen des Managers.</li>
+    </ol>
+    <p>Ein Belegdatum in der Zukunft oder mehr als ein Jahr zurück lässt sich auch so nicht buchen. Welche Berechtigungsgruppe <code>CASHBOOK_BACKDATE</code> erhält, legen Sie unter <strong>Berechtigungen</strong> fest (Buchhaltung z.&nbsp;B. standardmäßig nicht).</p>
+
+    <h4 id="kap-12-felder">Kassenbuch-Felder (Header)</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Format</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>belegNr</code></td><td>Long</td><td>Fortlaufende Belegnummer, automatisch pro Geschäft vergeben</td></tr>
+            <tr><td><code>belegDatum</code></td><td>TT.MM.JJJJ</td><td>Belegdatum laut Beleg (z.&nbsp;B. &bdquo;01.02.2026&ldquo;); nicht in der Zukunft, höchstens so alt wie eingestellt (Standard 31 Tage). Bestimmt <em>nicht</em> den Zeitraum &ndash; siehe <em>Belege nach dem Abschluss</em></td></tr>
+            <tr><td><code>belegtext</code></td><td>String (max. 60)</td><td>Buchungstext &ndash; 60-Zeichen-Limit gemäß DATEV-Spezifikation</td></tr>
+            <tr><td><code>entryType</code></td><td>KassenbuchEntryType</td><td>Art der Buchung (siehe Buchungstypen)</td></tr>
+            <tr><td><code>waehrung</code></td><td>String (3)</td><td>Dreistelliger Währungscode, Standard: <code>EUR</code></td></tr>
+        </tbody>
+    </table>
+
+    <h4>DATEV-Felder (optional)</h4>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>bu</code></td><td>Buchungsschlüssel für automatische Kontenzuordnung in DATEV</td></tr>
+            <tr><td><code>gegenkonto</code></td><td>Gegenkonto-Nummer (z.&nbsp;B. &bdquo;8400&ldquo; für Umsatzerlöse im SKR04)</td></tr>
+            <tr><td><code>kost1</code></td><td>Kostenstelle 1</td></tr>
+            <tr><td><code>kost2</code></td><td>Kostenstelle 2</td></tr>
+            <tr><td><code>nachricht</code></td><td>Zusätzliche Nachricht oder Bemerkung</td></tr>
+        </tbody>
+    </table>
+
+    <h4 id="kap-12-positionen">Positionen (Multi-MwSt.-Unterstützung)</h4>
+
+    <p>Jeder Kassenbuch-Eintrag besteht aus mindestens einer Position (<code>lines</code>). Mehrere Positionen mit unterschiedlichen MwSt.-Sätzen und/oder Positionsarten teilen sich dieselbe Belegnummer &ndash; ideal für Belege mit gemischten Steuersätzen (z.&nbsp;B. 7&nbsp;% und 19&nbsp;% in einer Rechnung) und negativen Bestandteilen (z.&nbsp;B. Warengutschein, Pfandrückgabe).</p>
+
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Format</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>kind</code></td><td>KassenbuchLineKind</td><td>Positionsart (siehe Tabelle &bdquo;Positionsarten&ldquo; unten) &ndash; Standard: <code>STANDARD</code></td></tr>
+            <tr><td><code>amount</code></td><td>Zahl, signiert</td><td>Betrag <strong>wie auf dem Beleg gedruckt</strong> &ndash; positiv für Waren-/Einnahmen-Positionen, negativ für Gutschein-/Rabatt-Abzüge; darf nicht 0 sein</td></tr>
+            <tr><td><code>vatRate</code></td><td>String</td><td>MwSt.-Satz (z.&nbsp;B. &bdquo;0&ldquo;, &bdquo;7&ldquo;, &bdquo;19&ldquo;) &ndash; Pflichtfeld außer bei Positionsart <code>NON_CASH_PAYMENT</code>; bei Eintragsarten ohne USt-Bezug (Geldtransit/Bankeinzahlung, Privateinlage, Privatentnahme, Bargeldeinlage, Kassendifferenz, Anfangsbestand, Wechselgeld) speichert der Server stets <code>0</code> und die Detailansicht zeigt &bdquo;Nicht steuerbar&ldquo; (seit v1.1.2; ältere Einträge behalten den gespeicherten Satz)</td></tr>
+            <tr><td><code>belegtext</code></td><td>String, optional</td><td>Zeilenspezifischer Buchungstext &ndash; überschreibt den Kopf-Belegtext für diese Position</td></tr>
+        </tbody>
+    </table>
+
+    <h4 id="kap-12-positionsarten">Positionsarten (<code>KassenbuchLineKind</code>)</h4>
+
+    <p>Die Positionsart klassifiziert jede Zeile und bestimmt beim DATEV-Export, welches Konto gezogen wird (siehe <a href="datev-xml-export.html#s12" target="_blank">DATEV-Export &ndash; Kontenzuordnung</a>):</p>
+
+    <table>
+        <thead>
+            <tr><th>Art</th><th>Bedeutung</th><th>MwSt.-Satz</th><th>Manuell erfassbar</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>STANDARD</code></td><td>Ware / Erlöse zu einem MwSt.-Satz</td><td>Pflicht</td><td>Ja</td></tr>
+            <tr><td><code>PFAND</code></td><td>Pfand / Leergut &ndash; positiv bei Pfand-Einnahme, negativ bei Rückgabe</td><td>Pflicht (Standard &bdquo;19&ldquo;)</td><td>Ja</td></tr>
+            <tr><td><code>GUTSCHEIN</code></td><td>Warengutschein / Rabatt &ndash; MwSt.-tragender Abzug pro Satz (keine Zahlungsart)</td><td>Pflicht</td><td>Ja</td></tr>
+            <tr><td><code>NON_CASH_PAYMENT</code></td><td>Unbare Zahlung, die aus einem Bar-Gesamtbetrag herausgerechnet wird</td><td>&ndash; (kein MwSt.-Satz)</td><td><strong>Nein &ndash; Z-Bon-intern, nicht manuell erfassbar</strong></td></tr>
+            <tr><td><code>EMPLOYEE_TIP</code></td><td>Mitarbeiter-Trinkgeld (DSFinV-K <code>TrinkgeldAN</code>, kein Umsatz) &ndash; positiv als Zeile <code>TE:Trinkgeld (AN)</code> im Z-Bon-Sammeleintrag (bar und Karte), negativ als <a href="kap-11-berichte.html#kap-11-trinkgeld-auszahlen">Trinkgeld-Auszahlung</a>. DATEV: Sonderbuchung <em>Trinkgeld Arbeitnehmer</em> (Vorschlag 1590/1370)</td><td>&ndash; (im Z-Bon-Eintrag &bdquo;0&ldquo;, ohne Wirkung auf das Konto)</td><td><strong>Nein &ndash; nur vom System gebucht</strong></td></tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <strong>Hinweis:</strong> Positionen der Art <code>NON_CASH_PAYMENT</code> werden ausschließlich vom Tagesabschluss (Z-Bon) automatisch erzeugt, um unbare Zahlarten aus dem Bar-Gesamtbetrag herauszurechnen. Der manuelle Eintrags-Dialog und die API lehnen diese Positionsart ab.
+    </div>
+
+    <div class="alert alert-info">
+        <strong>Pfand-Zeilen im Z-Bon-Sammeleintrag:</strong> Ist mindestens ein verkauftes Produkt als Pfand-Artikel markiert (<code>isDeposit</code>) oder als Leergut-Rückgabe (<code>isDepositReturn</code>, siehe <a href="kap-09-artikelverwaltung.html">Kapitel 09 &ndash; Artikelverwaltung</a>), zerlegt der Tagesabschluss (Z-Bon) den automatisch erzeugten Sammeleintrag zusätzlich in separate <code>PFAND</code>-Positionen &ndash; getrennt nach MwSt.-Satz sowie getrennt für Pfand-Einnahme (positiv) und Leergut-Rückgabe (negativ), zusätzlich zur normalen <code>STANDARD</code>-Position. Die Summe des Eintrags (<code>totalAmount</code>, <code>currentBalance</code>) bleibt durch diese Aufteilung unverändert &ndash; es handelt sich lediglich um eine feinere Gliederung derselben Kassenbewegung. Ein Pfand-Artikelkatalog mit automatischer Verknüpfung zu Getränkeprodukten ist für einen späteren Ausbauschritt vorgesehen (Spec&nbsp;C); aktuell müssen Pfand-Produkte manuell in der Artikelverwaltung markiert werden.
+    </div>
+
+    <div class="alert alert-info">
+        <strong>Trinkgeld-Zeile im Z-Bon-Sammeleintrag:</strong> Ein <strong>Mitarbeiter-Trinkgeld</strong> ist nicht steuerbar und damit kein Umsatz; es steckt deshalb in keiner MwSt.-Gruppe des Tagesabschlusses. Das Bargeld liegt aber in der Schublade, und der Sammeleintrag muss die tatsächlichen Tageseinnahmen abbilden. Der Tagesabschluss erzeugt dafür eine eigene Position <code>TE:Trinkgeld (AN)</code> über den Trinkgeldbetrag &ndash; ohne sie wäre die Summe der Positionen um genau dieses Trinkgeld kleiner als der Eintrag selbst. Die Position trägt den Satz <code>0</code>, damit der DATEV-Export ihr ein Konto zuordnen kann. Ein <strong>Inhaber-Trinkgeld</strong> erscheint dagegen in der normalen <code>STANDARD</code>-Position seines MwSt.-Satzes, weil es mit der Leistung versteuert wird.
+    </div>
+
+    <h4 id="kap-12-signierte-betraege">Signierte Beträge &ndash; Beträge wie auf dem Beleg</h4>
+
+    <p>Beträge werden <strong>exakt wie auf dem Papierbeleg</strong> eingegeben &ndash; keine Vorzeichen-Umrechnung im Kopf nötig. Waren-Positionen sind positiv, Gutschein-/Rabatt-Positionen negativ. Das Vorzeichen der eigentlichen Kassenbewegung (<code>vorzBetrag</code>) ergibt sich serverseitig aus Beleg-Vorzeichen &times; Buchungstyp-Richtung (Einnahme-Typen: <code>+</code>, Ausgabe-Typen: <code>-</code>). Die <strong>Detailansicht</strong> eines Eintrags zeigt die Positionen im Vorzeichen der Kassenbewegung &ndash; also im selben Vorzeichen wie &bdquo;Gesamt&ldquo;, sodass sich die Positionen zur Summe addieren (eine Privatentnahme über 1,00&nbsp;€ zeigt &bdquo;Gesamt −1,00&nbsp;€&ldquo; und die Position −1,00&nbsp;€). Das Betragsfeld behält die eingegebene Schreibweise (&bdquo;200,00&ldquo; bleibt &bdquo;200,00&ldquo;).</p>
+
+    <p>Beispiel &ndash; Metro-Wareneinkauf, bar bezahlt (Beleg mit zwei MwSt.-Sätzen und Warengutscheinen):</p>
+
+    <table>
+        <thead>
+            <tr><th>Position</th><th>Art</th><th>MwSt.</th><th>Betrag</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Waren A</td><td><code>STANDARD</code></td><td>19&nbsp;%</td><td>+23,78</td></tr>
+            <tr><td>Waren B</td><td><code>STANDARD</code></td><td>7&nbsp;%</td><td>+131,78</td></tr>
+            <tr><td>Warengutschein A</td><td><code>GUTSCHEIN</code></td><td>19&nbsp;%</td><td>&minus;19,11</td></tr>
+            <tr><td>Warengutschein B</td><td><code>GUTSCHEIN</code></td><td>7&nbsp;%</td><td>&minus;105,89</td></tr>
+            <tr><td colspan="3"><strong>Zahlbetrag (bar)</strong></td><td><strong>30,56</strong></td></tr>
+        </tbody>
+    </table>
+
+    <p>Buchungstyp <code>CASH_EXPENSE</code> (Ausgabe): die Summe der vier Positionsbeträge (23,78&nbsp;+&nbsp;131,78&nbsp;&minus;&nbsp;19,11&nbsp;&minus;&nbsp;105,89&nbsp;=&nbsp;30,56) ergibt die Belegsumme, aus der der Buchungstyp anschließend die tatsächliche Kassenbewegung (hier: Ausgabe &rarr; &minus;30,56) ableitet.</p>
+
+    <div class="alert alert-warning">
+        <strong>Belegsumme muss positiv sein:</strong> Die Summe aller Positionsbeträge (wie auf dem Beleg, vor Anwendung des Buchungstyps) muss größer 0 sein. Ergibt die Summe 0 oder negativ, ist der falsche Buchungstyp gewählt &ndash; wählen Sie stattdessen die Gegenrichtung (Einnahme &harr; Ausgabe), statt die Vorzeichen der Positionen zu verändern.
+    </div>
+
+    <h4>Detailansicht einer Position</h4>
+    <p>In der Detailansicht (Klick auf einen Eintrag) werden zusätzlich pro Zeile angezeigt:</p>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>vorzBetrag</code></td><td>Betrag mit Vorzeichen (z.&nbsp;B. &bdquo;+100,00&ldquo; oder &bdquo;-50,00&ldquo;)</td></tr>
+            <tr><td><code>ustSatz</code></td><td>MwSt.-Satz dieser Zeile</td></tr>
+            <tr><td><code>kind</code></td><td>Positionsart (<code>KassenbuchLineKind</code>)</td></tr>
+            <tr><td><code>paymentTypeName</code></td><td>Name der Zahlungsart &ndash; nur bei <code>NON_CASH_PAYMENT</code>-Positionen aus dem Z-Bon gesetzt, sonst leer</td></tr>
+            <tr><td><code>belegtext</code></td><td>Optionaler zeilenspezifischer Buchungstext</td></tr>
+            <tr><td><code>kostmenge</code></td><td>Kostenmenge</td></tr>
+            <tr><td><code>skonto</code></td><td>Skonto-Betrag</td></tr>
+            <tr><td><code>subBalance</code></td><td>Laufender Saldo nach dieser Zeile</td></tr>
+            <tr><td><code>datevExportLine</code></td><td>Vorformatierte DATEV-Exportzeile &ndash; <strong>nur Vorschau/Legacy-Format</strong>, nicht maßgeblich; für den tatsächlichen Export siehe Kapitel &bdquo;DATEV-Export&ldquo;</td></tr>
+        </tbody>
+    </table>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-buchungstypen">Buchungstypen (KassenbuchEntryType)</h3>
+
+    <p>Jeder Kassenbuch-Eintrag hat einen Typ, der die Art der Bargeldbewegung beschreibt und das Vorzeichen bestimmt. Die <strong>DATEV-Konten</strong> ergeben sich nicht mehr aus festen Vorgaben je Typ, sondern aus der <strong>DATEV-Kontenzuordnung</strong> des Betriebs (Web-Admin, <em>Compliance &rarr; Datenexport</em>, siehe <a href="#kap-12-export">DATEV-Export</a>): Umsatz- und Ausgabetypen über die Tabellen nach Positionsart und MwSt.-Satz, alle übrigen über eigene Felder für Sonderbuchungen.</p>
+
+    <table>
+        <thead>
+            <tr><th>Typ</th><th>Bezeichnung</th><th>Richtung</th><th>Konto aus der Kontenzuordnung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>CASH_SALE</code></td><td>Barverkauf</td><td>Einnahme</td><td>Erlöse nach Positionsart und MwSt.-Satz</td></tr>
+            <tr><td><code>CASH_PAYMENT</code></td><td>Barzahlung</td><td>Einnahme</td><td>Erlöse nach Positionsart und MwSt.-Satz</td></tr>
+            <tr><td><code>CASH_DEPOSIT</code></td><td>Bargeldeinlage</td><td>Einnahme</td><td>Sonderbuchung</td></tr>
+            <tr><td><code>PRIVATE_DEPOSIT</code></td><td>Privateinlage</td><td>Einnahme</td><td>Sonderbuchung</td></tr>
+            <tr><td><code>CASH_TRANSFER_IN</code></td><td>Geldtransit (Zugang) &ndash; von der Bank, dem Tresor oder einer anderen Kasse</td><td>Einnahme</td><td>Sonderbuchung (Geldtransit)</td></tr>
+            <tr><td><code>CASH_TRANSFER_OUT</code></td><td>Geldtransit (Abgang) &ndash; zur Bank, in den Tresor oder in eine andere Kasse</td><td>Ausgabe</td><td>Sonderbuchung (Geldtransit)</td></tr>
+            <tr><td><code>CASH_EXPENSE</code></td><td>Barausgabe</td><td>Ausgabe</td><td>Aufwand nach Positionsart und MwSt.-Satz</td></tr>
+            <tr><td><code>CASH_WITHDRAWAL</code></td><td>Barentnahme</td><td>Ausgabe</td><td>Sonderbuchung</td></tr>
+            <tr><td><code>PRIVATE_WITHDRAWAL</code></td><td>Privatentnahme</td><td>Ausgabe</td><td>Sonderbuchung</td></tr>
+            <tr><td><code>REFUND</code></td><td>Rückerstattung</td><td>Ausgabe</td><td>Erlöse (Minderung)</td></tr>
+            <tr><td><code>CASH_SURPLUS</code></td><td>Kassendifferenz Plus</td><td>Einnahme</td><td>Sonderbuchung</td></tr>
+            <tr><td><code>CASH_SHORTAGE</code></td><td>Kassendifferenz Minus</td><td>Ausgabe</td><td>Sonderbuchung</td></tr>
+            <tr><td><code>OPENING_BALANCE</code></td><td>Anfangsbestand</td><td>Einnahme</td><td>Sonderbuchung</td></tr>
+            <tr><td><code>CLOSING_BALANCE</code></td><td>Endbestand</td><td>Ausgabe</td><td>Sonderbuchung</td></tr>
+            <tr><td><code>CORRECTION_IN</code></td><td>Korrektur (Zugang)</td><td>Einnahme</td><td>wie der korrigierte Eintrag</td></tr>
+            <tr><td><code>CORRECTION_OUT</code></td><td>Korrektur (Abgang)</td><td>Ausgabe</td><td>wie der korrigierte Eintrag</td></tr>
+            <tr><td><code>CHANGE_FUND</code></td><td>Wechselgeld</td><td>Einnahme</td><td>Sonderbuchung</td></tr>
+        </tbody>
+    </table>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-saldo">Saldoverfolgung</h3>
+
+    <ul>
+        <li><code>totalAmount</code> &ndash; Summe aller Positionen eines Eintrags (mit Vorzeichen)</li>
+        <li><code>currentBalance</code> &ndash; Laufender Bestand <strong>dieser Kasse</strong> nach diesem Eintrag</li>
+        <li>Der aktuelle Bestand kann über <code>GET /api/v1/kassenbuch/balance</code> abgerufen werden. Ohne Angabe liefert der Aufruf den Bestand der <strong>Ladenkasse</strong>; eine andere Kasse wird über <code>?cashBookId=</code> angefragt. Eine unbekannte <code>cashBookId</code> ergibt <strong>404</strong> (<code>RESOURCE_NOT_FOUND</code>), nicht einen Bestand von 0,00. Der Bestand kommt als Dezimalzahl mit Punkt und zwei Nachkommastellen (z.&nbsp;B. <code>5524.72</code>), wie jeder andere Geldbetrag der Schnittstelle; die Formatierung (<code>5.524,72&nbsp;€</code>) übernimmt die Anzeige. Ältere Server lieferten ohne Parameter die deutsche Anzeigeform (<code>5.524,72</code>); der damalige Schalter <code>?raw=true</code> wird weiter angenommen und ändert nichts mehr.</li>
+        <li>Die Saldoverfolgung ist Voraussetzung für die <strong>Kassensturzfähigkeit</strong></li>
+    </ul>
+
+    <div class="alert alert-info">
+        <p><strong>Bestände werden nie addiert.</strong> Jede Kasse hat ihren eigenen Saldo, und es gibt bewusst keinen Gesamtbestand über alle Kassen: Die Summe aus Schublade und Tresor entspricht keinem zählbaren Bestand und keinem einzelnen DATEV-Konto. Die Eintragsliste (<code>GET /entries</code>) zeigt dagegen standardmäßig alle Kassen &ndash; eine gemeinsame Liste ist sinnvoll, ein gemeinsamer Saldo nicht.</p>
+    </div>
+
+    <h4 id="kap-12-kassenminus">Kassenminus-Sperre: kein Kassenbuch unter null</h4>
+
+    <p>Keine Buchung darf den Bestand eines Kassenbuchs unter null bringen &ndash; weder in der Ladenkasse noch im Tresor oder einer anderen Kasse. Ein negativer Kassenbestand ist ein formeller Mangel der Kassenführung (GoBD Tz. 3.3.3, Kassensturzfähigkeit): Er beweist, dass eine Einnahme oder Einlage in den Aufzeichnungen fehlt. Die Sperre gilt für <strong>jede Entnahme</strong>: Ausgaben, Barentnahmen, Privatentnahmen, Rückerstattungen, die Neubuchung einer Korrektur, Trinkgeld-Auszahlungen (im Abschluss und danach) und den abgebenden Teil eines Geldtransits.</p>
+
+    <p><strong>Verfügbar</strong> ist, was die Kasse in diesem Moment tatsächlich hält:</p>
+    <ul>
+        <li><strong>Tresor, Hauptkasse, Nebenkasse:</strong> der Buchbestand. Hierher gelangt Geld nur über Kassenbuch-Einträge.</li>
+        <li><strong>Ladenkasse:</strong> der Buchbestand <strong>plus die Bareinnahmen der noch nicht abgeschlossenen Rechnungen</strong>. Barumsätze erreichen das Kassenbuch erst mit der Sammelbuchung des nächsten Z-Bons, liegen aber ab der Zahlung in der Schublade &ndash; eine Kasse, die mittags 300&nbsp;€ bar eingenommen hat, kann eine Ausgabe von 40&nbsp;€ bezahlen, auch wenn ihr Buchbestand 0,00&nbsp;€ zeigt. Es ist genau der Betrag, mit dem die Kassenzählung vergleicht (<em>Erwartet in der Kasse</em>); Zählung und Sperre sind sich deshalb immer einig.</li>
+        <li><strong>Im Tagesabschluss</strong> hat die Sammelbuchung die Bareinnahmen bereits gebucht; dort gilt allein der Buchbestand.</li>
+    </ul>
+
+    <p>Die Eingabemasken (Kasse und Backoffice) zeigen bei einer Entnahme <em>Verfügbares Bargeld</em> und sperren das Bestätigen, sobald der Betrag darüber liegt. Der Server prüft unabhängig davon unter derselben Sperre (<code>pg_advisory_xact_lock(1)</code>), die jede Kassenbuch-Buchung und jeder Abschluss nimmt: Zwei gleichzeitige Entnahmen können also nicht beide auf denselben Bestand gebucht werden. Eine zu hohe Entnahme lehnt er mit <code>409 KASSENBUCH_INSUFFICIENT_CASH</code> ab; die Meldung nennt den verfügbaren Betrag, gebucht wird nichts. Abfrage: <code>GET /api/v1/kassenbuch/available-cash?cashBookId=</code> (ohne Angabe: die Ladenkasse).</p>
+
+    <p><strong>Was tun?</strong> Das fehlende Geld zuerst einbuchen &ndash; meist ein Geldtransit aus dem Tresor oder eine Einlage &ndash;, dann die Entnahme buchen.</p>
+
+    <div class="alert alert-info">
+        <strong>Ausnahmen &ndash; bewusst nicht gesperrt:</strong>
+        <ul>
+            <li><strong>Stornos</strong> (die Gegenbuchung einer Korrektur, der Storno eines Geldtransits oder einer Trinkgeld-Auszahlung). Ein Storno sagt, dass eine Buchung nicht stattgefunden hat. Ihn zu verweigern hieße, eine als falsch erkannte Buchung stehen zu lassen &ndash; das wiegt nach GoBD (Richtigkeit) schwerer als der negative Bestand, den der Storno sichtbar macht und der ohnehin die Wahrheit war. Beispiel: Eine Einlage von 10,00&nbsp;€ wird storniert, nachdem das Geld bereits ausgegeben wurde &ndash; der Storno wird gebucht, der Bestand wird negativ, und die tatsächlich fehlende Einlage muss danach gebucht werden. Die <strong>Neubuchung</strong> einer Korrektur ist dagegen eine gewöhnliche Buchung und unterliegt der Sperre; das prüft der Server, <em>bevor</em> der Storno gebucht wird, sodass keine halbe Korrektur entsteht.</li>
+            <li><strong>Die Kassendifferenz einer Kassenzählung</strong> (Kassenfehlbetrag/-überschuss, einzeln oder im Z-Bon-Dialog): Sie hält fest, was gezählt wurde, also die Wirklichkeit, und ist gerade der Weg, Buch und Schublade wieder in Einklang zu bringen.</li>
+        </ul>
+    </div>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-sperrung">Sperrung (Locking)</h3>
+
+    <p>Kassenbuch-Einträge werden automatisch gesperrt (<code>isLocked = true</code>), sobald ihr Zeitraum abgeschlossen ist. Gesperrte Einträge sind in der Oberfläche als solche gekennzeichnet und können nicht mehr verändert werden. Dies gewährleistet die Unveränderbarkeit abgeschlossener Abrechnungszeiträume.</p>
+
+    <p>Welcher Abschluss die Sperre setzt, hängt von der Kasse ab &ndash; die beiden Wege überschneiden sich nicht:</p>
+
+    <table>
+        <thead>
+            <tr><th>Kasse</th><th>Gesperrt durch</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Ladenkasse (fiskalisch)</td><td>den Z-Bon (Kassenabschluss)</td></tr>
+            <tr><td>Tresor / Nebenkasse</td><td>den Kassensturz dieser Kasse</td></tr>
+        </tbody>
+    </table>
+
+    <p>Ein Z-Bon sperrt also ausschließlich Einträge der Ladenkasse und lässt Nebenkassen unberührt; ein Kassensturz wirkt nur auf die Kasse, für die er durchgeführt wurde.</p>
+
+    <p>Die Sperre betrifft die <strong>Belegzuordnung</strong> (ein gesperrter Eintrag nimmt kein anderes PDF mehr an). Eine <strong>Korrektur bleibt jederzeit möglich</strong> &ndash; auch in einem abgeschlossenen Zeitraum &ndash;, allerdings ausschließlich über Storno und Neubuchung, nie durch Änderung des ursprünglichen Eintrags (siehe nächster Abschnitt).</p>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-korrektur">Korrektur / Storno</h3>
+
+    <p>Kassenbuch-Einträge dürfen gemäß GoBD <strong>niemals nachträglich geändert oder gelöscht</strong> werden. Enthält ein Eintrag einen Fehler, wird er über den Storno-Mechanismus korrigiert: Der ursprüngliche Eintrag bleibt unverändert; stattdessen werden zwei neue Einträge im laufenden Zeitraum angehängt.</p>
+
+    <div class="alert alert-info">
+        <strong>Berechtigung:</strong> Korrekturen setzen die Berechtigung <code>CASHBOOK_WRITE</code> voraus (standardmäßig Manager und Buchhaltung). Erfasst werden sie in der <strong>Kassen-App</strong> unter <em>Finanzdokumente</em> (Schaltfläche <strong>Korrektur</strong> in der Detailansicht, nur mit <code>CASHBOOK_WRITE</code> sichtbar); die Kassenbuch-Ansicht im Verwaltungsbereich bietet keine Korrektur an.
+    </div>
+
+    <h4>Ablauf einer Korrektur</h4>
+    <ol class="steps">
+        <li>Den zu korrigierenden Eintrag in der Liste auswählen und die Detailansicht öffnen</li>
+        <li><strong>Korrektur</strong> antippen &ndash; der Button ist auch bei gesperrten Einträgen aktiv</li>
+        <li>Im Dialog einen <strong>Korrekturgrund</strong> (Pflichtfeld, GoBD-konform) eingeben</li>
+        <li>Die korrigierten Werte (Typ, Betrag, Belegtext etc.) eintragen</li>
+        <li>Optional: ein neues Belegdokument hochladen; fehlt dieses, wird das Originaldokument serverseitig kopiert</li>
+        <li><strong>Speichern</strong> &ndash; der Server legt automatisch zwei neue Einträge an</li>
+    </ol>
+
+    <h4>Die zwei erzeugten Einträge</h4>
+    <table>
+        <thead>
+            <tr><th>Rolle</th><th>Buchungstyp</th><th>Inhalt</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>REVERSAL</code> (Storno)</td>
+                <td><code>CORRECTION_OUT</code> / <code>CORRECTION_IN</code></td>
+                <td>Hebt den Originalbetrag auf &ndash; spiegelbildliches Gegenbuchung. Verknüpft mit einem automatisch erzeugten <strong>Storno-Eigenbeleg</strong>, der den Korrekturgrund sowie Beleg-Nr. und Datum des Originaleintrags enthält. Im DATEV-Export (Buchungsstapel und XML) bucht der Storno auf <strong>dieselben Konten</strong> wie der Originaleintrag &ndash; Konto, Gegenkonto und BU-Schlüssel &ndash;, nur mit umgekehrtem Soll/Haben. Der Storno einer Privateinlage im Tresor erscheint also als <code>1010 / Privateinlage-Konto</code> im Haben, nicht als Erlösminderung.</td>
+            </tr>
+            <tr>
+                <td><code>RE_ENTRY</code> (Neubuchung)</td>
+                <td>Typ gemäß korrigierten Angaben</td>
+                <td>Enthält die berichtigten Werte. Verknüpft mit dem neuen Belegdokument (oder einer serverseitigen Kopie des Originalbelegs).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Beide Einträge erhalten eigene fortlaufende Belegnummern und TSE-Signaturen. Das Feld <code>correctsHeaderId</code> zeigt in der Detailansicht auf den ursprünglichen Eintrag; <code>correctsBelegNr</code> nennt dessen Belegnummer.</p>
+
+    <h4>Regeln und Einschränkungen</h4>
+    <ul>
+        <li>Ein bereits korrigierter Eintrag (d.&nbsp;h. es existiert bereits ein Storno-Gegeneintrag) kann <strong>nicht erneut</strong> storniert werden &ndash; der Server weist eine zweite Korrektur ab.</li>
+        <li>Eine <strong>Storno-Buchung</strong> (<code>REVERSAL</code>) ist die mechanische Gegenbuchung des Originals und kann <strong>nicht</strong> korrigiert werden.</li>
+        <li>Eine <strong>Geldtransit-Buchung</strong> (eine Seite eines Transits zwischen zwei Kassen) wird <strong>nicht einzeln</strong> korrigiert: Die Kassen-App zeigt dort keine Schaltfläche <strong>Korrektur</strong>, sondern einen Hinweis, und der Server weist eine Einzelkorrektur ab (<code>422</code>). Storniert wird immer der gesamte Transit (siehe <a href="#kap-12-geldtransit">Geldtransit zwischen zwei Kassen</a>).</li>
+        <li>Eine fehlerhafte <strong>Korrektur-Neubuchung</strong> (<code>RE_ENTRY</code>) kann hingegen erneut korrigiert werden &ndash; dabei entsteht eine weitere Storno-&nbsp;+&nbsp;Neubuchung (<strong>verkettete Korrektur</strong>). Korrigiert wird stets der aktuellste Eintrag der Kette; bereits stornierte Einträge werden abgewiesen. Auch das Lösen/Ersetzen des Belegs ist bei Korrektur-Einträgen gesperrt &ndash; ein falscher Beleg wird über eine erneute Korrektur ausgetauscht.</li>
+        <li>Korrekturen werden stets <strong>im aktuell offenen Abrechnungszeitraum</strong> gebucht &ndash; unabhängig davon, in welchem Zeitraum der Originaleintrag liegt.</li>
+        <li>Gesperrte Originaleinträge (<code>isLocked = true</code>) können korrigiert werden; die Sperrung betrifft nur die Unveränderbarkeit des Originals, nicht die Möglichkeit, Korrekturbuchungen anzuhängen.</li>
+    </ul>
+
+    <div class="alert alert-warning">
+        <strong>Z-Bon-Sammelbuchungen können nicht storniert werden:</strong> Automatisch vom Tagesabschluss erzeugte Kassenbuch-Einträge, die eine <code>NON_CASH_PAYMENT</code>-Position enthalten (unbare Zahlarten aus dem Bar-Gesamtbetrag herausgerechnet), lehnt der Server für den Korrektur-Mechanismus ab. Diese Einträge sind spiegelbildlich zu den TSE-signierten Z-Bon-Daten und dürfen nicht nachträglich verändert werden; nur manuell erstellte Kassenbuch-Einträge können korrigiert/storniert werden.
+    </div>
+
+    <div class="alert alert-info">
+        <strong>API:</strong> <code>POST /api/v1/kassenbuch/entries/{headerId}/correct</code> &ndash; Pflichtfelder: <code>reason</code> (Korrekturgrund), <code>correctedEntry</code> (neue Buchungswerte). Optional: <code>replacementDocumentId</code> für ein bereits hochgeladenes Ersatzdokument.
+    </div>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-tse">TSE-Verknüpfung</h3>
+
+    <p>Kassenbuch-Einträge der <strong>Ladenkasse</strong> werden mit einer TSE-Transaktion verknüpft (KassenSichV-Konformität). Einträge einer <strong>Nebenkasse</strong> werden nicht signiert; sie tragen den Status <code>NOT_APPLICABLE</code> &ndash; nicht etwa &bdquo;ausstehend&ldquo;, denn es wird keine Signatur nachgereicht:</p>
+
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>tseTransactionId</code></td><td>Referenz auf die TSE-Transaktion</td></tr>
+            <tr><td><code>tseSignature</code></td><td>Digitale Signatur der TSE</td></tr>
+            <tr><td><code>tseTransactionNumber</code></td><td>Fortlaufende TSE-Transaktionsnummer</td></tr>
+            <tr><td><code>tseSignedAt</code></td><td>Zeitstempel der TSE-Signierung</td></tr>
+        </tbody>
+    </table>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-dokumente">Dokumentenverknüpfung &amp; PDF-Upload</h3>
+
+    <p>Jeder Kassenbuch-Eintrag (Header) kann mit genau einem PDF-Dokument verknüpft werden (<code>linkedDocumentId</code>, Beziehung 0..1). Dies ermöglicht die digitale Belegablage direkt im Kassenbuch.</p>
+
+    <h4>Verknüpfung erstellen</h4>
+    <ol class="steps">
+        <li>Kassenbuch-Eintrag in der Liste auswählen</li>
+        <li>In der Kassen-App <strong>Beleg hinzufügen</strong> antippen (bei einem Eintrag mit Beleg: <strong>Beleg ersetzen</strong> bzw. <strong>Verknüpfung lösen</strong>)</li>
+        <li>Beleg scannen bzw. Datei hochladen &ndash; er wird direkt mit dem Eintrag verknüpft.
+            Ein bereits abgelegtes Dokument lässt sich nicht auswählen: Die Kasse hat keine Belegübersicht mehr,
+            und die Kassenbuch-Ansicht im <strong>Web-Admin</strong> ist eine reine Ansicht. Im Web-Admin wird der
+            Beleg einer Nebenkassen-Buchung beim Anlegen im Buchungsformular hochgeladen.</li>
+        <li>Verknüpfung wird gespeichert &ndash; das Dokument wird in der Detailansicht angezeigt</li>
+    </ol>
+
+    <h4>Unterstützte Dateiformate</h4>
+    <ul>
+        <li><strong>PDF</strong> &ndash; bevorzugtes Format für Rechnungen; enthält es eine ZUGFeRD-/Factur-X-Rechnung, wird diese automatisch ausgelesen (siehe <a href="#kap-12-erechnung">E-Rechnungen</a>)</li>
+        <li><strong>JPG</strong> &ndash; Fotos von Belegen</li>
+        <li><strong>PNG</strong> &ndash; Screenshots oder Scans</li>
+        <li><strong>XML</strong> &ndash; <strong>neu:</strong> reine XRechnung-Dateien (UBL oder CII) ohne PDF-Hülle</li>
+    </ul>
+
+    <div class="alert alert-info">
+        <strong>Neu &ndash; XML-Dateien werden angenommen:</strong> Bisher akzeptierte der Upload ausschließlich PDF, JPEG und PNG; eine unverpackte XRechnung wurde mit Fehler <code>415 Unsupported Media Type</code> abgewiesen. Solche Dateien können jetzt hochgeladen werden. Der Dateityp wird dabei stets am Dateiinhalt erkannt, nicht am vom Browser gemeldeten <code>Content-Type</code>.
+        <br><br>
+        <strong>Bekannte Eigenart:</strong> Die abgelegte Datei erhält unabhängig vom tatsächlichen Typ die Endung <code>.pdf</code> &ndash; eine hochgeladene XRechnung liegt also als <code>&hellip;.pdf</code> im Belegarchiv, obwohl sie XML enthält. Inhalt und Vorschau sind davon unberührt. Dieses Verhalten bestand bereits für JPG und PNG und betrifft nun auch XML.
+    </div>
+
+    <p>Die Verknüpfung kann über <code>PUT /api/v1/kassenbuch/entries/{headerId}/link-document</code> erstellt und über <code>DELETE /api/v1/kassenbuch/entries/{headerId}/link-document</code> wieder entfernt werden.</p>
+
+    <div class="alert alert-info">
+        <strong>Hinweis:</strong> In der gruppierten Ansicht zeigen die Felder <code>hasLinkedDocuments</code> und <code>linkedDocumentCount</code> an, ob und wie viele Dokumente mit einem Eintrag verknüpft sind. In der Detailansicht wird das verknüpfte Dokument als <code>linkedDocument</code> mit Vorschau angezeigt.
+    </div>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-bankbelege">Bankbelege</h3>
+
+    <p>Kontoauszüge und bankbezogene Dokumente werden im <strong>Web-Admin</strong> verwaltet: abgelegt unter <em>Belegfluss &rarr; Belege</em>, je Konto aufgelistet unter <em>Stammdaten &rarr; Bankkonten</em> (siehe <a href="#kap-12-bankkonten">Bankkonten</a>). An der Kasse gibt es keine Bankbeleg-Übersicht mehr; sie führt nur noch das Kassenbuch.</p>
+
+    <ul>
+        <li><strong>Upload</strong> &ndash; PDF-Dateien hochladen und kategorisieren</li>
+        <li><strong>Vorschau</strong> &ndash; Integrierter PDF-Viewer mit direkter Anzeige. Seine Leiste blättert seitenweise oder springt auf eine eingegebene Seite, vergrößert und verkleinert (auf Touchgeräten auch mit zwei Fingern) und passt die Seite wieder an die Breite an; dazu kommen <em>Herunterladen</em>, <em>Drucken</em> und <em>In neuem Tab öffnen</em> (zeigt die PDF im eigenen Viewer des Browsers). <em>Drucken</em> und <em>In neuem Tab öffnen</em> sind ausgegraut, bis die PDF angezeigt wird. Dialoge, Meldungen und das Menü auf dem Smartphone legen sich über die Vorschau; sie bleibt dahinter stehen. Lässt sich eine PDF nicht anzeigen, nennt die Vorschau den Grund, etwa eine beschädigte oder passwortgeschützte Datei oder <em>Die Dokumentdatei wurde auf dem Server nicht gefunden</em>, wenn die Datei auf dem Server fehlt. Liegt es an der Verbindung oder an der Anmeldung, bietet sie zusätzlich <em>Erneut versuchen</em> an. Für andere Dateitypen, etwa eine XML-Datei (E-Rechnung), erscheint stattdessen der Hinweis <em>Für diesen Dateityp ist keine Vorschau verfügbar</em>.</li>
+        <li><strong>Kopfzeile des geöffneten Belegs</strong> &ndash; <em>Herunterladen</em>, <em>Speichern</em> und <em>Stornieren</em> bzw. <em>Löschen</em> sind immer sichtbar (auf dem Smartphone ist <em>Herunterladen</em> ein Symbol in der Titelzeile). <em>Herunterladen</em> in der Kopfzeile liefert die Originaldatei jedes Typs &ndash; auch eine PDF, die der Viewer nicht öffnen kann, etwa weil sie passwortgeschützt ist.</li>
+        <li><strong>Nach Status suchen</strong> &ndash; unter <em>Belegfluss &rarr; Belege &rarr; Filter</em> (Schaltfläche neben dem Suchfeld; auf dem Smartphone öffnet sie die Filter als eigene Seite) lässt sich die Liste auf einen oder mehrere <strong>Verarbeitungsstatus</strong> eingrenzen (z.&nbsp;B. <em>Aus E-Rechnung gelesen</em> und <em>Geprüft</em> zugleich); nach <em>Anwenden</em> steht jeder gewählte Status als eigener, einzeln entfernbarer Filter über der Liste (auf dem Smartphone zeigt die Filter-Schaltfläche stattdessen die Anzahl der aktiven Filter). Ohne Auswahl zeigt die Liste wie bisher alle Belege.</li>
+        <li><strong>Löschen</strong> &ndash; Nur im Web-Admin (Belege &rarr; Beleg öffnen), nur mit der Berechtigung <code>DOCUMENT_DELETE</code> (standardmäßig nur Manager). Nicht möglich, solange der Beleg verknüpft ist. Ein Beleg, zu dem eine Rechnung erfasst bzw. aus dem sie gelesen wurde, wird <strong>nie</strong> gelöscht &ndash; er hat die Bücher gespeist. Statt <em>Löschen</em> bietet er <em>Stornieren</em> an: Die Rechnung wird durch eine Gegenbuchung aufgehoben, Beleg und Rechnung bleiben erhalten (siehe <a href="#kap-12-storno">Eine Rechnung stornieren</a>).</li>
+    </ul>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-rechnungen">Eingangsrechnungen</h3>
+
+    <p>Eingehende Rechnungen können digitalisiert und mit Kassenbuch-Einträgen verknüpft werden:</p>
+
+    <ol class="steps">
+        <li>Dokument hochladen oder an der Kasse scannen (PDF, JPG, PNG oder XML)</li>
+        <li>Rechnungsdaten erfassen (bei E-Rechnungen bereits ausgelesen, siehe unten) &ndash; im Verwaltungsbereich unter <em>Belegfluss &rarr; Rechnungen</em></li>
+        <li>Dokument mit einem Kassenbuch-Eintrag verknüpfen</li>
+        <li>Vorschau im integrierten Viewer prüfen</li>
+    </ol>
+
+    <h4>Die Arbeitsliste: Rechnungen</h4>
+
+    <p>Unter <em>Belegfluss &rarr; Rechnungen</em> steht die eigentliche Arbeitsliste. Oben zeigt die <strong>Fortschrittsleiste</strong> den Weg einer Rechnung in vier Stufen &ndash; <em>Erfassen</em>, <em>Prüfen</em>, <em>Zuordnen</em>, <em>Erledigt</em> &ndash; mit der Anzahl je Stufe. Die Leiste ist zugleich der Filter: Ein Klick auf eine Stufe zeigt deren Rechnungen. Dieselbe Leiste steht auch unter <em>Belege</em> und <em>Zuordnung</em>; dort führt ein Klick auf eine Stufe zur passenden Liste. Drei der vier Stufen sind die Erfassungsstapel:</p>
+
+    <ul>
+        <li><strong>Erfassen</strong> (Status <em>Zu erfassen</em>) &ndash; hochgeladene Belege, aus denen noch keine Rechnung ausgelesen oder eingetippt wurde. Das ist der Normalfall beim Papierbeleg.</li>
+        <li><strong>Prüfen</strong> (Status <em>Zu prüfen</em>) &ndash; ausgelesene Rechnungen, die noch niemand bestätigt hat.</li>
+        <li><strong>Erledigt</strong> (Bucket <em>Fertig</em>) &ndash; von einem Menschen geprüft und bestätigt.</li>
+    </ul>
+
+    <p>In jeder Stufe steht ihre Anzahl, auch wenn sie null ist &ndash; „nichts zu tun&ldquo; soll sich von „noch nicht geladen&ldquo; unterscheiden lassen.</p>
+
+    <div class="alert alert-info">
+        <strong>Belege ist jetzt das Archiv:</strong> Die Stapel sind aus <em>Belege</em> hierher gewandert. <em>Belege</em> bleibt die Ablage mit Volltextsuche über alle Dateien &ndash; gearbeitet wird unter <em>Rechnungen</em>. Erfasst, geprüft und storniert wird weiterhin ausschließlich im Verwaltungsbereich, nicht an der Kasse: So gibt es genau eine Stelle, an der die Rechnungsdaten eines Belegs stehen.</div>
+
+    <p>Auch unter <em>Belege</em> steht unter der Kopfzeile die Fortschrittsleiste der Rechnungen (Erfassen · Prüfen · Zuordnen · Erledigt): Ein Klick führt zum jeweiligen Rechnungsstapel, <em>Zuordnen</em> zur <a href="#kap-12-zuordnung">Zuordnung</a>. Die Spalte <em>Status</em> der Belegliste zeigt das Wort mit einem farbigen Punkt (grau: noch nichts ausgelesen, blau: wartet auf einen Menschen, grün: geprüft, rot: Auslesen fehlgeschlagen). Sind alle Seiten der Liste geladen, schlägt am Ende der Hinweis <em>Nächster Schritt</em> vor, was als Nächstes ansteht. Die Leiste und der Hinweis erscheinen nur mit der Berechtigung <code>INVOICE_READ</code>.</p>
+
+    <p>Im <strong>Beleg-Detail</strong> einer Rechnung steht oben die Karte <em>Rechnungsdaten prüfen</em> (bei einer bereits ausgelesenen E-Rechnung) bzw. <em>erfassen</em> mit der Schaltfläche, die in die Erfassungsmaske führt, darunter der <strong>Beleg-Verlauf</strong>: Hochgeladen, Erfasst, Geprüft, Verknüpft &ndash; erreichte Schritte mit Haken, der nächste hervorgehoben, dazu der Link <em>Zur Rechnung</em>. <em>Verknüpft</em> bedeutet hier: Dem Beleg ist mindestens eine Zahlung (ein Bankumsatz) zugeordnet; die Zahl nennt, wie viele Bankumsätze. Eine zurückgenommene Zuordnung zählt nicht mehr, und Verknüpfungen mit anderen Dokumenten oder dem Kassenbuch zählen bei Rechnungen nicht. Dieselbe Zahl steht in der Spalte <em>Verknüpft</em> der Belegliste; <em>Erfasst</em> ist erst angehakt, wenn zu dem Beleg eine Rechnung gespeichert ist.</p>
+
+    <p>Nach einem <strong>Import</strong> ersetzt ein Ergebnis-Banner die Upload-Karte: grüner Rand &bdquo;Rechnungsdaten gelesen&ldquo; (Schaltfläche <em>Prüfen</em>), grauer &bdquo;Keine E-Rechnung&ldquo; (<em>Weiter</em>), roter &bdquo;E-Rechnung nicht konform&ldquo; (<em>Beleg öffnen</em>) und &bdquo;Datei nicht lesbar&ldquo; (<em>Andere Datei wählen</em>), bernsteinfarben &bdquo;Dokument bereits vorhanden&ldquo; (ohne Schaltfläche: der Server nennt die vorhandene Datei nicht). Auch unter <em>Rechnungen</em> lässt sich ein Dokument hochladen (<em>Dokument hochladen</em>; mit der Berechtigung <code>DOCUMENT_WRITE</code>). <em>Rechnung erfassen</em> öffnet den Stapel <em>Erfassen</em> und dort den ersten Scan in der Erfassungsmaske; eine Rechnung ganz ohne Datei lässt sich nicht anlegen.</p>
+
+    <div class="alert alert-info">
+        <strong>Rechnungen ohne Beleg-Datei:</strong> Eine E-Rechnung, die als reine XML-Datei kam, und eine von Hand erfasste Rechnung haben keinen Scan &ndash; es gibt schlicht kein Bild, das man zeigen könnte. Solche Rechnungen lassen sich trotzdem ganz normal öffnen, bearbeiten, speichern und bestätigen; die Erfassungsmaske zeigt dann statt der Vorschau einen kurzen Hinweis. Das ist kein Fehler.</div>
+
+    <p>In der Erfassungsmaske führt <em>Speichern und zuordnen</em> (die Hauptschaltfläche oben, mit der Berechtigung <code>ACCOUNTING_READ</code>) die Rechnung zu Ende und öffnet danach gleich die <a href="#kap-12-zuordnung">Zuordnung</a>. Schlägt die Prüfung oder das Speichern fehl, bleibt die Maske mit dem Hinweis offen. <em>Speichern</em> bleibt daneben unverändert; <em>Als geprüft bestätigen</em> ist die zweite Schaltfläche.</p>
+
+    <p>Die Schaltflächen der Erfassungsmaske stehen <strong>unter dem Formular</strong> (<em>Geändert</em> bei offenen Änderungen; <em>Speichern und zuordnen</em> in voller Breite; darunter <em>Abbrechen</em> und <em>Speichern</em>; dann <em>Als geprüft bestätigen</em>). Über dem Formular zeigt die kleine Fortschrittsleiste, auf welcher Stufe der Beleg steht. Die USt-Aufschlüsselung besteht aus einer Karte je Steuersatz mit den berechneten Werten <em>Netto</em>, <em>USt</em> und <em>Brutto</em>; stimmt die Summe mit dem Bruttobetrag überein, bestätigt das eine grüne Zeile.</p>
+
+    <h4 id="kap-12-offen">Offen, Überfällig und Überzahlt &ndash; die Zahlungsstapel</h4>
+
+    <p>Die drei Stapel oben beantworten, ob eine Rechnung <em>erfasst</em> ist. Sie beantworten nicht, ob sie <em>bezahlt</em> ist &ndash; und das ist die Frage, wegen der man zum Monatsende auf die Liste schaut. Dafür gibt es drei weitere Stapel, die zur Stufe <em>Zuordnen</em> gehören: Sie ist die dritte Stufe der Leiste und zeigt die offene Summe (&bdquo;… offen&ldquo;). Ist <em>Zuordnen</em> gewählt, erscheinen darunter die Filter <em>Alle offen</em>, <em>Überfällig</em> und <em>Überzahlt</em>, jeweils mit ihrer Anzahl:</p>
+
+    <ul>
+        <li><strong>Offen</strong> &ndash; jede Rechnung, auf der noch ein Betrag aussteht und die nicht als bezahlt gekennzeichnet ist.</li>
+        <li><strong>Überfällig</strong> &ndash; dieselbe Liste, eingegrenzt auf die Rechnungen, deren Fälligkeitstag bereits vorbei ist &ndash; eine Rechnung, die heute fällig wird, ist erst ab morgen überfällig. Zusätzlich zum Betrag zeigen alle drei Stapel je Rechnung das <em>Fällig</em>-Datum und den <em>offenen</em> Restbetrag; bei einer überfälligen Rechnung ist das Datum farblich hervorgehoben &ndash; in jedem Stapel, also auch unter <em>Zu prüfen</em>.</li>
+        <li><strong>Überzahlt</strong> &ndash; Rechnungen, denen <em>mehr</em> zugeordnet wurde, als sie fordern. Der offene Betrag steht dann mit Minuszeichen da.</li>
+    </ul>
+
+    <div class="alert alert-info">
+        <strong>Die Zahlen ergeben zusammen keine Gesamtsumme &ndash; und das ist richtig so:</strong> <em>Offen</em> und <em>Überfällig</em> stehen <strong>neben</strong> den Erfassungsstapeln, nicht hinter ihnen. Eine Rechnung kann gleichzeitig <em>Zu prüfen</em> und <em>Überfällig</em> sein &ndash; der eine Stapel sagt, ob sie schon jemand geprüft hat, der andere, ob sie bezahlt ist. Das sind zwei verschiedene Fragen an dieselbe Rechnung. Auch <em>Überfällig</em> ist keine eigene Menge, sondern ein Ausschnitt aus <em>Offen</em>: Jede überfällige Rechnung wird in beiden Zahlen mitgezählt.</div>
+
+    <p>Das sieht man der Seite an: Die Fortschrittsleiste zeigt den Erfassungsweg, die Filter unter <em>Zuordnen</em> die Zahlungsfrage &ndash; zwei beschriftete Fragen statt einer Reihe aus sechs gleichrangigen Schaltflächen, die sich wie sechs Antworten auf <em>eine</em> Frage lasen und deshalb falsch wirkten. Auf dem Smartphone zeigt die Leiste vier gleich breite Spalten (Anzahl über Name, die gewählte unterstrichen); die Filter unter <em>Zuordnen</em> stehen darunter.</p>
+
+    <p>Jede Zeile trägt zwei Orientierungshilfen: vier kleine Quadrate (<strong>Zeilen-Fortschritt</strong>: Erfassen, Prüfen, Zuordnen, Erledigt; ausgefüllt bis zur aktuellen Stufe, für Screenreader &bdquo;Schritt n von 4&ldquo;) und den <strong>Status</strong> als Punkt mit Wort &ndash; <em>Zu erfassen</em> grau, <em>Zu prüfen</em> blau, <em>Offen</em> bernstein, <em>Überfällig</em> rot, <em>Erledigt</em> grün. Der Status steht nie allein als Farbe. Die Schaltfläche am Zeilenende richtet sich nach dem Stand der Rechnung: <em>Erfassen</em>, <em>Prüfen</em>, <em>Zuordnen</em> (führt zur <a href="#kap-12-zuordnung">Zuordnung</a>; ohne die Berechtigung <code>ACCOUNTING_READ</code> bleibt <em>Öffnen</em>) oder <em>Öffnen</em>. <em>Als geprüft markieren</em> bleibt als Haken neben <em>Prüfen</em>.</p>
+
+    <p>Unter den Filtern stehen die Summen <em>Offen</em> und <em>Überfällig</em> als <strong>Beträge</strong> &ndash; die Frage, mit der man zum Monatsende auf diese Seite kommt, ist <strong>wie viel Geld</strong> überfällig ist, und das ist nicht dieselbe Zahl wie die Anzahl der Rechnungen. Für die Erfassungsstufen gibt es bewusst <strong>keine</strong> Summe: Ein Beleg, aus dem noch nichts ausgelesen wurde, trägt keinen Betrag, und eine 0,00&nbsp;&euro; dort hieße &bdquo;nichts zu erfassen ist etwas wert&ldquo; statt &bdquo;diese Frage stellt sich hier nicht&ldquo;. Am Ende der Liste schlägt der Hinweis <strong>Nächster Schritt</strong> vor, was als Nächstes ansteht (zuerst erfassen, dann prüfen, dann zuordnen), mit einer Schaltfläche, die dorthin führt.</p>
+
+    <p>Der <strong>Überzahlt</strong>-Betrag wird als positive Zahl angezeigt, obwohl der offene Betrag der einzelnen Rechnung mit Minuszeichen dasteht. Eine Summe mit &bdquo;&minus;20,00&nbsp;&euro;&ldquo; läse sich wie ein Guthaben; gemeint ist aber das Gegenteil, nämlich zu viel gezahltes Geld, das zurückzuholen ist.</p>
+
+    <p>Eine Rechnung <strong>ohne angegebenes Fälligkeitsdatum</strong> erscheint nie unter <em>Überfällig</em>. Wir wissen nicht, wann sie fällig war &ndash; und in einer Liste überfälliger Zahlungen darf „lässt sich nicht sagen&ldquo; nicht wie „zu spät&ldquo; aussehen. Unter <em>Offen</em> steht sie selbstverständlich weiterhin.</p>
+
+    <p><em>Überzahlt</em> steht <strong>neben</strong> <em>Offen</em>, nicht darin: Ein Restbetrag kann nicht gleichzeitig über und unter null liegen, die beiden Stapel überschneiden sich also nie. Dass es diesen Stapel gibt, hat einen handfesten Grund &ndash; wird einer Rechnung zu viel zugeordnet, rutscht ihr Restbetrag ins Minus, und damit fiel sie früher aus <em>Offen</em> und <em>Überfällig</em> zugleich heraus: Das Geld stimmte nicht, die Liste sah aber sauber aus. Eine überzahlte Rechnung bleibt hier auch dann stehen, wenn sie als bezahlt gekennzeichnet wurde &ndash; die Überzahlung ist eine Tatsache über das Geld, kein Bearbeitungsstand.</p>
+
+    <p>Der übliche Weg, eine Überzahlung aufzulösen: Die zu hohe Zuordnung unter <a href="#kap-12-zuordnung">Zuordnung</a> entfernen und den überschüssigen Teil der Zahlung dort auf <em>Gebühr</em> oder <em>Ausgabe ohne Beleg</em> buchen. In der Zuordnung selbst wird eine überzahlte Rechnung nicht als Ziel angeboten &ndash; ihr noch mehr Geld zuzuweisen wäre das Gegenteil der Korrektur.</p>
+
+    <p>Aus <em>Offen</em> verschwindet eine Rechnung auf vier Wegen: Entweder werden ihr unter <a href="#kap-12-zuordnung">Zuordnung</a> Zahlungen zugeordnet, bis kein Rest mehr bleibt &ndash; eine Teilzahlung genügt also nicht &ndash;, oder sie wird als bezahlt gekennzeichnet, oder ihr wird zu viel zugeordnet: Dann steht sie unter <em>Überzahlt</em>. Oder sie wird <a href="#kap-12-storno">storniert</a>.</p>
+
+    <h4 id="kap-12-storno">Eine Rechnung stornieren &ndash; Gegenbuchung statt Löschen</h4>
+
+    <p>Eine erfasste Eingangsrechnung wird nicht gelöscht, auch dann nicht, wenn sie versehentlich erfasst wurde, doppelt vorliegt oder der Lieferant sie zurückgezogen hat. Sie wird <strong>storniert</strong>: Eine <em>Gegenbuchung</em> hebt sie auf, und beides bleibt stehen. Das entspricht den GoBD &ndash; was einmal in die Bücher eingeflossen ist, verschwindet nicht, es wird korrigiert.</p>
+
+    <ol class="steps">
+        <li>Unter <em>Belegfluss &rarr; Belege</em> den Beleg öffnen.</li>
+        <li><em>Stornieren</em> wählen (die Schaltfläche steht dort, wo bei einem Beleg ohne Rechnung <em>Löschen</em> steht).</li>
+        <li>Einen <strong>Grund</strong> eingeben (Pflichtfeld, höchstens 60 Zeichen &ndash; er wird zum Buchungstext der Gegenbuchung) und bestätigen.</li>
+    </ol>
+
+    <p>Danach gilt:</p>
+
+    <ul>
+        <li><strong>Beleg und ursprüngliche Rechnung bleiben unverändert erhalten</strong> und sind weiter sichtbar. Der Beleg zeigt den Hinweis <em>Storniert</em> mit Datum und Grund sowie einen Verweis auf die Gegenbuchung.</li>
+        <li>Die ursprüngliche Rechnung gilt mit der Stornierung als <strong>geprüft</strong> und verlässt <em>Zu prüfen</em>; in der Liste trägt sie die Marke <em>storniert</em>.</li>
+        <li>Die <strong>Gegenbuchung</strong> ist eine zweite Rechnung am selben Beleg: Rechnungsart <em>Gutschrift</em> (381), alle Beträge und die Umsatzsteuer mit umgekehrtem Vorzeichen, als Bezug die Nummer der ursprünglichen Rechnung. Sie steht unter <em>Fertig</em>.</li>
+        <li>Die Rechnung zählt <strong>nicht mehr als offen</strong>: nicht unter <em>Offen</em>/<em>Überfällig</em>, nicht im offenen Betrag des Lieferanten, nicht in der <a href="#kap-12-zuordnung">Zuordnung</a> und in deren Vorschlägen. Die Gegenbuchung erscheint auch nicht unter <em>Überzahlt</em>.</li>
+        <li>Beide sind ab jetzt <strong>schreibgeschützt</strong>; Rechnungsdaten und Buchungsfelder lassen sich nicht mehr ändern.</li>
+        <li>Wer wann aus welchem Grund storniert hat, steht im <a href="kap-15-pruefprotokoll.html">Prüfprotokoll</a> (<code>CANCEL_INCOMING_INVOICE</code>).</li>
+    </ul>
+
+    <div class="alert alert-warning">
+        <strong>Eine bezahlte oder zugeordnete Rechnung lässt sich nicht stornieren.</strong> Es ist bereits Geld auf sie geflossen &ndash; eine Stornierung ließe die Zahlung an eine Rechnung gebunden, die es nicht mehr gibt. Heben Sie zuerst die Zuordnung auf (<a href="#kap-12-zuordnung">Rückgängig</a>) bzw. entfernen Sie das Bezahlt-Datum; ob der Lieferant das Geld erstattet, klären Sie außerhalb. Eine bereits stornierte Rechnung und die Gegenbuchung selbst lassen sich nicht (erneut) stornieren. Server und Oberfläche lehnen alle diese Fälle gleichermaßen ab.</div>
+
+    <div class="alert alert-info">
+        <strong>DATEV:</strong> Eine stornierte Rechnung und ihre Gegenbuchung werden beim Export der Eingangsrechnungen beide übergangen &ndash; zusammen ergeben sie null, und ein offener Posten ist die Rechnung nicht mehr. Wurde die Rechnung <em>vor</em> der Stornierung bereits an DATEV übergeben, bucht der Steuerberater die Aufhebung dort selbst; Beleg, Gegenbuchung und Prüfprotokoll liefern ihm den Nachweis.</div>
+
+    <h4 id="kap-12-buchungsbeginn">Der Buchungsbeginn &ndash; ab wann offene Posten geführt werden</h4>
+
+    <p>Der <strong>Buchungsbeginn</strong> ist das Datum, ab dem Rechnungen und Zahlungen als offene Posten geführt werden. Er ist eine Grenze, keine Löschung: Belege mit einem älteren Datum bleiben sichtbar, durchsuchbar und exportierbar &ndash; sie zählen lediglich nicht als offener Betrag und tauchen nicht in der <a href="#kap-12-zuordnung">Zuordnung</a> auf.</p>
+
+    <p>Dass es diese Grenze gibt, ist der wichtigste Punkt dieses Abschnitts. Rechnungen, die seit Jahren im Haus abgelegt sind, wurden längst bezahlt &ndash; nur eben zu einer Zeit, in der das System Zahlungen noch nicht mitgeführt hat. Zu keiner dieser Rechnungen gibt es deshalb eine hinterlegte Zahlung. Ohne Buchungsbeginn stünde am ersten Tag <strong>jede jemals abgelegte Rechnung</strong> mit ihrem vollen Betrag unter <em>Offen</em>, obwohl kein einziger Euro davon wirklich aussteht. Eine Liste, die am ersten Tag falsch ist, wird nicht mehr benutzt &ndash; und keine spätere Korrektur holt dieses Vertrauen zurück.</p>
+
+    <div class="alert alert-warning">
+        <strong>Nicht zu weit zurücksetzen:</strong> Der Buchungsbeginn gehört auf den Zeitpunkt, ab dem Sie Zahlungen tatsächlich in diesem System erfassen &ndash; nicht auf das Gründungsjahr des Betriebs. Wer ihn auf ein weit zurückliegendes Datum setzt, holt sich genau die Altlast in die Arbeitsliste, die er verhindern soll.</div>
+
+    <p>Gesetzt wird er <strong>einmal und von selbst</strong>: Sobald der Finanzbereich zum ersten Mal Zahlen anzeigt &ndash; gleich ob <a href="#kap-12-rechnungen">Rechnungen</a> oder <a href="#kap-12-zuordnung">Zuordnung</a> zuerst geöffnet wird &ndash;, trägt das System den <em>Ersten des laufenden Monats</em> ein. Die Grenze hängt also nicht davon ab, welche Seite Sie zuerst aufrufen; andernfalls stünde beim Einstieg über <em>Rechnungen</em> genau die Altlast unter <em>Offen</em>, die der Buchungsbeginn verhindern soll.</p>
+
+    <p>Ein Hinweis über der Liste nennt das gewählte Datum und bietet an, es zu ändern. Er bleibt stehen, bis Sie ihn bestätigen oder selbst ein Datum speichern &ndash; ein versehentliches Neuladen der Seite lässt ihn also nicht verschwinden. Danach ist der Buchungsbeginn bestätigt und der Hinweis kommt nicht wieder; an seiner Stelle steht eine schlichte Zeile <em>Buchungsbeginn: &hellip;</em> mit der Schaltfläche <em>Ändern</em>.</p>
+
+    <p>Ändern lässt er sich jederzeit über <em>Ändern</em> &ndash; im Hinweis, solange er steht, danach in dieser Zeile. Beide stehen sowohl unter <em>Belegfluss &rarr; Rechnungen</em> als auch unter <em>Belegfluss &rarr; Zuordnung</em>. Das Datum wird wie jedes Datum in der Verwaltung eingegeben: als <code>TT.MM.JJJJ</code> getippt (etwa <code>01.01.2026</code>, ein eingefügtes <code>2026-01-01</code> wird ebenfalls erkannt) oder über das Kalendersymbol gewählt. <em>Speichern</em> ist immer anklickbar; fehlt das Datum oder ist es ungültig, wird das Feld rot markiert und erklärt, was fehlt. Nach dem Speichern werden <strong>beide</strong> Listen neu gefiltert: <em>Offen</em> und <em>Überfällig</em> unter <a href="#kap-12-rechnungen">Rechnungen</a> ebenso wie die Warteschlange der <a href="#kap-12-zuordnung">Zuordnung</a>. Beide folgen derselben Grenze &ndash; sie können sich über den Umfang der Arbeit nicht widersprechen.</p>
+
+    <p>Ändern und Bestätigen sind Buchhaltungsentscheidungen und erfordern die Berechtigung <code>ACCOUNTING_WRITE</code>. Rollen, die nur lesen dürfen (etwa der Prüfer), sehen das Datum, aber keine Schaltflächen; der Server lehnt einen solchen Versuch ebenso ab wie ein Datum, das kein gültiges Datum ist.</p>
+
+    <p>Eine Rechnung <strong>ohne angegebenes Rechnungsdatum</strong> wird unabhängig vom Buchungsbeginn immer mitgezählt. Ob sie vor die Grenze fällt, lässt sich schlicht nicht sagen &ndash; und „lässt sich nicht sagen&ldquo; darf keinen Posten unbemerkt aus der Liste nehmen. Bei Bankumsätzen stellt sich die Frage nicht: Ein Umsatz trägt immer ein Wertstellungsdatum.</p>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-erechnung">E-Rechnungen (ZUGFeRD / Factur-X / XRechnung)</h3>
+
+    <p>Beim Hochladen prüft der Server jede Datei darauf, ob sie eine strukturierte E-Rechnung nach EN&nbsp;16931 enthält. Ist das der Fall, werden Rechnungskopf, Positionen, Steueraufschlüsselung sowie Zu- und Abschläge <strong>exakt aus den Daten der Rechnung übernommen</strong> &ndash; ohne Texterkennung (OCR) und ohne Schätzung. Es wird gelesen, was der Lieferant geschrieben hat; kann ein Wert nicht gelesen werden, bleibt er leer, statt geraten zu werden.</p>
+
+    <p>Erkannt werden:</p>
+    <ul>
+        <li><strong>ZUGFeRD / Factur-X</strong> &ndash; PDF mit eingebetteter XML-Rechnung (PDF/A-3-Anhang); die Datei wird ganz normal als PDF hochgeladen und angezeigt</li>
+        <li><strong>XRechnung</strong> &ndash; reine XML-Datei, sowohl in der UBL- als auch in der CII-Ausprägung</li>
+    </ul>
+
+    <p>Die Prüfung läuft direkt beim Upload und dauert Millisekunden. Sie benötigt keine Internetverbindung und keinen externen Dienst.</p>
+
+    <h4>ZUGFeRD MINIMUM und BASIC WL &ndash; bewusst keine E-Rechnung</h4>
+
+    <p>Die ZUGFeRD-Profile <strong>MINIMUM</strong> und <strong>BASIC&nbsp;WL</strong> werden erkannt, aber absichtlich <strong>nicht</strong> als E-Rechnung übernommen. Beide enthalten ausschließlich Buchungsdaten und sind nach eigener Spezifikation keine EN-16931-Rechnungen &ndash; insbesondere fehlen ihnen die Rechnungspositionen. Sie als Rechnungseingang zu zählen, würde die Erfüllung der E-Rechnungspflicht falsch darstellen.</p>
+
+    <p>Für den Anwender bedeutet das: <em>Das Dokument wird ganz normal gespeichert, verknüpft und angezeigt</em> &ndash; es werden lediglich keine Rechnungsdaten daraus ausgelesen. Die Metadaten werden wie bei einem Scan von Hand erfasst.</p>
+
+    <h4>Gescannte Rechnungen ohne strukturierte Daten</h4>
+
+    <div class="alert alert-info">
+        <strong>Kein Fehler:</strong> Ein eingescanntes oder abfotografiertes PDF enthält keine strukturierte Rechnung. Es wird wie bisher gespeichert und verknüpft; die Metadaten (Lieferant, Rechnungsnummer, Beträge, Steuersätze) werden im Web-Admin unter <em>Belegfluss &rarr; Rechnungen</em> von Hand erfasst &ndash; die Kassen-App zeigt Belegdaten nur an. Das ist der Normalfall bei Papierbelegen und wird weder blockiert noch als Fehler gemeldet.
+    </div>
+
+    <p>Auch eine <em>beschädigte</em> oder unvollständige E-Rechnung führt nie zum Abbruch des Uploads: Das Dokument ist zu diesem Zeitpunkt bereits gespeichert. Es verhält sich dann wie ein Scan und wird von Hand erfasst.</p>
+
+    <h4 id="kap-12-pdf-entsperren">Passwortgeschützte PDFs</h4>
+
+    <p>Erkennt das Web-Admin beim Hochladen ein passwortgeschütztes PDF, fragt es, ob eine <strong>entsperrte Kopie</strong> gespeichert werden soll. Mit dem Passwort entfernt der Server den Schutz und archiviert nur die entsperrte Datei; erst danach werden Dublettenprüfung und das Auslesen der E-Rechnung durchgeführt. Ein PDF, das nur Bearbeitungsrechte einschränkt, lässt sich mit leerem Passwortfeld entsperren. Ein falsches oder fehlendes Passwort wird abgelehnt (HTTP&nbsp;422, <code>PDF_PASSWORD_INCORRECT</code> bzw. <code>PDF_PASSWORD_REQUIRED</code>), ohne dass etwas gespeichert wird &ndash; die Eingabe kann wiederholt werden.</p>
+
+    <p>Wählen Sie <em>Gesperrt lassen</em>, erscheint zuerst ein Hinweis: Ein gesperrtes Dokument <strong>kann nicht verarbeitet werden</strong> (keine Rechnungsdaten werden ausgelesen, sie müssen von Hand erfasst werden). Nach Bestätigung wird das PDF unverändert archiviert.</p>
+
+    <div class="alert alert-warning">
+        <strong>Hinweis:</strong> Das Entfernen des Schutzes macht eine digitale Signatur im PDF ungültig, und das gesperrte Original wird nicht aufbewahrt. Die Kassen-App (composeApp) bietet das Entsperren nicht an; das Passwort wird nie gespeichert oder protokolliert.
+    </div>
+
+    <div class="alert alert-warning">
+        <strong>Geändert:</strong> Frühere Versionen versuchten, die Rechnungsdaten aus gescannten Belegen zusätzlich per Texterkennung und Sprachmodell zu ermitteln. Dieser Weg wurde <strong>entfernt</strong>. Er lieferte plausibel aussehende, aber falsche Werte, die im Buchungsdialog nicht von korrekt gelesenen zu unterscheiden waren. Ausgelesen wird jetzt ausschließlich aus strukturierten E-Rechnungen; jeder andere Beleg wird von Hand erfasst. Die zugehörige Einstellungsseite für die Auslese-Vorgaben entfällt ersatzlos, und der Server benötigt dafür keine zusätzliche Software mehr.</div>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-lieferanten">Lieferanten (Kreditoren)</h3>
+
+    <p>Ein <strong>Lieferant</strong> ist der Kreditor hinter einer Eingangsrechnung. Bisher stand der Lieferant nur als Text auf jeder einzelnen Rechnung &ndash; zwei Rechnungen derselben Firma waren für das System nicht erkennbar verwandt. Jetzt gibt es einen Stammdatensatz je Lieferant, an dem Kreditorennummer, Gegenkonto, BU-Schlüssel und Kostenstelle <strong>einmal</strong> hinterlegt werden. Jede weitere Rechnung dieses Lieferanten übernimmt sie, statt dass sie erneut eingetippt werden.</p>
+
+    <h4>Lieferanten entstehen von selbst</h4>
+
+    <p>Beim Verarbeiten einer Rechnung sucht das System den passenden Lieferanten in dieser Reihenfolge: <strong>USt-IdNr. &rarr; Steuernummer &rarr; bekannte IBAN &rarr; Name</strong>. Die USt-IdNr. steht zuerst, weil sie eindeutig ist: Bei einer E-Rechnung wird der Lieferant dadurch immer korrekt zugeordnet, auch wenn er seinen Namen einmal <em>Metro AG</em> und einmal <em>METRO Deutschland</em> schreibt.</p>
+
+    <ul>
+        <li><strong>Mit USt-IdNr.</strong> &ndash; wird kein passender Lieferant gefunden, wird er automatisch angelegt. Es ist keine Bestätigung nötig.</li>
+        <li><strong>Ohne USt-IdNr.</strong> (typisch beim gescannten Papierbeleg) &ndash; stimmt der Name exakt mit einem vorhandenen Lieferanten überein, wird dieser verwendet. Sonst wird ein <strong>vorläufiger</strong> Lieferant angelegt und als solcher gekennzeichnet.</li>
+    </ul>
+
+    <div class="alert alert-info">
+        <strong>Warum die Zwischenstufe „vorläufig&ldquo;:</strong> Ein aus einem Scan gelesener Name allein ist keine verlässliche Identität. Würde daraus ungeprüft ein Kreditor entstehen, hätten Sie nach wenigen Monaten <em>Metro AG</em>, <em>METRO AG</em> und <em>Metro Ag</em> als drei Lieferanten &ndash; mit drei Kreditorenkonten und einer Auswertung, die nichts mehr taugt. Die Markierung entfällt, sobald der Lieferant bearbeitet und gespeichert wird &ndash; wer die Angaben geprüft hat, hat ihn damit bestätigt. Groß-/Kleinschreibung, Rechtsformzusätze wie <em>GmbH</em> oder <em>&amp;&nbsp;Co.&nbsp;KG</em> und Bindestriche werden beim Vergleich ohnehin ignoriert.</div>
+
+    <h4>Wo Sie die Lieferanten finden</h4>
+
+    <p>Im <strong>Verwaltungsbereich</strong> (Browser) unter <em>Stammdaten &rarr; Lieferanten</em>. Die Liste setzt die Berechtigung <code>CREDITOR_READ</code> voraus (standardmäßig Manager, Buchhaltung und Prüfer) und zeigt Name, USt-IdNr., Kreditorennummer, offenen Betrag, Jahresumsatz und Status. Über <em>Zu bestätigen</em> (auf dem Smartphone unter <em>Filter</em>) lassen sich die vorläufigen Lieferanten herausfiltern &ndash; das ist die Arbeitsliste, die Sie gelegentlich durchgehen sollten.</p>
+
+    <p>Das Suchfeld findet einen Lieferanten über Name, USt-IdNr. oder Kreditorennummer; ein Klick auf eine Spaltenüberschrift sortiert danach, ein zweiter kehrt die Richtung um. Auf dem Smartphone gibt es keine Spaltenüberschriften: Dort wählen Sie die Sortierung (alle sechs Spalten, aufsteigend oder absteigend) im Filter-Fenster und übernehmen sie mit <em>Anwenden</em>; eine abweichende Sortierung zählt im Filter-Zähler mit. Beides wirkt auf den <strong>gesamten</strong> Bestand und nicht nur auf die gerade angezeigte Seite &ndash; ein Lieferant weiter hinten in der Liste wird also gefunden. Auch nach <em>Offener Betrag</em> und <em>Jahresumsatz</em> lässt sich sortieren, obwohl beides Summen sind und keine gespeicherten Felder: Der Server bildet sie in der Abfrage, damit auch diese Sortierung vor dem Blättern greift. Ein Lieferant, dem Sie nichts schulden, gilt dabei als <strong>null</strong> und steht aufsteigend vorn &ndash; nicht dort, wo die Datenbank leere Summen zufällig einsortiert.</p>
+
+    <p>Ein Klick öffnet den Lieferanten: Identität, Anschrift, Buchungsvorgaben (Kreditorenkonto, Gegenkonto, BU-Schlüssel, Kostenstelle, Zahlungsziel) und die bekannten Bankverbindungen. Speichern bestätigt zugleich einen vorläufigen Lieferanten &ndash; ein eigener Knopf dafür wäre nur ein zweiter Weg zur selben Wirkung.</p>
+
+    <h4>Bekannte Bankverbindungen und ein Warnhinweis</h4>
+
+    <p>Zu jedem Lieferanten merkt sich das System die IBANs, die auf seinen Rechnungen standen. Taucht auf einer Rechnung eine IBAN auf, die dieser Lieferant <strong>noch nie verwendet hat</strong>, wird das erkannt und im Serverprotokoll als Warnung festgehalten. Die IBAN wird trotzdem übernommen &ndash; Lieferanten wechseln durchaus ihre Bank, und eine Rechnung deswegen abzulehnen wäre falsch.</p>
+
+    <div class="alert alert-info">
+        <strong>Noch in Arbeit:</strong> Der Hinweis erscheint derzeit <em>nur</em> im Serverprotokoll. Die Erfassungsmaske für Rechnungen gibt es inzwischen, sie zeigt die Warnung aber nicht an. Die Lieferantenseite zeigt immerhin, welche IBANs zu einem Lieferanten bekannt sind; das ist aber nicht dasselbe wie eine Warnung im richtigen Moment, nämlich bevor gezahlt wird. Bis dahin gilt die untenstehende Regel unabhängig davon: Eine ungewohnte Bankverbindung auf einer Eingangsrechnung ist immer eine Rückfrage wert.</div>
+
+    <div class="alert alert-warning">
+        <strong>Bitte ernst nehmen:</strong> Eine plötzlich geänderte Bankverbindung auf einer ansonsten unauffälligen Rechnung ist das übliche Muster beim <strong>Zahlungsumleitungsbetrug</strong>. Der Hinweis bedeutet nicht, dass die Rechnung gefälscht ist &ndash; Lieferanten wechseln durchaus ihre Bank. Er bedeutet, dass sich eine kurze Rückfrage <em>über eine Ihnen bereits bekannte Telefonnummer</em> lohnt, bevor gezahlt wird &ndash; nicht über die Kontaktdaten auf der Rechnung selbst.</div>
+
+    <h4>Vorhandene Rechnungen</h4>
+
+    <p>Beim ersten Start nach der Aktualisierung werden die bereits erfassten Rechnungen einmalig durchgegangen und ihren Lieferanten zugeordnet. Es geht dabei nichts verloren: Die Angaben <em>auf</em> der Rechnung (Name, Anschrift, USt-IdNr. des Lieferanten) bleiben unverändert so stehen, wie der Lieferant sie geschrieben hat. Wird ein Lieferant in den Stammdaten später umbenannt, ändert das <strong>keine</strong> alte Rechnung &ndash; ein Beleg muss zeigen, was zum Zeitpunkt der Ausstellung auf ihm stand.</p>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-debitoren">Debitoren (Rechnungsempf&auml;nger)</h3>
+
+    <p>Ein <strong>Debitor</strong> ist das Gegenst&uuml;ck zum Lieferanten: der Kunde, dem <em>Sie</em> eine Rechnung stellen. Er wird unter <em>Stammdaten &rarr; Debitoren</em> im Verwaltungsbereich gepflegt (Berechtigung <code>DEBTOR_READ</code>, standardmäßig Manager, Buchhaltung und Prüfer).</p>
+
+    <p>Debitoren sind bewusst von den <strong>Kunden</strong> der Kundenverwaltung getrennt. Ein Kunde dort ist ein Treue- und Marketingdatensatz, der auf Wunsch gel&ouml;scht werden muss; ein Rechnungsempf&auml;nger geh&ouml;rt zu einer Rechnung, die zehn Jahre aufzubewahren ist. Beides in einem Datensatz zu f&uuml;hren hie&szlig;e, eine dieser beiden Pflichten zu verletzen.</p>
+
+    <h4>Die Debitorennummer kommt vom Steuerberater</h4>
+
+    <p>Das Feld <em>Debitorennummer</em> ist das DATEV-Personenkonto. Es bleibt <strong>leer</strong>, solange Ihr Steuerberater keines vergeben hat &ndash; das System denkt sich keines aus. Der Grund ist praktisch: Vergibt die Kanzlei f&uuml;r denselben Kunden die 10247 und h&auml;tten wir zwischenzeitlich die 10001 erfunden, m&uuml;sste jede Auswertung umgeschl&uuml;sselt werden, und zwar r&uuml;ckwirkend. Eine einmal vergebene Nummer wird nie an einen zweiten Debitor weitergereicht; das System weist das ab.</p>
+
+    <h4>E-Mail-Adresse</h4>
+
+    <p>Die <em>E-Mail</em> ist freiwillig. Wird eine eingetragen, muss sie wie eine Adresse aussehen: genau ein <code>@</code>, davor etwas, dahinter eine Domain mit Punkt (<code>name@firma.de</code>), keine Leerzeichen. Bei <em>Speichern</em> markiert die Maske ein Feld wie <code>kaputt</code> oder <code>info@firma</code> und speichert nichts; der Server weist dieselbe Eingabe ebenfalls ab (Fehler 400 mit dem Feld <code>email</code>), auch wenn sie nicht über die Maske kommt. Ob das Postfach existiert, wird nicht gepr&uuml;ft. Dieselbe Regel gilt f&uuml;r die E-Mail eines Lieferanten. Ein vor dieser Pr&uuml;fung gespeicherter Debitor mit einer ung&uuml;ltigen Adresse l&auml;sst sich erst wieder speichern, wenn die Adresse korrigiert oder geleert ist.</p>
+
+    <h4>Inaktiv setzen statt l&ouml;schen</h4>
+
+    <p>Ein Debitor, zu dem bereits eine Ausgangsrechnung existiert, kann <strong>nicht gel&ouml;scht</strong> werden &ndash; die Detailseite zeigt statt des L&ouml;schknopfs, wie viele Rechnungen auf ihn verweisen. Diese Rechnungen werden zehn Jahre aufbewahrt und m&uuml;ssen weiterhin auf den Empf&auml;nger zeigen, an den sie ausgestellt wurden. Wer nicht mehr beliefert wird, wird stattdessen &uuml;ber den Schalter <em>Aktiv</em> stillgelegt: Er verschwindet aus der Auswahl, bleibt aber auffindbar.</p>
+
+    <p>Nur ein Debitor, auf den <strong>keine</strong> Rechnung verweist &ndash; typischerweise ein Tippfehler von vorhin &ndash; l&auml;sst sich wirklich entfernen.</p>
+
+    <h4>Umbenennen &auml;ndert keine alte Rechnung</h4>
+
+    <p>Wie beim Lieferanten gilt: Jede Ausgangsrechnung tr&auml;gt die Anschrift des Empf&auml;ngers <strong>als Kopie</strong> in sich. Zieht der Kunde um oder firmiert er neu, &auml;ndert das nichts an bereits ausgestellten Rechnungen &ndash; ein Beleg muss zeigen, was zum Zeitpunkt der Ausstellung auf ihm stand.</p>
+
+    <h4>Erl&ouml;skonto und BU-Schl&uuml;ssel als Vorgabe</h4>
+
+    <p>Ein Debitor kann ein <strong>Erl&ouml;skonto</strong> und einen <strong>BU-Schl&uuml;ssel</strong> tragen. Beim Ausstellen einer Standalone-Rechnung (Catering, Event, Lieferung) werden diese als Vorgabe in den Editor &uuml;bernommen und beim Ausstellen auf der Rechnung festgehalten &ndash; der Steuerberater bekommt so die Buchung, die der Bediener gesehen hat. Beide Felder bleiben leer, solange der Kontenplan oder die Kanzlei nichts zugeordnet hat; das System erfindet keine Konten.</p>
+
+    <p>Die <strong>Debitorennummer</strong> selbst wird erst beim DATEV-Debitoren-Export aufgel&ouml;st: zuerst die eigene Nummer des Debitors, dann der Sammeldebitor des Gesch&auml;fts, sonst ein Abbruch mit Nennung des Debitors. Was exportiert wurde, ist auf der Rechnung eingefroren und &auml;ndert sich nicht mehr, wenn der Debitor sp&auml;ter umnummeriert wird.</p>
+
+    <h4 id="kap-12-forderung-ausgleich">Offene Forderungen begleichen</h4>
+
+    <p>Eine Ausgangsrechnung, die an der Kasse <strong>auf Rechnung</strong> entstanden ist, tr&auml;gt einen offenen Betrag (Forderung). Dieser Betrag wird auf zwei Wegen ausgeglichen, ohne dass daf&uuml;r ein neuer Umsatz entsteht &ndash; der Umsatz wurde bereits beim Verkauf gebucht:</p>
+    <ul>
+        <li><strong>Per Bank&uuml;berweisung</strong> &ndash; der Regelfall. Die Forderung wird beim
+            Bankabgleich unter <em>Belegfluss &rarr; Zuordnung</em> (siehe <a href="#kap-12-zuordnung">Zuordnung</a>) aufgel&ouml;st, indem die eingegangene Zahlung der
+            Rechnung zugeordnet wird. Daf&uuml;r ist keine Kassenaktion n&ouml;tig.</li>
+        <li><strong>An der Kasse</strong> &ndash; wenn der Gast bar oder mit Karte am Tresen zahlt.
+            Die Belegansicht bietet dann <em>Forderung begleichen</em> (siehe
+            <a href="kap-06-abrechnung.html#kap-06-forderung-begleichen">Kapitel&nbsp;06</a>). Es
+            entsteht ein eigener, TSE-signierter Ausgleichsbeleg; der Tagesabschluss weist die Zahlung
+            getrennt unter <strong>Forderungsausgleich</strong> aus.</li>
+    </ul>
+    <p>In beiden F&auml;llen sinkt der offene Betrag der Rechnung entsprechend; eine vollst&auml;ndig
+        beglichene Rechnung ist offen mit&nbsp;0.</p>
+
+    <h4 id="kap-12-debitoren-export">DATEV-Export der Ausgangsrechnungen (Debitoren)</h4>
+
+    <p>Unter <em>Compliance &rarr; Datenexport</em> im Verwaltungsbereich (Schaltfläche <em>Ausgangsrechnungen (DATEV Debitoren)</em>) lassen sich die <strong>Standalone-Rechnungen</strong>
+        (Catering, Event, Lieferung) eines Zeitraums als DATEV-Paket vom Typ <strong>accountsReceivableLedger</strong>
+        (Debitoren) f&uuml;r den Steuerberater herunterladen &ndash; das Gegenst&uuml;ck zum Eingangsrechnungs-Export.
+        Jede Rechnung wird als Beleg mit ihren Erl&ouml;s- und Debitorenkonten je Steuersatz gebucht.</p>
+    <ul>
+        <li><strong>Debitorennummer:</strong> zuerst das eigene Personenkonto des Debitors; hat er keines, der
+            <strong>Sammeldebitor</strong> des Gesch&auml;fts (in den DATEV-Einstellungen hinterlegt); ist auch
+            der nicht gesetzt, wird der Export mit Nennung der betroffenen Rechnung <strong>abgebrochen</strong> &ndash;
+            es wird nie ein Konto geraten und nie eine Rechnung stillschweigend weggelassen.</li>
+        <li><strong>Erl&ouml;skonto:</strong> der am Debitor bzw. an der Rechnung hinterlegte Wert, sonst das
+            konfigurierte Konto je Steuersatz (dieselbe Kontenzuordnung wie im Kassenbuch-Export).</li>
+        <li><strong>Barverk&auml;ufe und Forderungen aus dem Kassenumsatz sind hier NICHT enthalten.</strong> Deren
+            Umsatz steht bereits im Kassenbuch-/DSFinV-K-Export; sie ein zweites Mal auf der Debitorenseite zu buchen
+            hie&szlig;e, den Umsatz doppelt zu erfassen. Nur die Standalone-Rechnungen, deren Umsatz nie &uuml;ber die
+            Kasse lief, geh&ouml;ren in den Debitoren-Export.</li>
+    </ul>
+
+    <h4 id="kap-12-erechnung-ausgang">E-Rechnung an Kunden (ZUGFeRD)</h4>
+
+    <p>Ein Debitor kann in seinen Stammdaten auf <strong>ZUGFeRD</strong> gestellt werden (Feld
+        <em>E-Rechnungsformat</em>). Wird dann eine Standalone-Rechnung an diesen Kunden ausgestellt,
+        erzeugt das System statt des einfachen PDFs eine <strong>hybride ZUGFeRD-Rechnung</strong>: ein
+        PDF/A-3, das ein Mensch wie gewohnt liest und das zugleich denselben Rechnungsinhalt als
+        eingebettete <strong>EN&nbsp;16931-XML</strong> (Factur-X) mit sich f&uuml;hrt, sodass die
+        Buchhaltung des Kunden ihn maschinell einlesen kann &ndash; die Grundlage der
+        E-Rechnungspflicht ab 2025/2027/2028.</p>
+    <ul>
+        <li><strong>Vollst&auml;ndigkeit wird vor dem Ausstellen gepr&uuml;ft.</strong> Fehlt der Rechnung
+            ein f&uuml;r EN&nbsp;16931 vorgeschriebenes Feld (z.&nbsp;B. eine Anschrift des Kunden oder die
+            USt-IdNr./Steuernummer des Verk&auml;ufers), wird das Ausstellen <strong>abgebrochen</strong>
+            und das fehlende Feld genannt &ndash; ein Kunde, der eine E-Rechnung erwartet, bekommt nie
+            stillschweigend nur ein einfaches PDF. Keine Rechnungsnummer wird dabei verbraucht.</li>
+        <li><strong>Gleichzeitiges Ausstellen.</strong> Die Rechnungsnummern eines Jahres kommen aus einem
+            gemeinsamen Z&auml;hler, den gleichzeitige Ausstellungen nacheinander abarbeiten &ndash; auch die
+            ersten Rechnungen eines neuen Jahres, die fr&uuml;her mit einem Serverfehler (500) abbrechen
+            konnten. Kann eine Ausstellung oder Gutschrift ihre Nummer wegen einer gleichzeitigen
+            Ausstellung dennoch nicht ziehen, antwortet der Server mit <strong>409
+            <code>SALES_INVOICE_NUMBER_COLLISION</code></strong>; es wurde nichts verbraucht, der Vorgang
+            kann einfach wiederholt werden.</li>
+        <li><strong>Land als ISO-Code.</strong> EN&nbsp;16931 verlangt f&uuml;r Verk&auml;ufer und K&auml;ufer den
+            zweistelligen L&auml;ndercode (<code>DE</code>, <code>AT</code>, &hellip;). G&auml;ngige Schreibweisen in den
+            Gesch&auml;ftsdaten oder beim Kunden (&bdquo;Germany&ldquo;, &bdquo;Deutschland&ldquo;,
+            &bdquo;&Ouml;sterreich&ldquo;) werden automatisch umgesetzt. Ein nicht erkennbares Land bricht das
+            Ausstellen mit einer Meldung ab (Feld BT-40 bzw. BT-55); bitte dann den ISO-Code eintragen.
+            Fehlt beim Kunden das Land ganz, gilt dasselbe. Der Verk&auml;ufer wird beim Anlegen des
+            Entwurfs festgehalten &ndash; nach einer Korrektur der Gesch&auml;ftsdaten den Entwurf neu anlegen.</li>
+        <li><strong>Betr&auml;ge mit zwei Nachkommastellen.</strong> Intern werden Betr&auml;ge vierstellig gef&uuml;hrt;
+            die eingebettete XML tr&auml;gt sie, wie EN&nbsp;16931 vorschreibt, mit zwei Nachkommastellen. Die
+            Positionen werden dabei so gerundet, dass sie weiterhin genau die Steueraufteilung ergeben;
+            der Zahlbetrag &auml;ndert sich nie.</li>
+        <li><strong>Umsatzsteuer in der XML: Nettobetrag &times; Steuersatz.</strong> EN&nbsp;16931 verlangt je
+            Steuersatz <em>Steuer = Nettobetrag &times; Satz</em>, auf den Cent gerundet (Regel BR-CO-17). Die
+            Kasse rechnet die Steuer dagegen aus dem Bruttobetrag heraus (<em>Steuer = Brutto &minus; Netto</em>),
+            und bei manchen Bruttobetr&auml;gen liegen beide Wege einen Cent auseinander &ndash; z.&nbsp;B.
+            119,00&nbsp;&euro; zu 7&nbsp;%: Kasse 111,21&nbsp;+&nbsp;7,79, EN&nbsp;16931 verlangt 7,78. F&uuml;r einen
+            solchen Bruttobetrag gibt es keine Aufteilung, die beide Regeln erf&uuml;llt. Die eingebettete XML
+            weist dann die Steuer nach EN&nbsp;16931 aus, ihr Gesamtbetrag (BT-112) ist einen Cent niedriger
+            bzw. h&ouml;her, und dieser Cent steht als <strong>Rundungsbetrag</strong> (BT-114) in der XML, sodass
+            der Zahlbetrag exakt dem Rechnungsbetrag entspricht. <strong>PDF, Kassenbeleg, TSE, DSFinV-K und
+            DATEV bleiben unver&auml;ndert</strong> bei der Aufteilung der Kasse &ndash; die Abweichung betrifft nur
+            die maschinenlesbare XML und ist f&uuml;r den Kunden ohne Zahlungsfolgen. Im Beispiel druckt das
+            PDF also <strong>7,79&nbsp;&euro;</strong> Umsatzsteuer, w&auml;hrend die XML <strong>7.78</strong> plus
+            <strong>0.01</strong> Rundungsbetrag ausweist; beide ergeben 119,00&nbsp;&euro;. Dieser eine Cent zwischen
+            PDF und XML ist gewollt und kein Fehler.</li>
+        <li><strong>Nur Standalone-Rechnungen.</strong> Kassenbelege sind keine E-Rechnungen in diesem
+            Sinne; das Format betrifft die Ausgangsrechnungen an Gesch&auml;ftskunden.</li>
+        <li>Steht der Debitor auf <em>Keine</em> (Standard), bleibt es beim gewohnten PDF.</li>
+    </ul>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-bankkonten">Bankkonten</h3>
+
+    <p>Damit ein Kontoauszug nicht bloß eine IBAN als Text mit sich führt, werden Ihre <strong>eigenen</strong> Bankkonten als Stammdaten geführt: IBAN, BIC, Bank, Kontoinhaber und das zugehörige Sachkonto. Beim ersten Start nach der Aktualisierung wird daraus automatisch das Konto angelegt, das Sie in den Stammdaten des Geschäfts hinterlegt haben &ndash; ein leeres Register müssen Sie also nicht von Hand füllen.</p>
+
+    <p>Drei Dinge hängen daran, die ohne diese Zuordnung nicht möglich sind:</p>
+    <ul>
+        <li><strong>Ein Auszug gehört zu einem bestimmten Konto</strong>, statt geraten zu werden &ndash; die Grundlage für alles Weitere.</li>
+        <li><strong>Eine Umbuchung zwischen zwei eigenen Konten ist als solche erkennbar</strong> und wird nicht als Einnahme gezählt.</li>
+        <li><strong>Die Lückenlosigkeit der Auszüge lässt sich prüfen</strong> (siehe unten).</li>
+    </ul>
+
+    <h4>Unbekannte IBAN: es wird nachgefragt, nicht geraten</h4>
+
+    <p>Ein eingelesener Auszug wird zunächst gespeichert und noch beim Import dem hinterlegten Konto mit derselben IBAN zugeordnet &ndash; er steht also sofort unter diesem Konto. Passt seine IBAN zu keinem Ihrer hinterlegten Konten, bleibt der Auszug <strong>ohne Kontozuordnung</strong> stehen und wird zur Klärung aufgeführt. Es wird <em>kein</em> Konto automatisch angelegt &ndash; aus einem Zahlendreher würde sonst ein dauerhaftes Konto, das ab dann stillschweigend weitere Auszüge einsammelt.</p>
+
+    <div class="alert alert-info">
+        <strong>Eine bewusste Zuordnung bleibt bestehen:</strong> Ordnen Sie einen Auszug von Hand einem Konto zu, dessen IBAN von der gedruckten abweicht &ndash; etwa nach einem Bankwechsel &ndash;, wird das bei der nächsten automatischen Zuordnung <strong>nicht</strong> wieder überschrieben.</div>
+
+    <h4>Fehlende Auszüge werden sichtbar</h4>
+
+    <p>Der Endsaldo eines Auszugs muss dem Anfangssaldo des nächsten entsprechen. Weicht er ab, <strong>fehlt ein Auszug</strong> dazwischen. Das ist die einzige Stelle, an der ein nie hochgeladener Kontoauszug überhaupt auffallen kann &ndash; sonst ist er schlicht nicht da, und nichts weist darauf hin.</p>
+
+    <p>Ein Auszug ohne hinterlegte Salden &ndash; etwa ein von Hand erfasstes PDF &ndash; wird dabei ebenfalls als Lücke geführt. Das ist beabsichtigt: In einer Vollständigkeitsprüfung darf „lässt sich nicht sagen&ldquo; nicht wie „alles in Ordnung&ldquo; aussehen.</p>
+
+    <h4>Wo Sie die Bankkonten finden</h4>
+
+    <p>Im <strong>Verwaltungsbereich</strong> (Browser) unter <em>Stammdaten &rarr; Bankkonten</em>, mit der Berechtigung <code>CREDITOR_READ</code>. Links stehen Ihre Konten &ndash; Bank, IBAN, die Zahl der eingelesenen Auszüge und, falls vorhanden, die Zahl der Lücken. Ein Klick zeigt rechts die <strong>Auszüge genau dieses Kontos</strong>: Nummer, Zeitraum, Anfangs- und Endsaldo sowie die Zahl der Umsätze.</p>
+
+    <p>Darüber liegt die <strong>Lückenlosigkeit</strong> als Streifen: ein gefülltes Feld je vorhandenem Auszug, ein leeres Feld dort, wo einer fehlt. Ein fehlender Auszug ist damit ein Loch im Muster und keine Liste von Nummern &ndash; die Zeile des betroffenen Auszugs trägt zusätzlich den Hinweis <em>Davor fehlt ein Auszug</em>. Ein Auszug schließt an seinen Vorgänger an, wenn sein Anfangssaldo dessen Endsaldo entspricht; tut er das nicht, fehlt dazwischen einer. <strong>Überschneidet</strong> ein Auszug einen früher importierten (Hinweis <em>Überschneidet Auszug …</em>, etwa derselbe Monat noch einmal oder ein Quartalsexport), kann zwischen den beiden nichts fehlen &ndash; dort wird keine Lücke gezählt; geprüft wird ab dem Endsaldo des späteren weiter.</p>
+
+    <p><strong>Auszüge ohne Kontozuordnung</strong> erscheinen als Hinweisleiste über den Konten &ndash; und nur dann, wenn es welche gibt. Sie lassen sich dort einem vorhandenen Konto zuordnen, oder Sie legen das fehlende Konto gleich an. Mit <em>Zuordnung erneut prüfen</em> läuft der Abgleich noch einmal &ndash; sinnvoll direkt nachdem Sie ein Konto ergänzt haben. Der Import eines Auszugs sitzt oben rechts unter <em>Auszug importieren</em>: Sie öffnen diese Seite in aller Regel, um ein Konto zu prüfen, nicht um eine Datei hochzuladen.</p>
+    <p>Die Schaltflächen erscheinen nur mit der passenden Berechtigung: <em>Konto hinzufügen</em>, <em>Zuordnen</em> und <em>Zuordnung erneut prüfen</em> verlangen die Berechtigung <code>CREDITOR_WRITE</code>, <em>Auszug importieren</em> verlangt <code>DOCUMENT_WRITE</code>. Eine nur lesende Gruppe (z.&nbsp;B. Prüfer) sieht Konten und Auszüge ohne diese Schaltflächen; der Server lehnt die Aktionen ohnehin ab.</p>
+
+    <h4>Was der Import meldet</h4>
+
+    <p>Unter der Schaltfläche steht nach dem Hochladen, was aus der Datei geworden ist &ndash; nicht bloß, dass sie angehängt wurde:</p>
+    <ul>
+        <li><strong>Auszug importiert.</strong> &ndash; der Auszug und seine Umsätze sind gespeichert.</li>
+        <li><strong>Auszug nicht übernommen</strong>, weil Anfangssaldo plus Umsätze nicht den Endsaldo ergibt. Ein solcher Auszug wird <strong>nicht</strong> gespeichert: Er ist fast immer falsch gelesen oder unvollständig, und falsche Umsätze, die wie richtige aussehen, sind schlimmer als keine. Die Datei selbst liegt als Beleg im Archiv (Status <em>Konnte nicht gelesen werden</em>). Fordern Sie bei der Bank einen korrekten Export an.</li>
+        <li><strong>Der Auszug konnte nicht gelesen werden</strong> &ndash; die Datei ist als Kontoauszug erkennbar, aber beschädigt oder unvollständig. Auch sie liegt als Beleg im Archiv.</li>
+        <li><strong>Kein Kontoauszug erkannt</strong> &ndash; die Datei ist weder camt.053 noch MT940 und wurde als gewöhnlicher Beleg abgelegt. Das ist kein Lesefehler und wird deshalb nicht rot gemeldet &ndash; auch dann nicht, wenn es sich um eine versehentlich gewählte E-Rechnung handelt, die selbst nicht gelesen werden konnte (deren Beleg trägt dann den Status <em>Konnte nicht gelesen werden</em>, der sich auf die Rechnung bezieht, nicht auf einen Auszug).</li>
+        <li><strong>Sein Zeitraum überschneidet einen bereits importierten Auszug</strong> &ndash; der Auszug ist gespeichert, doch er deckt Tage ab, die schon ein früherer Auszug desselben Kontos enthält (typisch: erst ein Monat, später ein Quartalsexport). Die wiederholten Umsätze tragen den Hinweis <em>Dublette</em> und werden nicht doppelt gezählt; in der Auszugsliste steht an der Zeile selbst <em>Überschneidet Auszug …</em> mit der Nummer des früheren Auszugs.</li>
+    </ul>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-vertraege">Verträge</h3>
+
+    <p>Ein <strong>Vertrag</strong> ist eine wiederkehrende Verpflichtung: Miete, Strom, Telefon, ein Leasingvertrag, ein Dauerauftrag. Er wird nicht erfasst, damit man ihn nachlesen kann &ndash; dafür genügt der Ordner &ndash;, sondern damit eine <strong>ausbleibende Zahlung überhaupt auffallen kann</strong>. Eine falsche Zahlung fällt früher oder später auf; eine Zahlung, die nie stattgefunden hat, hinterlässt dagegen keine Spur. Auch eine Rechnung, die nie eintrifft, liegt schlicht nicht im Stapel &ndash; und ein leerer Platz meldet sich nicht von selbst. Es gibt in diesem Fall nichts, was das Fehlen bemerken könnte. Genau das ändert ein hinterlegter Vertrag: Er sagt im Voraus, was erwartet wird, und macht damit aus einem unsichtbaren Nichts eine sichtbare Lücke.</p>
+
+    <p>Verträge werden von Hand angelegt &ndash; unter <em>Neuer Vertrag</em>. Erfasst werden Name, Lieferant, Intervall, Fälligkeitstag im Monat, Laufzeit und der erwartete Betrag, dazu die Buchungsvorgaben (Gegenkonto, BU-Schlüssel, Kostenstelle). Ein Vertrag wird nie gelöscht, sondern <strong>deaktiviert</strong>: Zu seinen Raten können bereits Zahlungen zugeordnet sein, und die sind Geschichte, die nicht verschwinden darf. Deaktivierte Verträge lassen sich über <em>Inaktive einblenden</em> (auf dem Smartphone unter <em>Filter</em>) wieder sichtbar machen.</p>
+
+    <h4>Zwei Arten &ndash; der Unterschied ist ein einziger Schalter</h4>
+
+    <p>Verträge zerfallen in zwei Gruppen, und der Unterschied liegt allein darin, ob zu jeder Periode ein Beleg erwartet wird:</p>
+
+    <ul>
+        <li><strong>Mit Rechnung</strong> (Telefon, Strom) &ndash; jede Periode bringt eine Eingangsrechnung mit sich. Hier sind zwei Dinge zu erwarten: die Rechnung und die Zahlung.</li>
+        <li><strong>Ohne Rechnung</strong> (Miete, Dauerauftrag) &ndash; es entsteht nie ein Dokument. Erwartet wird ausschließlich die Zahlung; eine fehlende Rechnung zu suchen wäre hier sinnlos.</li>
+    </ul>
+
+    <p>Deshalb ist es wichtig, den Schalter <em>Rechnung erwartet</em> richtig zu setzen: Er entscheidet, ob das Ausbleiben eines Belegs für diesen Vertrag überhaupt etwas bedeutet.</p>
+
+    <h4>Raten entstehen im Voraus</h4>
+
+    <p>Zu jedem aktiven Vertrag werden die <strong>Raten</strong> nächtlich von einem Hintergrundlauf erzeugt &ndash; und zwar <em>bevor</em> sie fällig werden. Das ist der Punkt der ganzen Übung: Eine Rate, die erst mit der Zahlung entstünde, wäre nur eine Aufzeichnung dessen, was ohnehin geschehen ist. Weil sie schon vorher dasteht, gibt es einen Platz, der leer bleiben kann &ndash; und ein leerer Platz ist sichtbar, ein fehlender Eintrag nicht.</p>
+
+    <p>Ein frisch angelegter Vertrag hat daher noch keine Raten; sie erscheinen nach dem nächsten nächtlichen Lauf. Der Status einer Rate wird beim Lesen aus dem offenen Restbetrag und dem Fälligkeitsdatum <strong>abgeleitet</strong>, nicht gespeichert &ndash; eine Rate wird also allein dadurch überfällig, dass ihr Datum verstreicht, ohne dass jemand etwas eintragen müsste.</p>
+
+    <h4>Der Ratenstreifen &ndash; eine Lücke sieht man, statt sie zu suchen</h4>
+
+    <p>In der Detailansicht eines Vertrags stehen die Raten nicht als Tabelle, sondern als <strong>Streifen aus Zellen: eine Zelle je Periode</strong>, von links nach rechts in der Zeit, mit dem Zeitraum beschriftet und in der Farbe ihres Status eingefärbt. Weil die Raten eine gleichmäßige Reihe bilden, fällt eine abweichend gefärbte Zelle auf, <em>bevor</em> eine einzige Zahl gelesen ist &ndash; man sieht, dass der März nicht stimmt, statt zwölf Zeilen zu vergleichen. Eine Tabelle derselben Daten würde erfordern, jede Zeile zu lesen, um dasselbe zu bemerken. Der Streifen ist deshalb keine Verzierung, sondern der eigentliche Zweck des Bildschirms.</p>
+
+    <p>Unterschieden werden <em>bezahlt</em>, <em>offen</em>, <em>teilweise bezahlt</em>, <em>überfällig</em> und <em>erlassen</em>. Ein Klick auf eine Zelle zeigt darunter die Beträge dieser Rate &ndash; erwartet, offen &ndash; und, sofern vorhanden, ihre Rechnungsnummer.</p>
+
+    <div class="alert alert-info">
+        <strong>Farbe allein muss nicht genügen:</strong> Jede Zelle trägt zusätzlich ihre Periodenbeschriftung, und der angeklickte Zustand steht als Text darunter. Wer Rot und Grün nicht auseinanderhalten kann, soll denselben Sachverhalt lesen können.</div>
+
+    <h4>Was ein Vertrag meldet &ndash; die drei Hinweise</h4>
+
+    <p>Ein Vertrag sagt im Voraus, was erwartet wird &ndash; und kann deshalb selbst feststellen, wenn etwas davon ausbleibt. Drei Dinge werden geprüft, und jedes beantwortet eine Frage, die man sonst nur durch Nachsehen beantworten könnte:</p>
+
+    <ul>
+        <li><strong>Zahlung fehlt</strong> &ndash; das Geld ist nicht abgeflossen: Die Rate ist fällig, und es steht noch ein Rest offen.</li>
+        <li><strong>Rechnung fehlt</strong> &ndash; der Beleg ist nicht eingetroffen: Der Vertrag erwartet eine Rechnung, die Rate ist fällig, und es ist keine zugeordnet.</li>
+        <li><strong>Betrag außerhalb der Toleranz</strong> &ndash; der Preis hat sich hinter unserem Rücken geändert: Aus 89,00 sind 129,00 geworden, ohne dass jemand danach gefragt hätte.</li>
+    </ul>
+
+    <p>Wo der Ratenstreifen zeigt, wie <em>ein</em> Vertrag steht, beantworten die Hinweise die andere Frage: <strong>Was verlangt heute meine Aufmerksamkeit &ndash; über alle Verträge hinweg?</strong> Niemand soll elf Verträge öffnen müssen, um den einen zu finden, bei dem etwas nicht stimmt.</p>
+
+    <p>Sichtbar werden sie an drei Stellen: als <strong>Anzahl über der Vertragsliste</strong>, als <strong>Spalte je Vertrag</strong> in dieser Liste und als <strong>Aufzählung in der Detailansicht</strong>, oberhalb des Ratenstreifens. Ein Vertrag ohne Hinweise zeigt in seiner Spalte eine <em>leere</em> Zelle &ndash; keine Null: Eine Zahl lädt zum Lesen ein, ein leeres Feld ist mit einem Blick erledigt. Eine <em>erlassene</em> Rate meldet gar nichts; genau das bedeutet Erlassen.</p>
+
+    <div class="alert alert-info">
+        <strong>Es wird nichts verschickt:</strong> Weder E-Mail noch Benachrichtigung. Die Hinweise stehen dort, wo Sie ohnehin hinsehen &ndash; in der Vertragsliste und im Vertrag selbst. Jemanden zu unterbrechen ist eine eigene Entscheidung, und sie ist hier bewusst nicht getroffen.</div>
+
+    <h4>Ein Hinweis verschwindet von selbst</h4>
+
+    <p>Ein Hinweis ist <strong>keine Aufgabe, die jemand zugeteilt hat</strong>, sondern eine Aussage über den jetzigen Stand. Er wird deshalb bei jedem Aufruf neu ermittelt und nicht gespeichert. Trifft die Rechnung ein oder wird die Zahlung zugeordnet, ist er beim nächsten Laden fort &ndash; ganz ohne Zutun.</p>
+
+    <p>Es gibt folglich <strong>nichts abzuhaken</strong>: kein „Erledigt&ldquo;, kein Ausblenden, kein Stummschalten. Wer danach sucht, hat nichts übersehen. Ein abgehakter Hinweis müsste gespeichert werden &ndash; und ein gespeicherter Haken, der behauptet, alles sei in Ordnung, während der Betrag es nicht ist, wäre genau die Art von Aussage, der man später nicht mehr trauen kann.</p>
+
+    <h4>Die Toleranz &ndash; wie viel Abweichung ist normal?</h4>
+
+    <p>Zu jedem Vertrag lassen sich zwei Toleranzen zum erwarteten Betrag hinterlegen: eine <strong>prozentuale</strong>, eine <strong>absolute</strong> &ndash; oder beide. Innerhalb der Toleranz gilt der Betrag als erwartet und meldet nichts; der Grenzwert selbst zählt noch dazu. Die Toleranz wirkt in beide Richtungen: Ein unerwartet <em>niedriger</em> Betrag ist genauso einen Hinweis wert wie ein zu hoher.</p>
+
+    <p>Sind <strong>beide</strong> gesetzt, gilt die <strong>weitere</strong> von beiden. Bei einem erwarteten Betrag von 40,00 mit 10&nbsp;% und 5,00 ist der Rahmen ±5,00, nicht ±4,00. Das ist die einzig sinnvolle Auslegung: Wer zwei Werte einträgt, will damit nicht, dass der schärfere den milderen stillschweigend außer Kraft setzt.</p>
+
+    <p>Wird <strong>gar keine</strong> Toleranz gesetzt, wird <strong>auf den Cent genau</strong> geprüft &ndash; und das ist Absicht, kein Versehen. Eine feste Miete hat keinen Spielraum, und gerade dort zählt die Abweichung am meisten: Werden aus 1.450,00 plötzlich 1.455,00, wurde der Dauerauftrag geändert, und das sollte jemand wissen. Ein Hinweis über einen Cent ist bei einer festen Verpflichtung ein echter Fund, kein Rauschen. Die Toleranz gehört zu den <em>veränderlichen</em> Verträgen &ndash; Strom, Telefon &ndash;, bei denen jede Periode ohnehin einen anderen Betrag bringt.</p>
+
+    <p>Verglichen wird dabei das, was der Vertrag jeweils hergibt: bei einem Vertrag <em>mit</em> Rechnung der geforderte Betrag der zugeordneten Rechnung &ndash; das ist es, was aus 89,00 129,00 gemacht hat &ndash;, bei einem Vertrag <em>ohne</em> Rechnung der tatsächlich zugeordnete Zahlbetrag, denn ein anderes Zeugnis gibt es dort nicht. Liegt beides nicht vor &ndash; keine Rechnung, nichts gezahlt &ndash;, entsteht <strong>kein</strong> Betragshinweis: Es gibt schlicht nichts zu vergleichen. Die Rate kann dann sehr wohl eine fehlende Rechnung oder eine fehlende Zahlung melden, aber keinen abweichenden Betrag.</p>
+
+    <h4>Ohne Rechnung wird auch keine angemahnt</h4>
+
+    <p>Ein Vertrag, bei dem <em>Rechnung erwartet</em> nicht gesetzt ist, meldet <strong>nie</strong> eine fehlende Rechnung &ndash; gleichgültig, wie lange die Rate zurückliegt. Es gibt kein Dokument, auf das gewartet wird, und ein Hinweis auf etwas, das es nie geben sollte, wäre nichts weiter als ein Fehlalarm, der die beiden echten Hinweise mit entwertet. Deshalb ist dieser eine Schalter beim Anlegen des Vertrags die wichtigste Angabe.</p>
+
+    <h4>Wo Sie die Verträge finden</h4>
+
+    <p>Im <strong>Verwaltungsbereich</strong> (Browser) unter <em>Stammdaten &rarr; Verträge</em>, mit der Berechtigung <code>CONTRACT_READ</code>. Die Liste zeigt je Vertrag Name, Lieferant, Intervall, erwarteten Betrag sowie die beiden Spalten, wegen derer man die Seite öffnet: <strong>Nächste Fälligkeit</strong> und <strong>Letzte Zahlung</strong>. Ein Klick öffnet den Vertrag mit seinem Formular und dem Ratenstreifen.</p>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-zuordnung">Zuordnung</h3>
+
+    <p>Eine Abbuchung auf dem Kontoauszug und die Rechnung des Lieferanten sind zwei Aufzeichnungen <em>desselben</em> Vorgangs &ndash; einmal aus Sicht der Bank, einmal aus Sicht des Lieferanten. Solange beide nebeneinander stehen, ohne dass festgehalten ist, welche Zahlung welche Rechnung begleicht, lässt sich die einfachste Frage nicht beantworten: <strong>Welche Rechnungen sind noch offen?</strong> Die Zuordnung stellt genau diese Verbindung her &ndash; und macht die Frage damit überhaupt erst beantwortbar.</p>
+
+    <h4>Wo Sie die Zuordnung finden</h4>
+
+    <p>Im <strong>Verwaltungsbereich</strong> (Browser) unter <em>Belegfluss &rarr; Zuordnung</em>, mit der Berechtigung <code>ACCOUNTING_READ</code> (Zuordnen selbst: <code>ACCOUNTING_WRITE</code>). Ohne <code>ACCOUNTING_WRITE</code>, etwa als Prüfer, zeigt die Seite die Warteschlange ohne die Schaltflächen <em>Zuordnen</em> und <em>Rückgängig</em>.</p>
+
+    <p>Oben steht dieselbe <strong>Fortschrittsleiste</strong> wie unter <a href="#kap-12-offen">Rechnungen</a> (Erfassen · Prüfen · Zuordnen · Erledigt, mit Anzahl). Diese Seite ist die Stufe <em>Zuordnen</em>; ein Klick auf eine andere Stufe öffnet die passende Rechnungsliste. Die Leiste erscheint nur mit der Berechtigung <code>INVOICE_READ</code>.</p>
+
+    <h4>Was aufgeführt wird</h4>
+
+    <p>Links steht die Warteschlange, rechts der Bereich, in dem zugeordnet wird: Ein Klick auf eine Zahlung füllt ihn, ohne dass die Liste sich bewegt. Das ist der Grund für die Aufteilung &ndash; eine Warteschlange wird von oben nach unten abgearbeitet, und ein Bereich, der sich zwischen den Zeilen aufklappt, schiebt bei jedem Vorgang alles Darunterliegende weg.</p>
+
+    <p>Aufgeführt werden die Umsätze aus Auszügen, die bereits einem Ihrer Konten zugeordnet sind, die neuesten zuerst. Ein Auszug <strong>ohne Kontozuordnung</strong> erscheint hier nicht &ndash; nicht, weil er erledigt wäre, sondern weil zuvor zu klären ist, zu welchem Konto er gehört. Das ist ein Arbeitspunkt unter <a href="#kap-12-bankkonten">Bankkonten</a>, nicht hier.</p>
+
+    <p>Auf einem kleinen Tablet (Hochformat) bleibt die Warteschlange die Seite; ein Klick auf eine Zahlung öffnet den Bereich zum Zuordnen als <strong>Schublade</strong> von rechts (520&nbsp;px), mit &times; zum Schließen. Eingetippte, noch nicht gebuchte Beträge fragen vor dem Schließen nach, wie überall.</p>
+
+    <h4>Die beiden Filter</h4>
+
+    <ul>
+        <li><strong>Nicht zugeordnet</strong> &ndash; die tägliche Arbeitsliste: alles, was noch einen offenen Rest trägt.</li>
+        <li><strong>Alle</strong> &ndash; zusätzlich die bereits ausgeglichenen Zahlungen. So finden Sie eine einmal getroffene Zuordnung wieder, um sie rückgängig zu machen.</li>
+    </ul>
+
+    <h4>Vorschläge &ndash; was eine Zahlung vermutlich begleicht</h4>
+
+    <p>Die eigentliche Arbeit an dieser Seite ist Suchen: Zu jeder Abbuchung muss die passende Rechnung erst gefunden werden. Deshalb schlägt das System vor, was eine Zahlung vermutlich begleicht. Wählen Sie eine Zahlung aus, erscheinen die Vorschläge rechts <strong>oberhalb von <em>Rest offen</em></strong>. Jeder nennt, was er ausgleichen würde, mit welchem Betrag &ndash; und <strong>weshalb er vorgeschlagen wird</strong>, etwa weil der Verwendungszweck die Rechnungsnummer enthält oder weil Empfänger und Betrag zur erwarteten Rate eines Vertrags passen. Diese Begründung ist kein Beiwerk: Nur mit ihr lässt sich ein falscher Vorschlag als das melden, was er ist &ndash; sonst bliebe es bei „stimmt nicht&ldquo;.</p>
+
+    <p><strong>Gebucht wird nichts von selbst.</strong> Jeder Vorschlag wartet auf <em>Übernehmen</em>. Das ist eine bewusste Entscheidung für die ersten Versionen, keine unfertige Stelle: Eine automatisch gesetzte Zuordnung müsste jemand nachträglich prüfen &ndash; und geprüft wird erfahrungsgemäß nur, was noch nicht gebucht ist.</p>
+
+    <p>Werden <strong>mehrere Vorschläge</strong> angezeigt, ist <strong>keiner davon vorausgewählt</strong>. Jeder trägt seine eigene Schaltfläche, keiner ist hervorgehoben. Auch das ist Absicht: Eine falsche Vorauswahl kostet mehr als gar keine, weil <em>Übernehmen</em> dann zur Handbewegung wird und die eigentliche Entscheidung ungeprüft durchrutscht. Sie wählen einen aus &ndash; oder keinen.</p>
+
+    <p>Ein Vorschlag kann eine Rechnung nennen, <strong>mehrere Rechnungen</strong> oder die Rate eines <a href="#kap-12-vertraege">Vertrags</a>. Nennt er mehrere Rechnungen, wird er <strong>in einem einzigen Vorgang gebucht &ndash; alle oder keine</strong>. Eine Überweisung, die drei Rechnungen bezahlt, kann deshalb nie halb zugeordnet enden; scheitert eine der drei, bleibt die Zahlung unverändert offen. Nach dem Übernehmen werden die Vorschläge neu ermittelt, der übernommene verschwindet also.</p>
+
+    <p>Ein <strong>SEPA-Mandat</strong> (oder die Gläubiger-ID) belegt den <em>Vertrag</em>, nicht die einzelne Rate. Sind von einem Vertrag mehrere Raten offen &ndash; etwa die dieses Monats und die bereits erzeugte des nächsten &ndash;, wird deshalb nur die Rate als <em>Eindeutig</em> vorgeschlagen, deren Fälligkeit dem Buchungstag der Zahlung am nächsten liegt. Eine andere Rate desselben Vertrags ordnen Sie bei Bedarf von Hand zu.</p>
+
+    <p>Zu den <strong>meisten Zahlungen gibt es keinen Vorschlag</strong>. Das ist der Normalfall und kein Fehler: Ein Verwendungszweck ohne Rechnungsnummer und ein Betrag, der zu nichts eindeutig passt, geben schlicht nichts her. Dann ordnen Sie wie bisher von Hand zu. Gespeichert wird an den Vorschlägen im Übrigen nichts &ndash; sie werden bei jeder Auswahl neu ermittelt und geben damit immer den heutigen Stand der offenen Posten wieder.</p>
+
+    <h4>Die sechs Ziele &ndash; wofür eine Zahlung gebucht wird</h4>
+
+    <p>Nicht jede Zahlung begleicht eine Rechnung. Auf einem Kontoauszug stehen ebenso Vertragsraten, Bankgebühren, Bareinzahlungen und Umbuchungen zwischen den eigenen Konten &ndash; und solange sich all das nur als <em>Rechnung</em> buchen ließe, bliebe entweder die Hälfte des Auszugs unzugeordnet oder sie würde als etwas gebucht, was sie nicht ist. Deshalb wird im rechten Bereich zuerst gewählt, <strong>um welche Art von Vorgang</strong> es sich handelt; erst danach zeigt der Dialog die Auswahl, die dazu gehört. Sechs Ziele stehen bereit:</p>
+
+    <ul>
+        <li><strong>Rechnung</strong> &ndash; der Normalfall: die Zahlung begleicht eine Eingangsrechnung. Ausgewählt wird sie aus der Liste der offenen Rechnungen, Lieferant und Rechnungsnummer je Zeile.</li>
+        <li><strong>Vertragsrate</strong> &ndash; die erwartete Zahlung aus einem <a href="#kap-12-vertraege">Vertrag</a>: Miete, Leasing, Wartung. Angeboten werden die noch offenen Raten <em>aller</em> Verträge, die früheste Fälligkeit zuerst. Eine Rate lässt sich damit <strong>von Hand</strong> auswählen &ndash; nicht mehr nur über einen Vorschlag.</li>
+        <li><strong>Ausgabe ohne Beleg</strong> &ndash; eine Ausgabe, zu der es keinen Beleg gibt und auch keinen mehr geben wird.</li>
+        <li><strong>Gebühr</strong> &ndash; ein Entgelt der Bank: Kontoführung, Überweisungs- oder Rücklastschriftgebühr.</li>
+        <li><strong>Geldtransit</strong> &ndash; Bargeld, das aus der Kasse genommen und zur Bank gebracht wurde. Die Bankseite dieses Vorgangs wird hier gebucht, die Kassenseite steht als Eintrag im <a href="#kap-12-kassenbuch">Kassenbuch</a> (siehe auch <a href="#kap-12-geldtransit">Geldtransit zwischen zwei Kassen</a>).</li>
+        <li><strong>Eigenübertrag</strong> &ndash; eine Umbuchung zwischen zwei <a href="#kap-12-bankkonten">eigenen Konten</a>. Es ist kein Aufwand und kein Ertrag, sondern dasselbe Geld an einer anderen Stelle.</li>
+    </ul>
+
+    <p><em>Ausgabe ohne Beleg</em> verlangt zwingend einen <strong>Buchungstext</strong>; ohne ihn bleibt <em>Zuordnen</em> gesperrt, und der Server weist die Buchung zusätzlich zurück. Der Grund steht im Namen: Es gibt keinen Beleg, also ist dieser Text die <strong>einzige</strong> Aufzeichnung darüber, wofür das Geld ausgegeben wurde. Wird er weggelassen, bleibt in einem Jahr nur noch ein Betrag ohne Antwort &ndash; und die Antwort ist dann nicht mehr zu beschaffen. Bei einer <em>Gebühr</em> ist der Text dagegen freiwillig: Was sie war, steht im Verwendungszweck des Umsatzes, auf dem sie gebucht wird. Der Unterschied ist also kein Versehen, sondern folgt daraus, ob der Vorgang außer dieser Eingabe noch irgendwo festgehalten ist.</p>
+
+    <p><em>Geldtransit</em> und <em>Eigenübertrag</em> verlangen, dass die <strong>Gegenseite benannt</strong> wird: beim Geldtransit der Kassenbuch-Eintrag, mit dem das Bargeld die Kasse verlassen hat, beim Eigenübertrag das andere Konto. Auch hier bleibt <em>Zuordnen</em> ohne diese Angabe gesperrt. Beides ist eine Bewegung mit zwei Hälften, und eine benannte Hälfte allein ist <strong>schlechter als gar kein Eintrag</strong>: Sie hält fest, dass Geld bewegt wurde, aber nicht wohin. Ein unzugeordneter Umsatz steht sichtbar in der Arbeitsliste und wird irgendwann geklärt; eine halbe Buchung sieht erledigt aus und wird deshalb nie wieder angesehen.</p>
+
+    <div class="alert alert-warning">
+        <strong>Ob der gewählte Kassenbuch-Eintrag wirklich zu dieser Zahlung gehört, prüft das System nicht:</strong> Weder Richtung noch Betrag noch Datum werden mit dem Umsatz abgeglichen &ndash; angeboten wird die Liste der letzten Einträge in der Reihenfolge des Kassenbuchs. Diese Beurteilung liegt dauerhaft bei Ihnen. Ein Transit über mehrere Tage oder in Teilbeträgen ist der Normalfall, und eine Regel, die solche Fälle richtig behandelt, gibt es bislang nicht; eine halbe Regel würde korrekte Einträge zurückweisen und wäre schlimmer als keine. Vergleichen Sie deshalb vor dem Zuordnen selbst, ob Betrag und Datum zusammenpassen.</div>
+
+    <p>Über <em>Gebühr</em> und <em>Ausgabe ohne Beleg</em> wird auch eine <strong>Überzahlung</strong> aufgelöst: Der überschüssige Teil einer Zahlung, der auf keiner Rechnung mehr Platz hat, wird auf eines dieser beiden Ziele gebucht statt einer Rechnung zusätzlich zugewiesen. Der Weg ist unter <a href="#kap-12-offen">Offen, Überfällig und Überzahlt</a> beschrieben.</p>
+
+    <h4>Eine Zahlung, mehrere Rechnungen</h4>
+
+    <p>Eine Zahlung lässt sich auf mehrere Rechnungen aufteilen &ndash; eine Sammelüberweisung ist der Normalfall, nicht die Ausnahme. Der <em>Rest offen</em> zählt dabei herunter; erst wenn er null erreicht, verlässt die Zahlung die Arbeitsliste. Eine <strong>Teilzuordnung ist deshalb kein Zwischenzustand, den man vermeiden müsste</strong>: die Zahlung bleibt schlicht aufgeführt, bis der Rest verteilt ist.</p>
+
+    <p>So geht das Verteilen: Unter <em>Ziel</em> wählen Sie die Art (Eingangsrechnung, Ausgangsrechnung, Vertragsrate &hellip;). Darunter stehen die offenen Posten, je mit Kästchen, Fälligkeit, dem noch offenen Betrag und einem Feld <em>Zuordnen</em>. Ein Haken füllt das Feld mit dem offenen Betrag des Postens &ndash; höchstens aber mit dem, was die Zahlung noch hergibt &ndash;, und auch das Eintippen eines Betrags wählt den Posten aus. Gebucht wird erst mit der <strong>einen</strong> Schaltfläche <em>Zuordnen</em> in der Zeile darunter, die mitzählt (&bdquo;Zuordnung 1.284,60&nbsp;&euro; von 1.284,60&nbsp;&euro;, Rest 0,00&nbsp;&euro;&ldquo;): Alle gewählten Posten gehen in <strong>einem Zug</strong> an den Server, es wird nie nur ein Teil gebucht. Übersteigt die Summe den offenen Betrag der Zahlung, färbt sich die Zeile rot und <em>Zuordnen</em> bleibt gesperrt. Die Kästchen erscheinen nur in der breiten Ansicht; auf dem Smartphone wählt das Betragsfeld allein aus.</p>
+
+    <h4>Rückgängig machen</h4>
+
+    <p>Mit <em>Rückgängig</em> wird eine Zuordnung aufgehoben; Zahlung und Rechnung kehren in ihre jeweiligen offenen Listen zurück &ndash; bei einer Vertragsrate entsprechend die Rate. War das Ziel eine <em>Gebühr</em>, eine <em>Ausgabe ohne Beleg</em>, ein <em>Geldtransit</em> oder ein <em>Eigenübertrag</em>, gibt es auf der Gegenseite nichts, was offen werden könnte: Dann kehrt allein die Zahlung in die Arbeitsliste zurück. Am Auszug und an der Rechnung selbst ändert sich dabei <strong>nichts</strong> &ndash; es wird nichts gelöscht und nichts überschrieben. Eine Zuordnung ist eine Entscheidung, die <em>neben</em> den Tatsachen festgehalten wird, keine Änderung an ihnen.</p>
+
+    <p>Vor dem Aufheben fragt ein Dialog <em>Zuordnung stornieren</em> nach (&bdquo;Die Zuordnung von &hellip; zu &hellip; wird aufgehoben. Der Bankumsatz ist danach wieder offen.&ldquo;); erst <em>Stornieren</em> hebt sie auf, <em>Abbrechen</em> lässt alles, wie es ist.</p>
+
+    <p>Die aufgehobene Zuordnung selbst verschwindet aus der Liste. Damit trotzdem nachvollziehbar bleibt, wer wann welche Zuordnung aufgehoben hat, hinterlässt jedes <em>Rückgängig</em> einen Eintrag <code>REVERSE_ALLOCATION</code> im <a href="kap-15-pruefprotokoll.html">Prüfprotokoll</a> &ndash; mit Zahlung, Ziel und Betrag der aufgehobenen Zuordnung.</p>
+
+    <div class="alert alert-info">
+        <strong>Mehr als der offene Rest lässt sich nicht zuordnen:</strong> Die Schaltfläche bleibt gesperrt, und der Server weist es zusätzlich zurück. Das ist keine Einschränkung, sondern der eigentliche Zweck: Wer von einer Zahlung über 100&nbsp;&euro; 120&nbsp;&euro; zuordnen möchte, hat eine der beiden Zahlen falsch vor sich &ndash; und es ist besser, jetzt herauszufinden welche, als beim Jahresabschluss.</div>
+
+    <h4>Rücklastschriften</h4>
+
+    <p>Kommt eine Abbuchung zurück, ist das Geld wieder da &ndash; die Rechnung des Lieferanten aber weiterhin unbezahlt. Bliebe sie nach der Rückgabe als beglichen stehen, entstünde eine Schuld, die niemand sehen kann: Die Liste der offenen Posten meldet, es sei alles ausgeglichen, und nach einem Problem, das es laut System nicht gibt, sucht niemand. Jede andere Lücke in diesem Bereich hinterlässt sichtbare Arbeit in einer Liste &ndash; diese hinterließe keine. Deshalb wird die zuvor getroffene Zuordnung bei einer Rücklastschrift <strong>von selbst aufgehoben</strong>, und die Rechnung steht wieder offen.</p>
+
+    <p>Das geschieht <strong>nachts und unbeaufsichtigt</strong> im Lauf <em>Stornolauf</em> (täglich 04:00, unter <em>System &rarr; Geplante Aufgaben</em> auch sofort startbar) &ndash; nicht schon beim Import des Auszugs. Es ist nichts zu drücken und nichts anzustoßen; am nächsten Morgen steht die betroffene Rechnung wieder unter <em>Offen</em>.</p>
+
+    <p>Still geschieht es trotzdem nicht. Die zurückgegebene Buchung steht in der Zuordnungsliste mit dem Hinweis <strong>Rücklastschrift</strong>, und ihr Detail erklärt, warum die ursprüngliche Abbuchung wieder in der Liste auftaucht. Jede vom Stornolauf aufgehobene Zuordnung hinterlässt außerdem einen Eintrag <code>VOID_RETURNED_DEBIT_ALLOCATION</code> im <a href="kap-15-pruefprotokoll.html">Prüfprotokoll</a> &ndash; mit der Rechnung bzw. Rate, die wieder offen ist, dem Betrag und den beiden beteiligten Bankbuchungen.</p>
+
+    <p>Eine Rückgabe, die sich <strong>nicht zweifelsfrei einer früheren Zahlung zuordnen lässt, bleibt unangetastet</strong> und steht als Arbeitspunkt in der Zuordnungsliste. Auch das ist Absicht: Würde die falsche Zahlung aufgehoben, stünde eine tatsächlich bezahlte Rechnung wieder offen &ndash; derselbe unsichtbare Fehler, nur in die andere Richtung. Zwei gleich hohe Abbuchungen an denselben Lieferanten innerhalb eines Monats sind nichts Ungewöhnliches, und das System rät zwischen ihnen nicht.</p>
+
+    <div class="alert alert-info">
+        <strong>Eine von Hand gesetzte Zuordnung wird nicht erneut aufgehoben:</strong> Halten Sie die Rückgabe selbst für den Fehler &ndash; etwa weil die Bank erneut einzieht &ndash; und ordnen die Zahlung wieder zu, bleibt diese Entscheidung bestehen. Der nächtliche Lauf rührt sie nicht noch einmal an.</div>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-export">DATEV-Export</h3>
+
+    <p>Das System unterstützt drei DATEV-kompatible Exportformate für Kassenbuch-Daten. Welches das Richtige ist, hängt davon ab, wie Ihr Steuerberater arbeitet — nicht von der Entscheidung des Kassenbedieners:</p>
+
+    <div class="alert alert-info">
+        <p><strong>Welche Kassen werden exportiert?</strong> Ohne Auswahl <strong>alle</strong> &ndash; das ist der vollständige Buchungsstapel, den der Steuerberater normalerweise benötigt. Für eine gezielte Prüfung lassen sich einzelne Kassen auswählen (Parameter <code>cashBookIds</code>).</p>
+        <p>Wird dabei nur <em>eine</em> Seite eines Geldtransits ausgewählt, weist der Export ausdrücklich darauf hin: Das Konto 1460 gleicht sich dann nicht aus, weil die Gegenbuchung fehlt. Der Export ist deshalb nicht falsch, aber unvollständig &ndash; für einen ausgeglichenen Stapel sind beide beteiligten Kassen aufzunehmen.</p>
+        <p>Die Vorschau (Statistik) berücksichtigt dieselbe Auswahl wie der Export, damit die angezeigten Summen zur erzeugten Datei passen.</p>
+    </div>
+
+    <h4 id="kap-12-export-wo">Wo Sie exportieren</h4>
+    <p>Alle DATEV-Exporte laufen im <strong>Web-Admin</strong> unter <em>Compliance &rarr; Datenexport</em> (Berechtigung <code>DSFINVK_EXPORT</code> für die Seite; die DATEV-Aufrufe selbst verlangen <code>CASHBOOK_READ</code> bzw. <code>ACCOUNTING_READ</code>). Die Kassen-App hat keinen Datenexport mehr. Die DATEV-Konfiguration und die Kontenzuordnung sieht nur, wer sie auch speichern darf (<code>CONFIG_WRITE</code>); wer nur exportieren darf, etwa der Prüfer, sieht allein die Exportbereiche, die seine Berechtigungen erlauben &ndash; den DATEV-Export mit <code>ACCOUNTING_READ</code>, darin <em>Ausgangsrechnungen (DATEV Debitoren)</em> nur mit <code>DEBTOR_DATEV_EXPORT</code>, den DSFinV-K-Export mit <code>DSFINVK_EXPORT</code>. Für Konfigurierende bietet die Seite die folgenden Bereiche; sie werden auf jeder Bildschirmbreite über Auswahl-Chips am oberen Rand gewählt, angezeigt wird immer nur ein Bereich, und jeder Bereich hat sein eigenes <em>Speichern</em>:</p>
+    <ul>
+        <li><strong>DATEV-Konfiguration</strong> &ndash; Kassenname, Exportpfad, Berater- und Mandantennummer, Sammeldebitor sowie der automatische Export (Rhythmus je Exportart, Uhrzeit).</li>
+        <li><strong>Kontenzuordnung</strong> (DATEV) &ndash; Kontenrahmen (SKR03/SKR04, mit vorbelegten Standardkonten), Kassenkonto, die Konten je Positionsart, MwSt.-Satz und Zahlungsart sowie die neun <em>Sonderbuchungen</em> (Geldtransit, Einlagen und Entnahmen, Kassendifferenzen, Saldenvortrag, Trinkgeld Arbeitnehmer). Gespeichert wird erst, wenn alle Sonderbuchungen ein Konto haben oder ihr Schalter <strong>Konto automatisch zuordnen</strong> ausgeschaltet ist; SKR03 und SKR04 belegen alle neun vor (bestehende Zuordnungen bleiben unverändert). Jede Zelle hat diesen Schalter: Ausgeschaltet wird die Zeile ohne Gegenkonto und BU-Schlüssel exportiert, der Export meldet Anzahl und Buchungen, und der Steuerberater ergänzt das Konto nach dem Import mit <em>Buchungen trotz Fehler importieren</em> in DATEV (<a href="datev-xml-export.html#s12-7" target="_blank">DATEV-Export, Abschnitt 12.7</a>). Die Vorschlagswerte für Mitarbeitertrinkgeld (SKR03&nbsp;1590 / SKR04&nbsp;1370, Durchlaufende Posten) stimmen Sie bitte mit Ihrem Steuerberater ab. Fehlen Konten, nennt ein Banner oben die Anzahl (<em>N Konten fehlen</em>) und springt per Schaltfläche zur ersten Lücke; jedes fehlende Konto ist markiert, auch in den Zellen für Einnahme- und Ausgabesätze. Die Ausgabeseite heißt <em>Wareneingang</em>, das Feld für den BU-Schlüssel erscheint nur bei eingeschaltetem Schalter. Was gespeichert und exportiert wird, ist davon unberührt.</li>
+        <li><strong>DATEV-Export</strong> &ndash; die Schaltflächen <em>Kassenbuch (DATEV-XML)</em>, <em>Eingangsrechnungen (DATEV-XML)</em>, <em>Buchungsstapel (CSV)</em>, <em>Buchungsstapel + Belege (ZIP)</em>, <em>Alle drei exportieren</em> sowie <em>Ausgangsrechnungen (DATEV Debitoren)</em>. Jede fragt im Dialog <em>Ad-hoc-Export</em> nach Start- und Enddatum. Darunter steht das <strong>Exportprotokoll</strong> mit Typ, Zeitraum, Zeitpunkt, Zeilenzahl, Datei-Hash und <em>Quelle</em>; jede Zeile lässt sich erneut herunterladen.</li>
+        <li><strong>DSFinV-K</strong> (daneben <strong>Backup</strong>) &ndash; der DSFinV-K-Export für die Betriebsprüfung (Zeitraum, Prüfen, Statistik, ZIP-Export; siehe <a href="kap-14-compliance.html">Kapitel 14</a>). Sichtbar mit <code>DSFINVK_EXPORT</code>, ohne dass dafür die TSE-Verwaltung (<code>TSE_ADMIN</code>) nötig ist.</li>
+    </ul>
+    <div class="alert alert-info">
+        <strong>Auch Ad-hoc-Exporte werden protokolliert.</strong> Ein von Hand ausgelöster Export erscheint im Exportprotokoll mit der Quelle <em>Manuell</em>, ein geplanter mit <em>Automatisch</em>. Manuelle Einträge zählen nicht als erledigter Zeitraum für den automatischen Export und das Nachholen fehlender Zeiträume. Nachholen gibt es nur für die planbaren Arten <em>Kassenbuch</em>, <em>Eingangsrechnungen</em> und <em>Buchungsstapel</em>: <em>Buchungsstapel + Belege (ZIP)</em> wird ausschließlich auf Anforderung erstellt, und eine Nachhol-Anfrage (Vorschau oder Ausführung) dafür lehnt der Server sofort mit HTTP&nbsp;400 (<code>DATEV_EXPORT_TYPE_NOT_SCHEDULABLE</code>) ab, statt für jeden Zeitraum denselben Fehler zu melden.
+    </div>
+    <div class="alert alert-warning">
+        <strong>Buchungsstapel erst nach der Kontenzuordnung.</strong> Solange für den Betrieb keine DATEV-Kontenzuordnung gespeichert ist, lehnt der Server jeden Buchungsstapel-Export mit <code>409 Conflict</code> ab (<code>DATEV_ACCOUNT_MAPPING_REQUIRED</code>). Die früheren festen Standardkonten je Buchungstyp gibt es nicht mehr &ndash; sie mischten SKR03 und SKR04 und hätten u.&nbsp;a. Barausgaben umgekehrt und jeden MwSt.-Satz auf das 19-%-Automatikkonto gebucht. Legen Sie die Zuordnung unter <em>Compliance &rarr; Datenexport &rarr; DATEV-Kontenzuordnung</em> an (Kontenrahmen wählen, Standardkonten übernehmen, speichern) und exportieren Sie erneut. Der XML-Kassenbuch-Export funktioniert auch ohne Zuordnung; er übernimmt dann die im Eintrag erfassten Felder <code>gegenkonto</code> und <code>bu</code>.
+    </div>
+
+    <p>Nebenkassen erscheinen im Export mit ihrem <strong>eigenen Sachkonto</strong> (Standard 1010, einstellbar unter <em>Kassen verwalten</em>); im Buchungsstapel steht es als Konto jeder Zeile dieser Kasse, während die Ladenkasse das Kassenkonto der Kontenzuordnung verwendet. Ein Geldtransit Ladenkasse &rarr; Tresor bucht daher 1000 an Geldtransit und Geldtransit an 1010. Der XML-Kassenbuch-Export führt kein Kassenkonto je Zeile; exportieren Sie dort je Kasse (Kassenauswahl) für die jeweilige DATEV-Kasse. Sie gehören in die Buchführung &ndash; anders als in die DSFinV-K-Ausgabe, die ausschließlich die fiskalische Ladenkasse enthält.</p>
+
+    <table style="width:100%; border-collapse:collapse; margin:12px 0;">
+        <thead>
+            <tr style="background:#f5f5f5;">
+                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Format</th>
+                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Steuerberater nutzt</th>
+                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Ausgabe</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding:8px; border:1px solid #ddd;">DATEV XML Kassenbuch</td>
+                <td style="padding:8px; border:1px solid #ddd;">DATEV Unternehmen online (Belegtransfer)</td>
+                <td style="padding:8px; border:1px solid #ddd;">ZIP mit Ledger-XML + PDFs</td>
+            </tr>
+            <tr>
+                <td style="padding:8px; border:1px solid #ddd;">DATEV Buchungsstapel (EXTF)</td>
+                <td style="padding:8px; border:1px solid #ddd;">DATEV Rechnungswesen (Stapelverarbeitung, lokal)</td>
+                <td style="padding:8px; border:1px solid #ddd;">125-spaltige CSV</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>Welches Format wann?</h4>
+    <ul>
+        <li><strong>Steuerberater arbeitet in DUo</strong> → <em>XML Kassenbuch</em> reicht allein. Belege und Buchungen landen im DUo-Kassenbuch-Modul; der Berater prüft und überträgt von dort ins Rechnungswesen.</li>
+        <li><strong>Steuerberater arbeitet lokal in DATEV Rechnungswesen ohne DUo</strong> → <em>beide Formate</em> werden benötigt. Buchungsstapel-CSV für die Buchungen (Stapelverarbeitung, zuerst importieren), XML Kassenbuch für die Beleg-PDFs (Belegtransfer, als zweites).</li>
+        <li><strong>Steuerberater arbeitet lokal und nutzt Belegtransfer nicht</strong> → nur <em>Buchungsstapel</em>. Belege werden separat übergeben (Papier, E-Mail etc.).</li>
+    </ul>
+
+    <p>Der Buchungsstapel ersetzt nicht das XML-Kassenbuch, sondern ergänzt es. Die Auswahl hängt vom Workflow des Steuerberaters ab.</p>
+
+    <h4>Was im Buchungsstapel enthalten ist</h4>
+    <p>Der Buchungsstapel-Export enthält ausschließlich kassenbezogene Buchungen aus dem POS:</p>
+    <ul>
+        <li>Barverkäufe, Barausgaben, Bargeldtransfers (Kasse ↔ Bank via Geldtransit)</li>
+        <li>Privatentnahmen, Differenzkorrekturen</li>
+        <li>EC-Kartenzahlungen laufen ebenfalls über das Geldtransit-Konto (POS bucht „Geldtransit ← Erlöse" zum Verkaufszeitpunkt)</li>
+    </ul>
+    <p><strong>Nicht enthalten:</strong> tatsächliche Bank-Buchungen. Diese kommen von der Bank (via DATEV Bank online oder Bank-CSV) und gleichen auf Steuerberater-Seite das Geldtransit-Konto aus. Das POS liefert die Kassenseite; die Bankseite ergänzt der Steuerberater.</p>
+
+    <div class="alert alert-warning">
+        <p><strong>Nachgereichte Belege verlängern den Zeitraum der Datei.</strong> Ausgewählt wird nach dem <em>Buchungszeitpunkt</em>, jede Zeile trägt aber ihr eigenes <em>Belegdatum</em> (siehe <a href="#kap-12-beleg-nach-abschluss">Belege nach dem Abschluss</a>). Ein heute gebuchter Beleg von gestern oder vom Vormonat erscheint deshalb im heutigen Export mit seinem echten Datum. Damit die Datei zu ihrem Inhalt passt, wird der Kopfsatz (<em>Datum vom/bis</em>) automatisch bis zum ältesten enthaltenen Belegdatum erweitert, und der Export meldet als Hinweis, wie viele Buchungen betroffen sind und welches das älteste Belegdatum ist. An den Buchungen selbst ändert sich nichts.</p>
+        <p><strong>Belege aus einem abgeschlossenen Wirtschaftsjahr</strong> &ndash; möglich über die Freigabe eines Managers bis zu einem Jahr rückwirkend &ndash; meldet der Export zusätzlich gesondert. Ein Stapel wird üblicherweise in <em>ein</em> Wirtschaftsjahr gebucht. Exportieren Sie solche Belege getrennt, oder klären Sie mit Ihrem Steuerberater, wie ein Beleg aus dem Vorjahr gebucht werden soll.
+        Im Web-Admin erscheinen diese Hinweise nach dem Herunterladen unter <em>Datenexport</em> in einem
+        Hinweisfeld über der Exportliste – für beide Varianten, mit und ohne Belege. Die Datei selbst ist
+        vollständig; die Hinweise sagen, was mit dem Steuerberater zu klären ist.</p>
+    </div>
+
+    <h4>1. Kassenbuch XML (Cash Ledger)</h4>
+    <p>Export über <code>GET /api/v1/kassenbuch/export/datev-xml</code> mit Datumsbereich (<code>startDate</code>, <code>endDate</code>).</p>
+    <ul>
+        <li>Alle Kassenbuch-Einträge im gewählten Zeitraum</li>
+        <li>DATEV-XML-Format (Schnittstelle online)</li>
+        <li>Verknüpfte PDF-Belege werden als Anhänge in die ZIP-Datei eingebettet</li>
+        <li>Download als <code>datev_xml_kassenbuch_{startDate}_{endDate}.zip</code></li>
+    </ul>
+    <p>
+        Import-Anleitung beim Steuerberater: siehe DATEV Hilfe-Center
+        <a href="https://help-center.apps.datev.de/documents/1036101" target="_blank" rel="noopener">Dok.-Nr. 1036101 — Kassenbuch-XML-Datei importieren</a>.
+    </p>
+
+    <h4>2. Eingangsrechnungen XML (Accounts Payable / AP Ledger)</h4>
+    <p>Export der eingehenden Rechnungen im DATEV-XML-Format mit verknüpften PDF-Dokumenten. Stornierte Rechnungen und ihre Gegenbuchungen sind nicht enthalten (siehe <a href="#kap-12-storno">Eine Rechnung stornieren</a>).</p>
+
+    <h4>3. Buchungsstapel CSV (EXTF — DATEV Rechnungswesen)</h4>
+    <p>Export über <code>GET /api/v1/kassenbuch/export/buchungsstapel</code>.</p>
+    <ul>
+        <li>125-spaltige CSV im <strong>EXTF_Buchungsstapel</strong>-Format (Version 700, Formatversion 13)</li>
+        <li>UTF-8 mit CRLF-Zeilenenden, semikolongetrennt, Kommadezimal</li>
+        <li>Eine Zeile pro Kassenbuch-Positionsposten (Multi-MwSt. → mehrere Zeilen mit gleichem <code>Belegfeld 1</code>)</li>
+        <li><code>Belegfeld 1</code> ist die Belegnummer des Kassenbuch-Eintrags. Weil jedes Kassenbuch für sich nummeriert, erhalten Einträge eines <strong>Nicht-Fiskal</strong>-Kassenbuchs (z.&nbsp;B. Tresor) ein Kassen-Präfix, etwa <code>T2-2026-05-0001</code>; die fiskalische Ladenkasse behält ihre Nummer. Gespeicherte Belegnummern, TSE-Daten und DSFinV-K bleiben unverändert (Details: DATEV-Export-Handbuch, Abschnitt 12.6).</li>
+        <li>30-Feld-Metadatenzeile mit Berater-/Mandantennummer, Wirtschaftsjahr-Beginn, Sachkontenlänge, Festschreibung und Sachkontenrahmen (aus der Kontenzuordnung: SKR03 oder SKR04)</li>
+        <li>Download als <code>EXTF_Buchungsstapel.csv</code> (Dateiname fix — DATEV erkennt das Format am <code>EXTF_</code>-Präfix)</li>
+        <li>Berater- und Mandantennummer pflegen Sie im Web-Admin unter <em>Compliance &rarr; Datenexport &rarr; DATEV XML Konfiguration</em>. Wirtschaftsjahr-Beginn, Sachkontenlänge (4..8, Standard 4) und Festschreibung (Standard: aus) gehören zur selben Konfiguration, haben dort aber derzeit kein eigenes Eingabefeld.</li>
+        <li>Ohne gespeicherte DATEV-Kontenzuordnung wird der Export mit <code>409</code> abgelehnt (siehe oben).</li>
+    </ul>
+
+    <h4>Export-Statistiken</h4>
+    <p>Vor dem eigentlichen Export kann über <code>GET /api/v1/kassenbuch/export/datev-xml/statistics</code> eine Vorschau der Exportdaten abgerufen werden (Anzahl Einträge, Gesamtbeträge, Zeitraum).</p>
+
+    <div class="alert alert-info">
+        <strong>Hinweis:</strong> Die Kassenbuch-Einträge enthalten vorformatierte DATEV-Felder (<code>datevAmountString</code>, <code>datevDateString</code>, <code>formattedBookingText</code>, <code>datevExportLine</code>), die eine direkte Weiterverarbeitung in der Buchhaltung ermöglichen. Das Feld <code>canBeExported</code> zeigt an, ob ein Eintrag alle Voraussetzungen für den DATEV-Export erfüllt.
+    </div>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-eigene-exporte">Eigene Exporte</h3>
+
+    <p>Neben den festen Ausgaben (DATEV, DSFinV-K) gibt es die <strong>eigenen Exporte</strong>: eine Liste, die Sie sich selbst zusammenstellen &ndash; etwa eine Telefonliste aller Lieferanten, eine Adressliste für den Steuerberater oder eine Aufstellung der Eingangsrechnungen eines Quartals mit genau den Spalten, die dort gebraucht werden. Das Ergebnis ist eine CSV-Datei, die sich in jeder Tabellenkalkulation öffnen lässt.</p>
+
+    <div class="alert alert-info">
+        <strong>Kein Compliance-Export:</strong> Hier ist nichts vom Finanzamt vorgeschrieben, und ein eigener Export ersetzt weder den DSFinV-K- noch den DATEV-Export. Er ist ein Arbeitsmittel für den eigenen Betrieb und für Rückfragen des Steuerberaters.</div>
+
+    <h4>Wo Sie die eigenen Exporte finden</h4>
+
+    <p>Im <strong>Verwaltungsbereich</strong> (Browser) unter <em>Compliance &rarr; Eigene Exporte</em>. Links stehen die bereits gespeicherten Exporte, rechts der Bearbeitungsbereich. Ein Export wird einmal eingerichtet und danach beliebig oft ausgeführt &ndash; über <em>Herunterladen</em>, jeweils mit dem Zeitraum, den Sie gerade brauchen.</p>
+
+    <p>Die Seite erscheint mit der Berechtigung <code>CUSTOM_EXPORT_READ</code>; damit lassen sich gespeicherte Exporte ausführen. Anlegen, ändern und löschen setzt zusätzlich <code>CUSTOM_EXPORT_MANAGE</code> voraus (standardmäßig Manager und Buchhaltung). Die Gruppe <strong>Prüfer</strong> darf Exporte ausführen, aber keine einrichten.</p>
+
+    <ol>
+        <li><strong>Datenbereich</strong> wählen &ndash; derzeit <em>Geschäftspartner</em>, <em>Eingangsrechnungen</em>, <em>Ausgangsrechnungen</em>, <em>Produkte</em>, <em>Kunden</em>, <em>Gutscheine</em>, <em>Kassenbelege</em>, <em>Kassenbuch</em> oder <em>Personal</em>. Der Datenbereich legt fest, was <em>eine Zeile</em> der Datei ist, und lässt sich später nicht mehr ändern (bei einem gespeicherten Export steht er als reiner Text); für einen anderen Bereich legen Sie einen neuen Export an.</li>
+        <li><strong>Spalten ankreuzen</strong> &ndash; links die angebotenen Felder, rechts die ausgewählten Spalten.</li>
+        <li><strong>Spaltenüberschriften</strong> überschreiben, wenn in der Buchhaltung ein anderer Begriff üblich ist, und die Spalten mit den Pfeilen in die gewünschte Reihenfolge bringen. Steht in einem gespeicherten Export als Überschrift noch ein technischer Datenbankschlüssel, zeigt die Maske beim Öffnen stattdessen die Feldbezeichnung; die CSV ändert sich erst, wenn Sie speichern.</li>
+        <li><strong>Zeitraum und Filter</strong> setzen (z.&nbsp;B. <em>Nur aktive</em>) und speichern. Ein leeres Datumsfeld zeigt <em>Unbegrenzt</em> und bedeutet genau das: ohne <em>Zeitraum von</em> beginnt die Datei mit dem ältesten Datensatz, ohne <em>Zeitraum bis</em> endet sie mit dem neuesten. Ein im Feld angezeigtes Datum ist immer auch das, was beim Herunterladen gilt &ndash; und zwar das <em>gespeicherte</em>: <em>Herunterladen</em> ist bei einem ungespeicherten oder geänderten Entwurf deaktiviert (Hinweis <em>Erst speichern</em>), bei einer defekten Definition ebenfalls (Hinweis <em>Feld reparieren</em>).</li>
+    </ol>
+
+    <p><strong>Reihenfolge der Zeilen:</strong> Die Datei ist nach dem Datum sortiert, auf das sich der Zeitraum bezieht &ndash; älteste Zeile zuerst (bei Kassenbelegen der Abschlusszeitpunkt, bei Ausgangsrechnungen das Rechnungsdatum, bei Gutscheinen das Ausgabedatum usw.); Zeilen mit demselben Zeitpunkt stehen in der Reihenfolge ihrer Erfassung. Ein Datenbereich ohne Zeitraum (<em>Produkte</em>) steht in Erfassungsreihenfolge. Wird die Datei gekürzt, enthält sie daher die ältesten Zeilen.</p>
+
+    <p>Ein gespeicherter Export wird bearbeitet, indem man ihn links auswählt, rechts ändert und erneut
+        <strong>speichert</strong>. Das Speichern überschreibt den Export an Ort und Stelle &ndash; es entsteht
+        <em>keine</em> Kopie. Die Änderung wird genauso geprüft wie beim ersten Speichern (Spalten, Berechtigungen,
+        Höchstzahl zusammengefasster Spalten); nur der Datenbereich bleibt fest. Wer eine Variante neben dem
+        Original behalten möchte, legt über <em>Neuer Export</em> einen zweiten an. <em>Löschen</em> ist eine eigene, abgesetzte Schaltfläche neben <em>Speichern</em>.</p>
+
+    <p>Enthält die Datei sehr viele Zeilen, wird sie gekürzt und die Maske sagt es ausdrücklich. Grenzen Sie in diesem Fall den Zeitraum ein und laden Sie den Rest in einem zweiten Durchgang.</p>
+
+    <h4 id="kap-12-eigene-exporte-stammdaten">Die Stammdaten-Bereiche: Produkte, Kunden, Gutscheine</h4>
+
+    <p>Drei Bereiche liefern die Listen, nach denen im Alltag am häufigsten gefragt wird:</p>
+
+    <ul>
+        <li><em>Produkte</em> &ndash; Artikelnummer, Name, Produktcode, Preis, Produktart und ob der Artikel aktiv ist; dazu der Block <em>Warengruppe</em> mit dem Namen der Kategorie. Ein <strong>Zeitraum lässt sich hier nicht setzen</strong>: ein Artikel hat kein Anlagedatum, sondern nur ein Datum der letzten Änderung, und dieses als Zeitraumfilter zu verwenden würde eine Frage beantworten, die niemand gestellt hat. Die Spalte <em>Zuletzt geändert am</em> können Sie trotzdem ankreuzen.</li>
+        <li><em>Kunden</em> &ndash; Kundennummer, Vor- und Nachname, E-Mail, Telefon, <strong>Werbe-Einwilligung</strong>, letzter Einkauf, aktiv und Anlagedatum. Die Werbe-Einwilligung steht bewusst neben der E-Mail-Adresse: eine Adressliste ohne sie verleitet zu einem Rundschreiben an Personen, die keines wollten. Umsatzspalten kommen &ndash; zusammengefasst &ndash; über den Block <em>Ausgangsrechnung</em> dazu.</li>
+        <li><em>Gutscheine</em> &ndash; Gutscheinnummer, Status, Ausgabewert, <strong>Restwert</strong>, Ausgabedatum sowie die Daten der vollständigen Einlösung und einer Stornierung. Der Zeitraum meint hier das <em>Ausgabedatum</em>: es ist das einzige Datum, das jeder Gutschein hat, und ein Filter auf das Einlösedatum würde ausgerechnet die noch offenen Gutscheine aus der Datei nehmen.</li>
+    </ul>
+
+    <div class="alert alert-info">
+        <strong>Diese drei Bereiche sind eigens berechtigt.</strong> Eine Kundenliste setzt das Recht voraus, den <em>gesamten</em> Kundenbestand zu lesen &ndash; nicht das Recht, an der Kasse einen einzelnen Kunden zu suchen. Für die Gutscheinliste gilt dasselbe gegenüber der Gutschein-Auswertung. Ein Export darf nie der bequemere Weg zu Daten sein als die Maske, die sie anzeigt.</div>
+
+    <h4 id="kap-12-eigene-exporte-bereiche">Spalten aus verwandten Bereichen</h4>
+
+    <p>Ein Export bot früher nur die Felder seines eigenen Bereichs an. Auf einer Geschäftspartner-Liste fehlte damit ausgerechnet die <strong>Kreditorennummer</strong> &ndash; die steht nicht am Partner selbst, sondern an seiner Kreditor-Rolle. Inzwischen werden auch die Felder der zugehörigen Bereiche angeboten.</p>
+
+    <p>Führen <em>zwei</em> Wege zum selben verwandten Bereich, so sagt die Überschrift, welcher Weg gemeint ist &ndash; <em>Kasse</em> und <em>Gegenkasse (Geldtransit)</em> auf dem Kassenbuch, <em>Personal (ausgestellt von)</em> und <em>Personal (storniert von)</em> auf den Ausgangsrechnungen. Geht ein Weg über einen Zwischenbereich, nennt die Überschrift beide Schritte, etwa <em>Debitor-Rolle &rarr; Geschäftspartner</em>. Zwei Blöcke tragen deshalb nie dieselbe Überschrift.</p>
+
+    <p>In der Feldliste stehen zuerst die Felder des gewählten Bereichs, ohne Überschrift. Darunter folgt je verwandtem Bereich ein Block mit eigener Überschrift &ndash; bei den Geschäftspartnern etwa <em>Kreditor-Rolle</em> (Kreditorennummer, Sachkonto, BU-Schlüssel, Kostenstelle, Zahlungsziel) und <em>Debitor-Rolle</em> (Debitorennummer, Erlöskonto). Angekreuzt wird ein solches Feld wie jedes andere; die Zeile bleibt eine Zeile je Geschäftspartner.</p>
+
+    <h4 id="kap-12-eigene-exporte-zusammengefasst">Bereiche mit mehreren Datensätzen: zusammengefasste Spalten</h4>
+
+    <p>Zu manchen Bereichen gibt es <strong>mehrere</strong> Datensätze je Zeile: ein Lieferant kann drei Bankverbindungen haben und im Jahr vierzig Eingangsrechnungen. Stünden diese als gewöhnliche Spalten daneben, müsste derselbe Lieferant in drei bzw. vierzig Zeilen erscheinen &ndash; wer die Liste dann zählt oder summiert, zählt den Lieferanten mehrfach.</p>
+
+    <p>Solche Bereiche werden deshalb <strong>zusammengefasst</strong> angeboten: als eine Anzahl, eine Summe, den frühesten oder spätesten Wert, oder als mehrere Werte durch Komma getrennt in <em>einer</em> Zelle. Die Zeile bleibt dabei eine Zeile je Geschäftspartner &ndash; gleich, wie viele Rechnungen oder Konten daran hängen.</p>
+
+    <p>Auf der Geschäftspartner-Liste stehen dafür in der Feldliste drei weitere Blöcke:</p>
+
+    <ul>
+        <li><em>Eingangsrechnung</em> &ndash; <strong>Anzahl Rechnungen</strong>, <strong>Rechnungssumme</strong>, <strong>Erste Rechnung</strong>, <strong>Letzte Rechnung</strong></li>
+        <li><em>Ausgangsrechnung</em> &ndash; <strong>Anzahl Ausgangsrechnungen</strong>, <strong>Umsatz</strong>, <strong>Erste Ausgangsrechnung</strong>, <strong>Letzte Ausgangsrechnung</strong></li>
+        <li><em>Bankverbindung</em> &ndash; <strong>IBANs</strong> (alle IBANs des Partners, durch Komma getrennt in einer Zelle) und <strong>Anzahl Bankverbindungen</strong></li>
+    </ul>
+
+    <p>Seit die Kunden ein eigener Bereich sind, kommt auf der Geschäftspartner-Liste noch ein gewöhnlicher Block <em>Debitor-Rolle &rarr; Kunde</em> hinzu: der Kundenstammsatz, der über die Debitor-Rolle des Partners an ihm hängt (Kundennummer, Name, E-Mail, Telefon). Er ist nicht zusammengefasst &ndash; je Partner gibt es höchstens einen &ndash; und setzt neben den Geschäftspartner- und Debitorenrechten auch das Recht auf den Kundenbestand voraus.</p>
+
+    <p>Der Block <em>Ausgangsrechnung</em> ist der Grund, aus dem eine Geschäftspartner-Liste inzwischen auch als <strong>Kundenliste mit Umsatz</strong> taugt: Sie kreuzen Firma, Ort und <em>Umsatz (Zeitraum)</em> an und erhalten je Kunde eine Zeile mit dem, was er im gewählten Zeitraum bei Ihnen gekauft hat &ndash; ohne dass ein Kunde mit vierzig Rechnungen vierzigmal in der Datei steht. Wie bei den Eingangsrechnungen gibt es jede dieser Spalten in der Fassung <em>(Zeitraum)</em> und <em>(gesamt)</em>.</p>
+
+    <div class="alert alert-info">
+        <strong>Diese Spalten setzen zwei Berechtigungen voraus:</strong> Der Weg zu den Ausgangsrechnungen führt über die <em>Debitor-Rolle</em> des Partners. Angeboten werden sie deshalb nur, wenn Sie sowohl die Debitorendaten als auch die Rechnungen lesen dürfen &ndash; nicht nur eines von beidem. Das ist der häufigste Grund, aus dem zwei Kollegen auf derselben Geschäftspartner-Liste unterschiedlich viele Spalten zur Auswahl haben.</div>
+
+    <h4>Zweimal angeboten: „(Zeitraum)&ldquo; und „(gesamt)&ldquo;</h4>
+
+    <p>Rechnungen haben ein Rechnungsdatum, deshalb wird jede Rechnungsspalte <strong>zweimal</strong> angeboten: <em>Anzahl Rechnungen (Zeitraum)</em> zählt nur die Rechnungen, die in den oben eingestellten Zeitraum fallen, <em>Anzahl Rechnungen (gesamt)</em> zählt alle. Ist kein Zeitraum gesetzt, steht in beiden dasselbe.</p>
+
+    <p>Beide gibt es, weil jede allein in die Irre führt. Eine Summe, die den eingestellten Zeitraum stillschweigend übergeht, wird als Quartalszahl gelesen und ist keine; eine Liste, die nur die Zeitraumzahl kennt, macht die Gesamtsumme unerreichbar &ndash; und wer sie braucht, zieht den Zeitraum so weit auf, dass er auch den Rest der Liste verändert. So sagt jede Spaltenüberschrift selbst, worüber sie gerechnet hat.</p>
+
+    <p>Bankverbindungen haben kein sinnvolles Datum &ndash; eine IBAN ist kein Vorgang &ndash;, deshalb gibt es <em>IBANs</em> und <em>Anzahl Bankverbindungen</em> nur einmal, ohne Zusatz.</p>
+
+    <div class="alert alert-warning">
+        <strong>Keine zusammengefasste Spalte rechnet je Person.</strong> Zusammengefasste Spalten werden über den Weg angeboten, der zu ihnen führt &ndash; und führt dieser Weg über das Personal, so ist das Ergebnis eine Zahl je Mitarbeiterin oder Mitarbeiter. Auf den <em>Kassenbelegen</em> und im <em>Kassenbuch</em> war das der Fall: Beide nennen die Person, die den Beleg gebucht hat, und über sie waren <strong>Umsatz</strong>, <strong>Anzahl Ausgangsrechnungen</strong> sowie <strong>erste</strong> und <strong>letzte Rechnung</strong> dieser Person erreichbar &ndash; je Bereich sechzehn Spalten, jeweils in der Fassung <em>(Zeitraum)</em> und <em>(gesamt)</em>. Diese Spalten werden auf <strong>keinem</strong> Datenbereich mehr angeboten, gleich über welchen Weg man sie erreicht. Der Grund steht beim Datenbereich <a href="#kap-12-eigene-exporte-personal"><em>Personal</em></a> &ndash; er gilt unverändert, wenn dieselbe Zahl unter einer anderen Überschrift entsteht.</div>
+
+    <p>Der <strong>Name</strong> der buchenden Person bleibt davon unberührt: Personalnummer, Vorname, Nachname und Position stehen auf diesen Listen weiterhin zur Auswahl. Weggefallen ist nur das Zusammenrechnen &ndash; wer welchen Beleg gebucht hat, ist eine betriebliche Angabe; was jemand insgesamt umgesetzt hat, ist es nicht.</p>
+
+    <div class="alert alert-info">
+        <strong>0 und leer sind zwei verschiedene Antworten:</strong> Eine <em>Anzahl</em> ohne passende Datensätze steht als <strong>0</strong> in der Datei. Eine <em>Summe</em> ohne passende Datensätze bleibt dagegen <strong>leer</strong> &ndash; nicht 0,00. „Gar keine Rechnung&ldquo; und „Rechnungen über zusammen null Euro&ldquo; sind verschiedene Sachverhalte, und eine 0,00 würde den Unterschied verwischen. Ebenso bleiben <em>Erste Rechnung</em> und <em>Letzte Rechnung</em> leer, wenn es keine gibt.</div>
+
+    <div class="alert alert-warning">
+        <strong>Rechnungen ohne Rechnungsdatum:</strong> Eine solche Rechnung fällt aus jeder <em>(Zeitraum)</em>-Spalte heraus, bleibt aber in der <em>(gesamt)</em>-Spalte enthalten. Eine Zeitraum-Anzahl kann deshalb kleiner sein als die Gesamtanzahl, ohne dass es am Zeitraum liegt.</div>
+
+    <div class="alert alert-info">
+        <strong>Höchstens fünf zusammengefasste Spalten je Export:</strong> Für jede dieser Spalten wird pro ausgegebener Zeile eine eigene Abfrage ausgeführt &ndash; ein Export mit vielen davon braucht spürbar länger. Gewöhnliche Spalten sind unbegrenzt. Sind fünf angekreuzt, lassen sich die übrigen zusammengefassten Spalten nicht mehr ankreuzen; ein Hinweis über der Liste nennt, wie viele von fünf vergeben sind. Bereits gewählte Spalten bleiben abwählbar, gewöhnliche Spalten bleiben frei. Wird die Grenze dennoch überschritten, lehnt der Server schon das <em>Speichern</em> ab und nennt die Zahl &ndash; ein Export, den das <em>Herunterladen</em> ohnehin abweisen würde, wird gar nicht erst gespeichert. Streichen Sie dann einige Spalten oder verteilen Sie sie auf zwei Exporte.</div>
+
+    <h4 id="kap-12-eigene-exporte-ausgangsrechnungen">Der Datenbereich <em>Ausgangsrechnungen</em></h4>
+
+    <p>Neben den Geschäftspartnern und den Eingangsrechnungen lassen sich auch die Rechnungen exportieren, die <strong>Sie geschrieben</strong> haben. Eine Zeile ist dabei eine Ausgangsrechnung. Das ist die Liste für die Umsatzseite: was der Steuerberater für ein Quartal sehen will, und womit Sie durchgehen, was ein Kunde noch schuldet.</p>
+
+    <p>Angeboten werden an der Rechnung selbst die <strong>Rechnungsnummer</strong>, die drei Daten &ndash; <strong>Rechnungsdatum</strong>, <strong>Leistungsdatum</strong> und <strong>Fälligkeit</strong> &ndash;, die Angaben zum Käufer (<strong>Käufer</strong>, <strong>USt-IdNr. des Käufers</strong>, <strong>Ort des Käufers</strong>), der <strong>Status</strong>, die <strong>Währung</strong> sowie die Beträge <strong>Nettobetrag</strong>, <strong>Steuerbetrag</strong>, <strong>Bruttobetrag</strong> und <strong>Offener Betrag</strong>.</p>
+
+    <p>Dazu kommen wie überall die Blöcke der zugehörigen Bereiche: die <em>Debitor-Rolle</em> des Kunden (Debitorennummer, Erlöskonto), die <em>Buchung (Ausgang)</em> mit Ihren Kontierungsangaben, und &ndash; einen Schritt weiter &ndash; der <em>Debitor-Rolle &rarr; Geschäftspartner</em> des Kunden mit seinen Stammdaten. Der <strong>Käufer</strong> an der Rechnung und der <strong>Name</strong> aus dem Block <em>Geschäftspartner</em> sind bewusst zwei verschiedene Felder: der erste ist der Name, der damals auf diesem Beleg gedruckt wurde und der dort auch stehen bleibt, wenn der Kunde später umfirmiert; der zweite ist der heutige Stammdatensatz. Welchen Sie brauchen, hängt davon ab, wofür die Liste gedacht ist.</p>
+
+    <p>Als Filter stehen drei Schalter bereit:</p>
+
+    <ul>
+        <li><strong>Nur gestellte</strong> &ndash; nur tatsächlich gestellte Rechnungen. Entwürfe und stornierte Rechnungen bleiben draußen.</li>
+        <li><strong>Ohne stornierte</strong> &ndash; die weichere Variante: Entwürfe bleiben in der Datei, die stornierten Rechnungen nicht.</li>
+        <li><strong>Nur offene</strong> &ndash; nur gestellte Rechnungen, auf die noch etwas offen ist. Ein Entwurf ist nicht offen, sondern ein Entwurf, und bleibt draußen.</li>
+    </ul>
+
+    <p>Ohne Schalter enthält die Datei <strong>alle</strong> Rechnungen des Zeitraums, auch stornierte. Das ist Absicht: eine stornierte Rechnung hat eine Rechnungsnummer verbraucht und hat es gegeben; sie stillschweigend wegzulassen würde eine kürzere Datei erzeugen, der man nicht ansieht, dass etwas fehlt.</p>
+
+    <div class="alert alert-info">
+        <strong>„Nur offene&ldquo; rechnet genauso wie die Rechnungsübersicht:</strong> Der Schalter benutzt dieselbe Regel für den offenen Betrag wie die Rechnungsübersicht im Verwaltungsbereich &ndash; es gibt nur eine Stelle im Programm, an der sie steht. Die Datei und der Bildschirm können über dieselbe Rechnung deshalb nicht verschieden Auskunft geben. Maßgeblich ist der offene Betrag, solange er ausgerechnet wurde; sonst der fällige Betrag, sonst der Bruttobetrag. Eine auf null gestellte Rechnung gilt als bezahlt und fällt heraus.</div>
+
+    <h4 id="kap-12-eigene-exporte-kassenbelege">Die Datenbereiche <em>Kassenbelege</em> und <em>Kassenbuch</em></h4>
+
+    <p>Für beide gibt es bereits einen vorgeschriebenen Export &ndash; die Kassenbelege stecken im DSFinV-K- und im TSE-Export, das Kassenbuch im DATEV-XML und im Buchungsstapel. Die beiden Bereiche hier sind etwas anderes: eine <strong>Arbeitsliste für den eigenen Betrieb</strong>, mit den Spalten, die Sie gerade brauchen.</p>
+
+    <div class="alert alert-warning">
+        <strong>Kein Ersatz für den Pflichtexport.</strong> Eine hier zusammengestellte Datei ist kein DSFinV-K, kein Z-Bon und kein Buchungsstapel. Die Spalten sind bewusst so gewählt, dass die Datei mit keinem dieser Formate verwechselt werden kann: Signaturdaten der TSE werden gar nicht angeboten, und beim Kassenbuch fehlen die reinen DATEV-Buchungsfelder (Gegenkonto, BU-Schlüssel, Kostenstellen) absichtlich. Wer eine Buchungsdatei braucht, nimmt den DATEV-Export.</div>
+
+    <ul>
+        <li><em>Kassenbelege</em> &ndash; eine Zeile je Beleg: <strong>Belegnummer</strong>, <strong>Belegdatum</strong>, <strong>Bruttobetrag</strong>, <strong>Rabatt</strong>, <strong>Aktionsabzug</strong>, <strong>Gezahlt</strong>, <strong>Trinkgeld</strong> samt Empfänger und das Kennzeichen <strong>Schulungsbeleg</strong>. Ob ein Beleg vollständig bezahlt ist, lesen Sie an <em>Bruttobetrag</em> und <em>Gezahlt</em> nebeneinander ab &ndash; einen Status gibt es an der Kasse nicht. Der Zeitraum meint den <strong>Abschluss</strong> des Belegs, nicht den Beginn der Tischbedienung: sonst fiele ein nach Mitternacht bezahlter Tisch in den Vortag. Das <strong>Trinkgeld</strong> steht in einer eigenen Spalte und ist im <em>Bruttobetrag</em> nicht enthalten: Bei Empfänger <em>Mitarbeiter</em> ist es nicht steuerbar und kein Umsatz, im Betrag unter <em>Gezahlt</em> aber enthalten.</li>
+        <li><em>Kassenbuch</em> &ndash; eine Zeile je Eintrag: <strong>Belegnummer</strong>, <strong>Belegdatum</strong>, <strong>Buchungsart</strong>, <strong>Belegtext</strong>, <strong>Betrag</strong>, <strong>Saldo</strong>, <strong>Korrekturart</strong>, ob der Eintrag <strong>abgeschlossen</strong> ist, und das Erfassungsdatum. Dazu die Blöcke <em>Kasse</em> und <em>Gegenkasse (Geldtransit)</em> mit dem Namen der Kasse (Ladenkasse, Tresor) &ndash; ohne sie stünden mehrere Kassen ununterscheidbar in einer Liste.</li>
+    </ul>
+
+    <p>Zusammengefasste Spalten gibt es in beiden Bereichen: bei den Kassenbelegen die <em>Steueraufteilung</em> (<strong>Anzahl Steuersätze</strong>, <strong>Steuerbetrag</strong>), beim Kassenbuch die <em>Positionen</em> (<strong>Anzahl Positionen</strong>, <strong>Positionssumme</strong>). Ein Beleg mit zwei Steuersätzen bleibt dadurch <em>eine</em> Zeile.</p>
+
+    <p>Bei den Kassenbelegen steht außerdem der Schalter <strong>Ohne Schulungsbelege</strong> bereit. Schulungsbelege sind keine Umsätze; ohne den Schalter stehen sie mit in der Datei &ndash; erkennbar an der Spalte <em>Schulungsbeleg</em> &ndash; und eine Summe über die Bruttobeträge stimmt dann mit keiner anderen Auswertung überein.</p>
+
+    <div class="alert alert-info">
+        <strong>Kassenbelege sind die größte Liste im Programm.</strong> Ein ganzes Jahr passt in der Regel nicht in eine Datei: Die Ausgabe wird gekürzt und die Maske sagt es ausdrücklich. Grenzen Sie den Zeitraum ein &ndash; etwa auf einen Monat &ndash; und laden Sie den Rest in einem zweiten Durchgang.</div>
+
+    <div class="alert alert-info">
+        <strong>Kasse und Gegenkasse sind zwei Blöcke.</strong> Ein Kassenbuch-Eintrag hängt an <em>zwei</em> Kassen: an der eigenen und &ndash; bei einem Geldtransit &ndash; an der Gegenkasse. Sie heißen deshalb auch so: <em>Kasse</em> und <em>Gegenkasse (Geldtransit)</em>. Früher trugen beide Blöcke dieselbe Überschrift „Kasse&ldquo;, sodass nicht zu erkennen war, welcher welcher ist. Beide lassen sich einzeln verwenden; werden aus <em>beiden</em> Spalten angekreuzt, weist der Server das Herunterladen mit einem Hinweis ab, statt stillschweigend die falsche Kasse in die Spalte zu schreiben.</div>
+
+    <h4 id="kap-12-eigene-exporte-personal">Der Datenbereich <em>Personal</em></h4>
+
+    <p>Eine Zeile je Mitarbeiterin oder Mitarbeiter: <strong>Personalnummer</strong>, <strong>Rolle</strong>, <strong>Beschäftigungsstatus</strong> und das Datum, an dem der Zugang angelegt wurde. Dazu der Block <em>Personaldaten</em> mit <strong>Vorname</strong>, <strong>Nachname</strong>, <strong>Position</strong> und <strong>Eintrittsdatum</strong>. Das ist die Liste, die Sie brauchen, wenn jemand fragt, wer bei Ihnen arbeitet &ndash; und mehr ist es bewusst nicht.</p>
+
+    <div class="alert alert-warning">
+        <strong>Diese Datei enthält personenbezogene Daten.</strong> Sie steht damit unter anderen Regeln als eine Artikel- oder Belegliste: Sie darf nur an Empfänger gehen, die sie für eine konkrete Aufgabe brauchen &ndash; die Lohnbuchhaltung, die Steuerberatung &ndash;, sie gehört nicht in einen offenen Ordner oder Verteiler, und sie sollte gelöscht werden, sobald der Anlass erledigt ist. Herunterladen darf sie nur, wer die <strong>Personalakten lesen</strong> darf (dieselbe Berechtigung wie für die Mitarbeiterliste im Verwaltungsbereich). Das Recht, die <em>eigenen</em> Daten zu sehen, das jede Rolle hat, genügt ausdrücklich nicht &ndash; ein Kassen-Login kommt an diese Liste nicht heran.</div>
+
+    <p><strong>Was bewusst nicht angeboten wird:</strong> Geburtsdatum, Privatanschrift, private E-Mail-Adresse und Telefonnummer, Gehalt und Stundenlohn, die vertraglich vereinbarte Stundenzahl, der Benutzername, das Datum der letzten Anmeldung und das interne Notizfeld. Kennwort und PIN sind ohnehin gesperrt. Gehalt, Stundenlohn und Geburtsdatum sind zusätzlich <em>fest gesperrt</em>: sie lassen sich auch später nicht versehentlich freischalten. Für alles Übrige gilt: eine Spalte, die in dieser Datei nicht steht, kann auch nicht versehentlich weitergegeben werden.</p>
+
+    <p>Wer keinen Personalstammsatz hat, steht trotzdem in der Liste &ndash; mit leeren Namensfeldern. Die Alternative wäre eine Personalliste, in der Personen fehlen, ohne dass die Datei etwas darüber sagt.</p>
+
+    <div class="alert alert-info">
+        <strong>Der Name steht auch auf anderen Listen.</strong> Ein Kassenbeleg, ein Kassenbuch-Eintrag und eine Ausgangsrechnung sind jeweils einer Person zugeordnet, deshalb bieten diese drei Bereiche ebenfalls einen Block <em>Personal</em> bzw. <em>Personaldaten</em> an &ndash; wer den Beleg gebucht hat, wer die Rechnung gestellt oder storniert hat. Angeboten werden diese Spalten nur, wenn Sie <em>zusätzlich</em> zum jeweiligen Bereich auch die Personalakten lesen dürfen. Wer eine Buchung erfasst hat, ist eine betriebliche Angabe, die ohnehin in der jeweiligen Maske steht; sie bleibt deshalb exportierbar.</div>
+
+    <div class="alert alert-warning">
+        <strong>Kein Export enthält Leistungszahlen je Person.</strong> Umsatz je Person, Anzahl oder Summe der Rechnungen einer Person, erste und letzte Rechnung &ndash; solche Spalten werden <strong>auf keinem Datenbereich</strong> angeboten: weder auf dem Datenbereich <em>Personal</em>, noch auf den <em>Kassenbelegen</em> oder im <em>Kassenbuch</em>, die dieselbe Zahl über die buchende Person erreichbar gemacht hatten. Sie waren technisch ableitbar, weil ein Beleg und eine Ausgangsrechnung die handelnde Person nennen; angeboten wurden sie nie bewusst, sondern sie ergaben sich aus den Verknüpfungen zwischen den Tabellen.</div>
+
+    <p>Der Grund ist kein technischer. Eine Aufstellung „Umsatz je Mitarbeiterin&ldquo; ist eine <strong>Leistungs- und Verhaltenskontrolle</strong> im Sinne des &sect; 87 Abs. 1 Nr. 6 BetrVG: Ihre Einführung ist mitbestimmungspflichtig und will eine Betriebsvereinbarung hinter sich haben, keine angekreuzte Spalte. Die Personalliste beantwortet die Frage <em>wer arbeitet hier, in welcher Rolle, seit wann</em> &ndash; und fasst über die Arbeitsergebnisse dieser Personen nichts zusammen.</p>
+
+    <p>Und weil es an der Zahl liegt und nicht an der Überschrift der Liste, gilt derselbe Grund auch dort, wo dieselbe Zahl auf einem anderen Weg entstünde: über die buchende Person auf den <em>Kassenbelegen</em> und im <em>Kassenbuch</em>. Eine Datei mit Personalnummer, Vorname, Nachname und Umsatz ist dieselbe Auswertung, ob sie nun als Personal- oder als Kassenbuchliste gebaut wurde.</p>
+
+    <p>Ein Export, der vor dieser Änderung mit einer solchen Spalte gespeichert wurde, lässt sich nicht mehr herunterladen: Der Server weist ihn beim Herunterladen mit einem Hinweis ab, statt die Datei stillschweigend ohne die Spalte oder mit ihr auszugeben. Nehmen Sie die Spalte aus dem Export heraus, dann läuft er wieder.</p>
+
+    <p>Unberührt bleiben die Auswertungen, die es an anderer Stelle ohnehin gibt: Umsatzzahlen stehen im Berichtsbereich, und der Datenbereich <em>Ausgangsrechnungen</em> liefert weiterhin je Rechnung eine Zeile samt der Person, die sie ausgestellt hat.</p>
+
+    <h4>Eine leere Zelle heißt „kein solcher Datensatz&ldquo;</h4>
+
+    <p>Ein Geschäftspartner ohne Kreditor-Rolle wird exportiert &ndash; mit <strong>leerer</strong> Kreditorennummer. Die leere Zelle bedeutet nicht, dass eine Angabe fehlt oder nicht gelesen werden konnte, sondern dass es diese Rolle für den Partner schlicht nicht gibt.</p>
+
+    <p>Das ist Absicht. Die Alternative wäre, den Partner ganz wegzulassen &ndash; und damit fehlten in einer Adressliste genau die Firmen, die noch keine Kreditor-Rolle haben, ohne dass die Datei irgendetwas darüber sagt.</p>
+
+    <h4>Sie sehen nur die Bereiche, die Sie lesen dürfen</h4>
+
+    <p>Welche Felder angeboten werden, richtet sich nach den Berechtigungen der angemeldeten Person. Zwei Kollegen können denselben Datenbereich öffnen und <strong>unterschiedliche</strong> Spalten zur Auswahl haben. Maßgeblich ist dabei nicht nur der Bereich, aus dem die Spalte stammt, sondern der <strong>gesamte Weg</strong> dorthin: Wer die Kreditoren nicht lesen darf, bekommt auch kein Feld angeboten, das über die Kreditor-Rolle erreicht wird &ndash; selbst dann nicht, wenn er den Bereich am Ende des Weges lesen dürfte. Sonst verriete schon die leere oder gefüllte Zelle, welche Partner eine Kreditor-Rolle haben.</p>
+
+    <div class="alert alert-warning">
+        <strong>Wer einen Export baut und wer ihn ausführt, muss nicht dieselbe Person sein:</strong> Ein gespeicherter Export gehört allen, die die Seite öffnen dürfen. Beim <em>Herunterladen</em> wird jede Spalte erneut gegen die Rechte der Person geprüft, die gerade herunterlädt. Greift der Export auf Daten zu, die diese Person nicht lesen darf, wird die Ausführung abgelehnt &ndash; auch wenn er für den Ersteller einwandfrei läuft. Wenden Sie sich in dem Fall an Ihren Administrator; es ist kein Fehler des Exports.</div>
+
+    <!-- =============================== -->
+    <h3 id="kap-12-historie">Eintragshistorie</h3>
+
+    <p>Über <code>GET /api/v1/kassenbuch/entries?startDate=...&amp;endDate=...</code> wird die Eintragshistorie für einen Zeitraum abgerufen. Die Einträge werden gruppiert nach Belegnummer angezeigt, sodass Multi-MwSt.-Belege als zusammengehörige Einheit dargestellt werden.</p>
+
+    <p>Einzelne Einträge können über <code>GET /api/v1/kassenbuch/entries/{entryId}</code> abgerufen werden, die gruppierte Detailansicht über <code>GET /api/v1/kassenbuch/entries/grouped/{headerId}</code>.</p>
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-11-berichte.html">&larr; Vorheriges: Berichte &amp; Statistiken</a>
+    <a href="kap-13-einstellungen.html">Nächstes: Einstellungen &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

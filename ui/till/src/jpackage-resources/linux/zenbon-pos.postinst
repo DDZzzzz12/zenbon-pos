@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+
+groupadd -f zenbon
+
+INSTALL_DIR="/opt/zenbon-pos"
+if [ -d "$INSTALL_DIR" ]; then
+    chown -R root:zenbon "$INSTALL_DIR"
+    chmod -R g+w "$INSTALL_DIR"
+    find "$INSTALL_DIR" -type d -exec chmod g+s {} +
+fi
+
+TARGET_USER="${SUDO_USER:-$(logname 2>/dev/null || true)}"
+if [ -n "$TARGET_USER" ] && [ "$TARGET_USER" != "root" ]; then
+    usermod -aG zenbon "$TARGET_USER" || true
+    echo "Added '$TARGET_USER' to 'zenbon' group. Log out and back in for group membership to take effect."
+else
+    echo "Non-interactive install detected. After install, add users to the 'zenbon' group: sudo usermod -aG zenbon <username>"
+fi
+
+if [ -f "$INSTALL_DIR/lib/app/update-helper.sh" ]; then
+    chmod +x "$INSTALL_DIR/lib/app/update-helper.sh"
+fi
+
+exit 0

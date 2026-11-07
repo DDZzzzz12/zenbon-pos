@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 09 – Artikelverwaltung – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 09 – Artikelverwaltung <span class="badge badge-manager">Manager+</span></h2>
+
+    <div class="alert alert-warning">
+        <strong>Artikelverwaltung nur im Web-Admin:</strong> Der Menüpunkt <strong>Lager</strong> ist an der
+        Kasse nicht mehr vorhanden. Produkte, Kategorien, Extras und Auswahlgruppen werden ausschließlich
+        im <strong>Web-Admin</strong> unter dem Menüpunkt <strong>Produkte</strong> gepflegt. Die Kasse
+        zeigt den gepflegten Artikelstamm nur noch im Bestellvorgang an. Alle Schritte in diesem Kapitel
+        beziehen sich auf den Web-Admin.
+    </div>
+
+    <h3>Produkte verwalten</h3>
+    <p>Öffnen Sie im <strong>Web-Admin</strong> den Menüpunkt <strong>Produkte</strong> (Gruppe <em>Betrieb</em>).
+    Die Kopfzeile nennt die Anzahl der Produkte, davon aktiv und inaktiv. Die Darstellung richtet sich nach der Breite des Fensters:</p>
+    <ul>
+        <li><strong>Breites Fenster:</strong> Links steht die Kategorieliste (mit <strong>Alle Produkte</strong> und der Zahl der Produkte je Kategorie),
+            rechts die Produkttabelle mit Suchfeld <em>Produkte suchen</em>. In der Kopfzeile stehen
+            <strong>Extras</strong>, <strong>Auswahlgruppen</strong>, <strong>Aktionen</strong> (Aktionen/Promotions anlegen, deaktivieren und ihre Nutzung einsehen;
+            angewendet werden sie an der Kasse beim Abrechnen, siehe <a href="kap-06-abrechnung.html#kap-06-aktionen">Kapitel 06</a>)
+            und <strong>Produkt anlegen</strong>; Auswahlgruppen erklärt <a href="choice-groups.html" target="_blank">Choice Groups</a>.
+            Kategorien legen Sie mit dem <strong>+</strong> neben <em>Kategorien</em> an. Die <em>ausgewählte</em> Kategorie zeigt
+            darunter ihre Schaltflächen zum Verschieben (hoch/runter), <strong>Bearbeiten</strong> und <strong>Löschen</strong>; eine Kategorie,
+            die nicht überall sichtbar ist, trägt ihre Sichtbarkeit (Nur Kasse, Nur Website, Versteckt) unter dem Namen.
+            In der Tabelle zeigt die Zeile unter dem Produktnamen <em>Pfand</em> und die Zahl der Auswahlgruppen; sortiert wird über die
+            Spaltenköpfe. Ist eine Kategorie ausgewählt, entfällt die Spalte <em>Kategorie</em>, und die Zeile über der Tabelle nennt
+            <em>Kategorie · N von M Produkten</em>.</li>
+        <li><strong>Mittleres Fenster:</strong> Statt der Kategorieliste steht eine Zeile mit Kategorie-Chips (mit Zähler) unter dem Suchfeld.
+            Das Menü <strong>Verwalten</strong> neben dem Suchfeld enthält <em>Extras verwalten</em>, <em>Auswahlgruppen verwalten</em>,
+            <em>Aktionen verwalten</em> und <em>Kategorien verwalten</em>; das Stift-Symbol am Ende der Chip-Zeile öffnet ebenfalls die
+            Kategorienliste. In der Tabelle steht unter dem Namen <em>Nummer · Kategorie</em>; der Spaltenkopf <em>Produkt</em> öffnet
+            ein Menü zum Sortieren nach Name, Nummer oder Kategorie.</li>
+        <li><strong>Smartphone:</strong> Oben steht <strong>Produkt anlegen</strong>; das Verwalten-Menü (Extras, Auswahlgruppen, Aktionen) öffnet sich
+            über die drei Punkte <strong>⋮</strong> in der oberen Leiste. Darunter das Suchfeld mit der Schaltfläche <strong>Filter</strong>. Im Filter wählen Sie die <strong>Kategorie</strong> und
+            die <strong>Sortierung</strong> (Name, Nummer, Kategorie oder Preis, aufsteigend oder absteigend) und übernehmen
+            sie mit <strong>Anwenden</strong>; <strong>Zurücksetzen</strong> hebt Kategorie und Sortierung wieder auf. Jedes Produkt ist eine Zeile
+            mit Bild, Name, <em>Nummer · Kategorie</em>, Status und Preis; ein Tipp auf die Zeile öffnet das Bearbeitungsformular,
+            in dem auch <strong>Löschen</strong> steht.</li>
+    </ul>
+    <p>In <strong>Kategorien verwalten</strong> sehen Sie jede Kategorie mit Produktzahl und Sichtbarkeit und können sie verschieben,
+    bearbeiten, löschen oder eine neue Kategorie hinzufügen. Eine Kategorie mit aktiven Produkten lässt sich nicht löschen:
+    der Dialog nennt die Zahl der Produkte, die Schaltfläche <strong>Löschen</strong> bleibt gesperrt.</p>
+    <p>Für die Artikelverwaltung ist die Berechtigung <code>CATALOG_MANAGE</code> nötig (vorgegeben: Filialleitung und Administration).</p>
+
+    <h3>Neues Produkt anlegen</h3>
+    <ol>
+        <li><strong>Produkt anlegen</strong> anklicken</li>
+        <li>Pflichtfelder ausfüllen: Name, Preis (brutto), Kategorie, Typ</li>
+        <li>Optional: Produktnummer, Beschreibung, Übersetzungen, Bild. Das Formular ist in Abschnitte gegliedert (<em>Grunddaten</em>, <em>Übersetzungen</em>, <em>Pfand</em>, <em>Auswahlgruppen</em>); solange es ungespeicherte Änderungen enthält, steht oben <em>Geändert</em>.</li>
+        <li><strong>Speichern</strong></li>
+        <li>Erst nach dem Speichern können dem Produkt Auswahlgruppen zugewiesen werden (Abschnitt <em>Auswahlgruppen</em>).</li>
+    </ol>
+
+    <h3>Produkt-Felder</h3>
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Pflicht</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Produktnummer</td><td>Nein</td><td>Artikelcode für die Eingabe über das Suchfeld an der Kasse</td></tr>
+            <tr><td>Name</td><td>Ja</td><td>Artikelbezeichnung (max. 255 Zeichen)</td></tr>
+            <tr><td>Name (Englisch)</td><td>Nein</td><td>Englische Übersetzung</td></tr>
+            <tr><td>Name (Chinesisch)</td><td>Nein</td><td>Chinesische Übersetzung</td></tr>
+            <tr><td>Beschreibung</td><td>Nein</td><td>Detailbeschreibung</td></tr>
+            <tr><td>Preis</td><td>Ja</td><td>Bruttopreis (&ge; 0), exakt dezimal gespeichert; der Server leitet Netto und Steuer daraus ab</td></tr>
+            <tr><td>Kategorie</td><td>Ja</td><td>Zugehörige Produktkategorie</td></tr>
+            <tr><td>Typ</td><td>Ja</td><td>FOOD, DRINKS, RETAIL, SERVICE, VOUCHER, OTHERS. Der Typ bestimmt über die
+                <em>MwSt-Zuordnung</em> (Web-Admin &rarr; Einstellungen) den Steuersatz &ndash; einen Steuersatz pro Produkt gibt es nicht.</td></tr>
+            <tr><td>Aktiv</td><td>Ja</td><td>Produkt im Katalog sichtbar</td></tr>
+            <tr><td>Individueller Preis erlaubt</td><td>Nein</td><td>Preis bei Bestellung ohne besondere Berechtigung änderbar</td></tr>
+            <tr><td>Bild</td><td>Nein</td><td>Produktbild (<em>Bild auswählen</em>)</td></tr>
+            <tr><td>Pfand-Typ</td><td>Nein</td><td>Pfandstufe, die zu diesem Artikel gehört (<em>Kein Pfand</em> oder ein aktiver Pfand-Typ) &ndash; siehe <em>Pfand</em> unten</td></tr>
+        </tbody>
+    </table>
+
+    <h3 id="kap-09-pfand">Pfand</h3>
+    <p>Pfand wird nicht über ein Kennzeichen am Artikel eingestellt, sondern über <strong>Pfand-Typen</strong>
+        (z.&nbsp;B. &bdquo;Einweg 0,25&ldquo;) mit Pfandbetrag und USt-Klasse. Jeder Pfand-Typ legt beim Anlegen
+        selbst zwei Pfand-Artikel in der Kategorie <code>PFAND</code> an &ndash; <em>&hellip; Pfand</em> (Pfanderhebung)
+        und <em>&hellip; Rückgabe</em> (Leergut) &ndash; und hält deren Preis und Aktiv-Status mit dem Typ synchron.
+        Nur diese beiden Artikel tragen die Pfand-Kennzeichen, die Z-Bon, DSFinV-K und Kassenbuch auswerten.</p>
+    <p>Die Kategorien <code>PFAND</code> und <code>VOUCHER</code> sowie der Gutschein-Artikel (Typ
+        <code>VOUCHER</code>) sind <strong>Systemeinträge</strong>: Das Web-Admin zeigt statt Bearbeiten und Löschen den
+        Hinweis &bdquo;Systemeintrag&ldquo;, und der Server lehnt Umbenennen, Deaktivieren und Löschen mit
+        <code>409 SYSTEM_RECORD_PROTECTED</code> ab. Das Anlegen der Pfand-Artikel durch einen Pfand-Typ ist davon
+        nicht betroffen.</p>
+    <ul>
+        <li>Im Produktformular (Web-Admin &rarr; Produkte) wählt das Feld <strong>Pfand-Typ</strong>, welche
+            Pfandstufe zu einem Verkaufsartikel gehört. Angeboten werden nur aktive Pfand-Typen.</li>
+        <li>Eine bestehende Zuordnung zu einem inzwischen deaktivierten Pfand-Typ bleibt beim Speichern
+            erhalten und wird als <em>(deaktiviert)</em> angezeigt; neu zuordnen lässt sich ein deaktivierter Typ nicht.</li>
+        <li>Bei den Pfand-Artikeln eines Typs selbst ist das Feld gesperrt: Server und Formular lehnen ab, sie
+            einem anderen Typ zuzuordnen, weil der Typ sie sonst beim nächsten Umpreisen nicht mehr fände.</li>
+        <li>An der Kasse wird das Pfand derzeit <strong>nicht automatisch</strong> mitgebucht; der Pfand- bzw.
+            Rückgabe-Artikel wird als eigene Position erfasst.</li>
+        <li>Pfand-Typen selbst werden derzeit nur über die Server-Schnittstelle (<code>/api/pfand-types</code>)
+            angelegt, geändert und deaktiviert &ndash; eine Verwaltungsmaske im Web-Admin gibt es noch nicht.</li>
+    </ul>
+
+    <h3>Kategorien verwalten</h3>
+    <ul>
+        <li>Felder: Name (mit Übersetzungen), Beschreibung, Aktiv, Sortierposition, <strong>Sichtbarkeit</strong>
+            (Überall sichtbar, Nur POS, Nur Website, Versteckt)</li>
+        <li>Reihenfolge über <em>Nach oben</em> / <em>Nach unten</em> in der Kategorieliste oder über die Sortierposition</li>
+        <li>Auswahlgruppen für alle Produkte einer Kategorie auf einmal zuweisen oder entfernen</li>
+        <li>Welche Kategorien auf welchem Drucker (z.&nbsp;B. Küche, Bar) ausgegeben werden, wird unter
+            <strong>Geräte &rarr; Drucker</strong> festgelegt.</li>
+    </ul>
+
+    <h3 id="kap-09-extras">Extras verwalten</h3>
+    <ol>
+        <li>In der Werkzeugleiste <strong>Extras verwalten</strong> öffnen</li>
+        <li>Extra erstellen: Name, Preis, optional Beschreibung und englischer/chinesischer Name</li>
+        <li>Extras werden Produkten nicht direkt zugeordnet, sondern als Optionen einer Auswahlgruppe; der Aufpreis
+            wird dort je Platzierung festgelegt (siehe <a href="choice-groups.html" target="_blank">Choice Groups</a>).</li>
+    </ol>
+    <div class="alert alert-warning">
+        <strong>Extra einer Pflicht-Auswahlgruppe:</strong> Ein Extra, ohne das eine aktive Auswahlgruppe mit
+        Mindestauswahl weniger Optionen hätte als ihr Minimum, lässt sich weder löschen noch deaktivieren &ndash;
+        sonst könnte kein Produkt mit dieser Gruppe mehr bestellt werden. Der Löschdialog im Web-Admin nennt die
+        Gruppe und sperrt <strong>Löschen</strong>, der Schalter <strong>Aktiv</strong> bleibt gesperrt; der Server lehnt
+        ebenfalls ab (<code>409 CHOICE_GROUP_OPTION_REQUIRED</code>). Fügen Sie der Gruppe zuerst eine weitere Option
+        hinzu, senken Sie ihr Minimum oder entfernen Sie die Gruppe. Ein gelöschtes Extra verschwindet aus den
+        Optionen aller Auswahlgruppen &ndash; im Web-Admin wie an der Kasse.
+    </div>
+    <p>Preise und Aufpreise werden im Web-Admin mit Komma angezeigt (<em>12,90</em>, ohne die vierstelligen
+        Nachkommastellen der Datenbank); Komma und Punkt werden beide als Dezimaltrennzeichen akzeptiert.</p>
+
+    <h3>Kategorien, Extras und Produkte löschen</h3>
+    <div class="alert alert-info">
+        <strong>Hinweis – Soft Delete:</strong> Das Löschen von Kategorien und Extras entfernt diese nicht dauerhaft aus der Datenbank, sondern deaktiviert sie (Soft Delete). Ein Produkt, das bereits bestellt wurde oder auf das eine Aktion verweist, wird beim Löschen ebenfalls nur deaktiviert und behält seine Auswahlgruppen und Extras; nur ein nie verkauftes Produkt ohne Aktion wird tatsächlich entfernt &ndash; zusammen mit seinen Zuordnungen zu Auswahlgruppen und Extras und seinem Platz in den Favoriten. Die Auswahlgruppen und Extras selbst bleiben bestehen. Wird dagegen eine <strong>Auswahlgruppe gelöscht</strong>, wird sie in allen Produkten entfernt, denen sie zugeordnet war (Web-Admin und Kasse zeigen keinen leeren Eintrag mehr). Die Produkttabelle zeigt den Zustand in der Spalte <strong>Status</strong> (Aktiv/Inaktiv). So bleiben historische Daten in Berichten und Exporten erhalten.
+    </div>
+    <div class="alert alert-warning">
+        <strong>Kategorie mit aktiven Produkten:</strong> Eine Kategorie, die noch aktive Produkte enthält, lässt sich nicht löschen. Der Löschdialog im Web-Admin nennt die Anzahl und sperrt die Schaltfläche <strong>Löschen</strong>; der Server lehnt die Anfrage ebenfalls ab (<code>409 DELETE_HAS_REFERENCES</code>). Verschieben Sie die Produkte zuerst in eine andere Kategorie oder deaktivieren Sie sie &ndash; inaktive Produkte blockieren das Löschen nicht. Ohne diese Sperre verschwand die Kategorie samt ihren weiterhin aktiven Produkten aus dem Bestellbildschirm.
+    </div>
+
+    <h3>Favoriten</h3>
+    <p>Der Tab Favoriten im Bestellbildschirm der Kasse wird automatisch gefüllt: Er zeigt die meistverkauften
+    Produkte der letzten 30 Tage (bis zu 20). Eine manuelle Pflege gibt es nicht. Ohne Verkäufe öffnet der
+    Bestellbildschirm mit allen Produkten.</p>
+
+    <h3 id="kap-09-import">CSV-Import</h3>
+    <p>Eine Bedienoberfläche für den CSV-Import gibt es mit dem Wegfall der Lagerverwaltung an der Kasse nicht mehr.
+    Produkte, Kategorien und Extras lassen sich weiterhin über die Server-Schnittstelle importieren
+    (<code>POST /api/products/import-csv/{overwrite}</code>, entsprechend <code>/api/product-categories/…</code> und
+    <code>/api/product-extras/…</code>; Berechtigung <code>CATALOG_MANAGE</code>). Der Import ist zeilentolerant: Die Antwort
+    meldet erfolgreiche und fehlerhafte Zeilen, statt die ganze Datei abzulehnen.</p>
+    <p>Beim Produkt-Import ist die Spalte <code>product_type</code> Pflicht (<code>FOOD</code>, <code>DRINKS</code>,
+    <code>RETAIL</code>, <code>SERVICE</code>, <code>VOUCHER</code> oder <code>OTHERS</code>, Groß-/Kleinschreibung egal).
+    Der Typ steuert die steuerliche Zuordnung; eine Zeile ohne oder mit unbekanntem Typ wird deshalb mit Zeilennummer als
+    Fehler gemeldet und nicht angelegt. Bis v1.1.2 wurde ein fehlender Typ stillschweigend als <code>FOOD</code> übernommen.</p>
+
+    <div class="alert alert-warning">
+        <strong>Achtung:</strong> Mit <code>overwrite</code> werden bestehende Einträge aktualisiert. Sichern Sie Ihre Daten vor einem größeren Import.
+    </div>
+
+    <h3>Bild-Upload</h3>
+    <p>Produktbilder werden im Produkt-Editor über <em>Bild auswählen</em> hochgeladen (JPG, PNG oder WebP bis 10&nbsp;MB;
+    das Bild wird als JPEG neu komprimiert).</p>
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-08-gutscheine.html">&larr; Vorheriges: Gutscheine</a>
+    <a href="kap-10-mitarbeiter.html">Nächstes: Mitarbeiterverwaltung &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

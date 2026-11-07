@@ -1,0 +1,50 @@
+-- Migration from version 6 to version 7: add indexes for hot lookup/search columns.
+-- The tables below are created by their respective .sq files; the historical CREATEs here
+-- make the migration self-contained for SQLDelight's verifier while remaining idempotent
+-- for installs that already passed version 6.
+
+CREATE TABLE IF NOT EXISTS local_product_categories (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    en_name TEXT,
+    ch_name TEXT,
+    description TEXT,
+    is_active INTEGER NOT NULL DEFAULT 1,
+    sort_position REAL NOT NULL DEFAULT 0.0
+);
+
+CREATE TABLE IF NOT EXISTS local_products (
+    id INTEGER NOT NULL PRIMARY KEY,
+    product_number TEXT NOT NULL,
+    name TEXT NOT NULL,
+    en_name TEXT,
+    ch_name TEXT,
+    description TEXT,
+    price INTEGER NOT NULL,
+    product_type TEXT NOT NULL,
+    category_id INTEGER NOT NULL,
+    is_active INTEGER NOT NULL DEFAULT 1,
+    allow_custom_price INTEGER NOT NULL DEFAULT 0,
+    image_url TEXT,
+    FOREIGN KEY (category_id) REFERENCES local_product_categories (id)
+);
+
+CREATE TABLE IF NOT EXISTS local_product_extras (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    en_name TEXT,
+    ch_name TEXT,
+    description TEXT,
+    price INTEGER NOT NULL,
+    is_active INTEGER NOT NULL DEFAULT 1,
+    linked_product_id INTEGER
+);
+
+CREATE INDEX IF NOT EXISTS idx_local_products_category_id ON local_products(category_id);
+CREATE INDEX IF NOT EXISTS idx_local_products_is_active ON local_products(is_active);
+CREATE INDEX IF NOT EXISTS idx_local_products_product_number ON local_products(product_number);
+CREATE INDEX IF NOT EXISTS idx_local_products_name ON local_products(name);
+CREATE INDEX IF NOT EXISTS idx_local_r_tables_location_type_id ON local_r_tables(location_type_id);
+CREATE INDEX IF NOT EXISTS idx_local_room_elements_location_type_id ON local_room_elements(location_type_id);
+CREATE INDEX IF NOT EXISTS idx_local_product_extras_is_active ON local_product_extras(is_active);
+CREATE INDEX IF NOT EXISTS idx_local_product_categories_is_active ON local_product_categories(is_active);

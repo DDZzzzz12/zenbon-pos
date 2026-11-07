@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 16 – Fehlerbehebung – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 16 – Fehlerbehebung</h2>
+
+    <p>Dieses Kapitel beschreibt häufige Fehler im POS-System, deren Ursachen und Lösungen. Das System verwendet ein typisiertes Fehlersystem mit spezifischen Fehlerkategorien für verschiedene Betriebsbereiche.</p>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-16-fehlerhierarchie">Fehlertyp-Hierarchie</h3>
+
+    <p>Der Server beantwortet jeden Fehler einheitlich im Format <strong>RFC&nbsp;7807</strong>
+    (<code>application/problem+json</code>). Die für die Diagnose wichtigen Felder:</p>
+
+    <table>
+        <thead>
+            <tr><th>Feld</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>status</code></td><td>HTTP-Statuscode (z.&nbsp;B. 403, 409, 422)</td></tr>
+            <tr><td><code>code</code></td><td>Maschinenlesbarer Fehlercode, z.&nbsp;B. <code>TSE_HARDWARE_NOT_FOUND</code>,
+                <code>PROMOTION_NOT_COMBINABLE</code>, <code>TABLE_VIRTUAL_NOT_ORDERABLE</code></td></tr>
+            <tr><td><code>detail</code></td><td>Technische Beschreibung (englisch)</td></tr>
+            <tr><td><code>errors</code></td><td>Feldbezogene Validierungsfehler, falls vorhanden</td></tr>
+            <tr><td><code>traceId</code></td><td>Kennung der Anfrage; damit lässt sich der Vorgang in den Server-Logdateien wiederfinden</td></tr>
+        </tbody>
+    </table>
+
+    <p>Kasse und Web-Admin übersetzen den <code>code</code> in eine lokalisierte Meldung. Kann der Server gar nicht
+    erreicht werden, erscheint stattdessen ein Netzwerkfehler. Geben Sie bei einer Support-Anfrage immer Fehlercode
+    und <code>traceId</code> an.</p>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-16-allgemein">Allgemeine Probleme</h3>
+
+    <table>
+        <thead>
+            <tr><th>Symptom</th><th>Ursache</th><th>Lösung</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>„Browser-Stationen sind für diesen Betrieb deaktiviert. Bitte eine Leitung, sie zu aktivieren.“ (Kopplung im Browser)</td>
+                <td>Die Rolle des Terminals ist unter <strong>Einstellungen &rarr; Browser-Stationen</strong> nicht aktiviert, oder sie wurde deaktiviert, während die Station lief.</td>
+                <td>Rolle im Web-Admin aktivieren. Bereits gekoppelte Browser-Stationen arbeiten danach ohne neue Kopplung weiter. Antwortet <code>/pos/</code> mit 404, ist gar keine Rolle aktiviert. Siehe <a href="kap-13-einstellungen.html#kap-13-browser-stationen">Browser-Stationen</a>.</td>
+            </tr>
+            <tr>
+                <td>Banner „Eine neue Version ist verfügbar“ mit <strong>Neu laden</strong> (Browser-Station)</td>
+                <td>Der Server wurde aktualisiert; die geöffnete Seite stammt noch von der alten Version.</td>
+                <td>Auf <strong>Neu laden</strong> tippen. Nach dem Neuladen meldet sich die Mitarbeiterin bzw. der Mitarbeiter neu an; die Kopplung bleibt erhalten. Eine ruhende Station lädt selbst neu &ndash; auch dieses automatische Neuladen beendet die Sitzung der angemeldeten Person.</td>
+            </tr>
+            <tr>
+                <td>„Diese Station ist bereits in einem anderen Tab geöffnet“ (Browser-Station)</td>
+                <td>Im selben Browserprofil läuft die Station schon in einem anderen Tab; beide würden dieselbe Gerätekennung teilen.</td>
+                <td>Den anderen Tab verwenden und diesen schließen. Für eine zweite Station auf demselben Rechner ein getrenntes Browserprofil nutzen und dort separat koppeln.</td>
+            </tr>
+            <tr>
+                <td>Beim Bon-Druck erscheint ein Druckerfehler (Server-Antwort 502, <code>PRINTER_UNAVAILABLE</code>)</td>
+                <td>Der Drucker hat den Druckauftrag nicht angenommen (aus, offline, Papier). Früher meldete die Kasse hier fälschlich „gedruckt“.</td>
+                <td>Drucker prüfen, siehe <a href="#kap-16-drucker">Druckerprobleme</a>, und den Druck wiederholen. Browser-Stationen drucken nur über den Server.</td>
+            </tr>
+            <tr>
+                <td>Browser-Station meldet sich nach einiger Zeit ab</td>
+                <td>Leerlauf-Sperre: nach 10 Minuten ohne Eingabe wird die angemeldete Person abgemeldet.</td>
+                <td>Erneut anmelden. Das Gerät bleibt gekoppelt, eine neue Kopplung ist nicht nötig.</td>
+            </tr>
+            <tr>
+                <td>„Verbindung zum Server fehlgeschlagen"</td>
+                <td>Server nicht erreichbar (Netzwerkfehler)</td>
+                <td>Prüfen, ob der Server läuft (<code>sudo systemctl status pos-server</code>). Netzwerkverbindung des Geräts prüfen.
+                    Die Server-Adresse wird nicht mehr am Anmeldebildschirm geändert, siehe <a href="#kap-16-server">Serververbindung</a>.</td>
+            </tr>
+            <tr>
+                <td>„Anmeldung fehlgeschlagen" / „Ungültige Anmeldedaten"</td>
+                <td>Falscher Benutzername oder Passwort</td>
+                <td>Anmeldedaten erneut eingeben. Bei wiederholtem Fehlschlag an einen Manager wenden.</td>
+            </tr>
+            <tr>
+                <td>„Konto ist gesperrt"</td>
+                <td>Zu viele fehlgeschlagene Anmeldeversuche</td>
+                <td>Warten Sie die Sperrzeit ab oder wenden Sie sich an einen Manager zur Freischaltung.</td>
+            </tr>
+            <tr>
+                <td>„Konto ist deaktiviert"</td>
+                <td>Mitarbeiterkonto wurde deaktiviert</td>
+                <td>Kontaktieren Sie einen Manager zur Reaktivierung des Kontos.</td>
+            </tr>
+            <tr>
+                <td>„Sitzung abgelaufen"</td>
+                <td>Anmeldung (Token) ist abgelaufen</td>
+                <td>Erneut anmelden. Das System versucht automatisch, den Token zu erneuern.</td>
+            </tr>
+            <tr>
+                <td>„Keine Berechtigung"</td>
+                <td>Der Berechtigungsgruppe des Mitarbeiters fehlt die nötige Berechtigung (403)</td>
+                <td>An der Kasse kann ein Manager per PIN genau diese eine Berechtigung leihen, sofern sie zu den
+                    Kassen-Übersteuerungen gehört (siehe <a href="kap-06-abrechnung.html#kap-06-manager-pin">Kapitel 06</a>).
+                    Dauerhaft: Berechtigungsgruppe des Mitarbeiters im Web-Admin unter <strong>Personal</strong> ändern.
+                    Ein Mitarbeiter <em>ohne</em> Berechtigungsgruppe erreicht nichts.</td>
+            </tr>
+            <tr>
+                <td>„Datenbankfehler"</td>
+                <td>Datenbank nicht erreichbar</td>
+                <td>Server-Logdateien prüfen. Im Standardbetrieb startet der Server seine eingebettete PostgreSQL-Datenbank selbst
+                    (siehe <a href="#kap-16-datenbank">Datenbank und Backup</a>); ein Neustart des Dienstes startet sie mit.</td>
+            </tr>
+            <tr>
+                <td>„Ressource nicht gefunden"</td>
+                <td>Angefordertes Objekt existiert nicht (404)</td>
+                <td>Prüfen Sie, ob das Objekt gelöscht oder verschoben wurde. Seite neu laden.</td>
+            </tr>
+            <tr>
+                <td>„Doppelter Eintrag"</td>
+                <td>Eindeutigkeitseinschränkung verletzt (409)</td>
+                <td>Der Datensatz existiert bereits. Verwenden Sie einen anderen eindeutigen Wert.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-16-tse">TSE-Fehlerbehebung</h3>
+
+    <p>TSE-Fehler sind in mehrere Kategorien unterteilt. Jede Kategorie hat spezifische Fehlercodes zur Diagnose.
+    Die TSE ist immer direkt am Server-Rechner angeschlossen; ein TSE-Betrieb über einen separaten Konnektor-Rechner
+    (Modus REMOTE) gibt es nicht mehr.</p>
+
+    <h4>Verbindungsfehler</h4>
+    <table>
+        <thead>
+            <tr><th>Fehler</th><th>Code</th><th>Ursache</th><th>Lösung</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>TSE-Hardware nicht gefunden</td>
+                <td><code>TSE_HARDWARE_NOT_FOUND</code></td>
+                <td>USB nicht angeschlossen oder TSE nicht erkannt</td>
+                <td>USB-Verbindung am Server-Rechner prüfen. Der Server sucht die TSE automatisch und findet sie nach einem
+                    Verbindungsverlust im Takt der Zustandsprüfung wieder; bis dahin werden Belege zum Nachsignieren vorgemerkt.</td>
+            </tr>
+            <tr>
+                <td>Verbindung fehlgeschlagen</td>
+                <td><code>TSE_CONNECTION_FAILED</code></td>
+                <td>Kommunikation mit TSE nicht möglich</td>
+                <td>TSE-Hardware neu starten. USB-Kabel prüfen. Prüfen, ob <code>WormAPI.jar</code> und die nativen Bibliotheken unter <code>native/</code> vorhanden sind.</td>
+            </tr>
+            <tr>
+                <td>Kommunikations-Timeout</td>
+                <td><code>TSE_COMMUNICATION_TIMEOUT</code></td>
+                <td>TSE reagiert nicht innerhalb der Zeitgrenze</td>
+                <td>Vorgang wiederholen (wiederholbar). TSE-Hardware auf Reaktionsfähigkeit prüfen.</td>
+            </tr>
+            <tr>
+                <td>TSE beschäftigt</td>
+                <td><code>TSE_HARDWARE_BUSY</code></td>
+                <td>TSE verarbeitet eine andere Anfrage</td>
+                <td>Kurz warten und erneut versuchen (wiederholbar). Die TSE kann nur eine Anfrage gleichzeitig verarbeiten.</td>
+            </tr>
+            <tr>
+                <td>Ungültiger Mount-Punkt</td>
+                <td><code>TSE_INVALID_MOUNT_POINT</code></td>
+                <td>Pfad existiert nicht oder keine Berechtigungen</td>
+                <td>Mount-Punkt-Pfad in den Einstellungen korrigieren. Berechtigungen prüfen.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>Signierungsfehler</h4>
+    <table>
+        <thead>
+            <tr><th>Fehler</th><th>Code</th><th>Ursache</th><th>Lösung</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Signierung fehlgeschlagen</td>
+                <td><code>TSE_SIGNING_FAILED</code></td>
+                <td>Kryptografische Signaturerzeugung fehlgeschlagen</td>
+                <td>Vorgang wiederholen. Bei wiederholtem Auftreten TSE-Selbsttest durchführen.</td>
+            </tr>
+            <tr>
+                <td>Transaktionsstart fehlgeschlagen</td>
+                <td><code>TSE_TRANSACTION_START_FAILED</code></td>
+                <td>Neue Transaktion kann nicht gestartet werden</td>
+                <td>Erneut versuchen (wiederholbar). Maximale gleichzeitige Transaktionen prüfen.</td>
+            </tr>
+            <tr>
+                <td>Transaktionsabschluss fehlgeschlagen</td>
+                <td><code>TSE_TRANSACTION_FINISH_FAILED</code></td>
+                <td>Transaktion wurde bereits beendet oder Nummer ungültig</td>
+                <td>Signatur-Warteschlange prüfen. Offene Transaktionen in den Einstellungen verwalten.</td>
+            </tr>
+            <tr>
+                <td>Authentifizierung fehlgeschlagen</td>
+                <td><code>TSE_AUTHENTICATION_FAILED</code></td>
+                <td>Admin-PIN ist falsch</td>
+                <td>Admin-PIN erneut eingeben. Nach mehrfachem Fehlschlag wird der PIN gesperrt. Die Admin-PIN wird seit
+                    v1.1.0 nicht mehr gespeichert, sondern bei jeder TSE-Administration eingegeben &ndash; sie muss vor Ort bekannt sein.</td>
+            </tr>
+            <tr>
+                <td>Zertifikatsfehler</td>
+                <td><code>TSE_CERTIFICATE_ERROR</code></td>
+                <td>TSE-Zertifikat kann nicht abgerufen werden</td>
+                <td>Support kontaktieren. Möglicherweise TSE-Hardware-Austausch erforderlich.</td>
+            </tr>
+            <tr>
+                <td>Maximale Signaturen erreicht</td>
+                <td><code>TSE_MAX_SIGNATURES_REACHED</code></td>
+                <td>TSE-Signaturkapazität erschöpft</td>
+                <td>TSE-Hardware muss ausgetauscht werden. Hersteller kontaktieren.</td>
+            </tr>
+            <tr>
+                <td>Ungültige Prozessdaten</td>
+                <td><code>TSE_INVALID_PROCESS_DATA</code></td>
+                <td>Prozessdaten entsprechen nicht dem DSFinV-K-Format</td>
+                <td>Prüfen Sie: Format „Typ^Steuerbeträge^Gesamtbetrag:Zahlungsart". MwSt.-Konfiguration verifizieren.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>Administrationsfehler</h4>
+    <table>
+        <thead>
+            <tr><th>Fehler</th><th>Code</th><th>Lösung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Setup fehlgeschlagen</td><td><code>TSE_SETUP_FAILED</code></td><td>Erneut versuchen. Prüfen, ob TSE angeschlossen und nicht bereits initialisiert ist.</td></tr>
+            <tr><td>TSE bereits in Betrieb</td><td><code>TSE_ALREADY_INITIALIZED</code></td><td>Die TSE ist bereits eingerichtet; es wurde nichts geschrieben und die eingegebenen Zugangsdaten wurden nicht übernommen. Terminal über „TSE registrieren“ zuordnen.</td></tr>
+            <tr><td>Werks-Platzhalter bei der Inbetriebnahme</td><td><code>TSE_INVALID_PARAMETERS</code></td><td>Admin-PIN, PUK oder TimeAdmin-PIN steht noch auf einem Werks-Platzhalter (genannt in der Meldung). Eigene Werte wählen; es wurde nichts auf die TSE geschrieben.</td></tr>
+            <tr><td>Admin-PIN abgelehnt</td><td><code>TSE_INVALID_PIN</code></td><td>Beim Entsperren hat die TSE die Admin-PIN abgelehnt. Jede falsche Eingabe zählt zur Gerätesperre; eine gesperrte PIN nur mit der PUK entsperren.</td></tr>
+            <tr><td>Factory-Reset fehlgeschlagen</td><td><code>TSE_FACTORY_RESET_FAILED</code></td><td>Prüfen, ob TSE dekommissioniert ist. Hersteller kontaktieren.</td></tr>
+            <tr><td>Selbsttest abgelehnt: keine Kasse registriert</td><td><code>TSE_NOT_OPERATIONAL</code> (409)</td><td>Bei einer TSE&nbsp;1.x läuft der Selbsttest nur für eine bei der TSE registrierte Kasse, und keine aktive Kasse ist registriert. Unter Geräte (Terminals) eine Kasse bei der TSE registrieren, dann den Selbsttest erneut auslösen. Die TSE wurde nicht angesprochen.</td></tr>
+            <tr><td>Selbsttest fehlgeschlagen</td><td><code>TSE_SELF_TEST_FAILED</code></td><td>Hardware möglicherweise defekt. Erneuten Selbsttest durchführen. Bei Wiederholung: Austausch.</td></tr>
+            <tr><td>Zeitaktualisierung fehlgeschlagen</td><td><code>TSE_TIME_UPDATE_FAILED</code></td><td>Erneut versuchen (wiederholbar). Systemzeit des Servers prüfen.</td></tr>
+            <tr><td>Client-Registrierung fehlgeschlagen</td><td><code>TSE_CLIENT_REGISTRATION_FAILED</code></td><td>Maximale Client-Anzahl prüfen. Client-ID auf Gültigkeit prüfen.</td></tr>
+            <tr><td>PIN-Änderung fehlgeschlagen</td><td><code>TSE_PIN_CHANGE_FAILED</code></td><td>Aktuellen PIN verifizieren. Neuer PIN muss 5–6 Ziffern haben.</td></tr>
+            <tr><td>Export fehlgeschlagen</td><td><code>TSE_EXPORT_FAILED</code></td><td>Speicherplatz und Dateiberechtigungen prüfen.</td></tr>
+            <tr><td>TSE-Archiv unvollständig</td><td><code>TSE_EXPORT_INCOMPLETE</code></td><td>Das TSE-TAR der angeschlossenen TSE enthält nicht alle signierten Transaktionen des DSFinV-K-Zeitraums (Meldung nennt Seriennummer und TANR). Die richtige TSE anschließen, oder das TAR der signierenden TSE gesondert liefern und ohne TSE-Archiv exportieren.</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Hardware-Fehler</h4>
+    <table>
+        <thead>
+            <tr><th>Fehler</th><th>Code</th><th>Lösung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>TSE dekommissioniert</td><td><code>TSE_DECOMMISSIONED</code></td><td>TSE ist permanent außer Betrieb. Neue TSE-Hardware erforderlich.</td></tr>
+            <tr><td>Firmware-Fehler</td><td><code>TSE_FIRMWARE_ERROR</code></td><td>Support kontaktieren. Firmware-Update prüfen.</td></tr>
+            <tr><td>Speicher voll</td><td><code>TSE_INSUFFICIENT_CAPACITY</code></td><td>Daten exportieren oder TSE-Hardware austauschen.</td></tr>
+            <tr><td>Hardware-Fehlfunktion</td><td><code>TSE_HARDWARE_MALFUNCTION</code></td><td>Physischer Hardware-Defekt. Austausch erforderlich. Support kontaktieren.</td></tr>
+            <tr><td>Zeitsynchronisation erforderlich</td><td><code>TSE_TIME_SYNC_REQUIRED</code></td><td>TSE-Zeit über Einstellungen aktualisieren, bevor weitere Operationen möglich sind.</td></tr>
+            <tr><td>Zertifikat abgelaufen</td><td><code>TSE_CERTIFICATE_EXPIRED</code></td><td>TSE-Hardware muss ausgetauscht werden. Hersteller kontaktieren.</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-16-dsfinvk">DSFinV-K Export-Fehler</h3>
+
+    <table>
+        <thead>
+            <tr><th>Fehler</th><th>Ursache</th><th>Lösung</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Keine Daten im Zeitraum</td>
+                <td>Keine Transaktionen im gewählten Zeitraum gefunden</td>
+                <td>Zeitraum anpassen. Prüfen, ob im Zeitraum Transaktionen stattgefunden haben.</td>
+            </tr>
+            <tr>
+                <td>Offene Z-Bons</td>
+                <td>Z-Berichte (Tagesabschlüsse) wurden nicht erstellt</td>
+                <td>Z-Bon für den betroffenen Zeitraum erstellen. Alle Tage im Exportzeitraum müssen abgeschlossen sein.</td>
+            </tr>
+            <tr>
+                <td>Fehlende TSE-Signaturen</td>
+                <td>Transaktionen ohne TSE-Signatur vorhanden</td>
+                <td>Signatur-Warteschlange in den TSE-Einstellungen prüfen (Kasse: Einstellungen &rarr; TSE; Web-Admin:
+                    Geräte &rarr; TSE). Ausstehende Signaturen nachsignieren.</td>
+            </tr>
+            <tr>
+                <td>Fehlende MwSt.-Details</td>
+                <td>MwSt.-Sätze unvollständig konfiguriert</td>
+                <td>Im Web-Admin unter System &rarr; Einstellungen &rarr; <em>MwSt-Sätze</em> und <em>MwSt-Zuordnung</em> prüfen und vervollständigen.</td>
+            </tr>
+            <tr>
+                <td>Export verweigert (422)</td>
+                <td>Weder Steuernummer noch USt-IdNr hinterlegt</td>
+                <td>Steuernummer oder USt-IdNr in den Stammdaten des Betriebs eintragen (Web-Admin &rarr; System &rarr; Einstellungen &rarr;
+                    Geschäftsdaten; nur bei geschlossenem Geschäftstag änderbar) und den Export wiederholen.</td>
+            </tr>
+            <tr>
+                <td>Ungültiger Datumsbereich</td>
+                <td>Enddatum liegt vor dem Startdatum</td>
+                <td>Datumseingaben korrigieren. Start muss vor Ende liegen.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-16-datev">DATEV Export-Fehler</h3>
+
+    <table>
+        <thead>
+            <tr><th>Fehler</th><th>Ursache</th><th>Lösung</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Ungültige Berater- oder Mandantennummer</td>
+                <td>DATEV-Konfiguration unvollständig</td>
+                <td>DATEV-Einstellungen prüfen: Beraternummer (7 Ziffern) und Mandantennummer konfigurieren.</td>
+            </tr>
+            <tr>
+                <td>Buchungsstapel-Export verweigert (409)</td>
+                <td>Keine DATEV-Kontenzuordnung eingerichtet</td>
+                <td>Im Web-Admin unter Compliance &rarr; Datenexport die <em>DATEV-Kontenzuordnung</em> anlegen (SKR03/SKR04 sind
+                    vorbelegt). Die geplante Aufgabe <em>Auto DATEV Export</em> bricht dabei nicht ab: Sie vermerkt den
+                    fehlgeschlagenen Buchungsstapel in ihrem Ergebnis, der Lauf zählt trotzdem als erfolgreich &ndash; es entsteht
+                    aber keine Datei. Der Kassenbuch-XML-Export ist nicht betroffen.</td>
+            </tr>
+            <tr>
+                <td>Keine Kassenbuch-Einträge</td>
+                <td>Im gewählten Zeitraum keine Buchungen vorhanden</td>
+                <td>Zeitraum anpassen. Prüfen, ob Kassenbuchungen für den Zeitraum existieren.</td>
+            </tr>
+            <tr>
+                <td>Export-Datei kann nicht erstellt werden</td>
+                <td>Speicherplatz oder Dateiberechtigungen</td>
+                <td>Freien Speicherplatz und Schreibberechtigungen des Exportverzeichnisses prüfen.</td>
+            </tr>
+            <tr>
+                <td>XML-Validierungsfehler</td>
+                <td>Generierte XML-Daten entsprechen nicht dem DATEV-Schema</td>
+                <td>Stammdaten (Geschäftsadresse, Steuernummer) auf Vollständigkeit prüfen.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-16-netzwerk">Netzwerk- und Verbindungsfehler</h3>
+
+    <p>HTTP-Fehlercodes und deren Bedeutung im POS-Kontext:</p>
+
+    <table>
+        <thead>
+            <tr><th>HTTP-Code</th><th>Bedeutung</th><th>Maßnahme</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>400 – Bad Request</td><td>Ungültige Anfrage (fehlerhafte Parameter)</td><td>Eingabedaten prüfen und korrigieren.</td></tr>
+            <tr><td>401 – Unauthorized</td><td>Authentifizierung erforderlich oder Token ungültig</td><td>Erneut anmelden.</td></tr>
+            <tr><td>403 – Forbidden</td><td>Zugriff verweigert (fehlende Berechtigung)</td><td>Manager-Freigabe per PIN (nur Kassen-Übersteuerungen) oder Berechtigungsgruppe anpassen.</td></tr>
+            <tr><td>404 – Not Found</td><td>Angefordertes Objekt existiert nicht</td><td>Prüfen, ob der Datensatz gelöscht wurde.</td></tr>
+            <tr><td>408 – Request Timeout</td><td>Anfrage hat die Zeitgrenze überschritten</td><td>Erneut versuchen. Netzwerkverbindung prüfen.</td></tr>
+            <tr><td>409 – Conflict</td><td>Konflikt (z.&nbsp;B. gleichzeitige Bearbeitung)</td><td>Daten neu laden und erneut versuchen.</td></tr>
+            <tr><td>413 – Payload Too Large</td><td>Anfrage zu groß</td><td>Datenmenge reduzieren (z.&nbsp;B. weniger Einträge pro Anfrage).</td></tr>
+            <tr><td>422 – Unprocessable Entity</td><td>Daten syntaktisch korrekt, aber semantisch ungültig</td><td>Geschäftsregeln und Pflichtfelder prüfen.</td></tr>
+            <tr><td>429 – Too Many Requests</td><td>Anfragelimit überschritten</td><td>Kurz warten und erneut versuchen.</td></tr>
+            <tr><td>500 – Server Error</td><td>Interner Serverfehler</td><td>Server-Logdateien prüfen. Server bei Bedarf neu starten.</td></tr>
+            <tr><td>502 – Bad Gateway</td><td>Proxy oder Gateway-Fehler</td><td>Reverse-Proxy-Konfiguration prüfen.</td></tr>
+            <tr><td>503 – Service Unavailable</td><td>Server vorübergehend nicht verfügbar</td><td>Warten und erneut versuchen. Server-Status prüfen.</td></tr>
+            <tr><td>504 – Gateway Timeout</td><td>Gateway-Zeitüberschreitung</td><td>Netzwerk und Server-Auslastung prüfen.</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Weitere Netzwerkfehler</h4>
+    <p>Kommt keine Antwort vom Server zurück (kein Netz, DNS- oder Zertifikatsfehler, Zeitüberschreitung), zeigt das Gerät
+    einen allgemeinen <strong>Netzwerkfehler</strong> ohne Fehlercode an, meist mit der Möglichkeit, den Vorgang zu wiederholen.
+    WLAN/LAN-Verbindung, Server-Adresse und &ndash; bei HTTPS &ndash; das Zertifikat prüfen. Unverständliche Antworten des
+    Servers deuten auf unterschiedliche Versionen von Server und Gerät hin: erst den Server, dann die Geräte aktualisieren.</p>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-16-drucker">Druckerprobleme</h3>
+
+    <table>
+        <thead>
+            <tr><th>Problem</th><th>Ursache</th><th>Lösung</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Drucker nicht gefunden</td>
+                <td>Drucker nicht konfiguriert oder nicht eingeschaltet</td>
+                <td>CUPS-Konfiguration prüfen: <code>lpstat -p</code>. Druckerverbindung und Stromversorgung prüfen.</td>
+            </tr>
+            <tr>
+                <td>Druckauftrag hängt</td>
+                <td>Warteschlange blockiert</td>
+                <td>Druckwarteschlange leeren: <code>cancel -a</code>. Drucker aus- und wieder einschalten.</td>
+            </tr>
+            <tr>
+                <td>Fehlerhafter Ausdruck / unleserlich</td>
+                <td>Falsches Papierformat oder Treiberprobleme</td>
+                <td>Testdruck über Einstellungen &rarr; Drucker an der Kasse (bzw. Web-Admin &rarr; Geräte &rarr; Drucker) durchführen. Druckertreiber prüfen.</td>
+            </tr>
+            <tr>
+                <td>Bondruck zu langsam</td>
+                <td>Netzwerk- oder USB-Verbindung langsam</td>
+                <td>Verbindungsart prüfen. Bei Netzwerkdruckern: IP und Latenz prüfen.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-16-server">Serververbindung</h3>
+
+    <p>Wenn die Verbindung zum POS-Server unterbrochen ist, gehen Sie wie folgt vor:</p>
+
+    <ol class="steps">
+        <li>Netzwerkverbindung des Client-Geräts prüfen (WLAN/LAN)</li>
+        <li>Server-Status prüfen – läuft der Server-Prozess? (Linux: <code>sudo systemctl status pos-server</code>)</li>
+        <li>Server-Adresse verifizieren – der Startbildschirm „Server nicht erreichbar“ zeigt sie an; ein noch nicht gekoppeltes Gerät kann sie dort ändern (siehe <a href="kap-02-ersteinrichtung.html#kap-02-geraet-verbinden">Kasse oder Station mit dem Server verbinden</a>). Ein gekoppeltes Gerät bleibt fest beim Server, mit dem es gekoppelt wurde: Muss der Server dauerhaft umziehen, die Kopplung im Web-Admin widerrufen, die App-Daten auf dem Gerät löschen und neu koppeln.</li>
+        <li>Server-Logdateien auf Fehlermeldungen prüfen</li>
+        <li>App neu starten – die Verbindung wird automatisch wiederhergestellt</li>
+    </ol>
+
+    <h4>Automatische Wiederverbindung</h4>
+    <p>
+        Kasse und Bestellstation verbinden sich nach einem Netzwerkausfall von selbst wieder. Zuerst
+        laufen mehrere schnelle Versuche in kurzen, sich verdoppelnden Abständen; bleibt der Server
+        weiterhin stumm, versucht es das Gerät danach im Minutentakt – und zwar unbegrenzt. Ein Gerät
+        gibt die Verbindung nicht endgültig auf: Eine Bestellstation, die über Nacht ohne Netz stand,
+        ist am Morgen von selbst wieder verbunden, ohne dass jemand die App neu starten muss.
+    </p>
+    <p>
+        Auf Android-Geräten wird zusätzlich das Netzwerk überwacht. Sobald WLAN oder Mobilfunk
+        zurückkehren, verbindet sich das Gerät sofort neu, statt den laufenden Minutentakt abzuwarten.
+    </p>
+    <p>
+        Soll die Verbindung sofort erneut aufgebaut werden, öffnen Sie die
+        <strong>Benachrichtigungen</strong> und tippen neben der Verbindungsanzeige auf
+        <strong>Neu verbinden</strong>.
+    </p>
+
+    <div class="alert alert-info">
+        <strong>Die Meldung „Verbindungsfehler“ erscheint nur einmal.</strong> Sie wird genau dann
+        angezeigt, wenn die schnellen Versuche erschöpft sind und das Gerät in den Minutentakt
+        wechselt – nicht bei jedem weiteren Versuch. Bleibt die Meldung aus, heißt das also nicht,
+        dass das Gerät aufgegeben hat: Es versucht im Hintergrund weiterhin, sich zu verbinden.
+    </div>
+
+    <div class="alert alert-info">
+        <strong>Hinweis:</strong> Der Client zeigt Fehler als lokalisierte Fehlermeldungen in einem Dialog an. Der Fehlercode des Servers bestimmt die angezeigte Meldung und die möglichen Aktionen.
+    </div>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-16-datenbank">Datenbank und Backup</h3>
+
+    <h4>Datenbank-Probleme</h4>
+    <table>
+        <thead>
+            <tr><th>Problem</th><th>Lösung</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>PostgreSQL nicht erreichbar</td>
+                <td>Standard ist die <strong>eingebettete</strong> PostgreSQL-Datenbank, die der Server selbst startet (Port 5436,
+                    Datenbank <code>pos_db</code>, Daten unter <code>~/POS Server/data/postgresql/</code>). Dienst neu starten:
+                    <code>sudo systemctl restart pos-server</code>. Unter Linux schützt <code>install-service.sh</code> ihren
+                    gemeinsamen Speicher vor dem Aufräumen durch systemd &ndash; nach einem Update das Skript erneut ausführen.
+                    Nur bei externer Datenbank (Docker-Variante): <code>pg_isready</code> bzw. Container-Status prüfen.</td>
+            </tr>
+            <tr>
+                <td>Migration fehlgeschlagen</td>
+                <td>Flyway-Migrationsstatus prüfen. Logdateien auf SQL-Fehler untersuchen. Siehe auch
+                    <a href="#kap-16-update">Nach dem Update auf v1.1.0</a> &ndash; einige Migrationen brechen bewusst ab, statt Daten zu verfälschen.</td>
+            </tr>
+            <tr>
+                <td>Verbindungspool erschöpft</td>
+                <td>Server neu starten. Bei häufigem Auftreten: Maximale Verbindungsanzahl in der Konfiguration erhöhen.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>Backup erstellen</h4>
+    <p>Über die Benutzeroberfläche (Web-Admin, nicht mehr an der Kasse):</p>
+    <ol class="steps">
+        <li>Compliance &rarr; <strong>Datenexport</strong> öffnen, Abschnitt <strong>Datenbank-Backup</strong></li>
+        <li><strong>Backup erstellen</strong> anklicken</li>
+        <li>Das Backup erscheint unter <em>Verfügbare Backups</em>; dort kann es auch wiederhergestellt werden</li>
+    </ol>
+    <p>Regelmäßige Backups übernimmt die geplante Aufgabe <em>Auto Backup</em> (siehe <a href="scheduled-tasks.html" target="_blank">Geplante Aufgaben</a>).</p>
+
+    <p>Über die Kommandozeile (eingebettete Datenbank, Standardwerte):</p>
+    <pre><code>pg_dump -h localhost -p 5436 -U pos -d pos_db -F c -f backup_$(date +%Y%m%d).dump</code></pre>
+
+    <h4>Backup wiederherstellen</h4>
+    <pre><code>pg_restore -h localhost -p 5436 -U pos -d pos_db -c backup_20260309.dump</code></pre>
+
+    <h4 id="kap-16-alte-sicherung">Sicherung aus einer fr&uuml;heren Version einspielen</h4>
+    <p>
+        Eine Sicherung aus Version 1.0.x (Datenbankversion 76 oder &auml;lter) wird beim Einspielen
+        <strong>genau so aktualisiert wie bei einem Programm-Update</strong>: Der Server baut die Datenbank
+        der alten Version in einer tempor&auml;ren Hilfsdatenbank nach, l&auml;dt die Sicherung dort hinein,
+        f&uuml;hrt alle seither hinzugekommenen Migrationen aus und &uuml;bernimmt erst das Ergebnis in die
+        laufende Datenbank. Dadurch werden u.&nbsp;a. die Bestellungen ihren Kassenabschl&uuml;ssen zugeordnet,
+        die Kassenbuch-Sammelbuchungen der Z-Bons gekennzeichnet und die gespeicherte TSE-Admin-PIN/-PUK
+        entfernt &ndash; ohne diesen Schritt w&uuml;rde der n&auml;chste Z-Bon die gesamte alte Bestellhistorie
+        &uuml;bernehmen und der DSFinV-K-Export alte Abschl&uuml;sse doppelt z&auml;hlen.
+    </p>
+    <p>
+        Lehnt eine Migration die Daten ab (siehe <a href="#kap-16-update">Nach dem Update auf v1.1.0</a>),
+        bricht die Wiederherstellung mit der Meldung &bdquo;could not be upgraded to this version&ldquo; und
+        dem Grund der Migration ab. Die laufende Datenbank bleibt dann unver&auml;ndert; die Hilfsdatenbank
+        wird in jedem Fall wieder gel&ouml;scht. Die Ursache in der Sicherungsquelle beheben, neu sichern und
+        erneut einspielen.
+    </p>
+    <p>
+        <strong>Software-Version in der Kassenmeldung:</strong> Die Sicherung bringt die Kassenmeldung der
+        Installation mit, die sie geschrieben hat &ndash; samt deren Software-Version
+        (<code>KASSE_SW_VERSION</code>). Direkt nach jeder erfolgreichen Wiederherstellung schreibt der Server
+        dort, wie bei jedem Serverstart, die <em>laufende</em> Programmversion ein; ein Neustart ist daf&uuml;r
+        nicht n&ouml;tig. Der erste Z-Bon nach der Wiederherstellung und sein DSFinV-K-Export
+        (<code>cashregister.csv</code>) nennen deshalb die Software, die den Abschluss tats&auml;chlich gebucht
+        hat. Die mitgebrachten Abschl&uuml;sse behalten die Version, unter der sie erstellt wurden: Sie wird vor
+        dem Umschreiben in ihren Stammdaten-Snapshot eingefroren. Schl&auml;gt das Umschreiben fehl (Eintrag
+        <code>post-restore hook org.example.project.features.zBon.domain.KassenSwVersionPostRestoreHook failed</code>
+        im Server-Log; die Meldung nennt die Klasse des fehlgeschlagenen Schritts), den Server vor dem n&auml;chsten Z-Bon neu
+        starten.
+    </p>
+
+    <h4 id="kap-16-speicherpfade">Nach der Wiederherstellung: Speicherpfade pr&uuml;fen</h4>
+    <p>
+        Eine Sicherung enth&auml;lt auch die eingestellten Ordner: den <strong>DATEV-Exportordner</strong>
+        (dort liegen auch die TSE-Exporte), den <strong>Sicherungsordner</strong> und die
+        <strong>Dokumentenablage</strong>. Wird sie auf einem <em>anderen</em> Rechner oder in einer anderen
+        Installation eingespielt, zeigen diese Pfade auf die Ordner des urspr&uuml;nglichen Betriebs. Ohne
+        Pr&uuml;fung w&uuml;rde der n&auml;chste f&auml;llige DATEV-Export sofort dorthin schreiben.
+    </p>
+    <p>
+        Deshalb pr&uuml;ft der Server nach jeder Wiederherstellung (Ersteinrichtung, Upload oder Datei auf dem
+        Server) jeden dieser Pfade. Ein Pfad gilt als <strong>fremd</strong>, wenn er absolut ist und
+        <em>nicht</em> im Programmdatenordner dieser Installation liegt (<code>&lt;Benutzerordner&gt;/Zenbon POS</code>, bei der Standard-Installation unter Linux <code>/var/lib/zenbon</code>,
+        aus dem auch alle Standardpfade abgeleitet werden). Leere Pfade (Standard), relative Pfade und Pfade
+        innerhalb dieses Ordners sind unauff&auml;llig &ndash; der Normalfall, wenn ein Betrieb seine eigene
+        Sicherung auf seinem eigenen Rechner einspielt, &auml;ndert also nichts.
+    </p>
+    <p>Solange ein fremder Pfad nicht gepr&uuml;ft ist, gilt:</p>
+    <ul>
+        <li>Die geplanten Aufgaben <em>Auto DATEV Export</em> bzw. <em>Auto Backup</em> werden
+            <strong>&uuml;bersprungen</strong> (Status <em>&Uuml;bersprungen</em>, Grund
+            <code>restored paths need review</code>, Warnung im Server-Log). Es geht nichts verloren: Der
+            DATEV-Nachholmechanismus exportiert nach der Pr&uuml;fung alle ausgelassenen Perioden.</li>
+        <li>DATEV-Exporte, die eine Kopie im Exportordner ablegen, der TSE-Export in den Standardordner,
+            &bdquo;Jetzt ausf&uuml;hren&ldquo; dieser Aufgaben und ein Backup in den wiederhergestellten
+            Sicherungsordner werden mit Fehler <strong>409</strong> (<code>RESTORED_PATHS_NEED_REVIEW</code>,
+            &bdquo;Zuerst Speicherpfade pr&uuml;fen&ldquo;) abgelehnt. Downloads ohne Serverkopie (Ad-hoc-Export)
+            bleiben m&ouml;glich.</li>
+        <li>Dokumente (Belege, Z-Bon- und Rechnungs-PDFs, Produktbilder) werden &ndash; weil der
+            Tagesabschluss nicht blockiert werden darf &ndash; im Standard-Dokumentenordner dieser Installation
+            gelesen und abgelegt. Dorthin legt die Wiederherstellung auch die Dateien aus der Sicherung.
+            &Auml;ltere Belege, deren Pfad in der Datenbank noch absolut auf den Dokumentenordner der
+            urspr&uuml;nglichen Installation zeigt, werden dabei auf einen relativen Pfad umgeschrieben, damit sie
+            im neuen Ordner gefunden werden.</li>
+    </ul>
+    <p>
+        Die Antwort der Wiederherstellung nennt die betroffenen Pfade (<code>restoredPathsNeedingReview</code>),
+        das Server-Log ebenso. Im Web-Admin erscheint auf dem Dashboard der Hinweis
+        <strong>Nach der Wiederherstellung: Speicherpfade pr&uuml;fen</strong> (nur f&uuml;r Konten mit der
+        F&auml;higkeit <code>BACKUP_RESTORE</code>, also Administratoren). F&uuml;r jeden Pfad w&auml;hlen Sie:
+    </p>
+    <ul>
+        <li><strong>Beibehalten</strong> &ndash; der Pfad ist von diesem Rechner aus gewollt erreichbar (z.&nbsp;B. ein
+            gemeinsames NAS) und bleibt eingestellt. <em>Nicht</em> f&uuml;r die Dokumentenablage: Die
+            wiederhergestellten Belege liegen bereits im Standardordner dieser Installation, ein Beibehalten des
+            fremden Pfads w&uuml;rde sie unauffindbar machen. Dort wird nur <em>Standard verwenden</em> angeboten
+            (die API lehnt <code>KEEP</code> mit 400 ab).</li>
+        <li><strong>Standard verwenden</strong> &ndash; der Pfad wird auf den Standard dieser Installation
+            umgestellt: <code>&lt;Programmdatenordner&gt;/exports</code> bzw. <code>/backups</code>; die
+            Dokumentenablage kehrt zum eingebauten Standardordner zur&uuml;ck.</li>
+    </ul>
+    <p>
+        Sind alle Pfade entschieden, entf&auml;llt der Hinweis und Exporte sowie Sicherungen laufen wieder.
+        Per API: <code>GET</code> bzw. <code>POST /api/v1/backup/restored-paths</code> mit
+        <code>{"decisions":[{"setting":"DATEV_EXPORT_PATH","decision":"USE_DEFAULT"}]}</code>
+        (<code>KEEP</code> / <code>USE_DEFAULT</code>; Einstellungen <code>DATEV_EXPORT_PATH</code>,
+        <code>BACKUP_PATH</code>, <code>DOCUMENT_STORAGE_PATH</code>).
+    </p>
+    <p>
+        Stellen Sie den Sicherungs- oder DATEV-Exportordner stattdessen direkt in dessen eigener Einstellung
+        um (<code>PUT /api/v1/backup/config</code> bzw. <code>PUT /api/v1/config/{shopId}/datev-xml</code>),
+        gilt das ebenfalls als Entscheidung: Ein Ordner dieser Installation (oder ein leeres Feld f&uuml;r den
+        Standard) erledigt den Eintrag. Ein anderer Ordner au&szlig;erhalb dieser Installation bleibt zur
+        Pr&uuml;fung offen, wird in der Liste aber mit dem nun eingestellten Pfad angezeigt.
+    </p>
+    <div class="alert alert-warning">
+        <strong>Hinweis:</strong> Eine erneute Wiederherstellung, w&auml;hrend der Sicherungsordner noch
+        ungepr&uuml;ft ist, wird abgelehnt, sobald eine Sicherheitskopie vor der Wiederherstellung n&ouml;tig ist
+        (Datenbank enth&auml;lt Bestellungen) &ndash; diese Kopie w&uuml;rde sonst in den fremden Ordner
+        geschrieben. Pr&uuml;fen Sie die Pfade zuerst.
+    </div>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-16-fehleranzeige">Fehleranzeige im Client</h3>
+
+    <p>Kasse und Web-Admin verarbeiten Fehler nicht als einfache Textmeldungen, sondern anhand des Fehlercodes des Servers:</p>
+
+    <ul>
+        <li><strong>Fehlerdialog:</strong> Schwerwiegende Fehler werden als modaler Dialog angezeigt mit Fehlertyp, Beschreibung und möglichen Aktionen</li>
+        <li><strong>Fehlerbenachrichtigung:</strong> Weniger kritische Fehler erscheinen als Benachrichtigung (Toast/Snackbar)</li>
+        <li><strong>Automatische Wiederholung:</strong> Bestimmte Fehler (z.&nbsp;B. TSE-Busy, Timeout) werden als „wiederholbar" markiert und bieten eine Schaltfläche zum erneuten Versuch</li>
+        <li><strong>Benutzerfreundliche Meldungen:</strong> Technische Fehlercodes werden in verständliche Meldungen übersetzt (z.&nbsp;B. <code>TSE_HARDWARE_NOT_FOUND</code> wird als „TSE-Hardware nicht gefunden. Bitte Hardware-Verbindung prüfen." angezeigt)</li>
+    </ul>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-16-serverlogs">Server-Logs durchsuchen (Wartungskonto)</h3>
+
+    <p>Mit der <code>traceId</code> aus einer Fehlermeldung findet das <strong>Wartungskonto</strong> den Vorgang in den Server-Logs &ndash; ohne SSH-Zugang. Das Wartungskonto ist kein Mitarbeiter: Es hat keine Berechtigungsgruppe, und sein Zugang öffnet ausschließlich die Seite <code>/maintenance/</code>.</p>
+
+    <p><strong>Einrichten</strong> (standardmäßig aus):</p>
+
+    <p><strong>Mit dem Installationsskript (Linux, empfohlen):</strong> <code>install-service.sh</code> fragt bei Installation und Update einmalig <em>&bdquo;Set up a maintainer account for log search? [y/N]&ldquo;</em> (Standard: nein). Bei &bdquo;y&ldquo; fragt es Benutzername (Vorschlag <code>wartung</code>) und zweimal das Passwort (unsichtbare Eingabe), erzeugt den Hash auf diesem Rechner mit der installierten <code>pos-server.jar</code> und trägt <code>MAINTAINER_USERNAME</code> und <code>MAINTAINER_PASSWORD_HASH</code> in <code>pos-server.env</code> ein (Dateirechte bleiben 600, vorher wird eine Sicherung <code>pos-server.env.maintainer-bak-&hellip;</code> angelegt). Es gibt kein Standardpasswort, und das Passwort wird weder gespeichert noch angezeigt. Ein vorhandenes Wartungskonto ändert eine Installation oder ein Update nie.</p>
+    <ul>
+        <li><code>sudo ./install-service.sh --maintainer</code> richtet das Konto später ein oder ersetzt es (mit Rückfrage) und startet den Dienst neu.</li>
+        <li><code>sudo ./install-service.sh --maintainer-off</code> entfernt das Konto und startet den Dienst neu.</li>
+        <li>Ohne Terminal: <code>sudo ./install-service.sh --maintainer --maintainer-user wartung --maintainer-password-stdin &lt; passwort.txt</code> &ndash; das Passwort wird als eine Zeile von der Standardeingabe gelesen, nie als Argument (es wäre in der Prozessliste sichtbar). Ohne Terminal und ohne diese Option bleibt das Konto aus.</li>
+    </ul>
+    <p>Zum Schluss nennt das Skript die Adresse <code>http://&lt;Server&gt;:8080/maintenance/</code>. Die Seite nur über HTTPS verwenden.</p>
+
+    <p><strong>Manuell</strong> (Alternative, z.&nbsp;B. ohne Installationsskript):</p>
+    <ol class="steps">
+        <li>Hash erzeugen: <code>java -jar pos-server.jar --hash-maintainer-password</code>. Das Passwort muss mindestens 12 Zeichen und höchstens 72 Byte (UTF-8) lang sein &ndash; BCrypt ignoriert alles darüber hinaus, deshalb wird ein längeres Passwort abgelehnt; Umlaute und Sonderzeichen zählen mehrfach. Das Passwort wird zweimal eingegeben. Ausgegeben wird eine fertige Zeile <code>MAINTAINER_PASSWORD_HASH='&hellip;'</code> &ndash; die einfachen Anführungszeichen sind wichtig, ein BCrypt-Hash enthält <code>$</code>. Der Hash wird mit Kostenfaktor 12 erzeugt; der Server prüft beim Start, dass der Kostenfaktor eines eingetragenen Hashes zwischen 4 und 31 liegt.</li>
+        <li>Diese Zeile und <code>MAINTAINER_USERNAME=&hellip;</code> in die Umgebung des Servers eintragen (bei der Linux-Installation in die Umgebungsdatei <code>pos-server.env</code> im Installationsverzeichnis des Dienstes). Optional: <code>MAINTAINER_SESSION_MINUTES</code> (Standard 30, erlaubt sind 1 bis 480).</li>
+        <li>Server neu starten. Ist nur eines der beiden Felder gesetzt, bleibt die Funktion aus; ein Hash, der kein BCrypt-Hash ist, oder ein ungültiger Wert für <code>MAINTAINER_SESSION_MINUTES</code> verhindert den Start.</li>
+        <li>Seite <code>/maintenance/</code> öffnen und anmelden. Ohne Wartungskonto antwortet die Seite mit 404.</li>
+    </ol>
+
+    <p><strong>Welche Dateien durchsucht werden</strong> (im Ordner <code>.data/log</code> unterhalb des Datenverzeichnisses des Servers, bei der Linux-Installation <code>/home/&lt;Dienstbenutzer&gt;/&lt;Anwendungsname&gt;/.data/log</code>):</p>
+    <table>
+        <thead><tr><th>Datei</th><th>Inhalt</th><th>Aufbewahrung</th></tr></thead>
+        <tbody>
+            <tr><td><code>rejected.log</code></td><td>Abgewiesene Anfragen (4xx) mit Grund</td><td>30 Tage</td></tr>
+            <tr><td><code>error.log</code></td><td>Fehler (Level ERROR) der zentralen Fehlerbehandlung &ndash; vor allem fehlgeschlagene Anfragen (5xx) mit Stacktrace &ndash; und der übrigen Logger ohne eigene Zuordnung (z.&nbsp;B. Routen-Logger mit einfachem Namen wie <code>AuthRoutes</code>, Bibliotheken)</td><td>30 Tage</td></tr>
+            <tr><td><code>client-error.log</code></td><td>Fehler, die Kasse oder Web-Admin angezeigt haben (die Web-Verwaltung meldet nur mit einer Sitzung; ein Fehler auf der Anmeldeseite, etwa eine abgelehnte Anmeldung, wird nicht gemeldet)</td><td>30 Tage</td></tr>
+            <tr><td><code>application.log</code></td><td>Alle Meldungen der Anwendung ab Level INFO (außer <code>rejected.log</code> und <code>client-error.log</code>) &ndash; einschließlich der Fehler, die die Fachmodule selbst protokollieren: Die Logger unter <code>org.example.project.features</code>, <code>.core</code>, <code>.infrastructure</code> und <code>.tse</code> schreiben nur hierhin, nicht in <code>error.log</code></td><td>7 Tage</td></tr>
+        </tbody>
+    </table>
+    <p>Wer einen Fehler sucht, sollte deshalb nicht nur <code>error.log</code> durchsuchen: Ein Fehler, den ein Fachmodul selbst protokolliert, steht nur in <code>application.log</code>; die Einträge von <code>error.log</code> stehen dort zusätzlich auch. Jede Zeile, die zu einer Anfrage gehört, trägt deren <code>traceId</code>; Zeilen ohne Anfrage (Serverstart, geplante Aufgaben) haben keine.</p>
+    <p>Ohne <code>traceId</code> durchsucht die Seite die <strong>letzten 24 Stunden</strong>, sofern keine Startzeit (&bdquo;Von&ldquo;) angegeben ist; der verwendete Beginn steht in der Ergebniszeile. Mit <code>traceId</code> wird die gesamte Aufbewahrungszeit durchsucht.</p>
+    <p>Die Größenbegrenzungen der Dateien greifen zusätzlich (<code>rejected.log</code> und <code>client-error.log</code> je 200&nbsp;MB, <code>error.log</code> 500&nbsp;MB, <code>application.log</code> 100&nbsp;MB): Bei hohem Aufkommen kann die tatsächliche Aufbewahrung kürzer sein. Ältere Einträge werden nicht gefunden; die Seite weist darauf hin.</p>
+
+    <div class="alert alert-info">
+        <strong>Datenschutz:</strong> <code>rejected.log</code> speichert 30 Tage lang den Begründungstext jeder abgewiesenen Anfrage zusammen mit der Mitarbeiter-ID und der Geräte-ID des Aufrufers. Diese Angaben bleiben auf dem Datenträger und werden auf der Wartungsseite nie angezeigt &ndash; die Datei enthält aber mehr personenbezogene Daten als <code>application.log</code> (7 Tage). Berücksichtigen Sie das in Ihrer Datenschutzdokumentation (Verzeichnis der Verarbeitungstätigkeiten, Löschkonzept).
+    </div>
+
+    <p><strong>Was das Wartungskonto sieht:</strong> Zeit, Level, Quelle (Datei), Logger, <code>traceId</code>, HTTP-Status, Fehlercode, Methode, Pfad (Kennungen als <code>{id}</code>), Dauer, Meldungstext und Ausnahmetext; bei Client-Fehlern zusätzlich App, Fehler-ID und App-Version. Mitarbeiter-ID, Geräte-ID, Benutzername und Mitarbeiternummer werden nie ausgegeben. Meldungstexte werden bereinigt: Zahlen werden zu <code>#</code>, Text in Anführungszeichen, E-Mail-Adressen, IBANs, UUIDs und Werte hinter Wörtern wie &bdquo;user&ldquo;, &bdquo;employee&ldquo;, &bdquo;identifier&ldquo;, &bdquo;customer&ldquo; oder &bdquo;device&ldquo;, Dateinamen, Kassenbuch-Namen, Werte hinter Wörtern wie &bdquo;password&ldquo;, &bdquo;token&ldquo;, &bdquo;secret&ldquo;, &bdquo;api key&ldquo; oder &bdquo;authorization&ldquo; (nur mit <code>:</code> oder <code>=</code>), JWT- und Bearer-Zeichenfolgen, ein mehrteiliger Name (bis zu drei großgeschriebene Wörter) hinter &bdquo;customer&ldquo;, &bdquo;employee&ldquo; und ähnlichen Wörtern sowie die Werte in Datenbank-Fehlermeldungen (<code>Key (username)=(&hellip;)</code>, <code>Failing row contains (&hellip;)</code>) werden ersetzt. Meldungs- und Ausnahmetexte der Anmelde- und Mitarbeiter-Module werden ganz ausgeblendet (&bdquo;&lt;redacted: identity log&gt;&ldquo;) &ndash; das gilt für deren Klassen-Logger ebenso wie für die Routen-Logger <code>AuthRoutes</code>, <code>EmployeeRoutes</code>, <code>ApprovalRoutes</code> und <code>TemporarySessionRoutes</code> sowie für <code>Security</code>, <code>AuthorizationExtensions</code> und <code>AuthNotificationManager</code>; sichtbar bleiben nur Zeit, Level, Logger, Pfad und die Code-Stellen des Stacktraces. In Stacktrace-Zeilen werden Text in Anführungszeichen, E-Mail-Adressen, UUIDs, IBANs sowie JWT- und Bearer-Zeichenfolgen ersetzt. Sehr lange Meldungs- und Ausnahmetexte werden nach 4.000 Zeichen abgeschnitten, Stacktraces nach 200 Zeilen; eine einzelne Logzeile wird nach 64&nbsp;KiB abgeschnitten (eine so abgeschnittene JSON-Zeile ist nicht mehr lesbar und wird übersprungen). Die Textsuche arbeitet auf dem bereinigten Text.</p>
+    <p><strong>Grenze:</strong> Die Bereinigung ist ein Best-Effort-Verfahren. Ein frei formulierter Name ohne Anführungszeichen, den keine Regel erkennt, kann in einer Meldung sichtbar bleiben.</p>
+
+    <p><strong>Sicherheit:</strong></p>
+    <ul>
+        <li>Nach fünf Fehlversuchen in Folge wird die Anmeldung für 30 Sekunden gesperrt, danach bei jedem weiteren Fehlversuch jeweils doppelt so lange (höchstens 15 Minuten). Die Sperre gilt für das Konto insgesamt, nicht je Adresse, und wird beim Neustart des Servers zurückgesetzt. Ein erfolgreicher Login setzt den Zähler zurück.</li>
+        <li>Wird gerade ein Anmeldeversuch geprüft, wird ein paralleler Versuch mit &bdquo;in 1&nbsp;Sekunde erneut versuchen&ldquo; beantwortet.</li>
+        <li>Läuft der Server ohne HTTPS, wird das Passwort im lokalen Netz unverschlüsselt übertragen. Das Wartungskonto sollte nur über HTTPS genutzt werden.</li>
+        <li>Wer SSH-Zugriff auf den Server hat, kann die Rohdateien weiterhin lesen. Das Wartungskonto begrenzt, was die <em>Weboberfläche</em> zeigt.</li>
+    </ul>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-16-update">Nach dem Update auf v1.1.0</h3>
+
+    <p>Die folgenden Punkte stammen aus den bekannten Problemen der Version 1.1.0 (siehe Änderungsprotokoll im Web-Admin)
+    und sind die häufigsten Stolpersteine beim Update:</p>
+
+    <table>
+        <thead>
+            <tr><th>Symptom</th><th>Ursache</th><th>Lösung</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Server startet nicht, Log meldet eine Flyway-Prüfsummen-Abweichung (<code>Validate failed</code> / <code>checksum mismatch</code>)</td>
+                <td>Auf dieser Datenbank lief ein Vorab-Zwischenstand von 1.1.0. Die Migrationskette wurde danach zusammengefasst; bereits angewendete Dateien haben neue Prüfsummen</td>
+                <td>Einmalig <code>flyway repair</code> (Flyway-Kommandozeilenwerkzeug) gegen die Server-Datenbank ausführen, danach den Server neu starten.
+                    Der Server führt <code>repair</code> nie selbst aus. Ein Update von einer ausgelieferten Version wie 1.0.10 und
+                    Neuinstallationen sind nicht betroffen und brauchen kein <code>repair</code>.</td>
+            </tr>
+            <tr>
+                <td>Migration bricht mit einer Meldung ab</td>
+                <td>Vier Migrationen brechen bewusst ab, statt Daten zu verfälschen</td>
+                <td>Prüfen: (1) jede <code>kassenbuch_header.shop_id</code> hat eine passende <code>shop_info</code>-Zeile; (2) kein
+                    Mitarbeiter hat zwei Personaldatensätze; (3) kein Nicht-Admin hält noch eine alte <code>EXCEPTION_</code>-Berechtigung
+                    (Berechtigungsgruppe vergeben, Zeilen aus <code>employee_permissions</code> löschen); (4) die Tabellen
+                    <code>supplier</code>, <code>debtor</code> und <code>supplier_bank_account</code> sind leer. Danach erneut starten.</td>
+            </tr>
+            <tr>
+                <td>Kasse landet nach der Anmeldung auf dem Kopplungsbildschirm</td>
+                <td>Bestehende Kassen müssen einmal gekoppelt werden</td>
+                <td>Im Web-Admin unter Geräte &rarr; Terminals einen Kopplungscode erzeugen (Berechtigung zur Terminalverwaltung nötig)
+                    und an der Kasse eingeben oder den QR-Code scannen. Der Ersteinrichtungs-Assistent läuft bei einem Update nicht.</td>
+            </tr>
+            <tr>
+                <td>Kasse meldet beim Koppeln „konnte nicht an der TSE registriert werden“</td>
+                <td>Der Code wurde mit „Beim Koppeln an der TSE registrieren“ erzeugt, und die TSE hat die Registrierung
+                    abgelehnt oder war nicht bereit (<code>PAIRING_TSE_REGISTRATION_FAILED</code>)</td>
+                <td>Das Gerät wurde nicht gekoppelt, der Code bleibt gültig. TSE-Status prüfen und erneut koppeln; ist der Code
+                    inzwischen abgelaufen oder die Admin-Sitzung beendet, einen neuen erzeugen &ndash; ggf. ohne den Haken und das
+                    Terminal danach mit <strong>TSE registrieren</strong> zuordnen.</td>
+            </tr>
+            <tr>
+                <td>Privater Update-Kanal bleibt ohne Meldung deaktiviert; kein automatischer Rollback; Geräte erreichen den Server nicht</td>
+                <td><code>install-service.sh</code> wurde nach dem Update nicht erneut ausgeführt (Linux)</td>
+                <td><code>sudo ./install-service.sh</code> erneut ausführen. Es legt <code>UPDATE_TOKEN_KEY</code> an, installiert den
+                    Rollback-Wächter, schützt den Speicher der eingebetteten Datenbank und öffnet den Server-Port in der Firewall.
+                    Vorhandene Geheimnisse bleiben erhalten. <strong><code>UPDATE_TOKEN_KEY</code> niemals neu erzeugen</strong> &ndash;
+                    sonst muss das GitHub-Token neu eingegeben werden.</td>
+            </tr>
+            <tr>
+                <td>Erster Start nach dem Update dauert ungewöhnlich lange</td>
+                <td>Ein Index über die gesamte Belegtabelle wird angelegt, weitere Indizes nach den Migrationen</td>
+                <td>Abwarten; kein Fehler.</td>
+            </tr>
+            <tr>
+                <td>Kassen wurden vor dem Server aktualisiert</td>
+                <td>Falsche Update-Reihenfolge</td>
+                <td>Immer zuerst den Server aktualisieren, dann die Kassen. Tische öffnen jetzt mit der ersten Bestellung;
+                    nur Kassen der Vorversion öffnen einen Tisch übergangsweise noch über die Sitzungsabfrage.</td>
+            </tr>
+            <tr>
+                <td>Web-Admin unter <code>/admin</code> antwortet mit 404</td>
+                <td>Server als reiner Entwicklungs-Build gestartet</td>
+                <td>Den Web-Admin liefert nur eine paketierte Installation aus.</td>
+            </tr>
+            <tr>
+                <td>Web-Admin wirkt normal, setzt aber alte Rollenregeln durch</td>
+                <td>Neuer Web-Admin gegen einen alten Server</td>
+                <td>Server und Web-Admin immer in derselben Version betreiben.</td>
+            </tr>
+            <tr>
+                <td>Früher mögliche Vorgänge werden jetzt abgelehnt</td>
+                <td>Neue Schutzregeln</td>
+                <td>Beabsichtigt: Stammdaten des Betriebs nur bei geschlossenem Tag änderbar; verwendeter MwSt-Satz nicht mehr
+                    änderbar (neuen Satz anlegen); nicht kombinierbare Aktionen werden erzwungen; Beleg eines abgeschlossenen
+                    Tages nicht mehr stornierbar; DSFinV-K-Export ohne Steuernummer (422) und Buchungsstapel ohne
+                    Kontenzuordnung (409) verweigert.</td>
+            </tr>
+            <tr>
+                <td>Funktion an der Kasse nicht mehr auffindbar</td>
+                <td>In den Web-Admin umgezogen</td>
+                <td>Die Einstellungen der Kasse haben nur noch drei Tabs (Allgemein, Drucker, TSE). Artikel, Personal, Gutscheinverwaltung,
+                    Monatsabschluss, Zeiterfassung, Datenexport, Aktionen, geplante Aufgaben, Prüfprotokoll und Systemeinstellungen
+                    liegen im Web-Admin unter <code>/admin</code>. Die automatische Belegerkennung (KI/OCR), der TSE-Modus REMOTE
+                    mit separatem Konnektor und der Schnellverkauf wurden entfernt.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-16-neu-koppeln">Kasse verlangt erneut die Kopplung oder die Anmeldung</h3>
+
+    <p>Die Kasse speichert Geräte-Token, Zugangs- und Aktualisierungstoken sowie das gemerkte Passwort verschlüsselt. Der Schlüssel dazu liegt auf Android im Schlüsselspeicher des Geräts, am PC im Schlüsselbund bzw. in der Schlüsseldatei dieses Benutzers (siehe <a href="kap-03-anmeldung.html#kap-03-zugangsdaten-merken">Kapitel 03</a>). Fehlt er, kann die Kasse die gespeicherten Werte nicht mehr öffnen und zeigt den Kopplungsbildschirm oder eine leere Anmeldung. Das passiert nach:</p>
+    <ul>
+        <li>Neuinstallation des Betriebssystems oder Wechsel des Benutzerprofils</li>
+        <li>einem neuen Tablet, einer Wiederherstellung aus einer Android-Sicherung oder einem Geräteumzug – Android-Sicherungen und Geräteumzüge enthalten die Daten der Kasse bewusst nicht; das Gerät wird wie bei der Erstinstallation eingerichtet und gekoppelt</li>
+        <li>dem Löschen der Schlüsseldatei oder des Schlüsselbund-Eintrags</li>
+    </ul>
+    <p>Das ist beabsichtigt: Kopplung und Zugangsdaten sollen nicht auf ein anderes Gerät wandern. <strong>Abhilfe:</strong> Im Web-Admin unter <strong>Terminals</strong> einen neuen Kopplungscode für das Terminal erzeugen und am Gerät eingeben (siehe <a href="kap-13-einstellungen.html#kap-13-terminalverwaltung">Terminalverwaltung</a>), danach das Passwort erneut eingeben.</p>
+
+    <div class="alert alert-warning">
+        <strong>Schlüsselbund antwortet nicht:</strong> Ist der Schlüsselbund gesperrt, noch nicht gestartet oder antwortet er nicht innerhalb von 5 Sekunden, behält die Kasse ihre Daten, kann sie aber gerade nicht lesen, und zeigt Anmeldung oder Kopplungsbildschirm. Kann eine Bestellstation ihre Sitzung gerade nicht speichern, zeigt sie „Bestellstation nicht bereit" mit einer Wiederholen-Schaltfläche; die Kopplung bleibt erhalten. Die Kasse prüft das nicht von selbst erneut: Schlüsselbund entsperren und die App neu starten – danach ist die Kasse wieder gekoppelt. Neu koppeln funktioniert auch, ist aber unnötig; es ersetzt die behaltene Kopplung.
+    </div>
+
+    <h4>PC-Kassen ohne nutzbaren Schlüsselbund</h4>
+    <p>Findet die Kasse keinen nutzbaren Schlüsselbund, legt sie den Schlüssel in der nur für den Benutzer lesbaren Datei <code>~/.config/zenbon-pos/local-secrets.key</code> ab (bzw. unter <code>$XDG_CONFIG_HOME/zenbon-pos/local-secrets.key</code>, falls gesetzt) und schreibt beim Anlegen die Warnung <code>No usable OS keychain … See manual chapter 16.</code> ins Log. Eine kopierte Datenbank allein bleibt unlesbar, eine Kopie oder Sicherung des Benutzerverzeichnisses enthält den Schlüssel aber mit. Für vollen Schutz <code>gnome-keyring</code> (oder KWallet) installieren und beim Anmelden entsperren lassen. Auf Kiosk-Rechnern mit automatischer Anmeldung bleibt ein gnome-keyring gesperrt: Sein Entsperrdialog erscheint dann immer wieder – anfangs mehrmals in wenigen Minuten, später in wachsenden Abständen bis etwa alle 30 Minuten –, die Kasse arbeitet währenddessen mit der Schlüsseldatei weiter; Kopplung und Anmeldung funktionieren. Um den Dialog abzustellen, den Anmelde-Schlüsselbund beim Anmelden automatisch entsperren lassen (<code>pam_gnome_keyring</code>) oder auf reinen Kiosk-Rechnern gnome-keyring aus der Sitzung entfernen bzw. gar nicht installieren – dann verwendet die Kasse die Schlüsseldatei ohne Dialog. Bei automatischer Anmeldung gibt es kein Passwort zum Entsperren; ein leeres Schlüsselbund-Passwort legt dessen Inhalt unverschlüsselt ab und schützt nicht besser als die Schlüsseldatei. Ist die Schlüsseldatei beschädigt oder leer, überschreibt die Kasse sie nicht; die Kopplung schlägt dann mit der Meldung „Die Kopplung konnte auf diesem Gerät nicht gespeichert werden …" fehl. <strong>Abhilfe:</strong> Datei löschen und neu koppeln.</p>
+
+    <h4>Android: nach einem Systemupdate lässt sich die Kopplung nicht mehr speichern</h4>
+    <p>Lehnt die Sicherheitshardware des Geräts den Schlüssel nach einem Update ab, schlägt jede Kopplung mit der Meldung „Die Kopplung konnte auf diesem Gerät nicht gespeichert werden …" fehl, und die Kasse zeigt bei jedem Start den Kopplungsbildschirm. <strong>Abhilfe:</strong> Einstellungen &rarr; Apps &rarr; POS &rarr; Speicher (bzw. „Speicher und Cache") &rarr; Daten löschen (bzw. „Speicher löschen"), danach das Gerät neu koppeln. Das entfernt alle lokalen Daten der App; sie startet wie nach der Erstinstallation.</p>
+
+    <h4>Android 10 und 11: Kopplung plötzlich verloren</h4>
+    <p>Hat der Schlüsselspeicher des Geräts ausgerechnet beim Speichern eines Tokens eine Störung, legt die Kasse einen neuen Schlüssel an; die bisher gespeicherte Kopplung ist dann nicht mehr lesbar. <strong>Abhilfe:</strong> neu koppeln.</p>
+
+    <!-- ──────────────────────────────────── -->
+    <h3 id="kap-16-diagnose">Netzwerk-Diagnose</h3>
+
+    <p>Bei anhaltenden Verbindungsproblemen helfen folgende Diagnoseschritte:</p>
+
+    <ol class="steps">
+        <li><strong>Erreichbarkeit prüfen:</strong> <code>ping &lt;server-ip&gt;</code></li>
+        <li><strong>HTTPS prüfen:</strong> <code>curl --cacert pos-root-ca.crt -v https://&lt;server-adresse&gt;/health</code> (IP-Adresse oder lokaler Name)</li>
+        <li><strong>DNS-Auflösung:</strong> <code>nslookup &lt;server-hostname&gt;</code></li>
+        <li><strong>Firewall-Regeln:</strong> Prüfen, ob die Ports 80 und 443 freigegeben sind. Der Server-Port (Standard 8080) ist absichtlich nur auf dem Serverrechner selbst erreichbar.</li>
+        <li><strong>Server-Logs:</strong> Logdateien des POS-Servers auf Fehler und Warnungen prüfen</li>
+    </ol>
+
+    <h4 id="kap-16-https">HTTPS-Verbindung</h4>
+    <table>
+        <thead>
+            <tr><th>Problem</th><th>Ursache</th><th>Lösung</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Kasse zeigt „Serveradresse muss HTTPS verwenden"</td>
+                <td>Die Kasse hat noch eine alte <code>http://</code>-Adresse gespeichert.</td>
+                <td>Im Feld <strong>Server-URL</strong> die <code>https://</code>-Adresse eintragen und <strong>Speichern und erneut versuchen</strong> antippen bzw. anklicken. Das Feld ist mit der bisherigen Adresse auf <code>https://</code> vorbelegt. Diese Vorbelegung passt nur, wenn die Kasse bisher über die IP-Adresse des Servers mit dem Standard-Port 8080 verbunden war. Andernfalls die Adresse <strong>vor dem Speichern</strong> korrigieren: die IP-Adresse ohne Port (z.&nbsp;B. <code>https://192.168.1.10</code>) oder den lokalen Namen des Servers (z.&nbsp;B. <code>https://kasse.fritz.box</code>, siehe <a href="kap-17-softwareaktualisierung.html#kap-17-lokaler-name">Kapitel 17</a>). Vorher auf diesem Gerät das Stammzertifikat installieren und die Kassen-App neu starten.</td>
+            </tr>
+            <tr>
+                <td>Kasse zeigt nach dem Speichern einer <code>https://</code>-Adresse „Server nicht erreichbar"</td>
+                <td>Meist: Stammzertifikat auf diesem Gerät nicht installiert, Kassen-App nach der Installation des Zertifikats nicht neu gestartet, falsche Uhrzeit am Gerät, der Router löst den lokalen Namen nicht auf oder der Name steht nicht im Zertifikat, unter Android ist „Privates DNS" auf einen festen Anbieter eingestellt (dann löst das Gerät keine lokalen Namen auf), die IP-Adresse des Servers hat sich geändert, Caddy läuft nicht oder die Adresse ist falsch eingetragen.</td>
+                <td>Je nach Ursache: Stammzertifikat installieren (siehe <a href="kap-17-softwareaktualisierung.html#kap-17-https">Kapitel 17</a>) und die Kassen-App danach neu starten, Uhrzeit am Gerät korrigieren, prüfen, ob der Router den lokalen Namen auf den Server auflöst (z.&nbsp;B. <code>nslookup kasse.fritz.box</code>), unter Android in den Einstellungen „Privates DNS" auf „Automatisch" oder „Aus" stellen, das Installationsskript mit allen benötigten Namen erneut ausführen (<code>--local-name</code>, siehe <a href="kap-17-softwareaktualisierung.html#kap-17-lokaler-name">Kapitel 17</a>) oder das Protokoll von Caddy prüfen (siehe unten). Hat sich die IP-Adresse des Servers geändert, siehe den Hinweis „Feste IP-Adresse und richtige Uhrzeit" in <a href="kap-17-softwareaktualisierung.html#kap-17-https">Kapitel 17</a>. Danach <strong>Wiederholen</strong> antippen bzw. anklicken. Ist die Adresse falsch eingetragen, lässt sie sich an der Kasse derzeit nicht mehr ändern – auch ein Zurücksetzen der Kasse hilft nicht, denn eine zurückgesetzte Kasse sucht den Server zunächst auf dem eigenen Gerät und zeigt ebenfalls „Server nicht erreichbar". Prüfen Sie die Adresse deshalb vor dem Speichern genau und wenden Sie sich andernfalls an den Support.</td>
+            </tr>
+            <tr>
+                <td>Browser zeigt „502 Bad Gateway"</td>
+                <td>Der POS-Server läuft nicht oder lauscht auf einem anderen Port als dem, der dem Installationsskript übergeben wurde.</td>
+                <td>Server-Status prüfen. Installationsskript mit dem im Einrichtungsassistenten gewählten Port erneut ausführen.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><strong>Protokoll des HTTPS-Proxys (Caddy):</strong> <code>sudo journalctl -u pos-caddy</code>.</p>
+
+    <div class="alert alert-info">
+        <strong>Support-Anfrage:</strong> Bei nicht lösbaren Problemen wenden Sie sich an Ihren Systemadministrator. Halten Sie bereit: genaue Fehlermeldung (inkl. Fehlercode), Zeitpunkt des Auftretens, betroffene Funktion und ggf. Screenshots.
+    </div>
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-15-pruefprotokoll.html">&larr; Vorheriges: Prüfprotokoll</a>
+    <a href="kap-17-softwareaktualisierung.html">Nächstes: Softwareaktualisierung &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

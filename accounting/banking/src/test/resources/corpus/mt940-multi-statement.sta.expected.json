@@ -1,0 +1,21 @@
+{
+  "_note": "Hand-authored. Three daily statements merged. 500.00 + 100.00 - 250.00 + 25.50 - 5.50 = 370.00",
+  "outcome": "Success",
+  "format": "MT940",
+  "transactionCount": 4,
+  "currency": "EUR",
+  "openingBalance": "500.00",
+  "closingBalance": "370.00",
+  "accountIban": "DE02120300000000202051",
+  "statementNumber": "31",
+  "periodStart": "2026-04-01",
+  "periodEnd": "2026-04-03",
+  "firstAmount": "100.00",
+  "firstCreditDebit": "CREDIT",
+  "firstValueDate": "2026-04-01",
+  "firstCounterpartyName": "Kartenumsatz Zahlungsdienstleister GmbH",
+  "firstRemittance": "Tageseinnahme 01.04.",
+  "firstEndToEndId": "TAG1-0001",
+  "lastAmount": "5.50",
+  "lastCounterpartyName": "Musterbank AG"
+}

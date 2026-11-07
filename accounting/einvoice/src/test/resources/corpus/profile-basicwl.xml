@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Hand-authored by us — a regression guard, NOT evidence.
+  It cannot prove the URN below is the right one, because we wrote both this file and the constant
+  it is compared against. The URN was verified against external sources; see corpus/README.md.
+  What this fixture guards is that a later edit to ZugferdProfile cannot silently stop BASIC WL from
+  being detected — the failure that would let a booking aid pass the EN 16931 conformance gate.
+  Deliberately minimal: only the document context a profile detector reads.
+-->
+<rsm:CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100"
+                          xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+    <rsm:ExchangedDocumentContext>
+        <ram:GuidelineSpecifiedDocumentContextParameter>
+            <ram:ID>urn:factur-x.eu:1p0:basicwl</ram:ID>
+        </ram:GuidelineSpecifiedDocumentContextParameter>
+    </rsm:ExchangedDocumentContext>
+</rsm:CrossIndustryInvoice>

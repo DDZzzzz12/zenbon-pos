@@ -1,0 +1,54 @@
+package org.example.project.securexml
+
+import java.io.File
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+
+/**
+ * The XXE hardening in [SecureXml] is only as strong as its exclusivity. A mapper or format
+ * detector added by a later task could construct its own `DocumentBuilderFactory` in a few lines,
+ * parse supplier-sent XML with every protection off, and no other test in this module would go red
+ * — the invoice would still map correctly, it would just also resolve whatever the sender asked it
+ * to read. This test makes that failure loud instead of invisible.
+ */
+class SingleXmlParserFactoryTest {
+    private val forbiddenFactories = listOf("DocumentBuilderFactory", "SAXParserFactory", "XMLInputFactory")
+
+    @Test
+    fun `SecureXml is the only file that builds an XML parser`() {
+        val sources = mainKotlinSources()
+        // Guard the guard: if the tree walk silently found nothing, the assertion below is vacuous.
+        assertTrue(sources.size >= 2, "expected to scan the module's main sources, found ${sources.size} files")
+
+        val offenders =
+            sources
+                .filter { it.name != "SecureXml.kt" }
+                .filter { file -> forbiddenFactories.any { it in file.readText().withoutComments() } }
+                .map { it.name }
+
+        assertEquals(
+            emptyList(),
+            offenders,
+            "these files build their own XML parser and bypass SecureXml's hardening: $offenders",
+        )
+    }
+
+    /**
+     * Scanning raw text would fire on the very comment a careful developer writes — "do not build a
+     * `DocumentBuilderFactory` here, use `SecureXml`" — so comments are removed before the scan.
+     * Detection is not weakened: what remains is code, and code cannot construct a factory without
+     * naming its type. The line-comment pattern deliberately ignores a `//` preceded by a colon so
+     * that a URL in a string literal does not truncate the rest of a real line.
+     */
+    private fun String.withoutComments(): String =
+        this
+            .replace(Regex("""/\*.*?\*/""", RegexOption.DOT_MATCHES_ALL), " ")
+            .replace(Regex("""(?<!:)//[^\n]*"""), " ")
+
+    private fun mainKotlinSources(): List<File> {
+        val root = File("src/main/kotlin")
+        assertTrue(root.isDirectory, "cannot find ${root.absolutePath}; test working dir is ${File(".").absolutePath}")
+        return root.walkTopDown().filter { it.isFile && it.extension == "kt" }.toList()
+    }
+}

@@ -1,0 +1,46 @@
+-- Local restaurant-table cache. Mirrors core/data/models/RTable (incl. live openAmount).
+CREATE TABLE IF NOT EXISTS local_r_tables (
+    id INTEGER NOT NULL PRIMARY KEY,
+    table_number TEXT NOT NULL,
+    seats INTEGER NOT NULL DEFAULT 0,
+    location_type_id INTEGER NOT NULL,
+    location_type_name TEXT NOT NULL,
+    is_virtual INTEGER NOT NULL DEFAULT 0,
+    is_takeaway INTEGER NOT NULL DEFAULT 0,
+    table_status TEXT NOT NULL,
+    current_session_id INTEGER,
+    current_employee_number TEXT,
+    grid_x INTEGER,
+    grid_y INTEGER,
+    rotation REAL,
+    grid_width INTEGER,
+    grid_height INTEGER,
+    is_training INTEGER NOT NULL DEFAULT 0,
+    is_active INTEGER NOT NULL DEFAULT 1,
+    assignment_priority INTEGER NOT NULL DEFAULT 0,
+    open_amount TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_local_r_tables_location_type_id ON local_r_tables(location_type_id);
+
+upsert:
+INSERT OR REPLACE INTO local_r_tables(
+    id, table_number, seats, location_type_id, location_type_name, is_virtual, is_takeaway,
+    table_status, current_session_id, current_employee_number, grid_x, grid_y, rotation,
+    grid_width, grid_height, is_training, is_active, assignment_priority, open_amount
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+selectByLocationType:
+SELECT * FROM local_r_tables WHERE location_type_id = ? ORDER BY id;
+
+selectById:
+SELECT * FROM local_r_tables WHERE id = ?;
+
+deleteById:
+DELETE FROM local_r_tables WHERE id = ?;
+
+deleteByLocationType:
+DELETE FROM local_r_tables WHERE location_type_id = ?;
+
+clear:
+DELETE FROM local_r_tables;

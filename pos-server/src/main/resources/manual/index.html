@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS System – Bedienungsanleitung</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-sessions">Sitzungen &amp; Token-Widerruf</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="choice-groups.html" target="_blank">Choice Groups</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="choice-groups.html" target="_blank">Choice Groups</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+            <li><a href="scheduled-tasks.html" target="_blank">Geplante Aufgaben</a></li>
+            <li><a href="monthly-close.html" target="_blank">Monthly Close</a></li>
+            <li><a href="changefeed-sync.html" target="_blank">Change-Feed Sync</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section id="kap-00" class="chapter">
+    <h1>Bedienungsanleitung – POS System</h1>
+    <p>Willkommen zur Bedienungsanleitung des POS-Systems. Diese Anleitung beschreibt alle Funktionen der Kassensoftware für den Einsatz in der Gastronomie.</p>
+    <p>Das System hat zwei Oberflächen: die <strong>Kasse</strong> (App auf Tablet oder als Browser-Station unter <code>/pos/</code>) für den Betrieb am Tresen und den <strong>Web-Admin</strong> (Backoffice im Browser unter <code>/admin</code> auf dem Server) für Einrichtung und Verwaltung &ndash; Artikel, Personal, Terminals, Rechnungen, Exporte und Einstellungen. Einen Überblick gibt <a href="kap-01-einfuehrung.html#kap-01-bestandteile">Kapitel 01</a>.</p>
+
+    <h3>Kapitelübersicht</h3>
+    <table>
+        <thead>
+            <tr><th>Kapitel</th><th>Thema</th><th>Zielgruppe</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>01</td><td><a href="kap-01-einfuehrung.html">Einführung</a></td><td>Alle</td></tr>
+            <tr><td>02</td><td><a href="kap-02-ersteinrichtung.html">Ersteinrichtung</a></td><td>Admin / Inhaber</td></tr>
+            <tr><td>03</td><td><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></td><td>Alle</td></tr>
+            <tr><td>04</td><td><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tischverwaltung</a></td><td>Alle</td></tr>
+            <tr><td>05</td><td><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></td><td>Kassierer+</td></tr>
+            <tr><td>06</td><td><a href="kap-06-abrechnung.html">Abrechnung &amp; Bezahlung</a></td><td>Kassierer+</td></tr>
+            <tr><td>08</td><td><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></td><td>Kassierer+ (Verwaltung im Web-Admin)</td></tr>
+            <tr><td>09</td><td><a href="kap-09-artikelverwaltung.html">Artikelverwaltung</a></td><td><span class="badge badge-manager">Manager+</span> (Web-Admin)</td></tr>
+            <tr><td>10</td><td><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></td><td><span class="badge badge-manager">Manager+</span> (Web-Admin)</td></tr>
+            <tr><td>11</td><td><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></td><td>Kassierer+ (eingeschränkt)</td></tr>
+            <tr><td>12</td><td><a href="kap-12-finanzdokumente.html">Finanzdokumente</a></td><td><span class="badge badge-manager">Manager+</span></td></tr>
+            <tr><td>13</td><td><a href="kap-13-einstellungen.html">Einstellungen</a></td><td>Alle (Drucker, TSE und Web-Admin: Manager+)</td></tr>
+            <tr><td>14</td><td><a href="kap-14-compliance.html">Compliance (TSE, DSFinV-K, DATEV)</a></td><td><span class="badge badge-admin">Admin / Inhaber</span></td></tr>
+            <tr><td>15</td><td><a href="kap-15-pruefprotokoll.html">Prüfprotokoll</a></td><td><span class="badge badge-manager">Manager+</span></td></tr>
+            <tr><td>16</td><td><a href="kap-16-fehlerbehebung.html">Fehlerbehebung</a></td><td>Alle</td></tr>
+            <tr><td>17</td><td><a href="kap-17-softwareaktualisierung.html">Softwareaktualisierung</a></td><td><span class="badge badge-admin">Admin / Inhaber</span></td></tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <strong>Leseempfehlung</strong>
+        <b>Kassierer:</b> Kapitel 03–08 sind die wichtigsten für den täglichen Betrieb.<br>
+        <b>Manager:</b> Alle Kapitel sind relevant, besonders 09–12 für Verwaltungsaufgaben.<br>
+        <b>Inhaber/Admin:</b> Kapitel 02 und 14 für Ersteinrichtung und Compliance.<br>
+        Die Zielgruppen sind Richtwerte: Was jemand tatsächlich darf, bestimmt seine Berechtigungsgruppe (siehe <a href="kap-01-einfuehrung.html#kap-01-rollen">Kapitel 01</a>).
+    </div>
+
+    <h3>Technische Dokumentation</h3>
+    <div class="landing-cards">
+        <a href="pos-geschaeftslogik.html" target="_blank" class="landing-card">
+            <h3>Geschäftslogik</h3>
+            <p>Dokumentation der POS-Geschäftslogik: Bestellprozesse, Bezahlung, Stornierung, Rabatte und Preisberechnung.</p>
+        </a>
+        <a href="choice-groups.html" target="_blank" class="landing-card">
+            <h3>Choice Groups</h3>
+            <p>Menü-Auswahlgruppen: Min/Max-Auswahlen, Preis-Delta pro Platzierung, server-maßgebliche Preisberechnung, Konfigurator und Snapshot-Belegtreue.</p>
+        </a>
+        <a href="tse-dokumentation.html" target="_blank" class="landing-card">
+            <h3>TSE-Dokumentation</h3>
+            <p>Technische Sicherheitseinrichtung: Architektur, Hardware-Erkennung, Signiervorgang, Wartung und Fehlerbehandlung.</p>
+        </a>
+        <a href="dsfinvk-export.html" target="_blank" class="landing-card">
+            <h3>DSFinV-K Export</h3>
+            <p>DSFinV-K 2.4 Export-Modul: Feldzuordnungen, Datenherkunft, CSV-Dateien und Compliance-Dokumentation.</p>
+        </a>
+        <a href="datev-xml-export.html" target="_blank" class="landing-card">
+            <h3>DATEV XML Export</h3>
+            <p>DATEV XML Schnittstelle online: Kassenbuch und Eingangsrechnungen Export mit ZIP-Struktur und Feldzuordnungen.</p>
+        </a>
+        <a href="scheduled-tasks.html" target="_blank" class="landing-card">
+            <h3>Geplante Aufgaben</h3>
+            <p>Diagnose-Ansicht der zwei eingebauten Auftr&auml;ge (Automatische Sicherung, Automatischer DATEV-Export) im Web-Admin unter System &rarr; Geplante Aufgaben. Konfiguration unter Compliance &rarr; Datenexport.</p>
+        </a>
+        <a href="monthly-close.html" target="_blank" class="landing-card">
+            <h3>Monthly Close</h3>
+            <p>Month-end report in the web back office (Analysen): KPI cards, Z-Bon and Kassenbuch roll-ups, the month-end checklist, closed days and Z-Bon gaps, and the automatic DATEV export cadence.</p>
+        </a>
+        <a href="changefeed-sync.html" target="_blank" class="landing-card">
+            <h3>Change-Feed Sync</h3>
+            <p>Sequenzbasierte Datensynchronisation: SSE-Hints, <code>GET /api/changes?since={seq}</code>-Feed, Cursor-Management, Delete-Propagation, Reconnect-Fallback und Retention.</p>
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

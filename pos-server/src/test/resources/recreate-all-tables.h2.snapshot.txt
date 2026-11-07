@@ -1,0 +1,35 @@
+failure Cannot drop "TABLE_SESSION" because "FK_R_TABLE_CURRENT_TABLE_SESSION_ID__TABLE_SESSION_ID" depends on it
+table card_settlement
+table card_settlement_detail
+table card_terminal
+table changelog_release
+table cost_center
+table customer_addresses
+table customers
+table datev_export_log
+table employee_info
+table employees
+table location_types
+table r_table
+table shop_info
+table table_session
+table tse_transaction
+table zbon
+card_settlement.card_terminal_id -> card_terminal.id name=fk_card_settlement_card_terminal_id__id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+card_settlement.zbon_id -> zbon.zbon_id name=fk_card_settlement_zbon_id__zbon_id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+card_settlement_detail.card_settlement_id -> card_settlement.id name=fk_card_settlement_detail_card_settlement_id__id onDelete=CASCADE onUpdate=RESTRICT deferrability=7 seq=1
+card_terminal.shop_info_id -> shop_info.shop_id name=fk_card_terminal_shop_info_id__shop_id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+customer_addresses.customer_id -> customers.customer_id name=fk_customer_addresses_customer_id__customer_id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+employee_info.employee_id -> employees.employee_id name=fk_employee_info_employee_id__employee_id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+employees.default_cost_center_id -> cost_center.id name=fk_employees_default_cost_center_id__id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+employees.info_id -> employee_info.employee_info_id name=fk_employees_info_id__employee_info_id onDelete=SET_NULL onUpdate=RESTRICT deferrability=7 seq=1
+r_table.current_table_session_id -> table_session.table_session_id name=fk_r_table_current_table_session_id__table_session_id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+r_table.location_type_id -> location_types.id name=fk_r_table_location_type_id__id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+table_session.customer_id -> customers.customer_id name=fk_table_session_customer_id__customer_id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+table_session.delivery_address_id -> customer_addresses.address_id name=fk_table_session_delivery_address_id__address_id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+table_session.employee_id -> employees.employee_id name=fk_table_session_employee_id__employee_id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+table_session.table_id -> r_table.table_id name=fk_table_session_table_id__table_id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+table_session.tse_transaction_id -> tse_transaction.id name=fk_table_session_tse_transaction_id__id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+table_session.zbon_id -> zbon.zbon_id name=fk_table_session_zbon_id__zbon_id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+zbon.employee_id -> employees.employee_id name=fk_zbon_employee_id__employee_id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1
+zbon.shop_info_id -> shop_info.shop_id name=fk_zbon_shop_info_id__shop_id onDelete=RESTRICT onUpdate=RESTRICT deferrability=7 seq=1

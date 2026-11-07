@@ -1,0 +1,4 @@
+{
+  "_note": "Hand-authored UBL invoice. Guards mutual exclusivity with the e-invoice parser: the statement detector must claim nothing here.",
+  "outcome": "NoStatementFound"
+}

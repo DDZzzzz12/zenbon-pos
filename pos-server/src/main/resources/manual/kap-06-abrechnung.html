@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel 06 – Abrechnung &amp; Bezahlung – POS Handbuch</title>
+    <link rel="stylesheet" href="css/manual.css">
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<header class="topbar">
+    <button id="sidebar-toggle" class="topbar__toggle" aria-label="Menü öffnen">&#9776;</button>
+    <span class="topbar__title">POS&nbsp;Handbuch</span>
+    <div class="topbar__search">
+        <span class="topbar__search-icon">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Suche… (Strg+K)" autocomplete="off">
+    </div>
+    <span id="search-results-count" class="search-results-count"></span>
+    <button id="theme-toggle" class="topbar__theme" aria-label="Theme wechseln">&#9790;</button>
+</header>
+
+<!-- ===== Sidebar Overlay (mobile) ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar" aria-label="Inhaltsverzeichnis">
+
+    <!-- Kap 00 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Inhaltsverzeichnis <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="index.html">Übersicht</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 01 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">01 – Einführung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-01-einfuehrung.html">Einführung</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-bestandteile">Bestandteile</a></li>
+            <li><a href="kap-01-einfuehrung.html#kap-01-rollen">Berechtigungskonzept</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 02 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">02 – Ersteinrichtung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-02-ersteinrichtung.html">Setup-Wizard</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 03 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">03 – Anmeldung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-03-anmeldung.html">Anmeldung &amp; Sicherheit</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-kopplung">Gerätekopplung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-training">Trainingsmodus</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-temp">Temporäre Sitzung</a></li>
+            <li><a href="kap-03-anmeldung.html#kap-03-bestellstation">Bestellstation</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 04 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">04 – Tischverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-04-tischverwaltung.html">Dashboard &amp; Tische</a></li>
+            <li><a href="kap-04-tischverwaltung.html#kap-04-editor">Tischplan-Editor</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 05 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">05 – Bestellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-05-bestellungen.html">Bestellungen aufnehmen</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-tastatur">Tastatur-Modus</a></li>
+            <li><a href="kap-05-bestellungen.html#kap-05-grid">Raster-Modus</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 06 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">06 – Abrechnung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-06-abrechnung.html">Bezahlung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-teil">Teilrechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-beleg">Beleg &amp; Rechnung</a></li>
+            <li><a href="kap-06-abrechnung.html#kap-06-zahlartwechsel">Zahlungsart ändern</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 08 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">08 – Gutscheine <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-08-gutscheine.html">Gutscheinverwaltung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 09 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">09 – Artikelverwaltung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-09-artikelverwaltung.html">Produkte &amp; Kategorien</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-extras">Extras</a></li>
+            <li><a href="kap-09-artikelverwaltung.html#kap-09-import">CSV-Import</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 10 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">10 – Mitarbeiter <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-10-mitarbeiter.html">Mitarbeiterverwaltung</a></li>
+            <li><a href="kap-10-mitarbeiter.html#kap-10-mein-profil">Mein Profil</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 11 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">11 – Berichte <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-11-berichte.html">Berichte &amp; Statistiken</a></li>
+            <li><a href="kap-11-berichte.html#kap-11-zbon">Tagesabschluss (Z-Bon)</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 12 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">12 – Finanzdokumente <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-12-finanzdokumente.html">Kassenbuch &amp; Belege</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 13 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">13 – Einstellungen <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-13-einstellungen.html">Übersicht</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-allgemein">Allgemein</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-geschaeft">Geschäft</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-drucker">Drucker</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-export">Datenexport</a></li>
+            <li><a href="kap-13-einstellungen.html#kap-13-tse">TSE</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 14 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">14 – Compliance <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-14-compliance.html">TSE, DSFinV-K, DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-setup">TSE Ersteinrichtung</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-status">TSE Status</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-admin">TSE Admin</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-queue">Signatur-Warteschlange</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-export">TSE-Datenexport</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-dsfinvk">DSFinV-K</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-datev">DATEV</a></li>
+            <li><a href="kap-14-compliance.html#kap-14-aufbewahrung">Aufbewahrung</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 15 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">15 – Prüfprotokoll <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-15-pruefprotokoll.html">Audit Log</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 16 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">16 – Fehlerbehebung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-16-fehlerbehebung.html">Problemlösungen</a></li>
+        </ul>
+    </div>
+
+    <!-- Kap 17 -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">17 – Softwareaktualisierung <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="kap-17-softwareaktualisierung.html">Updates</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-download">Umfang des Downloads</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-kanal">Kanal &amp; Zugangstoken</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Abgelehnte Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-installation">Ablauf der Installation</a></li>
+            <li><a href="kap-17-softwareaktualisierung.html#kap-17-notfall">Wenn etwas schiefgeht</a></li>
+        </ul>
+    </div>
+
+    <!-- Technische Dokumentation -->
+    <div class="sidebar__section">
+        <button class="sidebar__heading">Technische Dokumentation <span class="arrow">&#9660;</span></button>
+        <ul class="sidebar__links">
+            <li><a href="pos-geschaeftslogik.html" target="_blank">Geschäftslogik</a></li>
+            <li><a href="tse-dokumentation.html" target="_blank">TSE-Dokumentation</a></li>
+            <li><a href="dsfinvk-export.html" target="_blank">DSFinV-K Export</a></li>
+            <li><a href="datev-xml-export.html" target="_blank">DATEV XML Export</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="layout">
+<main class="content">
+
+<section class="chapter">
+    <h2>Kapitel 06 – Abrechnung &amp; Bezahlung</h2>
+
+    <h3>Adaptive Darstellung</h3>
+    <ul>
+        <li><strong>Smartphone:</strong> Schrittweise Abwicklung (Positionen wählen &rarr; Überprüfen &rarr; Zahlung eingeben &rarr; Beleg)</li>
+        <li><strong>Tablet / Desktop:</strong> Alle Schritte auf einem Bildschirm</li>
+    </ul>
+
+    <h3>Vollständige Abrechnung</h3>
+    <ol class="steps">
+        <li>Tisch öffnen &rarr; <strong>Abrechnen</strong> antippen</li>
+        <li>Bestellübersicht prüfen</li>
+        <li>Zahlungsart wählen: Bar, Karte oder Gemischt</li>
+        <li>Bei Barzahlung: Erhaltenen Betrag eingeben &rarr; Wechselgeld wird automatisch berechnet</li>
+        <li><strong>Bezahlen</strong> antippen &rarr; Transaktion wird abgeschlossen</li>
+    </ol>
+    <p>Beträge werden exakt dezimal gerechnet und im deutschen Format angezeigt, z.&nbsp;B.
+    <strong>16,90&nbsp;€</strong>.</p>
+
+    <h3 id="kap-06-aktionen">Aktionen (Promotions)</h3>
+    <p>Im Abrechnungsbildschirm öffnet <strong>Aktion anwenden</strong> die Liste der aktiven Aktionen
+    (Dialog <em>Aktion auswählen</em>). Aktionen werden im Web-Admin unter <strong>Produkte</strong>
+    über die Schaltfläche <em>Aktionen verwalten</em> in der Werkzeugleiste angelegt, siehe <a href="kap-09-artikelverwaltung.html">Kapitel 09</a>.</p>
+    <ul>
+        <li>Ist bei einer Aktion <strong>&bdquo;Mit anderen Aktionen kombinierbar&ldquo;</strong> ausgeschaltet,
+            muss sie die einzige Aktion auf dem Beleg sein. Die Kasse sperrt die Auswahl einer weiteren Aktion,
+            und der Server lehnt einen solchen Beleg ab (409 <code>PROMOTION_NOT_COMBINABLE</code>).
+            Eine Kombination, die vor v1.1.0 durchging, wird jetzt abgewiesen.</li>
+        <li>Davon unabhängig ist <strong>&bdquo;Mehrfach verwendbar&ldquo;</strong>: Dieselbe Aktion darf dann
+            mehrfach auf einem Beleg stehen (z.&nbsp;B. für mehrere passende Artikel).</li>
+        <li>Mehrere artikelbezogene Aktionen auf demselben Artikel werden in der gewählten Reihenfolge
+            nacheinander abgezogen, aber nie unter 0&nbsp;€: Jede Aktion zieht höchstens ab, was die
+            vorherigen vom Artikelpreis übrig gelassen haben (eine Aktion, für die nichts übrig ist,
+            steht mit 0,00&nbsp;€ auf dem Beleg).</li>
+        <li>Ein Beleg mit Aktion kann in eine <a href="#kap-06-beleg">Ausgangsrechnung</a> umgewandelt
+            werden; die Aktion erscheint dort als <strong>Nachlass</strong> unter den Positionen.</li>
+    </ul>
+
+    <h3 id="kap-06-teil">Teilrechnung</h3>
+    <ol class="steps">
+        <li><strong>Teilrechnung</strong> in der Bestellansicht antippen</li>
+        <li>Gewünschte Positionen markieren</li>
+        <li>Zahlungsart wählen und Teilzahlung abschließen</li>
+        <li>Verbleibende Positionen bleiben offen</li>
+    </ol>
+
+    <h3>Zahlungsarten</h3>
+    <table>
+        <thead>
+            <tr><th>Zahlungsart</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Bar (<code>BAR</code>)</td><td>Barzahlung mit Wechselgeld-Berechnung</td></tr>
+            <tr><td>EC-Karte (<code>EC-KARTE</code>)</td><td>Debitkartenzahlung</td></tr>
+            <tr><td>Kreditkarte (<code>KREDITKARTE</code>)</td><td>Kreditkartenzahlung</td></tr>
+            <tr><td>Überweisung (<code>ÜBERWEISUNG</code>)</td><td>Banküberweisung &ndash; bei einer Neuinstallation vorgegeben als
+                <strong>Auf Rechnung (Forderung)</strong>, siehe unten</td></tr>
+            <tr><td>Gutschein (<code>GUTSCHEIN</code>)</td><td>Guthabekarte / Gutschein</td></tr>
+            <tr><td>Gemischt</td><td>Kombination mehrerer Zahlungsarten</td></tr>
+        </tbody>
+    </table>
+    <p>Zahlungsarten sind konfigurierbar und mehrsprachig (Deutsch, Englisch, Chinesisch). Sie werden im
+    Web-Admin unter <strong>System &rarr; Einstellungen &rarr; Zahlungsarten</strong> gepflegt.
+    Die Kasse nennt eine Zahlungsart in der Sprache der Oberfläche (ohne Übersetzung mit dem deutschen
+    Namen) &ndash; auf den Schaltflächen, in den erfassten Zahlungen beim Bezahlen und im Dialog
+    <em>Zahlart ändern</em>, dort auch für die bisherige Zahlung.
+    Eine <strong>deaktivierte</strong> Zahlungsart nimmt kein neues Geld mehr an: Die Kasse bietet sie nicht
+    mehr an, und der Server lehnt neue Zahlungen damit ab (409 <code>PAYMENT_TYPE_INACTIVE</code>) &ndash; bei
+    der Abrechnung, beim Zahlartwechsel, beim Gutscheinverkauf und beim Begleichen einer Forderung an der
+    Kasse. Bereits gebuchte Belege behalten ihre Zahlungsart; sie erscheinen weiter im Z-Bon und lassen
+    sich wie gewohnt stornieren.</p>
+
+    <h4 id="kap-06-auf-rechnung">Zahlung &bdquo;auf Rechnung&ldquo;</h4>
+    <p>Eine Zahlungsart mit dem Merkmal <strong>Auf Rechnung (Forderung)</strong> bedeutet: Der Gast zahlt
+    später, der Betrag ist eine offene Forderung statt einer Einnahme. Wird ein Beleg ganz oder teilweise
+    damit bezahlt, zählt dieser Teil nicht als Kassen- oder Kartenbestand; im DSFinV-K-Export erscheint er
+    mit der Zahlart &bdquo;Keine&ldquo;. Das Merkmal wird beim Bezahlen in die Zahlung übernommen &ndash; eine
+    spätere Änderung der Zahlungsart wirkt nur auf künftige Abrechnungen.</p>
+    <div class="alert alert-warning">
+        <strong>Nach dem Update:</strong> Nur eine <em>neu</em> eingerichtete Installation legt <code>ÜBERWEISUNG</code>
+        als &bdquo;auf Rechnung&ldquo; an. Bei einer aktualisierten Installation bleiben die bestehenden Zahlungsarten
+        unverändert, also auch <code>ÜBERWEISUNG</code> ohne das Merkmal. Wenn Überweisungen bei Ihnen offene Forderungen
+        sind, schalten Sie das Merkmal vor dem ersten Tagesabschluss nach dem Update im Web-Admin unter
+        <strong>System &rarr; Einstellungen &rarr; Zahlungsarten</strong> ein.
+    </div>
+    <p>Die Forderung wird entweder über den Bankabgleich oder an der Kasse mit
+    <a href="#kap-06-forderung-begleichen">Forderung begleichen</a> ausgeglichen.</p>
+
+    <h3>Trinkgeld</h3>
+    <ul>
+        <li>Trinkgeldbetrag im Zahlungsdialog eingeben</li>
+        <li>Wird mehr bezahlt als der Rechnungsbetrag, wird der Mehrbetrag Trinkgeld. Die Zeile
+            „Bezahlt: … · Verbleibend: … · Gesamt: …“ über dem Ziffernblock nennt ihn dann ausdrücklich,
+            z.&nbsp;B. „Bezahlt: 11,00&nbsp;€ · Verbleibend: 0,00&nbsp;€ · Gesamt: 10,50&nbsp;€ · davon
+            Trinkgeld: 0,50&nbsp;€“. <em>Gesamt</em> ist immer der Rechnungsbetrag (nach Aktionen, ohne
+            Trinkgeld), <em>Verbleibend</em> wird nie negativ.</li>
+        <li>Konfigurierbare Zuordnung: Pro Mitarbeiter oder Inhaber</li>
+        <li>Mitarbeiter-Trinkgeld (DSFinV-K: <code>TrinkgeldAN</code>) ist <strong>nicht steuerbar</strong>:
+            Es erscheint nicht in der MwSt.-Aufstellung des Belegs und zählt nicht zum Umsatz. Der Beleg
+            weist es als eigene Zeile mit dem Zusatz &bdquo;nicht steuerbar&ldquo; aus, im DSFinV-K-Export
+            als eigene Position &bdquo;Trinkgeld (Arbeitnehmer)&ldquo;. Das Bargeld liegt in der Kasse und
+            ist im Kassenbestand enthalten.</li>
+        <li>Inhaber-Trinkgeld (DSFinV-K: <code>TrinkgeldAG</code>) wird mit dem Steuersatz der zugrunde
+            liegenden Leistung versteuert und ist Teil des Umsatzes: Es wird anteilig auf die
+            MwSt.-Gruppen der abgerechneten Artikel verteilt.</li>
+        <li>Wird im Tagesabschluss (Z-Bon) ausgewiesen</li>
+    </ul>
+
+    <h3>Gutschein einlösen</h3>
+    <ol class="steps">
+        <li><strong>Gutschein einlösen</strong> im Zahlungsdialog antippen</li>
+        <li>Gutschein-Code scannen oder eingeben</li>
+        <li>System validiert: Gültigkeit, Status, Restbetrag</li>
+        <li>Restbetrag wird abgezogen; Überschuss verbleibt auf dem Gutschein</li>
+    </ol>
+    <p>Quelltypen: <code>INTERNAL</code>, <code>LEGACY</code>, <code>EXTERNAL</code></p>
+
+    <h3 id="kap-06-beleg">Beleg und formelle Rechnung</h3>
+    <table>
+        <thead>
+            <tr><th>Option</th><th>Beschreibung</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Bon drucken</td><td>Kassenbon auf konfiguriertem Drucker ausgeben</td></tr>
+            <tr><td>PDF erzeugen</td><td>PDF-Rechnung zur digitalen Ablage erstellen</td></tr>
+            <tr><td>Rechnung erstellen</td><td>Ausgangsrechnung mit Rechnungsnummer und Kundendaten (Name, Adresse) &ndash; siehe unten</td></tr>
+        </tbody>
+    </table>
+
+    <p>
+        <strong>&bdquo;Rechnung erstellen&ldquo;</strong> erzeugt seit v1.0 eine echte
+        <strong>Ausgangsrechnung</strong>: Sie erh&auml;lt eine fortlaufende Rechnungsnummer nach
+        &sect;&nbsp;14 UStG, wird als PDF archiviert und ist in der Verwaltung unter
+        <em>Ausgangsrechnungen</em> jederzeit wiederauffindbar. Fr&uuml;her wurde nur ein PDF
+        gerendert, das nirgends gespeichert wurde.
+        Oben zeigt die <strong>Fortschrittsleiste</strong> die drei Stufen <em>Entwurf</em>, <em>Ausgestellt</em> und
+        <em>Offen</em> mit ihrer Anzahl; ein Klick auf eine Stufe filtert die Liste. Ist <em>Ausgestellt</em> gew&auml;hlt,
+        stehen darunter die Filter <em>Alle ausgestellt</em>, <em>&Uuml;berf&auml;llig</em>, <em>Storniert</em> und
+        <em>Gutschriften</em>. Die Liste zeigt immer einen dieser Stapel; die Zeile &uuml;ber der Liste nennt ihn und
+        seine Anzahl. Jede Zeile tr&auml;gt ihren Status als Punkt mit Wort (<em>Entwurf</em>, <em>Ausgestellt</em>,
+        <em>Offen</em>, <em>&Uuml;berf&auml;llig</em>, <em>Erledigt</em>, <em>Storniert</em>, <em>Gutschrift</em>), und am Ende der Seite
+        schl&auml;gt der Hinweis <em>N&auml;chster Schritt</em> vor, was ansteht (erst Entw&uuml;rfe ausstellen, dann Zahlungen zuordnen).
+    </p>
+    <p>
+        Die Detailansicht einer Ausgangsrechnung im Verwaltungsbereich zeigt den Status in Klartext
+        (<em>Entwurf</em>, <em>Ausgestellt</em>, <em>Storniert</em>), die <strong>Positionen</strong>
+        (Bezeichnung, Menge, Einzelpreis, Betrag, USt-Satz), den <em>Nachlass</em>, die
+        <strong>USt-Aufschl&uuml;sselung</strong> je Steuersatz (Netto, USt, Brutto) sowie Summe netto,
+        Summe USt und Gesamtbetrag &ndash; dieselben Zahlen wie das archivierte PDF. Bei einer ausgestellten Rechnung steht
+        oben die <strong>Zahlungszeile</strong> (offener Betrag und F&auml;lligkeit, mit dem Link <em>Zahlung zuordnen</em> zur
+        Zuordnung, sofern Sie die Zuordnung sehen d&uuml;rfen), unten der <strong>Verlauf</strong>: Entwurf, Ausgestellt,
+        PDF im Dokumentenarchiv, Zahlung zugeordnet &ndash; je mit Haken, sobald erreicht. Nur ein <em>Entwurf</em> l&auml;sst sich bearbeiten; eine ausgestellte oder stornierte Rechnung &ouml;ffnet schreibgesch&uuml;tzt unter dem Titel <em>Rechnung &lt;Nummer&gt;</em>, ohne Schaltfl&auml;chen zum Hinzuf&uuml;gen oder Entfernen von Positionen, zum Speichern oder Ausstellen.
+    </p>
+    <p>
+        Der Editor einer Ausgangsrechnung zeigt rechts die <strong>Summen</strong> (Netto, USt je Satz, Brutto &ndash;
+        Anhaltswerte aus den getippten Positionen; verbindlich sind die Werte, die der Server beim Ausstellen berechnet),
+        den Hinweis, dass die Rechnung danach unver&auml;nderlich ist, sowie <em>Speichern und ausstellen</em> und
+        <em>Als Entwurf speichern</em>. Auf mittleren Breiten stehen die Summen unter dem Formular, auf dem Smartphone
+        als feste Leiste unten (Brutto, <em>Entwurf</em>, <em>Ausstellen</em>). <em>Speichern und ausstellen</em> fragt
+        zuerst nach (mit Empf&auml;nger und Betrag), schreibt dann den Entwurf und stellt ihn aus; schl&auml;gt das Ausstellen
+        fehl, bleibt der gespeicherte Entwurf erhalten. Auf einem kleinen Tablet &ouml;ffnet sich die Rechnung aus der Liste als
+        Schublade von rechts.
+    </p>
+    <ul>
+        <li><strong>Nur Empf&auml;ngerdaten</strong> werden an der Kasse erfasst. Positionen,
+            Betr&auml;ge und die Steueraufteilung werden unver&auml;ndert vom Kassenbeleg
+            &uuml;bernommen und sind hier nicht &auml;nderbar &ndash; Beleg und Rechnung d&uuml;rfen
+            nicht um einen Cent voneinander abweichen. Zum Feld <em>Name</em> schl&auml;gt die Kasse
+            passende Kunden vor; &uuml;bernommen wird ein Kunde nur durch Antippen des Vorschlags &ndash;
+            der Wechsel in das n&auml;chste Feld l&auml;sst den eingegebenen Namen unver&auml;ndert.</li>
+        <li><strong>Trinkgeld steht nie auf der Rechnung.</strong> Ein Trinkgeld an den Betrieb
+            (Inhaber-Trinkgeld) ist auf dem Kassenbeleg Umsatz und in dessen MwSt.-Gruppen enthalten,
+            geh&ouml;rt aber nicht zur Ausgangsrechnung: Sie umfasst nur die Bewirtung selbst. Die Rechnung
+            zieht den Trinkgeldanteil je Steuersatz centgenau wieder ab &ndash; genau den Anteil, den der
+            Beleg hinzugerechnet hat. Ein Mitarbeiter-Trinkgeld ist ohnehin kein Umsatz und erscheint dort
+            ebenfalls nicht. L&auml;sst sich das Inhaber-Trinkgeld bei einem Beleg nicht centgenau
+            herausrechnen (etwa bei einem &auml;lteren Beleg), wird keine Rechnung
+            erstellt (<code>SALES_INVOICE_OWNER_TIP_NOT_SEPARABLE</code>).</li>
+        <li><strong>Aktionen erscheinen als Nachlass.</strong> Ein Beleg mit
+            <a href="#kap-06-aktionen">Aktion</a> ist rechnungsf&auml;hig: Die Positionen stehen zum
+            berechneten Preis auf der Rechnung, jede Aktion folgt darunter im Block
+            <em>&bdquo;Nachlass&ldquo;</em> mit ihrem Namen (<em>Aktion: Happy Hour</em>), ihrem Steuersatz und
+            dem abgezogenen Bruttobetrag. Eine Aktion auf eine Position steht beim Steuersatz dieser Position,
+            eine Aktion auf den ganzen Beleg wird genau so auf die Steuers&auml;tze verteilt wie auf dem
+            Kassenbeleg (mehrere belegweite Aktionen bilden je Steuersatz einen gemeinsamen Nachlass).
+            Nettobetrag, Umsatzsteuer und Gesamtbetrag sind die des Kassenbelegs &ndash; nach der Aktion
+            und ohne Trinkgeld. In der E-Rechnung (ZUGFeRD/XRechnung) ist jeder Nachlass ein
+            Nachlass auf Dokumentebene (EN&nbsp;16931 BG-20, Grund <code>95</code> &bdquo;Rabatt&ldquo;, Betrag
+            netto) mit der Summe als <em>AllowanceTotalAmount</em> (BT-107); eine Gutschrift kehrt ihn mit um.
+            Passen die gespeicherten Aktionen eines Belegs nicht centgenau zu seinen MwSt.-Betr&auml;gen, wird
+            keine Rechnung erstellt (<code>SALES_INVOICE_BILL_NOT_RECONCILABLE</code>) &ndash; Beleg
+            stornieren und neu abrechnen. <strong>Trinkgeld</strong> erscheint dagegen nie, auch nicht als
+            Nachlass oder Zuschlag.</li>
+        <li><strong>Trinkgeld auf Rechnung.</strong> Wurde das Trinkgeld (ganz oder teilweise)
+            &bdquo;auf Rechnung&ldquo; gebucht &ndash; ist also mehr auf Rechnung offen als die Bewirtung
+            kostet &ndash;, kann keine Rechnung erstellt werden: Die Rechnung umfasst nur die Bewirtung und
+            k&ouml;nnte das Trinkgeld nicht einfordern. Die Kasse sperrt <em>Rechnung erstellen</em> und nennt
+            den Grund, der Server lehnt ab (<code>SALES_INVOICE_TIP_ON_ACCOUNT</code>). Buchen Sie das
+            Trinkgeld per <a href="#kap-06-zahlartwechsel">Zahlartwechsel</a> bar oder mit Karte und
+            erstellen Sie dann die Rechnung; die Bewirtung selbst darf auf Rechnung bleiben.</li>
+        <li><strong>Berechtigung:</strong> Eine Rechnung ausstellen darf nur, wer <code>INVOICE_WRITE</code>
+            h&auml;lt (vorgegeben: Filialleitung, Administration, Buchhaltung). Ohne sie zeigt die Kasse die
+            Schaltfl&auml;che gesperrt mit dem Hinweis <em>&bdquo;Rechnungen erstellen nur durch
+            F&uuml;hrungskraft.&ldquo;</em>, und der Server lehnt ab.</li>
+        <li><strong>Eine lebende Rechnung pro Beleg.</strong> Existiert bereits eine, zeigt die
+            Kasse stattdessen <em>Rechnung anzeigen</em> und gibt die archivierte Datei aus &ndash;
+            sie wird nie neu gerendert.</li>
+        <li><strong>Nur f&uuml;r einen bestehenden Verkauf.</strong> Eine Rechnung &ndash; ebenso
+            ein <strong>Bewirtungsbeleg</strong> &ndash; gibt es nur f&uuml;r eine nicht stornierte
+            Rechnung eines Verkaufs. F&uuml;r einen <em>Stornobeleg</em>, eine <em>stornierte
+            Rechnung</em> und einen <em>Forderungsausgleich</em> blendet die Kasse im Dialog
+            &bdquo;Aktionen&ldquo; beide Schaltfl&auml;chen aus, und der Server lehnt den Versuch ab
+            (<code>BILL_NOT_A_STANDING_SALE</code>). Der normale Bon-Nachdruck bleibt f&uuml;r jeden
+            Beleg m&ouml;glich. Nach einem <a href="#kap-06-zahlartwechsel">Zahlartwechsel</a> werden
+            Rechnung und Bewirtungsbeleg aus der <strong>Neubuchung</strong> erstellt: Sie tr&auml;gt
+            dieselben Positionen und dieselbe Steueraufteilung wie der urspr&uuml;ngliche Beleg und die
+            korrigierte Zahlung &ndash; wurde z.&nbsp;B. auf &bdquo;auf Rechnung&ldquo; umgebucht, ist der
+            Betrag offen. Der stornierte Ursprungsbeleg bekommt keine Rechnung mehr.</li>
+        <li><strong>Nicht verf&uuml;gbar</strong> im Trainingsmodus.</li>
+        <li><strong>Korrektur nur per Storno:</strong> Eine ausgestellte Rechnung wird &uuml;ber eine
+            Gutschrift (Typ&nbsp;381) in der Verwaltung storniert; danach kann f&uuml;r den Beleg eine
+            neue Rechnung ausgestellt werden. Die Gutschrift nennt denselben Aussteller (Name, Anschrift,
+            USt-IdNr./Steuernummer) wie die stornierte Rechnung &ndash; auch wenn die Gesch&auml;ftsdaten
+            inzwischen ge&auml;ndert wurden. Sie tr&auml;gt au&szlig;erdem dieselben TSE-Angaben wie die
+            stornierte Rechnung (die vollst&auml;ndigen TSE-Daten des urspr&uuml;nglichen Kassenbelegs,
+            siehe oben): Die Gutschrift ist kein neuer Kassenvorgang, und ein &bdquo;TSE-Ausfall&ldquo;
+            steht auf ihr nur, wenn er schon auf der Rechnung stand.</li>
+        <li><strong>Zahlungsvermerk.</strong> Die Rechnung vermerkt nur, was an der Kasse tats&auml;chlich
+            bezahlt wurde: &bdquo;Betrag dankend erhalten&ldquo; bei vollst&auml;ndiger Zahlung,
+            &bdquo;Teilbetrag von &hellip; dankend erhalten &hellip; Der offene Betrag von &hellip; ist zur Zahlung
+            f&auml;llig&ldquo; bei einer Teilzahlung, und bei einem ganz <em>auf Rechnung</em> beglichenen
+            Beleg, dass der Rechnungsbetrag offen und zur Zahlung f&auml;llig ist.</li>
+        <li><strong>Positionen</strong> zeigen Menge, Steuersatz, Brutto-Einzelpreis und Brutto-Gesamtpreis;
+            Nettobetrag und Umsatzsteuer je Steuersatz stehen darunter. Die Fu&szlig;zeile nennt die
+            Bankverbindung und die Kontaktdaten aus den Gesch&auml;ftsdaten zum Zeitpunkt des Ausstellens.</li>
+    </ul>
+
+    <h4 id="kap-06-forderung-begleichen">Forderung begleichen (Zahlung an der Kasse)</h4>
+    <p>
+        Wurde ein Beleg <strong>auf Rechnung</strong> beglichen &ndash; also ganz oder teilweise als
+        Forderung offengelassen &ndash; und daf&uuml;r eine Ausgangsrechnung ausgestellt, so kann der
+        Gast die offene Forderung sp&auml;ter <strong>direkt an der Kasse</strong> begleichen. Die
+        Belegansicht zeigt dann neben <em>Rechnung anzeigen</em> die Schaltfl&auml;che
+        <strong>&bdquo;Forderung begleichen&ldquo;</strong>.
+    </p>
+    <ul>
+        <li><strong>Bar oder Karte.</strong> Der Betrag ist mit dem offenen Rechnungsbetrag
+            vorbelegt und kann f&uuml;r eine Teilzahlung verringert werden; eine Zahlart, die selbst
+            wieder eine Forderung er&ouml;ffnen w&uuml;rde (z.&nbsp;B. &bdquo;auf Rechnung&ldquo;),
+            wird abgewiesen &ndash; das ist keine Begleichung.</li>
+        <li><strong>Keine &Uuml;berzahlung.</strong> Ein Betrag &uuml;ber der offenen Forderung wird
+            abgewiesen; die Antwort darauf ist R&uuml;ckgeld oder eine Gutschrift, keine negative
+            Forderung.</li>
+        <li><strong>Berechtigung <code>INVOICE_WRITE</code></strong> ist n&ouml;tig, um eine Forderung an
+            der Kasse zu begleichen; die Rechnung muss ausgestellt sein und noch einen offenen Betrag
+            haben. Es entsteht ein eigener, TSE-signierter Ausgleichsbeleg.</li>
+        <li><strong>Kein neuer Umsatz.</strong> Der Umsatz wurde bereits beim urspr&uuml;nglichen
+            Verkauf gebucht. Der Tagesabschluss (Z-Bon) weist die Zahlung deshalb getrennt unter
+            <strong>Forderungsausgleich</strong> aus &ndash; nicht als Umsatz. Eine Barzahlung erh&ouml;ht
+            den Kassenbestand, eine Kartenzahlung nicht.</li>
+    </ul>
+    <div class="alert alert-info">
+        <strong>Bank statt Kasse:</strong> Zahlt der Gast per &Uuml;berweisung, wird die Forderung
+        &uuml;ber den Bankabgleich (Kontoausz&uuml;ge) aufgel&ouml;st &ndash; daf&uuml;r ist keine
+        Kassenaktion n&ouml;tig.
+    </div>
+
+    <div class="alert alert-info">
+        <strong>TSE-Angaben:</strong> Jeder Beleg (Bon, PDF-Beleg und die Rechnung zu einem Beleg) druckt
+        die TSE-Daten als <strong>lesbaren Text</strong> nach AEAO zu &sect;&nbsp;146a AO Nr.&nbsp;2.4.4
+        &ndash; ein QR-Code wird nicht mehr gedruckt:
+        <em>TSE-Transaktion</em> (Transaktionsnummer), <em>Start (UTC)</em> und <em>Ende (UTC)</em>
+        (Vorgangsbeginn und -ende), <em>Signaturzähler</em>, <em>TSE-Seriennr.</em> (Hexadezimalform wie
+        im DSFinV-K-Export), <em>Kassen-Seriennr.</em> (die ClientID der Kasse, wie sie die TSE
+        protokolliert) und <em>Signatur</em> (der vollständige Prüfwert). Die Werte stehen genau so auf
+        dem Beleg, wie die TSE sie zurückgeliefert hat &ndash; nichts wird gerundet oder gekürzt; ein zu
+        langer Wert wird nur auf mehrere Zeilen umbrochen. Die Zeiten sind die Unix-Zeiten der TSE in
+        <strong>UTC</strong> (z.&nbsp;B. <code>2026-05-05T01:02:04.000Z</code>), was die AEAO ausdrücklich
+        zulässt; die übrigen Zeiten auf dem Beleg, auch <em>Erste Bestellung</em>, stehen in Ortszeit.
+        Die Kasse zeigt in den TSE-Daten eines Belegs beides: <em>Prozessbeginn/-ende (Ortszeit)</em> in der
+        Ortszeit des Geräts, die von den gedruckten UTC-Zeiten um den Zeitzonenunterschied abweicht (im
+        Winter 1&nbsp;Stunde, im Sommer 2&nbsp;Stunden), und darunter <em>Prozessbeginn/-ende (UTC)</em>
+        mit denselben Werten wie auf dem Beleg. Die Regel (AEAO zu
+        &sect;&nbsp;146a AO, Nr.&nbsp;2.4.4, BMF-Schreiben vom 30.06.2023): &bdquo;Es wird nicht
+        beanstandet, wenn ein als UnixTime gelieferter Zeitstempel als Coordinated Universal Time (UTC)
+        ohne zusätzliche Zeitzone ausgegeben wird.&ldquo;
+        Ein im Simulationsmodus signierter Vorgang druckt keine TSE-Daten. Ältere, mit QR-Code gedruckte
+        Belege lassen sich in den Berichten weiterhin per QR-Scan suchen.
+    </div>
+
+    <h3>Rechnung stornieren</h3>
+    <p>Rechnungen werden nicht gelöscht, sondern per Soft-Delete mit Begründung storniert. Der Stornierungsgrund wird im Prüfprotokoll festgehalten.</p>
+    <ul>
+        <li>Nötig ist die Berechtigung <code>BILL_VOID</code> (vorgegeben: Filialleitung und höher). Fehlt sie,
+            kann ein Manager sie per PIN für genau diesen Vorgang leihen (siehe unten).</li>
+        <li>Ein Beleg eines bereits per Z-Bon abgeschlossenen Tages kann nicht mehr storniert werden.</li>
+        <li><strong>Stornieren</strong> erreicht man ausschließlich über das Menü <strong>„Aktionen"</strong>
+            des Belegs &ndash; unter den bekannten Bedingungen (Berechtigung, kein Bestellgerät, Beleg noch
+            stornierbar); der Eintrag öffnet den Storno-Dialog. Direkt nach dem Abrechnen
+            (Bestätigungsdialog) wird nicht storniert, nur aus den Berichten.</li>
+        <li>Der Storno erzeugt einen eigenen <strong>Stornobeleg</strong> mit eigener Belegnummer. Beide
+            Belege sind verknüpft: der Stornobeleg zeigt <strong>„Storno zu RE-…"</strong>, die
+            ursprüngliche Rechnung den Hinweis <strong>„Storniert"</strong> und den Link
+            <strong>„Storniert durch RE-…"</strong> (siehe <a href="#kap-06-verknuepfte-belege">Verknüpfte Belege</a>).</li>
+        <li>Der <strong>gedruckte Stornobeleg</strong> (Bon und PDF) trägt oben die Überschrift
+            <em>„STORNO"</em> &ndash; beim Storno eines Zahlartwechsels <em>„STORNO (Zahlartwechsel)"</em>
+            &ndash; und darunter <em>„zu Beleg RE-…"</em> mit der Nummer des stornierten Belegs. Er rechnet
+            mit umgekehrten Vorzeichen und stimmt so mit seinen signierten Daten überein: Die Artikelzeilen stehen
+            negativ (z.&nbsp;B. <em>1x Wein -10,00</em>), die erstattete Zahlung ebenso (z.&nbsp;B.
+            <em>BAR -11,50</em>), eine Aktion des ursprünglichen Verkaufs wird als Zeile <em>„Aktion"</em>
+            wieder hinzugerechnet (<em>SUMME -13,50 + Aktion 2,00 = GESAMT -11,50</em>), ein Trinkgeld
+            steht negativ.</li>
+        <li>Nach einem Storno aus den <strong>Berichten</strong> werden Liste und Kennzahlen bis zum
+            Ende des heutigen Tages neu geladen, sodass der Stornobeleg sofort erscheint &ndash; auch wenn
+            die Uhr der Kasse ein wenig hinter der des Servers liegt. Wurde der Beleg
+            inzwischen auf einem anderen Gerät storniert oder geändert, meldet die Kasse
+            <em>„Beleg bereits storniert"</em> und lädt Beleg und Liste ebenfalls neu.</li>
+        <li><strong>Tisch zur Neuabrechnung wieder öffnen</strong> (Schalter im Storno-Dialog, vorgegeben: an):
+            Die Tischsitzung des Belegs wird wieder geöffnet, der Tisch als belegt angezeigt und die
+            Positionen erscheinen erneut offen am Tisch &ndash; für den Fall, dass richtig neu abgerechnet
+            werden soll. Ausgeschaltet ist es ein reiner Storno: Sitzung und Tisch bleiben unverändert,
+            es werden keine Positionen zurückgelegt, und ein mitverkaufter, noch unbenutzter Gutschein
+            wird ungültig (z.&nbsp;B. bei vollständiger Rückerstattung).
+            Der Beleg, der die zurückgelegten Positionen später abrechnet, verweist auf den stornierten
+            Beleg (<em>„Neubuchung zu RE-…"</em>, siehe <a href="#kap-06-verknuepfte-belege">Verknüpfte Belege</a>)
+            &ndash; auch im DSFinV-K-Export.</li>
+        <li><strong>Tisch inzwischen neu belegt:</strong> Sitzen am Tisch bereits neue Gäste, kann die alte
+            Sitzung dort nicht wieder geöffnet werden &ndash; sonst würde sie die Sitzung der neuen Gäste im
+            Tischplan verdecken. Die Kasse meldet <strong>„Tisch ist belegt"</strong> und bietet
+            <strong>„Stornieren ohne Wiedereröffnung"</strong> an; „Abbrechen" storniert nichts. Der Server
+            lehnt eine Wiedereröffnung in diesem Fall immer ab (409 <code>TABLE_HAS_ACTIVE_SESSION</code>),
+            auch bei anderen Clients. Sollen die Positionen neu abgerechnet werden, bucht man sie nach dem
+            Storno manuell auf einen freien Tisch.</li>
+    </ul>
+
+    <h3 id="kap-06-manager-pin">Manager-Freigabe per PIN</h3>
+    <p>Fehlt dem angemeldeten Mitarbeiter eine Berechtigung für einen Kassenvorgang, bietet die Kasse die
+    Freigabe durch einen Manager an. Die PIN öffnet <strong>nicht</strong> alles, was der Manager darf:</p>
+    <ul>
+        <li>Verliehen wird nur die eine Berechtigung, um die gerade gebeten wird, und nur, wenn der
+            freigebende Manager sie selbst hält.</li>
+        <li>Leihbar sind ausschließlich die Kassen-Übersteuerungen: Zahlungsart ändern, Beleg stornieren,
+            Rabatt gewähren, Position stornieren, Preis überschreiben, Tischsitzung übersteuern. Abschlüsse
+            (Z-Bon, Monatsabschluss) gehören nicht dazu.</li>
+        <li>Die Freigabe gilt für kurze Zeit, nur auf diesem Gerät und nur für den anfragenden Mitarbeiter;
+            ein zweiter Kassierer an derselben Kasse erbt sie nicht. Der Vorgang läuft weiter unter dem Namen
+            des Kassierers.</li>
+        <li>Die Schaltfläche für die Freigabe erscheint immer dann, wenn dem Mitarbeiter mindestens eine
+            dieser Übersteuerungen fehlt &ndash; also bei den meisten Kassierern.</li>
+    </ul>
+
+    <h3 id="kap-06-standalone">Standalone-Rechnung (Catering, Event, Lieferung)</h3>
+    <p>
+        Umsätze, die <strong>nie die Kasse berührt</strong> haben &ndash; Catering, Raummiete,
+        Event, Lieferung &ndash; werden im Web-Admin unter <em>Belegfluss &rarr;
+        Ausgangsrechnungen</em> über <strong>&bdquo;Neue Rechnung&ldquo;</strong> erfasst. Anders
+        als die Rechnung aus einem Kassenbeleg gibt es hier keinen Beleg, dessen Beträge
+        übernommen werden: Die Positionen werden frei eingegeben.
+    </p>
+    <ul>
+        <li><strong>Debitor wählen oder Anschrift tippen.</strong> Wird ein Debitor gewählt,
+            übernimmt der Editor dessen Anschrift, Zahlungsziel (Fälligkeit = Leistungsdatum +
+            Zahlungsbedingungen) sowie Erlöskonto und BU-Schlüssel als Vorgabe &ndash; alles bleibt
+            änderbar. Die Auswahl zeigt nur <strong>aktive</strong> Debitoren; eine Rechnung für einen
+            deaktivierten Debitor lehnt auch der Server ab (<code>DEBTOR_INACTIVE</code>). Wurde der
+            Debitor eines Entwurfs nachträglich deaktiviert, kann der Entwurf weder ausgestellt noch
+            geändert werden, bis der Debitor wieder aktiv ist; der Editor weist darauf hin und bietet
+            <em>Speichern</em> nicht an, der Server lehnt beides mit <code>DEBTOR_INACTIVE</code> ab.</li>
+        <li><strong>Bruttopreise pro Position.</strong> Der Editor nimmt den Brutto-Einzelpreis und
+            den Steuersatz (19&nbsp;% / 7&nbsp;% / 0&nbsp;%); Netto und Steuer leitet der Server ab
+            (Steuer = Brutto &minus; Netto). Die Steueraufteilung wird aus den Positionen summiert,
+            nicht separat eingegeben.</li>
+        <li><strong>Verwendungszweck = Rechnungsnummer.</strong> Beim Ausstellen wird die
+            Rechnungsnummer als Verwendungszweck auf die Rechnung gedruckt und gespeichert. Ein
+            Zahlungseingang, der diese Nummer im Verwendungszweck trägt, wird in
+            <em>Belegfluss &rarr; Zuordnung</em> automatisch als Vorschlag erkannt.</li>
+        <li><strong>Offen / Überfällig.</strong> Eine ausgestellte Standalone-Rechnung ist offen
+            (Restbetrag &gt; 0), bis ihr eine Zahlung zugeordnet wird. Die Buckets <em>Offen</em>
+            und <em>Überfällig</em> in der Ausgangsrechnungen-Liste zeigen sie entsprechend.</li>
+        <li><strong>Berechtigung <code>INVOICE_WRITE</code></strong> ist nötig, um eine Standalone-Rechnung
+            anzulegen, zu bearbeiten oder auszustellen.</li>
+        <li><strong>ZUGFeRD:</strong> Ist beim gewählten Debitor (<em>Stammdaten &rarr; Debitoren</em>) das
+            <em>Rechnungsformat</em> &bdquo;ZUGFeRD (hybride E-Rechnung)&ldquo; statt &bdquo;Einfaches PDF&ldquo;
+            eingestellt, wird die Rechnung als hybride E-Rechnung ausgegeben. Das gilt nur für
+            Standalone-Rechnungen: Eine Rechnung aus einem Kassenbeleg trägt keinen Debitor.</li>
+        <li><strong>Korrektur nur per Storno:</strong> Wie bei der Beleg-Rechnung wird eine
+            ausgestellte Standalone-Rechnung über eine Gutschrift (Typ&nbsp;381) storniert.</li>
+    </ul>
+
+    <h3 id="kap-06-zahlartwechsel">Zahlungsart ändern (Zahlartwechsel)</h3>
+    <p>
+        Über den Eintrag <strong>„Zahlungsart ändern"</strong> im Menü <strong>„Aktionen"</strong> des
+        Belegs wird die Zahlung einer Rechnung korrigiert (z.&nbsp;B. versehentlich „Bar" statt
+        „EC-Karte" gebucht).
+        Ein Zahlartwechsel ist <strong>Storno plus Neubuchung in einem Schritt</strong>: Der Beleg
+        wird storniert, und dieselben Positionen werden sofort als neuer Beleg mit der korrigierten
+        Zahlung gebucht. Die Artikel und ihre Beträge ändern sich nie.
+    </p>
+    <ul>
+        <li>Der Dialog ist mit den bisherigen Zahlungen (Gutscheine mit ihrer Nummer) und dem bisherigen
+            Trinkgeld vorbelegt; einzelne Zahlungen werden entfernt und neue hinzugefügt (auch
+            Splitzahlungen und Gutscheine), darüber steht das Feld <strong>„Trinkgeld (gesamt)"</strong>.
+            Neue Zahlungen werden über <strong>denselben Zahlungsdialog wie bei der Abrechnung</strong>
+            hinzugefügt: Im Feld <strong>„Betrag"</strong> steht der Betrag der nächsten Zahlung (leer =
+            Restbetrag), dann wird die Zahlungsart gewählt. Unter <strong>„Gutschein"</strong> stehen alle
+            freigegebenen Gutscheinquellen zur Verfügung &ndash; auch <strong>Altgutscheine</strong>
+            (Quelle <em>LEGACY</em>), die wie an der Abrechnung nur mit Nummer und Betrag erfasst werden.
+            Ein beibehaltener Gutschein wird nicht erneut geprüft. Die Zahlungen
+            müssen exakt dem Rechnungsbetrag (nach Aktionen) plus diesem Trinkgeld entsprechen. Vor dem
+            Bestätigen weist der Dialog darauf hin: <strong>„Der Beleg RE-… wird storniert und neu
+            gebucht."</strong></li>
+        <li>Es entstehen zwei neue Belege mit eigener Belegnummer: ein <strong>Storno-Beleg</strong>
+            (Grund <em>Zahlartwechsel</em>) zum ursprünglichen Beleg und die <strong>Neubuchung</strong>.
+            Die Neubuchung läuft auf den <strong>ursprünglichen Bediener</strong>, nicht auf den, der die
+            Korrektur vornimmt, und trägt die neue Zahlung und das gesamte Trinkgeld.</li>
+        <li>Beide Belege werden <strong>TSE-signiert</strong>, der Storno zuerst. Jeder gedruckte Beleg
+            trägt seine eigenen TSE-Daten und stimmt mit seiner eigenen Signatur überein. Nach dem Bestätigen
+            zeigt die Kasse die Neubuchung an („Zahlartwechsel gebucht &ndash; neuer Beleg RE-…") und
+            bietet an, sie sofort zu drucken.</li>
+        <li>Tisch und Sitzung werden <strong>nicht</strong> wieder geöffnet; am Tisch können bereits
+            neue Gäste sitzen. Der Schalter <em>„Tisch zur Neuabrechnung wieder öffnen"</em> aus dem
+            Storno-Dialog (<em>Rechnung stornieren</em>) gilt hier nicht, und ein neu belegter Tisch
+            verhindert den Zahlartwechsel nicht.</li>
+        <li><strong>Gutscheine:</strong> Gutschein-Zahlungen sind möglich. Wurde eine falsche
+            Gutscheinnummer eingegeben, wird sie im Dialog durch die richtige ersetzt: Der falsche
+            Gutschein bekommt seinen Wert zurück, der richtige wird eingelöst.</li>
+        <li><strong>Aktionen</strong> bleiben so, wie sie beim Verkauf galten &ndash; auch wenn die
+            Aktion inzwischen abgelaufen ist. Wurde eine Aktion auf dem Beleg seit dem Verkauf
+            <strong>bearbeitet</strong>, lehnt der Server ab („Aktion geändert",
+            <code>BILL_REBOOK_PROMOTION_CHANGED</code>); dann den Beleg stornieren und den Tisch neu
+            abrechnen. Dasselbe gilt für einen Beleg aus einer Version vor 1.1.0, auf dem mehrere
+            Aktionen zusammen mehr als den Artikelpreis abgezogen haben: Er kann nicht umgebucht
+            werden &ndash; stornieren und neu abrechnen.</li>
+        <li><strong>„Auf Rechnung"</strong> ist in beide Richtungen möglich, solange für den Beleg
+            <strong>keine Rechnung ausgestellt</strong> ist. Ein Rechnungsentwurf wird dabei verworfen;
+            die Rechnung wird danach aus der Neubuchung erstellt.</li>
+        <li>Ändert sich weder Zahlung noch Gutschein noch Trinkgeld, lehnt der Server ab
+            („Keine Änderung", <code>BILL_REBOOK_NO_CHANGE</code>).</li>
+        <li>Nötig ist die Berechtigung <code>BILL_CHANGE_PAYMENT</code> (vorgegeben: Kasse und höher; per
+            Manager-PIN leihbar); der Vorgang wird im Prüfprotokoll als <code>REBOOK_BILL</code>
+            festgehalten.</li>
+        <li><strong>Trinkgeld verringern</strong> erfordert zusätzlich die Storno-Berechtigung
+            <code>BILL_VOID</code> (vorgegeben: Manager und höher; per Manager-PIN leihbar), denn ein
+            geringeres Trinkgeld nimmt gebuchtes Geld zurück &ndash; ein Inhaber-Trinkgeld ist Umsatz.
+            Ohne sie darf das Trinkgeld nur gleich bleiben oder steigen: Der Dialog zeigt den Hinweis
+            „Trinkgeld verringern nur mit Storno-Berechtigung", und der Server lehnt ab
+            (<code>BILL_REBOOK_TIP_DECREASE_FORBIDDEN</code>).</li>
+    </ul>
+    <p><strong>Nicht möglich</strong> ist ein Zahlartwechsel</p>
+    <ul>
+        <li>bei einem <strong>Gutscheinverkauf</strong> und bei einer <strong>Rechnungszahlung</strong>
+            an der Kasse (Forderungsausgleich) &ndash; die Kasse meldet „Zahlartwechsel nicht möglich";
+            hier den Beleg stornieren und neu abrechnen,</li>
+        <li>nachdem der Geschäftstag <strong>per Z-Bon abgeschlossen</strong> wurde,</li>
+        <li>wenn für den Beleg eine <strong>Rechnung ausgestellt</strong> ist (erst per Gutschrift
+            stornieren) &ndash; die Kasse blendet „Zahlungsart ändern" dann aus,</li>
+        <li>an einer <strong>Bestellstation</strong>,</li>
+        <li>auf einem Storno-Beleg oder einem bereits stornierten bzw. umgebuchten Beleg. Eine
+            Neubuchung ist dagegen ein normaler Verkauf und kann selbst wieder storniert oder
+            umgebucht werden.</li>
+    </ul>
+    <h4 id="kap-06-zahlartwechsel-trinkgeld">Vergessenes Trinkgeld erfassen</h4>
+    <p>
+        Ein vergessenes Trinkgeld wird ebenfalls per Zahlartwechsel korrigiert. Beispiel: Die Rechnung
+        beträgt 23,00&nbsp;€, der Gast zahlt 25,00&nbsp;€ mit Karte und meint 2,00&nbsp;€ als
+        Trinkgeld, gebucht wurden aber nur 23,00&nbsp;€ Karte. Korrektur: „Zahlungsart ändern",
+        Trinkgeld (gesamt) <code>2,00</code>, neue Zahlung <code>EC-Karte 25,00</code> &ndash; auch mit
+        derselben Zahlungsart wie zuvor.
+    </p>
+    <ul>
+        <li>Das Feld nimmt das <strong>gesamte</strong> Trinkgeld des Belegs auf, nicht einen Zuschlag:
+            War bereits 1,00&nbsp;€ erfasst und sollen es 3,00&nbsp;€ sein, wird <code>3,00</code>
+            eingetragen. Negative Beträge oder mehr als zwei Nachkommastellen werden abgelehnt.</li>
+        <li>Die Art des Trinkgelds folgt dem <strong>ursprünglichen Beleg</strong>:
+            <em>Trinkgeld Arbeitnehmer</em> (TrinkgeldAN) ist nicht steuerbar und kein Umsatz;
+            <em>Trinkgeld Arbeitgeber</em> (Trinkgeld für den Inhaber, TrinkgeldAG) ist Umsatz mit
+            19&nbsp;% USt.</li>
+        <li>Das Trinkgeld steht auf der Neubuchung wie auf jedem anderen Beleg: im Druck, in Z-Bon,
+            Kassenbuch, DSFinV-K-Export und Statistik.</li>
+    </ul>
+    <h4 id="kap-06-zahlartwechsel-berichte">In Z-Bon und Statistik</h4>
+    <ul>
+        <li>Der <strong>Z-Bon</strong> zeigt unter „Rückerstattungen" die Zeile <strong>„davon
+            Zahlartwechsel (n): -x EUR"</strong>. Sie ist eine Aufschlüsselung, die Fiskalsummen
+            ändern sich dadurch nicht: Die Rückerstattungen enthalten den Storno weiterhin, und die
+            Neubuchung steht wie jeder andere Verkauf im Umsatz und bei ihrer Zahlungsart.</li>
+        <li>In der <strong>Statistik</strong> ist der Storno eines Zahlartwechsels keine Erstattung;
+            ursprünglicher Beleg und Storno zählen zusammen als nichts, die Neubuchung zählt einmal.</li>
+    </ul>
+
+    <h3 id="kap-06-verknuepfte-belege">Verknüpfte Belege</h3>
+    <p>
+        Zahlartwechsel und Storno erzeugen je eigene Belege mit eigener Belegnummer. Damit diese
+        Belege in Listen nicht als unerklärte Zeilen erscheinen, zeigen Belegliste und Belegdetail,
+        wie sie zusammengehören:
+    </p>
+    <table>
+        <thead><tr><th>Beleg</th><th>Hinweis in der Liste</th><th>Links im Belegdetail</th></tr></thead>
+        <tbody>
+            <tr><td>Neubuchung (Zahlartwechsel)</td><td>„Neubuchung zu RE-…"</td><td>„Neubuchung zu RE-…"</td></tr>
+            <tr><td>Neuabrechnung nach einem Storno mit „Tisch zur Neuabrechnung wieder öffnen"</td><td>„Neubuchung zu RE-…"; mehrere stornierte Belege durch Komma getrennt; „(teilweise)", wenn der Beleg auch neu bestellte Positionen enthält</td><td>„Neubuchung zu RE-…" je storniertem Beleg</td></tr>
+            <tr><td>Stornobeleg eines Zahlartwechsels</td><td>„Storno (Zahlartwechsel) zu RE-…"</td><td>„Storno (Zahlartwechsel) zu RE-…"</td></tr>
+            <tr><td>Durch Zahlartwechsel ersetzte Rechnung</td><td>„Storniert (Zahlartwechsel)"</td><td>„Storniert durch RE-…" und „Neu gebucht als RE-…"</td></tr>
+            <tr><td>Stornobeleg</td><td>„Storno zu RE-…"</td><td>„Storno zu RE-…"</td></tr>
+            <tr><td>Stornierte Rechnung</td><td>„Storniert"</td><td>„Storniert durch RE-…"</td></tr>
+            <tr><td>Forderungsausgleich an der Kasse</td><td>„Ausgleich zu RE-…" (wenn die Rechnung aus einem Kassenbeleg stammt)</td><td>„Ausgleich zu RE-…"</td></tr>
+        </tbody>
+    </table>
+    <p>
+        Die Neuabrechnung nach einem wieder öffnenden Storno wird nicht gespeichert, sondern aus den
+        Positionen des Belegs abgeleitet: Jede zurückgelegte Position merkt sich den stornierten Beleg,
+        aus dem sie stammt. Ein Beleg verweist auf jeden stornierten Beleg, aus dem mindestens eine
+        seiner Positionen stammt &ndash; werden die zurückgelegten Positionen auf zwei Belege verteilt,
+        tragen beide den Hinweis; ein Beleg nur aus neu bestellten Positionen trägt keinen. Wurde der
+        Tisch zweimal wieder geöffnet, nennt der Beleg beide stornierten Belege. Bei einem Zahlartwechsel
+        bleibt es bei dem einen Hinweis auf den ersetzten Beleg.
+    </p>
+    <ul>
+        <li>Ein Tipp auf einen Link öffnet den verknüpften Beleg <strong>im selben Belegfenster</strong>.
+            Oben erscheint dann <strong>„Zurück zu RE-…"</strong>; auch die Zurück-Geste des Geräts führt
+            erst zum vorherigen Beleg und schließt das Fenster erst danach.</li>
+        <li>Das funktioniert an der Kasse (Berichte) auf Telefon, Tablet und Desktop ebenso wie im
+            Back-Office (Tagesbericht, Z-Bon › Belege, Z-Bon › Sitzung › Belege).</li>
+        <li>Die Hinweise sind reine Anzeige: ob ein Beleg storniert oder umgebucht werden darf, entscheidet
+            weiterhin der Server. Der Belegnachdruck druckt immer den gerade angezeigten Beleg.</li>
+    </ul>
+
+    <div class="alert alert-info">
+        <strong>API:</strong> <code>POST /api/v1/bills/{id}/rebook</code> &ndash; Pflichtfeld:
+        <code>payments</code> (neue Zahlungszusammensetzung). Optional: <code>voucherRedeem</code>
+        (Gutschein-Einlösungen wie bei der Abrechnung) und <code>tips</code> (das gesamte Trinkgeld der
+        Neubuchung als Zeichenkette, z.&nbsp;B. <code>"2.00"</code>; Summe der <code>payments</code> =
+        Rechnungsbetrag nach Aktionen + <code>tips</code>). Antwort ist die Neubuchung.
+    </div>
+</section>
+
+<nav class="chapter-nav">
+    <a href="kap-05-bestellungen.html">&larr; Vorheriges: Bestellungen</a>
+    <a href="kap-08-gutscheine.html">Nächstes: Gutscheinverwaltung &rarr;</a>
+</nav>
+
+<!-- Footer -->
+<footer style="margin-top:48px; padding-top:24px; border-top:1px solid var(--color-border); text-align:center; color:var(--color-text-muted); font-size:0.85rem;">
+    <p>POS System – Bedienungsanleitung &bull; Version 1.0</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">&#8593;</button>
+
+<script src="js/manual.js"></script>
+</body>
+</html>

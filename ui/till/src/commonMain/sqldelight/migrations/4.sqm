@@ -1,0 +1,40 @@
+-- Migration from version 4 to version 5: choice groups + linked_product_id on extras.
+-- local_product_extras is created by LocalProductExtras.sq; the historical CREATE below
+-- makes this migration self-contained for SQLDelight's verifier while remaining idempotent
+-- for installs that already passed version 4.
+CREATE TABLE IF NOT EXISTS local_product_extras (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    en_name TEXT,
+    ch_name TEXT,
+    description TEXT,
+    price INTEGER NOT NULL,
+    is_active INTEGER NOT NULL DEFAULT 1
+);
+ALTER TABLE local_product_extras ADD COLUMN linked_product_id INTEGER;
+
+CREATE TABLE IF NOT EXISTS local_choice_groups (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    en_name TEXT,
+    ch_name TEXT,
+    min_selections INTEGER NOT NULL DEFAULT 0,
+    max_selections INTEGER NOT NULL DEFAULT 1,
+    is_active INTEGER NOT NULL DEFAULT 1
+);
+
+CREATE TABLE IF NOT EXISTS local_choice_group_options (
+    group_id INTEGER NOT NULL,
+    option_id INTEGER NOT NULL,
+    price_delta INTEGER NOT NULL,
+    sort_position INTEGER NOT NULL DEFAULT 0,
+    is_default INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (group_id, option_id)
+);
+
+CREATE TABLE IF NOT EXISTS local_product_choice_groups (
+    product_id INTEGER NOT NULL,
+    group_id INTEGER NOT NULL,
+    sort_position INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (product_id, group_id)
+);

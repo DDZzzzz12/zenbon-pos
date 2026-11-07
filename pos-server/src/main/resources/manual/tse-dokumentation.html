@@ -1,0 +1,2529 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TSE-Dokumentation (Technische Sicherheitseinrichtung)</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+    --code-bg: #f3f4f6;
+    --table-header: #f9fafb;
+    --blockquote-bg: #eff6ff;
+    --blockquote-border: #93c5fd;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.7;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.4rem; margin-top: 2.5rem; margin-bottom: 0.75rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.3rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.8rem; margin-bottom: 0.5rem; }
+  h4 { font-size: 1rem; margin-top: 1.2rem; margin-bottom: 0.4rem; }
+  p { margin-bottom: 0.75rem; }
+  a { color: var(--accent); }
+  code {
+    background: var(--code-bg);
+    padding: 0.15em 0.35em;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  pre {
+    background: var(--code-bg);
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  blockquote {
+    background: var(--blockquote-bg);
+    border-left: 4px solid var(--blockquote-border);
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-style: italic;
+  }
+  blockquote p { margin-bottom: 0.4rem; }
+  blockquote p:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--table-header); font-weight: 600; }
+  tr:hover { background: #fafafa; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  ul, ol { margin: 0.5rem 0 0.75rem 1.5rem; }
+  li { margin: 0.2rem 0; }
+  .meta { color: #6b7280; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .toc { background: var(--code-bg); padding: 1rem 1.5rem; border-radius: 6px; margin: 1rem 0 2rem; }
+  .toc ul { list-style: none; padding-left: 1.2rem; }
+  .toc > ul { padding-left: 0; }
+  .toc li { margin: 0.2rem 0; }
+  .toc a { text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .hint {
+    background: #fefce8;
+    border-left: 4px solid #facc15;
+    padding: 0.6rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+  .status-ok { color: #16a34a; font-weight: 600; }
+  .status-warn { color: #d97706; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<h1>TSE-Dokumentation (Technische Sicherheitseinrichtung)</h1>
+<div class="meta">
+  <strong>Umfassende Dokumentation des TSE-Moduls im POS-System.</strong><br>
+  <strong>Zielgruppe:</strong> Entwickler und technisch interessierte Personen, auch ohne TSE-Vorkenntnisse.<br>
+  <strong>Erstellt:</strong> 2026-02-19 &nbsp;|&nbsp; <strong>Branch:</strong> dev
+</div>
+
+<nav class="toc">
+<strong>Inhaltsverzeichnis</strong>
+<ul>
+  <li><a href="#s1">1. Einleitung &amp; Hintergrund</a></li>
+  <li><a href="#s2">2. Systemarchitektur (&Uuml;berblick)</a></li>
+  <li><a href="#s3">3. Verzeichnisstruktur des TSE-Moduls</a></li>
+  <li><a href="#s4">4. Hardware-Erkennung (TseLocator)</a></li>
+  <li><a href="#s5">5. Initialisierungsablauf (Startup-Sequenz)</a></li>
+  <li><a href="#s6">6. TSE-Ersteinrichtung (Uninitialisierte TSE)</a></li>
+  <li><a href="#s7">7. Initialisierung einer bereits eingerichteten TSE</a></li>
+  <li><a href="#s8">8. Thread-Sicherheit (TseStatus &amp; Mutex)</a></li>
+  <li><a href="#s9">9. Signiervorgang (Transaktionen)</a></li>
+  <li><a href="#s10">10. Wartungs-Task (TseMaintenanceTask)</a></li>
+  <li><a href="#s11">11. Integration in den POS-Hauptserver</a></li>
+  <li><a href="#s12">12. Datenbank-Schema</a></li>
+  <li><a href="#s13">13. Client-UI Integration (Compose Multiplatform)</a></li>
+  <li><a href="#s14">14. Export &amp; DSFinV-K</a></li>
+  <li><a href="#s15">15. Fehlerbehandlung</a></li>
+  <li><a href="#s16">16. Deployment</a></li>
+  <li><a href="#s17">17. TSE-Befunde &amp; Erl&auml;uterungen</a></li>
+  <li><a href="#aenderungen-je-version">&Auml;nderungen an Signierung und Export je Version</a></li>
+</ul>
+</nav>
+
+<hr>
+
+<h2 id="s1">1. Einleitung &amp; Hintergrund</h2>
+
+<h3>Was ist eine TSE?</h3>
+
+<p>Die <strong>TSE (Technische Sicherheitseinrichtung)</strong> ist eine in Deutschland gesetzlich vorgeschriebene Hardware-Komponente f&uuml;r elektronische Kassensysteme. Sie wurde durch die <strong>Kassensicherungsverordnung (KassenSichV)</strong> eingef&uuml;hrt, die auf dem Kassengesetz von 2016 basiert.</p>
+
+<p><strong>Zweck der TSE:</strong></p>
+<ul>
+  <li>Jeder Gesch&auml;ftsvorfall (Bon, Bestellung, Storno) wird kryptografisch signiert</li>
+  <li>Die Signaturen sind f&auml;lschungssicher und nachtr&auml;glich pr&uuml;fbar</li>
+  <li>Das Finanzamt kann bei einer Kassennachschau die Signaturen verifizieren</li>
+  <li>Manipulation von Kassendaten wird erkennbar gemacht</li>
+</ul>
+
+<h3>Swissbit TSE Hardware</h3>
+
+<p>Das POS-System verwendet die <strong>Swissbit TSE</strong>, einen USB-Stick mit integriertem Kryptochip:</p>
+
+<ul>
+  <li><strong>Form-Faktor</strong>: USB-A Stick (&auml;hnlich einem normalen USB-Speicher)</li>
+  <li><strong>Kryptochip</strong>: Erzeugt ECDSA-Signaturen (ecdsa-plain-SHA384)</li>
+  <li><strong>Speicher</strong>: Internes TAR-Archiv f&uuml;r signierte Transaktionsdaten</li>
+  <li><strong>Zertifikat</strong>: BSI-zertifiziert nach TR-03153</li>
+  <li><strong>Lebensdauer</strong>: Begrenzte Anzahl Signaturen und Flash-Schreibzyklen</li>
+  <li><strong>Generationen</strong>: TSE&nbsp;1.x und TSE&nbsp;2.0; eingebunden ist das Swissbit-SDK&nbsp;6.0.0 (<code>pos-tse/lib/SDK_VERSION.txt</code>). Die TSE-Einstellungen zeigen die Generation an. Unterschiede bei TSE&nbsp;2.0: keine gefilterten Exporte in der Hardware (Filterung in der Software, Abschnitt&nbsp;14), nur ein angemeldeter Benutzer mit automatischer Abmeldung, ein angemeldeter TimeAdmin blockiert Exporte, und das Ger&auml;t nimmt schon vor dem vollst&auml;ndigen Bef&uuml;llen keine Transaktionen mehr an (Warnung unter 50&nbsp;MB frei).</li>
+</ul>
+
+<h3>WormAPI (Java/JNI-Schnittstelle)</h3>
+
+<p>Die Kommunikation mit der TSE-Hardware erfolgt &uuml;ber die <strong>WormAPI</strong> &ndash; eine von Swissbit bereitgestellte Java-Bibliothek:</p>
+
+<ul>
+  <li><strong>WormAPI.jar</strong>: Java-Klassen f&uuml;r TSE-Zugriff (z.B. <code>WormStore</code>, <code>WormTransactionResponse</code>)</li>
+  <li><strong>JNI-Libraries</strong>: Native Bibliotheken f&uuml;r die Hardware-Kommunikation
+    <ul>
+      <li>Linux: <code>libWormAPI.so</code> + <code>libWormAPIJni.so</code></li>
+    </ul>
+  </li>
+  <li><strong>Thread-Einschr&auml;nkung</strong>: Die TSE kann nur <strong>einen Befehl gleichzeitig</strong> verarbeiten &ndash; kein Multi-Threading m&ouml;glich</li>
+</ul>
+
+<h4>Ablage zur Laufzeit</h4>
+
+<p>Die WormAPI ist <strong>nicht</strong> in <code>pos-server.jar</code> enthalten. Das JAR verweist &uuml;ber einen
+<code>Class-Path</code>-Eintrag in seinem Manifest auf <code>native/WormAPI.jar</code>; die JNI-Bibliotheken
+werden &uuml;ber <code>java.library.path</code> aus dem Architektur-Unterordner geladen (gesetzt durch
+<code>run.sh</code>). Erwartete Struktur im Deployment-Verzeichnis:</p>
+
+<pre>
+deploy/
+&#9500;&#9472;&#9472; pos-server.jar
+&#9500;&#9472;&#9472; run.sh
+&#9492;&#9472;&#9472; native/
+    &#9500;&#9472;&#9472; WormAPI.jar
+    &#9492;&#9472;&#9472; linux64/    libWormAPI.so, libWormAPIJni.so
+</pre>
+
+<p>Interne Releases liefern diese Dateien mit. Builds mit
+<code>-PincludeTseRuntime=false</code> (&ouml;ffentliche Releases) enthalten sie nicht &ndash; das
+Swissbit-SDK muss dort separat bezogen und manuell abgelegt werden.</p>
+
+<p>Fehlen die Dateien, startet der Server normal und protokolliert einen Fehler; alle
+nicht-fiskalischen Funktionen arbeiten weiter. <strong>Die TSE ist damit aber nicht
+optional</strong> &ndash; ohne SDK gilt:</p>
+
+<ul>
+  <li>Im Modus <strong>NORMAL</strong> kann kein Terminal einen TSE-Client registrieren. Der
+    <code>TransactionSigningGuard</code> weist deshalb jeden Beleg vor der Erstellung ab &ndash;
+    es kann faktisch nicht verkauft werden.</li>
+  <li>Andernfalls greift das konfigurierte Fehlerverhalten: <code>QUEUE</code> stellt
+    Transaktionen zum Nachsignieren in die Warteschlange, <code>FAIL</code> weist sie ab.</li>
+  <li>Die TSE-Konfiguration l&auml;sst sich trotzdem speichern (<code>PUT /api/tse/config</code>
+    antwortet 200). Au&szlig;er bei <strong>DISABLED</strong> meldet die Antwort
+    <code>applyStatus</code> = <code>UNREACHABLE</code> mit dem Hinweis, dass das SDK fehlt; die
+    Ger&auml;te-Endpunkte (Status, Info, Einrichtung usw.) antworten mit HTTP&nbsp;424.</li>
+</ul>
+
+<p>F&uuml;r den Betrieb in Deutschland ist eine zertifizierte TSE gesetzlich vorgeschrieben
+(KassenSichV). <strong>SIMULATION</strong> erzeugt nur Pseudo-Signaturen und ist ausschlie&szlig;lich
+f&uuml;r Entwicklung und Tests bestimmt &ndash; niemals f&uuml;r echte Ums&auml;tze. Au&szlig;erhalb
+Deutschlands wird der Modus <strong>DISABLED</strong> verwendet.</p>
+
+<h3>Drei Betriebsmodi</h3>
+
+<table>
+<tr><th>Modus</th><th>Beschreibung</th><th>Verwendung</th></tr>
+<tr><td><strong>NORMAL</strong></td><td>Echte TSE-Hardware erzeugt kryptografische Signaturen</td><td>Produktivbetrieb</td></tr>
+<tr><td><strong>SIMULATION</strong></td><td>Mock-Signaturen ohne Hardware (deterministisch)</td><td>Entwicklung &amp; Test</td></tr>
+<tr><td><strong>DISABLED</strong></td><td>Keine TSE-Funktionalit&auml;t</td><td>Nicht-deutsche M&auml;rkte</td></tr>
+</table>
+
+<blockquote><p><strong>Datei:</strong> <code>platform/api/.../enums/setup/TseMode.kt</code></p></blockquote>
+
+<div class="alert alert-danger">
+<p><strong>NORMAL ohne erreichbare Hardware signiert nie.</strong> Ist der Modus NORMAL konfiguriert,
+die TSE aber nicht erkannt, nicht verbunden oder nicht konfigurierbar, bleibt der Modus NORMAL und
+jeder Vorgang folgt dem konfigurierten Fehlerverhalten: <code>QUEUE</code> &rarr; Nachsignieren,
+<code>FAIL</code> &rarr; abgewiesen. <strong>SIMULATION</strong> l&auml;uft ausschlie&szlig;lich dann,
+wenn sie der <em>konfigurierte</em> Modus ist.</p>
+<p>Bis 2026-09-19 lie&szlig; der Start eine NORMAL-Kasse ohne Hardware intern im Standardmodus
+SIMULATION stehen; Vorg&auml;nge erhielten dann eine Pseudo-Signatur (Seriennummer
+<code>SIM-TSE-001</code>) und wurden trotzdem als <code>SIGNED</code> gespeichert. Seitdem setzt der Start
+den Modus NORMAL, bevor er die Hardware pr&uuml;ft, und <code>LocalTseSignProvider</code> verweigert jede
+Signatur, solange der laufende Modus vom konfigurierten abweicht (<code>TSE_UNREACHABLE</code> &rarr;
+Fehlerverhalten). Bereits betroffene Vorg&auml;nge meldet der Monatsabschluss-Pr&uuml;fpunkt
+<code>no_simulated_signatures</code>.</p>
+</div>
+
+<hr>
+
+<h2 id="s2">2. Systemarchitektur (&Uuml;berblick)</h2>
+
+<h3>Architektur</h3>
+
+<p>Die TSE wird ausschlie&szlig;lich im Prozess des POS-Hauptservers angesteuert; Kasse und Web-Backoffice sprechen nur &uuml;ber die REST-API des Hauptservers mit ihr:</p>
+
+<pre><code>POS-Client (Kasse)  &#9472;&#9472;&#9472;&#9472;&#9488;
+                          &#9500;&#9472;&#9472;&#9654;  POS-Hauptserver (Port 8080)
+Web-Backoffice /admin &#9472;&#9472;&#9496;             &#9474;  (TSE-Treiber pos-tse im selben Prozess)
+                                        &#9660;
+                                   WormAPI (Java/JNI)
+                                        &#9474;
+                                        &#9660;
+                                   Swissbit TSE (USB-Stick)</code></pre>
+
+<div class="alert alert-danger">
+<p><strong>Entfernt in v1.1.0:</strong> der Verbindungsmodus <code>REMOTE</code> und der eigenst&auml;ndige TSE-Connector-Server (eigene HTTP-Schnittstelle mit <code>/sign</code>-, Admin- und Export-Endpunkten, Konfiguration <code>tseUrl</code>/<code>serverPort</code>, <code>TseConnectionMode</code>). Der Connector wurde nie ausgeliefert. Eine TSE muss am Rechner des POS-Servers angeschlossen sein; wer sie an einem anderen Rechner betrieben hat, muss sie dorthin umziehen.</p>
+</div>
+
+<h3>Anbindung der TSE</h3>
+
+<p>Der TSE-Treiber l&auml;uft im selben Prozess wie der Hauptserver. Der Weg ist immer
+<code>Hauptserver &rarr; WormAPI &rarr; Hardware</code> &ndash; es gibt keinen separaten
+TSE-Connector-Server und keinen Netzwerkweg zur TSE.</p>
+
+<blockquote>
+<p>Fehlt die Swissbit-SDK, tauscht <code>DelegatingTseSignProvider</code> den Treiber zur
+Laufzeit gegen eine inaktive Variante aus; der Server startet weiterhin und die Signierung
+folgt dem konfigurierten Fehlerverhalten (<code>QUEUE</code> = Nachsignieren,
+<code>FAIL</code> = Abweisen).</p>
+</blockquote>
+
+<h3>Modulstruktur</h3>
+
+<p>Das TSE-System erstreckt sich &uuml;ber folgende Gradle-Module:</p>
+
+<table>
+<tr><th>Modul</th><th>Zweck</th></tr>
+<tr><td><code>pos-tse/</code></td><td>TSE-Treiberbibliothek (WormAPI-Operationen, Statusverwaltung, Wartungs-Task) &ndash; l&auml;uft im Hauptserver-Prozess</td></tr>
+<tr><td><code>fiscal/server/</code></td><td>TSE-Integration im Hauptserver (<code>features/tse/</code>: Providers, Services, Routes, Verifikation, Befunde)</td></tr>
+<tr><td><code>fiscal/data/</code></td><td>Persistenz der TSE-Integration (Exposed-Tabellen, Modelle, Repository- und Service-Schnittstellen unter <code>features/tse/</code>)</td></tr>
+<tr><td><code>fiscal/api/</code></td><td>Gemeinsame TSE-DTOs und -Enums (plattform&uuml;bergreifend) sowie die TSE-API-Clients</td></tr>
+<tr><td><code>platform/api/</code></td><td>Plattform-Vertr&auml;ge: <code>PosErrorCode</code> (<code>TSE_*</code>), <code>TseMode</code>, <code>TseConfigDto</code>, <code>TseFailureBehavior</code>, <code>TseHealthState</code></td></tr>
+<tr><td><code>ui/shared/</code></td><td>TSE-Settings-UI (Konfiguration, Admin-Operationen, Queue-Monitoring, TSE- und DSFinV-K-Export) &ndash; von der Kasse (<code>ui/till/</code>, Einstellungen &rarr; TSE) und vom Web-Backoffice (<code>ui/backoffice/</code>, Ger&auml;te &rarr; TSE) gemeinsam genutzt</td></tr>
+</table>
+
+<hr>
+
+<h2 id="s3">3. Verzeichnisstruktur des TSE-Moduls</h2>
+
+<h3>pos-tse/ (TSE-Treiberbibliothek)</h3>
+
+<pre><code>pos-tse/
+├── build.gradle.kts                        # Build-Konfiguration (reine JVM-Bibliothek)
+├── lib/
+│   └── WormAPI.jar                         # Swissbit TSE SDK (lokale Abhängigkeit)
+└── src/
+    ├── main/
+    │   ├── java/                            # WormAPI Java-Klassen (JNI-Wrapper)
+    │   │   ├── WormStore.java              # Hauptklasse: TSE-Zugriff
+    │   │   ├── WormAPI.java                # Statischer Initializer für Native Libs
+    │   │   ├── WormTransactionResponse.java # Signatur-Antwort
+    │   │   ├── WormInitializationState.java # UNINITIALIZED/INITIALIZED/DECOMMISSIONED
+    │   │   ├── WormInitialCredentials.java  # Initiale PINs/PUK
+    │   │   ├── WormUserId.java             # ADMIN/TIME_ADMIN Benutzer-IDs
+    │   │   ├── WormInformation.java        # TSE-Info (Serial, Signaturen, etc.)
+    │   │   ├── WormException.java          # Fehlerklasse mit Error-Code
+    │   │   └── ... (20 Java-Dateien gesamt)
+    │   ├── kotlin/org/example/project/tse/
+    │   │   ├── models/
+    │   │   │   └── TseStatus.kt            # Thread-sicherer Zustandsmanager (Mutex)
+    │   │   ├── operations/
+    │   │   │   ├── ITseOperation.kt        # Interface für alle TSE-Operationen
+    │   │   │   ├── signing/                # Signatur-Operationen
+    │   │   │   │   ├── BaseTseSignOperation.kt      # Abstrakte Basis (Mode-Dispatch)
+    │   │   │   │   ├── TseSignOperation.kt          # Quick-Sign (Start+Finish)
+    │   │   │   │   ├── TseTransactionStartOperation.kt
+    │   │   │   │   ├── TseTransactionUpdateOperation.kt
+    │   │   │   │   └── TseTransactionFinishOperation.kt
+    │   │   │   └── admin/                  # Admin-Operationen
+    │   │   │       ├── BaseTseOperation.kt # Abstrakte Basis für Admin-Ops
+    │   │   │       ├── clients/            # RegisterClient, DeregisterClient, ListClients
+    │   │   │       ├── ctss/               # CtssEnable, CtssDisable
+    │   │   │       ├── export/             # Full/Incremental/TimeFiltered/TransactionFiltered Export
+    │   │   │       ├── firmware/           # FirmwareUpdateCheck
+    │   │   │       ├── selftest/           # SelfTest
+    │   │   │       ├── setup/              # Setup, FactoryReset
+    │   │   │       ├── status/             # Status, HealthCheck, FlashHealth, GetInfo
+    │   │   │       ├── time/               # UpdateTime
+    │   │   │       ├── transactions/       # ListTransactions, LastTransaction
+    │   │   │       └── users/              # ChangePin, UserUnblock
+    │   │   ├── tasks/
+    │   │   │   ├── TseInitializationManager.kt  # Ersteinrichtung &amp; Startup-Sequenz
+    │   │   │   └── TseMaintenanceTask.kt        # Periodische Wartung (Self-Test, Time-Sync)
+    │   │   └── utils/
+    │   │       ├── TseLocator.kt               # Automatische Hardware-Erkennung
+    │   │       └── ProcessDataValidator.kt     # DSFinV-K ProcessData-Validierung
+    │   └── resources/
+    │       ├── logback.xml                 # Logging-Konfiguration
+    │       └── native/                     # JNI Native Libraries
+    │           ├── linux32/                # libWormAPI.so, libWormAPIJni.so
+    │           ├── linux64/                # libWormAPI.so, libWormAPIJni.so
+    │           ├── windows32/              # WormAPI.dll, WormAPIJni.dll
+    │           └── windows64/              # WormAPI.dll, WormAPIJni.dll
+    └── test/                               # Unit-Tests (TseLocatorTest, etc.)</code></pre>
+
+<h3>fiscal/server/ (TSE-Integration im Hauptserver)</h3>
+
+<pre><code>fiscal/server/src/main/kotlin/.../features/tse/
+├── domain/
+│   ├── provider/
+│   │   ├── TseSignProvider.kt             # Interface: Signatur-Operationen
+│   │   ├── TseAdminProvider.kt            # Interface: Admin-Operationen
+│   │   └── TseStatusBroadcaster.kt        # Status-Benachrichtigungen an Clients (SSE)
+│   ├── factory/
+│   │   └── TseServiceFactory.kt           # Factory für SIMULATION/NORMAL/DISABLED
+│   ├── session/
+│   │   ├── TseAdminSession.kt             # Admin-Sitzung (entsperrte Administration)
+│   │   └── TseAdminSessionReaper.kt       # Beendet abgelaufene Admin-Sitzungen
+│   ├── TseSigningDecision.kt              # Signieren, einreihen oder abweisen
+│   ├── TseSigningOutcome.kt               # Ergebnis eines Signaturversuchs
+│   ├── TseSigningOutcomeResolver.kt
+│   ├── TseLateSigningCauses.kt            # Ursachen für Nachsignierung
+│   └── routes/
+│       ├── TseAdminRoutes.kt              # JWT-geschützte Endpoints (/api/tse/*)
+│       └── TseSigningQueueRoutes.kt       # Queue-Management (/api/tse/queue/*)
+├── data/
+│   ├── repository/
+│   │   ├── TseTransactionRepositoryImpl.kt
+│   │   ├── TseSigningQueueRepositoryImpl.kt
+│   │   ├── TseLateSigningRepositoryImpl.kt
+│   │   └── TseExportArchiveRepositoryImpl.kt
+│   ├── service/
+│   │   ├── RealTseTransactionServiceImpl.kt    # Produktiv-Implementierung
+│   │   ├── DisabledTseTransactionServiceImpl.kt # Deaktivierte TSE
+│   │   ├── TseSigningQueueServiceImpl.kt       # Queue-Verarbeitung
+│   │   ├── TseSigningRetryService.kt           # Background-Job (alle 60s)
+│   │   ├── TseConfigurationServiceImpl.kt      # Konfigurations-Verwaltung
+│   │   ├── TseVorgangSigner.kt                 # Signierung eines Vorgangs
+│   │   ├── TseExportArchiveService.kt          # Archivierung der TSE-Exporte
+│   │   └── TseAdminUnlock.kt                   # Entsperren der Administration
+│   └── provider/
+│       ├── DelegatingTseSignProvider.kt   # Hot-Swap Wrapper (Treiber ↔ inaktiv)
+│       ├── DelegatingTseAdminProvider.kt  # Hot-Swap Wrapper
+│       ├── TseSdkAvailability.kt          # Ist die Swissbit-SDK vorhanden?
+│       ├── local/
+│       │   ├── LocalTseSignProvider.kt    # Direkter Hardware-Zugriff
+│       │   ├── LocalTseAdminProvider.kt
+│       │   ├── LocalTseLifecycleManager.kt
+│       │   └── TsePowerLossRecovery.kt    # Wiederanlauf nach Stromausfall
+│       └── unavailable/
+│           ├── UnavailableTseSignProvider.kt   # Platzhalter ohne SDK
+│           └── UnavailableTseAdminProvider.kt
+├── verification/                          # Prüfung der TSE-Exporte (TseVerificationService, LogSequenceVerifier, PosReconciliation, ...)
+└── findings/                              # TSE-Befunde (TanrContinuityAnalyzer, TseFindingService, ...)</code></pre>
+
+<h3>ecr/data/ und fiscal/data/ (Persistenz der TSE-Integration)</h3>
+
+<pre><code>ecr/data/ (database/tables, domain/models) und fiscal/data/ (domain/repository, domain/service, domain/dto):
+src/main/kotlin/.../features/tse/
+├── domain/
+│   ├── models/
+│   │   ├── TseTransaction.kt              # Signierte Transaktion
+│   │   ├── TseSigningQueue.kt             # Nachsignier-Warteschlange
+│   │   ├── TseTransactionState.kt
+│   │   └── TseExportArchiveRecord.kt
+│   ├── repository/
+│   │   ├── TseTransactionRepository.kt    # Interface
+│   │   ├── TseSigningQueueRepository.kt   # Interface
+│   │   ├── TseLateSigningRepository.kt    # Interface
+│   │   └── TseExportArchiveRepository.kt  # Interface
+│   ├── service/
+│   │   ├── TseTransactionService.kt       # Interface: Transaktions-Management
+│   │   ├── TseSigningQueueService.kt      # Interface: Warteschlangen-Management
+│   │   └── TseConfigurationService.kt     # Interface: Konfigurations-Management
+│   └── dto/
+│       └── TseSigningQueueDto.kt          # Serverinterne DTOs
+└── database/tables/
+    ├── TseTransactionTable.kt             # Tabelle: tse_transaction
+    ├── TseSigningQueueTable.kt            # Tabelle: tse_signing_queue
+    ├── TseLateSigningTable.kt
+    ├── TseExportArchiveTable.kt
+    └── TseExplanationTable.kt</code></pre>
+
+<h3>fiscal/api/, ecr/api/ und platform/api/ (Gemeinsame Definitionen)</h3>
+
+<pre><code>platform/api/src/commonMain/kotlin/.../core/domain/
+├── enums/
+│   ├── setup/TseMode.kt                  # NORMAL, SIMULATION, DISABLED
+│   └── tse/
+│       ├── TseFailureBehavior.kt         # QUEUE (Nachsignieren) oder FAIL
+│       └── TseHealthState.kt
+└── dto/tse/
+    └── TseConfigDto.kt                   # Konfiguration (Modus, Fehlerverhalten, etc.)
+
+fiscal/api/src/commonMain/kotlin/.../core/domain/
+├── enums/tse/
+│   ├── TseAdminCommand.kt                # Admin-Befehle
+│   ├── TseSignOperation.kt               # Signatur-Operationen
+│   ├── TseEntityType.kt                  # BILL, ORDER, KASSENBUCH, etc.
+│   ├── TseSigningStatus.kt               # PENDING → SIGNED/FAILED
+│   ├── BonType.kt, ProcessType.kt        # DSFinV-K Vorgangs- und Belegarten
+│   └── TseExplanation*.kt, TseFindingKind.kt, TseLateSigningReason.kt, TseExportArchiveOrigin.kt
+└── dto/tse/
+    ├── TseDto.kt                         # Requests &amp; Responses
+    ├── TseSigningQueueDto.kt             # Queue-Status &amp; Entry DTOs
+    ├── TseInfoResponseDto.kt             # Info-Routes Response DTOs
+    ├── TseVerificationDto.kt             # Verifikation der TSE-Exporte
+    ├── TseExplanationDto.kt              # Erläuterungen zu Befunden
+    └── TseReceiptDataDto.kt, TseSigningNoteDto.kt   # Beleg-Daten und Signierhinweise</code></pre>
+
+<p>Fehler werden nicht mit einem TSE-eigenen Fehlertyp, sondern über die gemeinsame
+<code>PosErrorCode</code>-Aufz&auml;hlung (<code>TSE_*</code>-Werte, Modul <code>platform/api</code>) und
+<code>PosException</code> gemeldet &ndash; siehe Kapitel 15.</p>
+
+<h3>ui/shared/ und ui/backoffice/ (Client-UI)</h3>
+
+<pre><code>fiscal/api/src/commonMain/kotlin/.../core/data/remote/
+├── TseSettingsApiClient.kt                # HTTP Client für /api/tse/*
+├── TseQueueApiClient.kt                   # HTTP Client für /api/tse/queue/*
+├── TseFindingsApiClient.kt                # HTTP Client für /api/tse/findings, /explanations
+└── impl/                                  # Ktor-Implementierungen (KtorTse*ApiClient.kt)
+
+ui/shared/src/commonMain/kotlin/.../
+├── ui/screens/settings/
+│   └── PosTseContent.kt                   # Haupt-Bildschirm (Kasse und Web-Backoffice)
+└── features/settings/presentation/
+    ├── state/TseSettingsUiState.kt        # Gesamter UI-State
+    ├── viewmodel/TseSettingsViewModel.kt  # State-Management
+    └── components/tse/
+        ├── TseConnectionStatusCard.kt     # Verbindungsstatus-Anzeige
+        ├── TseConfigurationSection.kt     # Konfigurationsformular
+        ├── TseSetupDialog.kt              # Inbetriebnahme (Admin-PIN, PUK, Seed)
+        ├── TseAdminUnlockDialog.kt        # Administration entsperren (Admin-PIN)
+        ├── TseDecommissionDialog.kt       # Außerbetriebnahme
+        ├── TseFirmwareApplyDialog.kt      # Firmware-Update einspielen
+        ├── CancelQueueEntryDialog.kt      # Queue-Eintrag abbrechen
+        ├── TseInformationSection.kt       # TSE-Geräteinformationen
+        ├── TseAdminOperationsSection.kt   # Manuelle Admin-Operationen
+        ├── TseLogEntryBrowserSection.kt   # Protokolleinträge durchsuchen
+        ├── TseQueueMonitoringSection.kt   # Warteschlangen-Überwachung
+        └── TseMessageCards.kt             # Erfolgs-/Fehlermeldungen
+
+ui/backoffice/src/wasmJsMain/kotlin/.../admin/features/tse/presentation/
+├── TseAdminScreen.kt                      # Host für PosTseContent (Geräte → TSE)
+└── TseFindingsScreen.kt                   # TSE-Befunde &amp; Erläuterungen (Kapitel 17)</code></pre>
+
+<hr>
+
+<h2 id="s4">4. Hardware-Erkennung (TseLocator)</h2>
+
+<blockquote><p><strong>Datei:</strong> <code>pos-tse/.../utils/TseLocator.kt</code></p></blockquote>
+
+<h3>Automatische Erkennung</h3>
+
+<p>Der <code>TseLocator</code> findet die Swissbit TSE automatisch auf dem System, ohne dass der Benutzer den Pfad manuell eingeben muss.</p>
+
+<h3>Linux-Erkennung</h3>
+
+<p>Durchsucht werden g&auml;ngige Mount-Punkte in folgender Reihenfolge:</p>
+
+<ol>
+  <li><strong>Traditionelle Mount-Punkte</strong> (eine Ebene tief):
+    <ul>
+      <li><code>/mnt/*</code> (z.B. <code>/mnt/tse</code>)</li>
+      <li><code>/mount/*</code></li>
+    </ul>
+  </li>
+  <li><strong>Moderne Desktop-Umgebungen</strong> (zwei Ebenen tief):
+    <ul>
+      <li><code>/media/&lt;benutzer&gt;/&lt;ger&auml;t&gt;</code> (z.B. <code>/media/dz/SWISSBIT</code>)</li>
+      <li>Unterst&uuml;tzt GNOME, KDE und &auml;hnliche</li>
+    </ul>
+  </li>
+</ol>
+
+<h3>Windows-Erkennung</h3>
+
+<p>Pr&uuml;ft die Laufwerksbuchstaben <code>C:</code> bis <code>J:</code> auf TSE-Dateien.</p>
+
+<h3>TSE-Erkennungsdateien</h3>
+
+<p>Ein Verzeichnis wird als TSE erkannt, wenn mindestens eine dieser Dateien vorhanden ist:</p>
+
+<table>
+<tr><th>Datei</th><th>Beschreibung</th></tr>
+<tr><td><code>TSE_INFO.DAT</code></td><td>TSE-Informationsdatei</td></tr>
+<tr><td><code>TSE_COMM.DAT</code></td><td>TSE-Kommunikationsdatei</td></tr>
+<tr><td><code>TSE_TAR.001</code></td><td>TAR-Export Datei</td></tr>
+</table>
+
+<h3>TSE-Validierung</h3>
+
+<p>Nach der Erkennung wird die Hardware validiert:</p>
+
+<pre><code>// TseLocator.validateTseHardware()
+val wormStore = WormStore(mountPoint)
+wormStore.use { store -&gt;
+    val info = store.info()
+    val serialNumber = info.tseSerialNumber()       // Seriennummer (hex)
+    val initState = info.initializationState()       // UNINITIALIZED/INITIALIZED/DECOMMISSIONED
+    val hasPassedSelfTest = info.hasPassedSelfTest() // Selbsttest bestanden?
+    val remainingSignatures = info.remainingSignatures() // Verbleibende Signaturen
+}</code></pre>
+
+<p><strong>Wichtig:</strong> <code>WormStore(mountPoint)</code> l&auml;dt beim ersten Aufruf automatisch die JNI Native Libraries &uuml;ber <code>java.library.path</code>.</p>
+
+<hr>
+
+<h2 id="s5">5. Initialisierungsablauf (Startup-Sequenz)</h2>
+
+<blockquote><p><strong>Datei:</strong> <code>server/.../data/provider/local/LocalTseLifecycleManager.kt</code></p></blockquote>
+
+<h3>Server-Start</h3>
+
+<p>Beim Start des POS-Hauptservers initialisiert <code>LocalTseLifecycleManager.initialize()</code> den TSE-Zugriff. Einen eigenen TSE-Serverprozess (mit eigenem Ktor-Routing, Koin-Modul und HTTP-Client) gibt es seit v1.1.0 nicht mehr.</p>
+
+<pre><code>LocalTseLifecycleManager.initialize()
+│
+├── Schritt 1: Konfigurierten Modus lesen (ShopConfigurationManager.getTseConfig())
+│   ├── DISABLED   → keine Hardware-Prüfung, Ende
+│   ├── SIMULATION → keine Hardware-Prüfung, Pseudo-Signaturen, Ende
+│   └── NORMAL     → Modus NORMAL setzen, BEVOR die Hardware geprüft wird
+│
+├── Schritt 2: Hardware erkennen und verbinden (TseLocator, WormStore, Keep-Alive)
+│   └── nicht gefunden / nicht verbunden → Modus bleibt NORMAL, nicht betriebsbereit;
+│       Vorgänge folgen dem Ausfallverhalten (QUEUE → Nachsignieren)
+│
+├── Schritt 3: TseStatus konfigurieren (Client-ID, TimeAdmin-PIN, Modus)
+│   └── TseInitializationManager.initialize() → siehe Abschnitt 7
+│       ├── UNINITIALIZED → Abbruch; die Inbetriebnahme ist Bedienersache (Abschnitt 6)
+│       └── Anmeldung/Konfiguration fehlgeschlagen → nicht betriebsbereit,
+│           kein automatischer Wiederholungsversuch (Schutz vor PIN-Sperre)
+│
+├── Schritt 4: Wartungs-Task starten (nur NORMAL)
+│
+└── Schritt 5: einmalige Firmware-Prüfung (Hinweis in den TSE-Einstellungen)</code></pre>
+
+<p>Kein Credential-Seed und keine Admin-PIN im Startablauf: Der Seed wird nur bei der Inbetriebnahme (<code>POST /api/tse/setup</code>) verbraucht, die Admin-PIN wird nie gespeichert.</p>
+
+<h3>Herunterfahren</h3>
+
+<p>Beim Herunterfahren gibt <code>LocalTseLifecycleManager.close()</code> alle Ressourcen frei:</p>
+
+<pre><code>maintenanceTask.stop()     // Wartungs-Coroutine beenden
+tseStatus.close()          // WormStore schließen, Keep-Alive deaktivieren
+coroutineScope.cancel()    // Coroutine-Scope aufräumen</code></pre>
+
+<hr>
+
+<h2 id="s6">6. TSE-Ersteinrichtung (Uninitialisierte TSE)</h2>
+
+<blockquote><p><strong>Datei:</strong> <code>pos-tse/.../tasks/TseInitializationManager.kt</code></p></blockquote>
+
+<h3>Voraussetzung</h3>
+
+<p>Die TSE befindet sich im Zustand <code>WORM_INIT_UNINITIALIZED</code> (z.B. bei einem fabrikneuen Ger&auml;t).</p>
+
+<h3>10-Schritt Setup-Prozess (<code>performTseSetupWithState</code>)</h3>
+
+<pre><code>╔═══════════════════════════════════════════════════════════════════════════╗
+║                         TSE ERSTEINRICHTUNG                              ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║                                                                          ║
+║  Pre:  Selbsttest durchführen                                            ║
+║                                                                          ║
+║  1.  Initial-Credentials ableiten (user_deriveInitialCredentials)        ║
+║      → Verwendet den Credential-Seed (z.B. "SwissbitSwissbit")           ║
+║      → Gibt initiale PUK, Admin-PIN und TimeAdmin-PIN zurück            ║
+║                                                                          ║
+║  2.  PUK ändern (falls noch nicht geändert)                              ║
+║      → Von initialem Wert auf den im Setup-Dialog eingegebenen Wert      ║
+║                                                                          ║
+║  3.  Admin-PIN ändern (falls noch nicht geändert)                        ║
+║      → Von initialem Wert auf den im Setup-Dialog eingegebenen Wert      ║
+║                                                                          ║
+║  4.  TimeAdmin-PIN ändern (falls noch nicht geändert)                    ║
+║      → Von initialem Wert auf konfigurierten Wert                        ║
+║                                                                          ║
+║  5.  Admin-Login                                                         ║
+║      → Mit der neuen Admin-PIN einloggen                                 ║
+║                                                                          ║
+║  6.  Client registrieren                                                 ║
+║      → tse_registerClient(clientId) — z.B. "POS-Terminal-1"             ║
+║                                                                          ║
+║  7.  Selbsttest durchführen                                              ║
+║      → tse_runSelfTest(clientId) — max. 60 Sekunden                     ║
+║                                                                          ║
+║  8.  CTSS-Schnittstelle aktivieren                                       ║
+║      → tse_ctss_enable() — ermöglicht Zeitaktualisierung                ║
+║                                                                          ║
+║  9.  Export-bei-CSP-Fehler aktivieren                                    ║
+║      → Schutz vor Datenverlust bei CSP-Fehlern                          ║
+║                                                                          ║
+║  10. TSE initialisieren                                                  ║
+║      → tse_initialize() — Wechsel zu INITIALIZED                        ║
+║                                                                          ║
+╚═══════════════════════════════════════════════════════════════════════════╝</code></pre>
+
+<div class="hint">
+<strong>Ausl&ouml;ser und Zugangsdaten:</strong> Die Ersteinrichtung startet der Bediener in den TSE-Einstellungen &uuml;ber <em>TSE initialisieren</em> (<code>POST /api/tse/setup</code>, Befugnis <code>TSE_ADMIN</code>). Im Dialog &bdquo;TSE in Betrieb nehmen&ldquo; gibt er Admin-PIN, Admin-PUK, Zeit-Admin-PIN und Credential Seed ein; Admin-PIN, Admin-PUK und Seed werden nur f&uuml;r diesen Vorgang verwendet und <strong>nirgends gespeichert</strong> (weder Datenbank noch Konfiguration noch Log). Gespeichert wird allein die TimeAdmin-PIN (TSE-Konfiguration), weil der unbeaufsichtigte Zeitabgleich sie braucht; der Dialog speichert sie vor dem Setup-Aufruf mit <code>PUT /api/tse/config</code>. Fehlt sie, antworten Konfiguration und Setup mit HTTP&nbsp;400 <code>TSE_TIME_ADMIN_PIN_REQUIRED</code> (Feld <code>timeAdminPin</code>), und der Dialog bleibt mit dem Hinweis ge&ouml;ffnet. <code>GET /api/tse/config</code> meldet mit <code>timeAdminPinConfigured</code>, ob eine PIN gespeichert ist (nie die PIN selbst), damit das Formular ein Speichern ohne PIN schon vor dem Senden ablehnt. Werks-Platzhalter f&uuml;r PIN, PUK oder TimeAdmin-PIN werden mit HTTP&nbsp;400 abgelehnt, ohne dass etwas geschrieben wird; eine bereits in Betrieb genommene TSE antwortet mit HTTP&nbsp;409 und &uuml;bernimmt die eingegebenen Werte nicht.
+<br><strong>Modus bei der Inbetriebnahme (seit 2026-10-04):</strong> <code>SetupOperation</code> nimmt eine TSE nur im Modus NORMAL in Betrieb. Das Setup &uuml;bergab bisher den gespeicherten Modus &ndash; auf einer frischen Installation <code>DISABLED</code> &ndash;, sodass jede Inbetriebnahme dort mit &bdquo;mode need to be Normal: DISABLED&ldquo; scheiterte und die TSE <code>UNINITIALIZED</code> blieb (gefunden an der echten Swissbit-TSE; fr&uuml;here Tests liefen nur gegen eine schon auf NORMAL stehende Konfiguration). Die Inbetriebnahme ist die ausdr&uuml;ckliche Absicht des Bedieners, die TSE zu betreiben; <code>TseSetupMode</code> legt den Modus daher je konfiguriertem Modus fest (kein Default): <code>DISABLED</code> und <code>NORMAL</code> &rarr; Inbetriebnahme in NORMAL; <code>SIMULATION</code> &rarr; HTTP&nbsp;409 <code>TSE_INVALID_PARAMETERS</code>, bevor die TSE ber&uuml;hrt wird (Simulation ist eine bewusste Wahl, die das Setup nicht still beendet &ndash; und ein Setup in SIMULATION scheiterte ohnehin und setzte den Modus dabei auf DISABLED). Weil im Modus DISABLED beim Start nichts die TSE &ouml;ffnet, &ouml;ffnet das Setup sie selbst (<code>LocalTseLifecycleManager.attachForCommissioning</code>), und zwar <em>vor</em> der Pr&uuml;fung &bdquo;bereits in Betrieb genommen&ldquo;, die ein geschlossenes Ger&auml;t nicht lesen kann; keine TSE gefunden &rarr; HTTP&nbsp;503 <code>TSE_HARDWARE_NOT_FOUND</code>, nichts geschrieben. Nach erfolgreicher Inbetriebnahme speichert der Server den Modus NORMAL in der TSE-Konfiguration &ndash; sonst widerspr&auml;che die Konfiguration dem Ger&auml;t, und die Signierungs-Sperre lie&szlig;e jeden Beleg ins Nachsignieren laufen. Scheitert das Speichern, meldet das Ergebnis trotzdem Erfolg (die TSE ist in Betrieb) und nennt den n&ouml;tigen Handgriff. Scheitert die Inbetriebnahme, bleibt der gespeicherte Modus unver&auml;ndert, und der Live-Modus wird wie bisher DISABLED. Der Dialog l&auml;dt die Konfiguration nach Erfolg neu, damit ein sp&auml;teres Speichern des Formulars nicht das alte DISABLED zur&uuml;ckschreibt, und lehnt ein Formular im Modus SIMULATION selbst ab, bevor etwas gesendet wird.
+<br><strong>Erster TSE-Client:</strong> Das Setup registriert genau ein Terminal als ersten Client der TSE. Der Bediener w&auml;hlt es im Dialog; der Request tr&auml;gt dessen Terminal-ID im optionalen Feld <code>terminalId</code> (z.&nbsp;B. <code>TER-001</code>). Das Terminal muss aktiv und fiskalisch sein, aber nicht gekoppelt &ndash; eine Client-ID ist auf der TSE nur ein registrierter Name. Nur so kann der Web-Admin, der selbst kein Terminal ist, die TSE in Betrieb nehmen (vorher: HTTP&nbsp;404 &bdquo;Terminal not found for deviceId=&hellip;&ldquo;, gefunden an der echten Swissbit-TSE). Ohne <code>terminalId</code> gilt wie bisher das Terminal des aufrufenden Ger&auml;ts, sodass eine &auml;ltere Kasse unver&auml;ndert funktioniert. Abgelehnt wird, <strong>bevor die TSE ber&uuml;hrt wird</strong>: unbekannte Terminal-ID &rarr; HTTP&nbsp;404 <code>TERMINAL_NOT_FOUND</code>; keine Auswahl und der Aufrufer ist kein Terminal &rarr; HTTP&nbsp;404 <code>TSE_SETUP_TERMINAL_REQUIRED</code> (der Client zeigt dazu den Hinweis, zuerst ein Terminal anzulegen); deaktiviertes Terminal &rarr; HTTP&nbsp;409 <code>TERMINAL_DEACTIVATED</code>; nicht fiskalisches Terminal &rarr; HTTP&nbsp;409 <code>TERMINAL_NOT_FISCAL</code>. Nach erfolgreichem Setup wird das Terminal wie bei <code>tse-register</code> als TSE-registriert markiert (<code>tseClientRegistered</code>); <code>sync-tse</code> gleicht das Kennzeichen bei Bedarf mit dem Ger&auml;t ab.
+<br><strong>Registrierung beim Koppeln (seit 2026-10-04, F42):</strong> Weitere Terminals k&ouml;nnen ihren TSE-Client beim Koppeln registrieren lassen &ndash; nur wenn der Bediener das beim Erzeugen des Kopplungscodes w&auml;hlt (<code>POST /api/v1/terminals/{id}/pairing-code</code> mit <code>{"registerTseClient": true}</code>; der Wert wird am Code in <code>terminal_pairing_codes.register_tse_client</code> gespeichert, Migration V79). Erlaubt nur f&uuml;r ein fiskalisches Terminal bei TSE im Modus NORMAL und in Betrieb (sonst HTTP&nbsp;409 <code>TERMINAL_NOT_FISCAL</code>, <code>TSE_DISABLED</code> oder <code>TSE_NOT_OPERATIONAL</code>); kennt die TSE den Client noch nicht, muss die Admin-Sitzung entsperrt sein (sonst HTTP&nbsp;423 <code>TSE_ADMIN_LOCKED</code>), und der Code wird an diese Sitzung gebunden. Beim Koppeln (<code>POST /api/v1/terminals/pair</code>) liest der Server <strong>vor</strong> dem Binden die Client-Liste der TSE: gelistet &rarr; nur <code>tseClientRegistered</code> setzen; nicht gelistet &rarr; <code>tse_registerClient</code>. Die TSE-Aufrufe laufen au&szlig;erhalb jeder Datenbank-Transaktion; danach wird der Code in der Bindungs-Transaktion erneut gepr&uuml;ft. Scheitert die Registrierung, wird nichts gebunden, der Code bleibt unverbraucht, und die Antwort ist HTTP&nbsp;424 <code>PAIRING_TSE_REGISTRATION_FAILED</code>. Ein Code ohne die Option ber&uuml;hrt die TSE nicht und ist an keine Admin-Sitzung gebunden. <code>tse-register</code> bleibt als expliziter Weg (Reparatur, z.&nbsp;B. nach Wiederherstellung oder TSE-Tausch). Die Client-Liste selbst braucht die Admin-Anmeldung; ist sie gesperrt, gilt der gespeicherte Vermerk.
+<br><strong>Konfiguration speichern vor der Inbetriebnahme (seit 2026-10-04):</strong> Jedes <code>PUT /api/tse/config</code> wendet die Konfiguration auf die TSE an. Meldet das ge&ouml;ffnete Ger&auml;t <code>WORM_INIT_UNINITIALIZED</code>, bricht <code>LocalTseLifecycleManager.initialize</code> <em>vor</em> dem Konfigurieren ab &ndash; es findet kein Anmeldeversuch statt, kein PIN-Fehlversuch wird verbraucht &ndash; und die Antwort meldet <code>applyOutcome</code> = <code>NOT_COMMISSIONED</code> (&bdquo;TSE ist noch nicht in Betrieb genommen&ldquo;). Bisher kam dies als <code>AUTH_FAILED</code> zur&uuml;ck und erschien als &bdquo;TSE-Anmeldung fehlgeschlagen &ndash; bitte Admin-PIN pr&uuml;fen&ldquo;, obwohl die anschlie&szlig;ende Einrichtung gelang (gefunden an der echten Swissbit-TSE). <code>AUTH_FAILED</code> bleibt echten Anmeldefehlern an einer in Betrieb genommenen TSE vorbehalten. Das Feld <code>applyStatus</code> tr&auml;gt in diesem Fall <code>UNREACHABLE</code>, weil &auml;ltere Clients den neuen Wert nicht dekodieren k&ouml;nnen und damit auch die Einrichtung abbr&auml;chen; neue Clients lesen <code>applyOutcome</code>. Der Einrichtungsdialog zeigt f&uuml;r sein eigenes Vorab-Speichern keinen Anwendungs-Hinweis mehr &ndash; das Ergebnis der Einrichtung meldet er selbst.
+</div>
+
+<h3>Credential-Change-Detection (Schutz vor TSE-Bricking)</h3>
+
+<p>Ein kritisches Problem bei der Ersteinrichtung: Wenn das Setup nach dem &Auml;ndern einer PIN abgebrochen wird (z.B. Stromausfall), ist die TSE in einem <strong>teilweise ge&auml;nderten Zustand</strong>.</p>
+
+<p>Der <code>TseInitializationManager</code> l&ouml;st dies durch <strong>State-Tracking</strong>:</p>
+
+<pre><code>data class CredentialChangeState(
+    val hasChangedPuk: Boolean,
+    val hasChangedAdminPin: Boolean,
+    val hasChangedTimeAdminPin: Boolean
+)</code></pre>
+
+<p><strong>Vorgehensweise:</strong></p>
+<ol>
+  <li>Vor dem Setup wird <code>checkCredentialChangeState()</code> aufgerufen</li>
+  <li>Bereits ge&auml;nderte Credentials werden <strong>&uuml;bersprungen</strong> (nicht erneut ge&auml;ndert)</li>
+  <li>So kann ein abgebrochenes Setup sicher fortgesetzt werden</li>
+</ol>
+
+<div class="hint">
+<strong>Warnung:</strong> Nach 3 fehlgeschlagenen PIN-Eingaben wird die TSE gesperrt und kann nur mit dem PUK entsperrt werden. Wird auch der PUK ersch&ouml;pft, ist die TSE <strong>dauerhaft unbrauchbar</strong> (Bricking).
+</div>
+
+<hr>
+
+<h2 id="s7">7. Initialisierung einer bereits eingerichteten TSE</h2>
+
+<blockquote><p><strong>Datei:</strong> <code>pos-tse/.../tasks/TseInitializationManager.kt</code> &rarr; <code>initialize()</code></p></blockquote>
+
+<p>Wenn die TSE bereits im Zustand <code>WORM_INIT_INITIALIZED</code> ist (normaler Start):</p>
+
+<pre><code>initialize(clientId)   // ohne Zugangsdaten – siehe Hinweis unten
+│
+├── 1. Initialisierungsstatus prüfen
+│   ├── initState == INITIALIZED → Weiter mit Startup-Sequenz
+│   └── initState == UNINITIALIZED → Abbruch (Einrichtung ist Bedienersache: setUp())
+│
+├── 2. Selbsttest durchführen (kein Login erforderlich)
+│   └── store.tse_runSelfTest(clientId)
+│
+├── 3. TimeAdmin-Login
+│   └── store.user_login(WORM_USER_TIME_ADMIN, timeAdminPin)
+│
+├── 4. Zeitabgleich (tse_updateTime)
+│   ├── Erfordert: CTSS-Interface aktiv; akzeptiert Admin ODER TimeAdmin
+│   └── store.tse_updateTime(System.currentTimeMillis() / 1000)
+│
+├── 5. TimeAdmin-Logout
+│   └── Zwingend: ein angemeldeter TimeAdmin blockiert auf TSE 2.0 jeden Export
+│
+└── ✓ TSE bereit für Transaktionen</code></pre>
+
+<div class="hint">
+<strong>Kein Admin-Login beim Start.</strong> Der Startvorgang verlangt bewusst keine Admin-PIN:
+Das Kassensystem darf sie nicht speichern (Swissbit-Handbuch zur sicheren Verwendung,
+Abschnitt&nbsp;2.5), w&auml;hrend die TimeAdmin-PIN ausdr&uuml;cklich erlaubt ist (Abschnitt&nbsp;2.4).
+Selbsttest und Zeitabgleich kommen ohne Admin aus, also gibt es keinen Grund, die PIN zwischen
+zwei Bedienvorg&auml;ngen vorzuhalten. Das Einrichten einer noch nicht initialisierten TSE ist
+davon getrennt: <code>setUp(adminPin, adminPuk, credentialSeed, clientId)</code> wird vom Bediener
+ausgel&ouml;st, der die Zugangsdaten dabei selbst eingibt.
+</div>
+
+<h3>Retry-Logik</h3>
+
+<p>Jeder Schritt wird bei Fehler bis zu 3 Mal wiederholt, bevor das Setup als gescheitert gilt.</p>
+
+<hr>
+
+<h2 id="s8">8. Thread-Sicherheit (TseStatus &amp; Mutex)</h2>
+
+<blockquote><p><strong>Datei:</strong> <code>pos-tse/.../models/TseStatus.kt</code></p></blockquote>
+
+<h3>Warum Thread-Sicherheit n&ouml;tig ist</h3>
+
+<p>Aus der WormStore-Dokumentation (Zeilen 104-112):</p>
+
+<blockquote><p><em>&bdquo;The Swissbit TSE hardware can not be operated from multiple threads or processes at the same time, as it allows only one command to be active at any given time and rejects all further commands.&ldquo;</em></p></blockquote>
+
+<h3>Kotlin Mutex</h3>
+
+<p>Die <code>TseStatus</code>-Klasse verwendet einen Kotlin <code>Mutex</code> (nicht-reentrant) f&uuml;r exklusiven Zugriff:</p>
+
+<pre><code>class TseStatus {
+    private val tseMutex = Mutex()
+
+    suspend fun &lt;T&gt; executeWithLock(operation: suspend () -&gt; T): T {
+        return tseMutex.withLock {
+            isBusy = true
+            try {
+                operation()
+            } finally {
+                isBusy = false
+            }
+        }
+    }
+}</code></pre>
+
+<p><strong>Verhalten bei gleichzeitigen Anfragen:</strong></p>
+<ul>
+  <li>Die erste Anfrage erh&auml;lt den Lock und wird ausgef&uuml;hrt</li>
+  <li>Weitere Anfragen werden in <strong>FIFO-Reihenfolge</strong> eingereiht</li>
+  <li>Nach Abschluss der ersten Operation wird die n&auml;chste automatisch gestartet</li>
+  <li>Der Lock wird <strong>auch bei Exceptions</strong> korrekt freigegeben (finally-Block)</li>
+</ul>
+
+<h3>Singleton WormStore-Instanz</h3>
+
+<p>Gem&auml;&szlig; dem Muster aus <code>WormAPI Example.java</code> (Zeile 171):</p>
+<ul>
+  <li>Die <code>WormStore</code>-Instanz wird <strong>einmal erstellt</strong> (bei <code>detectHardware()</code>)</li>
+  <li>F&uuml;r alle TSE-Operationen <strong>wiederverwendet</strong> (kein open/close pro Befehl)</li>
+  <li>Erst bei <code>disconnect()</code> oder Fehler geschlossen</li>
+</ul>
+
+<h3>Keep-Alive Konfiguration</h3>
+
+<pre><code>// MUSS sofort nach WormStore-Erstellung konfiguriert werden
+// VOR jeder anderen TSE-Operation
+store.keepAliveConfigure(intervalSeconds = 30)  // SDK managed automatisch</code></pre>
+
+<p><strong>Zweck:</strong> Verhindert, dass das Betriebssystem den USB-Stick in den Energiesparmodus versetzt (Power-Down), was zu Verbindungsabbr&uuml;chen f&uuml;hren w&uuml;rde.</p>
+
+<h3>Volatile-Felder f&uuml;r atomare Lesezugriffe</h3>
+
+<p>Zustandsfelder verwenden <code>@Volatile</code> f&uuml;r sichere Lesezugriffe ohne Lock:</p>
+
+<pre><code>@Volatile private var connectionState: ConnectionState = ConnectionState.DISCONNECTED
+@Volatile private var mode: TseMode = TseMode.SIMULATION
+@Volatile private var isBusy: Boolean = false
+@Volatile private var wormStoreInstance: WormStore? = null</code></pre>
+
+<hr>
+
+<h2 id="s9">9. Signiervorgang (Transaktionen)</h2>
+
+<h3>Wichtig: Kein Admin-Login erforderlich</h3>
+
+<p>F&uuml;r das Signieren von Transaktionen ist <strong>kein Admin-Login</strong> n&ouml;tig. Die TSE erfordert lediglich:</p>
+
+<ol>
+  <li>TSE ist im Zustand <code>INITIALIZED</code></li>
+  <li>Die Client-ID ist registriert (<code>tse_registerClient</code>)</li>
+  <li>Die CTSS-Schnittstelle ist aktiviert</li>
+</ol>
+
+<h3>Vier Signier-Operationen</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>server/.../domain/provider/TseSignProvider.kt</code> (Implementierung <code>LocalTseSignProvider</code>)</p></blockquote>
+
+<p>Signiert wird ausschlie&szlig;lich serverintern &uuml;ber den <code>TseSignProvider</code>; es gibt keine HTTP-Signier-Endpunkte (die fr&uuml;heren <code>/sign</code>-Routen des TSE-Connectors sind mit dem REMOTE-Modus entfallen).</p>
+
+<table>
+<tr><th>Methode</th><th>Beschreibung</th></tr>
+<tr><td><code>quickSign</code></td><td><strong>Quick-Sign</strong>: Start + Finish in einem Aufruf</td></tr>
+<tr><td><code>startTransaction</code></td><td>Transaktion starten (gibt Transaktionsnummer zur&uuml;ck)</td></tr>
+<tr><td><code>updateTransaction</code></td><td>Transaktion aktualisieren (z.B. weitere Artikel)</td></tr>
+<tr><td><code>finishTransaction</code></td><td>Transaktion abschlie&szlig;en (gibt finale Signatur zur&uuml;ck)</td></tr>
+</table>
+
+<h3>Quick-Sign Flow (h&auml;ufigster Fall)</h3>
+
+<pre><code>TseVorgangSigner → tseSignProvider.quickSign(processType = "Kassenbeleg-V1", processData = "Beleg^100.00_...", clientId = "POS-1")
+│
+├── LocalTseSignProvider nimmt den Aufruf entgegen
+├── Erstellt die Signier-Operation für processType, processData, clientId
+├── execute(tseStatus) wird aufgerufen
+│   ├── executeWithLock { dispatchByMode(tseStatus, processType) }
+│   │   ├── SIMULATION → generateSimulatedSignResult()
+│   │   └── NORMAL → performReal()
+│   │       ├── store.transaction_start(clientId, processData, processType)
+│   │       ├── store.transaction_finish(clientId, txNum, processData, processType)
+│   │       └── buildRealSignResult(processType, txNum, signature, logTime, ...)
+│   └── return SignResultDto
+│
+└── SignResultDto an den Aufrufer</code></pre>
+
+<h3>Multi-Step Flow (Bestellung mit Nachbestellungen)</h3>
+
+<pre><code>1. startTransaction()  → Transaktion #42 gestartet
+2. updateTransaction() → Artikel hinzugefügt zu #42
+3. updateTransaction() → Weitere Artikel hinzugefügt zu #42
+4. finishTransaction() → Transaktion #42 abgeschlossen → Finale Signatur</code></pre>
+
+<p>Dieser Ablauf ist eine <strong>Fähigkeit</strong> der Signier-Schnittstelle. Die Bestell- und Rechnungserstellung
+des POS-Servers nutzt ihn <strong>nicht</strong>: Bestellungen und Stornierungen werden je Bestellrunde in einem
+Aufruf gestartet und beendet (siehe nächster Abschnitt).</p>
+
+<h3 id="s9-bestellung-start-finish">Warum Start- und Endzeit einer Bestellung praktisch gleich sind</h3>
+
+<p>Eine <code>Bestellung-V1</code>-Transaktion wird beim Absenden einer Bestellrunde (&bdquo;An Küche senden&ldquo;)
+gestartet und <strong>unmittelbar</strong> beendet. Im TSE-Protokoll liegen Start-Logzeit und Finish-Logzeit daher
+nur die Laufzeit des TSE-Aufrufs auseinander. Das ist beabsichtigt und kein Fehler. Die Entscheidung beruht auf
+folgender Auslegung des Betreibers (<strong>keine Rechtsberatung</strong>; der Punkt unter &bdquo;Offene
+Auslegungsfrage&ldquo; ist nicht abschließend geklärt):</p>
+
+<ol>
+  <li><strong>Der Vorgang beginnt mit dem Absenden, nicht mit dem ersten Tipp.</strong> Das DSFinV-K (Version&nbsp;2.4,
+  Vorgangstyp <code>AVBestellung</code>) versteht unter einer Bestellung eine verbindliche Willenserklärung, die
+  &bdquo;verbindlich wird, wenn sie den Empfänger erreicht&ldquo;. Solange die Bestellung nur im Warenkorb des
+  Bedienpersonals liegt, existiert noch keine Bestellung und kein Geschäftsvorfall. Die Warenkorb-Positionen
+  werden deshalb auf dem Gerät gehalten und erst mit dem Absenden signiert.</li>
+  <li><strong>Das DSFinV-K sieht diese Form selbst vor.</strong> Anhang&nbsp;H (Gastronomie) zeigt neben einer
+  Bestellung mit <em>Start / Update / Finish</em> (&bdquo;Nachteil: Updates&ldquo;) die Variante
+  <em>Start/Finish je Bestellung</em> (&bdquo;Vorteil: Updates entfallen&ldquo;). Tz.&nbsp;2.7.1 bezeichnet die
+  Absicherung von Bestellvorgängen als <em>eigenständige Transaktionen</em>; Bestellungen dürfen auf mehrere
+  Rechnungen verteilt sein. Die Verbindung zur Rechnung stellt <code>ABRECHNUNGSKREIS</code> her
+  (<code>Tisch-&lt;Nr&gt;/S-&lt;Sitzung&gt;</code>, gleich für alle Bestellungen und alle Teilrechnungen eines
+  Tischbesuchs).</li>
+  <li><strong>Der Kassenbeleg startet erst beim Bezahlen.</strong> Nach Tz.&nbsp;2.7.2 darf als Startzeitpunkt des
+  <code>Kassenbeleg-V1</code> der Beginn des Bezahlvorgangs dienen; dadurch bleibt über den Tischbesuch keine
+  Transaktion offen. Voraussetzung ist, dass der <strong>Startzeitpunkt der ersten Bestellung auf dem Beleg</strong>
+  ausgewiesen wird (<code>Bill.getFirstOrderTseStartTime()</code>, bei Teilrechnungen für alle Belege gleich).</li>
+  <li><strong>Eine offene Transaktion ließe sich im Restaurant nicht sinnvoll führen.</strong> Gäste überlegen,
+  ändern ihre Wahl oder tippen sich bei der Erfassung vertan, anders als beim Scannen eines Artikels. Würde
+  ab dem ersten Tipp eine Transaktion offen gehalten, müsste sie bei jeder Änderung aktualisiert werden. Für
+  Transaktionen, die über Updates offen gehalten werden, nennt der Diskussionsentwurf der DSFinV-K&nbsp;3.0
+  (Stand Januar&nbsp;2026, noch nicht in Kraft) eine Aktualisierung spätestens <strong>45&nbsp;Sekunden</strong> nach
+  einer Datenänderung, mit Verweis auf BSI&nbsp;TR-03153-1 und den AEAO zu &sect;&nbsp;146a. Das ist bei
+  nachdenkenden Gästen nicht einzuhalten, ohne künstliche Updates zu erzeugen. Jede Fehlbedienung und jede
+  Meinungsänderung würde zudem als signierter Vorgang (inkl. Transaktionsnummer und Signaturzähler) in das
+  TSE-Protokoll gelangen, obwohl kein Geschäftsvorfall stattgefunden hat. Die Zahl gleichzeitig offener
+  Transaktionen ist auf der TSE-Hardware außerdem begrenzt.</li>
+  <li><strong>Korrekturen nach dem Absenden</strong> (Storno einer Position) sind ein eigener, neuer Vorgang und
+  werden als eigene <code>Bestellung-V1</code>-Transaktion signiert, nicht als Update der ursprünglichen
+  Bestellung. Eine bereits signierte Bestellung wird nie verändert.</li>
+  <li><strong><code>AVBelegabbruch</code></strong> kennzeichnet nach dem DSFinV-K Vorgänge, die <em>nach
+  Transaktionsbeginn</em> abgebrochen werden. Weil eine Bestellung in einem Zug gestartet und beendet wird, gibt es
+  im Normalbetrieb nichts abzubrechen; der Abbruch bleibt dem Wartungs-Task und dem Fehlerfall vorbehalten
+  (siehe <a href="#s10">Abschnitt&nbsp;10</a>).</li>
+</ol>
+
+<h4>Was eine Prüferin oder ein Prüfer in den Daten sieht</h4>
+
+<ul>
+  <li>Je abgesendeter Bestellrunde eine <code>Bestellung-V1</code>-Transaktion, deren Start- und Finish-Logzeit
+  praktisch zusammenfallen; <strong>keine</strong> Update-Einträge.</li>
+  <li>Je Bezahlvorgang (auch je Teilrechnung) eine <code>Kassenbeleg-V1</code>-Transaktion, die erst beim Bezahlen
+  beginnt. Der Beginn der Bestellung ergibt sich aus dem Startzeitpunkt der ersten Bestellung auf dem Beleg und
+  aus <code>ABRECHNUNGSKREIS</code> im DSFinV-K-Export.</li>
+  <li>Keine signierten Einträge für Positionen, die vor dem Absenden wieder entfernt wurden.</li>
+</ul>
+
+<h4>Offene Auslegungsfrage</h4>
+
+<p>Der AEAO zu &sect;&nbsp;146a verlangt, dass die Aufzeichnung &bdquo;unmittelbar mit Beginn&ldquo; eines Vorgangs
+einsetzt. Ob bei einer Bestellung der Beginn des Vorgangs der erste Tipp oder das Absenden ist, regelt das
+DSFinV-K nicht ausdrücklich; die obige Auslegung (Absenden) ist die des Betreibers und nicht abschließend
+geklärt. Sie sollte mit der Steuerberatung bzw. durch eine verbindliche Auskunft des Finanzamts bestätigt
+werden. Der Entwurf der DSFinV-K&nbsp;3.0 macht die Absicherung von
+Bestellvorgängen verpflichtend; die Start/Finish-Form je Bestellrunde bleibt dafür geeignet.</p>
+
+<h3>Operation-Pattern</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>pos-tse/.../operations/signing/BaseTseSignOperation.kt</code></p></blockquote>
+
+<p>Alle Signatur-Operationen erben von <code>BaseTseSignOperation&lt;T&gt;</code>:</p>
+
+<pre><code>BaseTseSignOperation&lt;T&gt;
+│
+├── execute(tseStatus)
+│   ├── Verbindung prüfen (nur NORMAL-Modus)
+│   ├── Command → processType parsen (via TseSignOperation enum)
+│   ├── Lock erwerben (executeWithLock)
+│   └── dispatchByMode()
+│       ├── SIMULATION → performSimulated()
+│       ├── NORMAL → performReal()
+│       └── DISABLED → Error
+│
+├── Hilfs-Methoden:
+│   ├── generateSimulatedSignResult()  — Mock-Daten
+│   ├── buildRealSignResult()          — Echte Daten aus WormAPI
+│   └── validateProcessData()          — DSFinV-K Format prüfen
+│
+└── Subklassen:
+    ├── TseSignOperation              — Quick-Sign (Start + Finish)
+    ├── TseTransactionStartOperation  — Nur Start
+    ├── TseTransactionUpdateOperation — Nur Update
+    └── TseTransactionFinishOperation — Nur Finish</code></pre>
+
+<h3>SignResultDto (Signatur-Ergebnis)</h3>
+
+<pre><code>@Serializable
+data class SignResultDto(
+    val success: Boolean,           // true bei erfolgreicher Signierung
+    val processType: String,        // z.B. "Kassenbeleg-V1"
+    val transactionNumber: Long,    // TSE-Transaktionsnummer (sequentiell)
+    val signature: String,          // Base64-kodierte ECDSA-Signatur
+    val timestamp: Long,            // Unix-Zeitstempel der Signierung
+    val serialNumber: String,       // TSE-Seriennummer (Base64)
+    val signatureCounter: Long,     // Laufender Signaturzähler
+    val signatureAlgorithm: String, // z.B. "ecdsa-plain-SHA384"
+    val publicKey: String,          // Öffentlicher Schlüssel (Base64)
+    val certificate: String         // Zertifikat (Base64)
+)</code></pre>
+
+<h3>Prozessdaten-Validierung</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>pos-tse/.../utils/ProcessDataValidator.kt</code></p></blockquote>
+
+<p>Das DSFinV-K Format f&uuml;r Prozessdaten:</p>
+
+<pre><code>Typ^MwSt-Beträge^Gesamtbetrag:Zahlungsart</code></pre>
+
+<p><strong>Beispiele:</strong></p>
+<ul>
+  <li>Barzahlung: <code>Beleg^100.00_0.00_0.00_0.00_0.00^100.00:Bar</code></li>
+  <li>Kartenzahlung: <code>Beleg^50.00_0.00_0.00_0.00_0.00^50.00:Karte</code></li>
+  <li>Belegabbruch: <code>AVBelegabbruch^0.00_0.00_0.00_0.00_0.00^</code></li>
+</ul>
+
+<p><strong>MwSt-Felder</strong> (5 Werte, getrennt durch <code>_</code>):</p>
+
+<table>
+<tr><th>Index</th><th>Steuersatz</th><th>Beschreibung</th></tr>
+<tr><td>0</td><td>19%</td><td>Allgemeiner Steuersatz</td></tr>
+<tr><td>1</td><td>7%</td><td>Erm&auml;&szlig;igter Steuersatz</td></tr>
+<tr><td>2</td><td>10,7%</td><td>Sondersteuersatz</td></tr>
+<tr><td>3</td><td>5,5%</td><td>Sondersteuersatz</td></tr>
+<tr><td>4</td><td>0%</td><td>Steuerfrei / Mehrzweckgutschein</td></tr>
+</table>
+
+<h3>TANR zuerst festhalten (seit 2026-09)</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>pos-server/.../features/tse/data/service/TseVorgangSigner.kt</code></p></blockquote>
+
+<p><code>TseVorgangSigner</code> ist die einzige Stelle, die eine <code>tse_transaction</code>-Zeile eines
+Vorgangs schreibt. Im NORMAL-Modus l&auml;uft ein Signiervorgang in vier Schritten, ohne dass w&auml;hrend
+der Ger&auml;tearbeit eine Datenbank-Transaktion offen bleibt:</p>
+
+<ol>
+  <li>Die Transaktion wird auf der TSE gestartet.</li>
+  <li>Die Zeile wird sofort als <code>STARTED</code> committet &ndash; mit Transaktionsnummer (TANR),
+  Referenz und Entit&auml;tstyp.</li>
+  <li>Die Transaktion wird auf der TSE abgeschlossen.</li>
+  <li>Die Signatur wird committet, Status <code>FINISHED</code>.</li>
+</ol>
+
+<p>Ein Retry findet die <code>STARTED</code>-Zeile &uuml;ber (<code>reference_id</code>,
+<code>entity_type</code>) und beendet dieselbe TANR &ndash; ein fehlgeschlagener Schreibvorgang kann
+dadurch keine Signatur mehr wegwerfen.</p>
+
+<p>Hat das Ger&auml;t diese TANR bereits geschlossen (Antwort verloren, oder die Wartungsaufgabe hat sie
+nach 60 Minuten als Belegabbruch beendet), wird die Zeile als <code>SUPERSEDED</code> markiert und der
+Vorgang unter einer neuen TANR erneut signiert &ndash; die Wiederholung, die BSI TR-03153-1 &sect;9.4
+vorschreibt.</p>
+
+<p>Der SIMULATION-Modus signiert weiterhin in einem Schritt (Quick-Sign): eine simulierte
+Transaktion wird nach Sekunden durchnummeriert, sodass zwei Verk&auml;ufe innerhalb derselben Sekunde
+bei einem Zwei-Schritt-Ablauf auf (Seriennummer, TANR) kollidieren w&uuml;rden. Simulationszeilen tragen
+kein fiskalisches Gewicht.</p>
+
+<p><strong>Verbleibende L&uuml;cke:</strong> Stirbt der Server zwischen dem Start auf dem Ger&auml;t und dem
+ersten Commit, bleibt eine leere Transaktion auf der TSE offen. Die Wartungsaufgabe
+(<code>TseMaintenanceTask</code>, siehe Kapitel 10) schlie&szlig;t sie nach 60 Minuten als
+Belegabbruch.</p>
+
+<hr>
+
+<h2 id="s10">10. Wartungs-Task (TseMaintenanceTask)</h2>
+
+<blockquote><p><strong>Datei:</strong> <code>pos-tse/.../tasks/TseMaintenanceTask.kt</code></p></blockquote>
+
+<h3>&Uuml;berblick</h3>
+
+<p>Die <code>TseMaintenanceTask</code> ist ein Hintergrund-Job, der periodisch die TSE-Gesundheit pr&uuml;ft und erforderliche Wartungsoperationen durchf&uuml;hrt.</p>
+
+<h3>Konfigurationsparameter</h3>
+
+<table>
+<tr><th>Parameter</th><th>Wert</th><th>Beschreibung</th></tr>
+<tr><td><code>CHECK_INTERVAL_SECONDS</code></td><td>600 (10 min)</td><td>Pr&uuml;fintervall</td></tr>
+<tr><td><code>SAFETY_MARGIN_SECONDS</code></td><td>600 (10 min)</td><td>Zeitpuffer vor Deadline</td></tr>
+<tr><td><code>MAX_RETRY_ATTEMPTS</code></td><td>3</td><td>Wiederholungsversuche</td></tr>
+<tr><td><code>RETRY_DELAY_MS</code></td><td>5.000 (5s)</td><td>Wartezeit zwischen Versuchen</td></tr>
+<tr><td><code>ORPHAN_TRANSACTION_TIMEOUT_MS</code></td><td>3.600.000 (60 min)</td><td>Timeout f&uuml;r verwaiste Transaktionen</td></tr>
+</table>
+
+<h3>Wartungs-Schleife</h3>
+
+<pre><code>runMaintenanceLoop()
+│
+├── Initiale Wartungsprüfung sofort beim Start
+│
+└── Endlosschleife (alle 10 Minuten):
+    │
+    ├── 1. Standby/Wake-Erkennung (detectStandbyWake)
+    │   └── Vergleicht tatsächliche vs. erwartete verstrichene Zeit
+    │       └── Schwellwert: 1.5x erwartet UND &gt;= 30 Sekunden
+    │
+    ├── 2. Bei Wake: handleWakeFromStandby()
+    │   ├── Selbsttest (falls nötig)
+    │   └── Zeitabgleich (immer – Systemuhr könnte gedriftet sein)
+    │
+    ├── 3. performMaintenanceCheck()
+    │   ├── TSE-Info abfragen (mit Lock):
+    │   │   ├── certificateExpirationDate prüfen
+    │   │   ├── timeUntilNextSelfTest prüfen
+    │   │   └── timeUntilNextTimeSynchronization prüfen
+    │   │
+    │   ├── Selbsttest (falls &lt;= 600s verbleibend)
+    │   │   └── performSelfTestWithRetry() — max. 3 Versuche
+    │   │
+    │   └── Zeitabgleich (falls &lt;= 600s verbleibend)
+    │       └── performTimeSyncWithRetry() — max. 3 Versuche
+    │
+    └── 4. Verwaiste Transaktionen bereinigen
+        └── cleanupOrphanedTransactions()
+            ├── Alle gestarteten Transaktionen von TSE-Hardware auflisten
+            ├── Neue Transaktionen mit aktuellem Zeitstempel tracken
+            ├── Transaktionen &gt; 60 min offen → mit Belegabbruch abschließen
+            └── ProcessData: "AVBelegabbruch^0.00_0.00_0.00_0.00_0.00^"</code></pre>
+
+<h3>Selbsttest</h3>
+
+<ul>
+  <li><strong>Frequenz</strong>: Mindestens alle 25 Stunden (Swissbit-Anforderung)</li>
+  <li><strong>Dauer</strong>: Bis zu 60 Sekunden</li>
+  <li><strong>Kein Login erforderlich</strong>: Selbsttest kann ohne Admin-Login ausgef&uuml;hrt werden</li>
+  <li><strong>Pr&uuml;fung</strong>: <code>info.timeUntilNextSelfTest()</code> gibt verbleibende Sekunden zur&uuml;ck</li>
+</ul>
+
+<h3>Zeitabgleich</h3>
+
+<ul>
+  <li><strong>Frequenz</strong>: TSE-definiertes Intervall (typisch 24 Stunden)</li>
+  <li><strong>Erfordert</strong>: TimeAdmin-Login + CTSS-Interface aktiv</li>
+  <li><strong>Funktion</strong>: <code>store.tse_updateTime(System.currentTimeMillis() / 1000)</code></li>
+</ul>
+
+<h3>Standby/Wake-Erkennung</h3>
+
+<pre><code>// Vergleich der Wall-Clock-Zeit:
+val expectedElapsed = CHECK_INTERVAL_SECONDS * 1000L  // 600.000ms
+val actualElapsed = currentTime - lastCheckTimestamp    // z.B. 1.200.000ms
+
+// Schwellwert: 1.5x erwartet = 900.000ms
+if (actualElapsed &gt; threshold &amp;&amp; timeJumpSeconds &gt;= 30) {
+    // System war im Standby → Sofortiger Self-Test + Time-Sync
+}</code></pre>
+
+<p><strong>Externe Wake-Benachrichtigung:</strong></p>
+<pre><code>// Kann von D-Bus (Linux) oder System-Events (Windows) aufgerufen werden
+maintenanceTask.notifyWakeFromStandby()</code></pre>
+
+<hr>
+
+<h2 id="s11">11. Integration in den POS-Hauptserver</h2>
+
+<h3>Signierweg (nur im Prozess)</h3>
+
+<blockquote><p><strong>Dateien:</strong> <code>server/.../data/provider/DelegatingTseSignProvider.kt</code>, <code>server/.../data/provider/local/LocalTseSignProvider.kt</code></p></blockquote>
+
+<h4>Signierweg (im Prozess)</h4>
+
+<pre><code>POS-Hauptserver
+┌──────────────────────┐
+│ LocalTseSignProvider │
+│         │            │
+│         ▼            │
+│  TseSignOperation    │──▶ WormAPI (JNI) ──▶ Swissbit TSE
+└──────────────────────┘</code></pre>
+
+<p>Die Signierung l&auml;uft ohne Netzwerk-Hop direkt &uuml;ber die Operations-Klassen des
+Treibermoduls.</p>
+
+<p>Die <code>DelegatingTseSignProvider</code> und <code>DelegatingTseAdminProvider</code> erm&ouml;glichen den Wechsel zwischen aktivem Treiber und inaktiver Variante <strong>ohne Neustart</strong> &ndash; etwa wenn die Swissbit-SDK fehlt:</p>
+
+<pre><code>class DelegatingTseSignProvider : TseSignProvider {
+    @Volatile
+    private var delegate: TseSignProvider  // Aktueller Provider
+
+    @Synchronized
+    fun switchDelegate(newDelegate: TseSignProvider) {
+        delegate.close()          // Alten Provider schließen
+        delegate = newDelegate    // Neuen Provider setzen
+    }
+
+    // Alle Methoden delegieren an den aktuellen Provider
+    override suspend fun quickSign(...) = delegate.quickSign(...)
+}</code></pre>
+
+<h3>DI-Module</h3>
+
+<blockquote><p><strong>Dateien:</strong> <code>server/.../di/ServicesModule.kt</code>, <code>server/.../di/ReposModule.kt</code></p></blockquote>
+
+<pre><code>// Repositories
+singleOf(::TseTransactionRepositoryImpl) { bind&lt;TseTransactionRepository&gt;() }
+singleOf(::TseSigningQueueRepositoryImpl) { bind&lt;TseSigningQueueRepository&gt;() }
+
+// Services
+single&lt;TseServiceFactory&gt; { TseServiceFactory(get(), get()) }
+singleOf(::TseConfigurationServiceImpl) { bind&lt;TseConfigurationService&gt;() }
+singleOf(::TseSigningQueueServiceImpl) { bind&lt;TseSigningQueueService&gt;() }
+single { TseSigningRetryService(get()).apply { start() } }  // Startet automatisch</code></pre>
+
+<h3>Rechnungserstellung (BillService)</h3>
+
+<blockquote><p><strong>Integration in:</strong> <code>server/.../features/bill/data/service/BillServiceImpl.kt</code></p></blockquote>
+
+<pre><code>finalizeBill()
+│
+├── TSE-Service von Factory holen
+│   └── tseServiceFactory.getTseService()
+│
+├── Terminal / ClientID ermitteln
+│   └── terminalRepository.findByDeviceId(deviceId)
+│
+├── Prozessdaten aufbauen (DSFinV-K Format)
+│   └── "Beleg^75.33_7.99_0.00_0.00_0.00^83.32:Bar"
+│
+├── TSE-Signierung versuchen
+│   └── tseService.signTransaction(
+│       processType = "Kassenbeleg-V1",
+│       processData = processData,
+│       referenceId = bill.id.toString(),
+│       clientId = clientId
+│   )
+│
+├── Bei Erfolg:
+│   ├── bill.tseSigningStatus = SIGNED
+│   └── bill.tseTransaction = signResult.data
+│
+└── Bei Fehler (TSE nicht erreichbar):
+    ├── bill.tseSigningStatus = QUEUED
+    └── tseSigningQueueService.enqueue(
+        referenceId = bill.id.toString(),
+        entityType = TseEntityType.BILL,
+        processType = "Kassenbeleg-V1",
+        processData = processData,
+        clientId = clientId
+    )</code></pre>
+
+<h3 id="s11-zbon-signer">Signierende Kasse beim Tagesabschluss (seit 2026-10-09)</h3>
+<p><strong>Aussage für die Verfahrensdokumentation:</strong> Die Bargeldbewegungen eines Tagesabschlusses werden von der für die Ladenkasse bestimmten Kasse signiert, unabh&auml;ngig davon, von welchem Ger&auml;t der Abschluss ausgel&ouml;st wird. Die abschlie&szlig;ende Person wird am Z-Bon und im Audit-Protokoll festgehalten.</p>
+<ul>
+<li><strong>Welche Vorg&auml;nge:</strong> Kassendifferenz, Trinkgeld-Auszahlungen, Aufstockung (Geldtransit-Gegenbuchung) und der t&auml;gliche Geldtransit &mdash; Gesch&auml;ftsvorf&auml;lle nach AEAO zu &sect;&nbsp;146a Nr.&nbsp;1.10.2 (u.&nbsp;a. Trinkgeld, Lohnzahlung aus der Kasse, Geldtransit). Sie bleiben TSE-gesichert.</li>
+<li><strong>Wer signiert (<code>ClosingSigner</code>):</strong> (1) ist an der Ladenkasse eine Kasse bestimmt, signiert deren TSE-Client; sie durchl&auml;uft vorher dieselbe Pr&uuml;fung wie jede signierende Kasse (aktiv, fiskalisch, Client im Normalbetrieb angemeldet), sonst <code>409 ZBON_SIGNER_UNAVAILABLE</code>; (2) ist keine bestimmt und wird an einer Kasse abgeschlossen, signiert diese; (3) ist keine bestimmt und der Abschluss kommt von einem Ger&auml;t ohne Kasse (Admin-Panel), lehnt der Server ab: <code>409 ZBON_SIGNER_NOT_DESIGNATED</code>. Die Aufl&ouml;sung geschieht vor dem ersten Schreibzugriff &mdash; bei Ablehnung ist keine Z-Nummer verbraucht und nichts gebucht.</li>
+<li><strong>TSE deaktiviert:</strong> Es wird nichts signiert, daher braucht der Abschluss keine signierende Kasse und kann von jedem Ger&auml;t ausgel&ouml;st werden. Eine bestimmte, aber deaktivierte Kasse wird weiterhin abgelehnt. Die Eintr&auml;ge tragen den Status <code>DISABLED</code>; der Platzhalter-Client <code>TSE-DISABLED</code> wird nie an eine TSE gesendet. Bestellungen und Bons verlangen auch dann eine registrierte Kasse.</li>
+<li><strong>Nur Abschl&uuml;sse mit Bargeldbewegung brauchen einen Signierer:</strong> Z&auml;hlung, Bar-Trinkgeld-Auszahlung, Aufstockung oder ein eingerichteter t&auml;glicher Geldtransit. Ein einfacher Abschluss gelingt von jedem Ger&auml;t.</li>
+<li><strong>Das Z-Bon-Aggregat wird nicht mehr TSE-signiert.</strong> Die Sammelbuchung <code>CASH_SALE</code> (<code>is_zbon_aggregate</code>) tr&auml;gt den Status <code>NOT_APPLICABLE</code> und erzeugt keine TSE-Transaktion. Begr&uuml;ndung: Sie gibt je Steuersatz nur wieder, was jeder Beleg bereits als eigener Kassenbeleg-V1 signiert hat; sie begr&uuml;ndet keinen Gesch&auml;ftsvorfall und ist aus allen DSFinV-K-Verbrauchern ausgeschlossen. Vorg&auml;nge, die f&uuml;r die Schutzziele nicht erforderlich sind, m&uuml;ssen nicht gesichert werden (AEAO zu &sect;&nbsp;146a Nr.&nbsp;1.11.2). Die Zeile selbst bleibt im Kassenbuch &mdash; der Kassensturz-F&auml;higkeit wegen. <strong>Nur vorw&auml;rts wirksam:</strong> bereits signierte Aggregate in der WORM bleiben unver&auml;ndert; im TAR entsteht pro Tag eine Transaktion weniger. Dies ersetzt den Nachtrag vom 05.08.2026, nach dem das Aggregat weiter als <code>SonstigerVorgang</code> signiert wurde.</li>
+<li><strong>DSFinV-K:</strong> <code>TERMINAL_ID</code> (<code>transactions.csv</code>) und <code>TERMINAL_SERIENNR</code> (<code>slaves.csv</code>) werden aus der ClientID der Signatur abgeleitet (Anhang&nbsp;E); eine von der bestimmten Kasse signierte Buchung erscheint daher unter dieser Kasse, genau als w&auml;re der Abschluss dort ausgel&ouml;st worden. Es kommt keine zus&auml;tzliche Kasse hinzu.</li>
+<li><strong>Pr&uuml;fprotokoll:</strong> Die Zeile <code>CREATE_REPORT</code> des Abschlusses nennt neben Mitarbeiter und
+ausl&ouml;sendem Ger&auml;t die signierende ClientID und ihre Herkunft (<code>signingClientId</code>,
+<code>signingClientSource</code>: <code>DESIGNATED_TILL</code>, <code>CALLING_TILL</code>,
+<code>NONE_NO_CASH_MOVEMENTS</code> oder <code>TSE_DISABLED_PLACEHOLDER</code>); Einzelheiten:
+<a href="#aenderungen-v1-1-1">&Auml;nderungen je Version: v1.1.1</a>, Punkt&nbsp;2.</li>
+<li><strong>Festlegen:</strong> <code>PUT /api/v1/kassenbuch/books/{id}/signing-terminal</code> (<code>TERMINAL_MANAGE</code>, nur die fiskalische Ladenkasse, nur Kassen mit Rolle CASHIER); jede &Auml;nderung wird als <code>SET_CASH_BOOK_SIGNING_TERMINAL</code> auditiert. Bedienung: <a href="kap-12-finanzdokumente.html#kap-12-signierende-kasse">Kapitel 12</a>.</li>
+<li><strong>Versionsbezug:</strong> ausgeliefert mit v1.1.1 (10.10.2026). Umstellungszeitpunkt je Installation und
+Pr&uuml;fersicht: <a href="#aenderungen-v1-1-1">&Auml;nderungen je Version: v1.1.1</a>.</li>
+</ul>
+
+<h3 id="s11-beleg">TSE-Daten auf dem Beleg (seit 2026-10, kein QR-Code)</h3>
+
+<p>Belege tragen die TSE-Daten als <strong>lesbaren Text</strong> nach AEAO zu &sect;&nbsp;146a AO
+Nr.&nbsp;2.4.4 (BMF 30.06.2023) &ndash; auf dem Bon (ESC/POS), dem PDF-Beleg und der A4-Rechnung zu einem
+Beleg. Der QR-Code nach DSFinV-K Anhang&nbsp;I wird <strong>nicht mehr gedruckt</strong>; sein Inhalt
+wird weiterhin gebildet (<code>tseQrCodeContent</code>) und bei der Rechnung als
+<code>tse_qr_code_payload</code> eingefroren. Feldliste und Reihenfolge stehen an genau einer Stelle
+(<code>ecr/receipt/src/main/kotlin/org/example/project/utils/formatter/TseReceiptText.kt</code>):</p>
+<table>
+<tr><th>Zeile</th><th>Inhalt</th><th>Quelle</th></tr>
+<tr><td><code>TSE-Transaktion</code></td><td>Transaktionsnummer (TANR)</td><td>QR-Feld 5</td></tr>
+<tr><td><code>Start (UTC)</code></td><td>Vorgangsbeginn, StartTransaction-Log-Time</td><td>QR-Feld 7, byte-gleich</td></tr>
+<tr><td><code>Ende (UTC)</code></td><td>Vorgangsende, FinishTransaction-Log-Time</td><td>QR-Feld 8, byte-gleich</td></tr>
+<tr><td><code>Signaturz&auml;hler</code></td><td>Signaturz&auml;hler der FinishTransaction</td><td>QR-Feld 6</td></tr>
+<tr><td><code>TSE-Seriennr.</code></td><td>Seriennummer der TSE, 64-stellig hexadezimal</td><td>wie <code>TSE_SERIAL</code> in <code>tse.csv</code></td></tr>
+<tr><td><code>Kassen-Seriennr.</code></td><td>Seriennummer des Aufzeichnungssystems = ClientID der Kasse</td><td>QR-Feld 2 (<code>kassen-seriennummer</code>)</td></tr>
+<tr><td><code>Signatur</code></td><td>Pr&uuml;fwert, vollst&auml;ndige Base64-Signatur</td><td>QR-Feld 11</td></tr>
+</table>
+<ul>
+<li><strong>Unver&auml;ndert:</strong> Die AEAO verbietet &bdquo;nachtr&auml;gliches Runden, Abschneiden oder
+Ver&auml;ndern&ldquo;. Ein Wert, der nicht in die Zeile passt (Signatur, Seriennummer), wird an der
+Papierbreite <em>geschnitten</em> &ndash; ohne Trennzeichen, ohne ausgelassene Zeichen; die Zeilen
+aneinandergeh&auml;ngt ergeben wieder den gespeicherten Wert.</li>
+<li><strong>Zeiten in UTC:</strong> Die TSE liefert Unix-Zeit; die AEAO l&auml;sst die Ausgabe als UTC ohne
+zus&auml;tzliche Zeitzone ausdr&uuml;cklich zu. Gedruckt wird die ISO-Form
+<code>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</code>, die auch der QR-Code trug &ndash; erzeugt von derselben
+Funktion (<code>DsfinvkQrCodeGenerator.formatTimestamp</code>) aus denselben Feldern.
+Wortlaut der Regel (AEAO zu &sect;&nbsp;146a AO, Nr.&nbsp;2.4.4, letzter Absatz vor dem QR-Code-Satz;
+BMF-Schreiben vom 30.06.2023): &bdquo;Nachtr&auml;gliches Runden, Abschneiden oder Ver&auml;ndern dieser Daten
+ist unzul&auml;ssig. Es wird nicht beanstandet, wenn ein als UnixTime gelieferter Zeitstempel als Coordinated
+Universal Time (UTC) ohne zus&auml;tzliche Zeitzone ausgegeben wird.&ldquo; Die Kasse zeigt in den TSE-Daten eines
+Belegs beides: <em>Prozessbeginn/-ende (Ortszeit)</em> in der <strong>Ortszeit des Ger&auml;ts</strong>
+(Formatierung <code>formatInstantShortDateTimeSeconds</code>; sie weicht von den gedruckten UTC-Zeiten um den
+Zeitzonenunterschied ab, im Winter 1&nbsp;Stunde, im Sommer 2&nbsp;Stunden) und darunter
+<em>Prozessbeginn/-ende (UTC)</em> mit den unver&auml;nderten QR-Feldern&nbsp;7/8, byte-gleich zum Beleg. Die
+UTC-Werte bleiben ma&szlig;geblich.</li>
+<li><strong>Kassen-Seriennummer:</strong> die ClientID, unter der die TSE den Vorgang protokolliert hat
+(&sect;&nbsp;2 Satz&nbsp;2 Nr.&nbsp;8 KassenSichV; AEAO Nr.&nbsp;2.4.4 Nr.&nbsp;6 verlangt die
+<em>protokollierte</em> Seriennummer) &ndash; derselbe Wert wie im QR-Code, nicht
+<code>KASSE_SERIENNR</code> aus der Kassenmeldung.</li>
+<li><strong>Kein Wert ohne Signatur:</strong> Fehlt ein TSE-Feld, oder wurde im Simulationsmodus signiert,
+druckt der Beleg keine TSE-Daten (Bon: nichts; PDF-Beleg und Rechnung: &bdquo;nicht verf&uuml;gbar
+(Ausfall)&ldquo;). Ein nachzusignierender Beleg druckt den Nachsignierungs-Hinweis.</li>
+<li><strong>Erste Bestellung</strong> (Erleichterung DSFinV-K Tz.&nbsp;2.7.2) bleibt eine eigene Zeile in
+Ortszeit.</li>
+<li><strong>Rechnung:</strong> Alle Werte au&szlig;er der ClientID kommen aus den strukturierten
+TSE-Spalten der Rechnung; die ClientID aus dem eingefrorenen <code>tse_qr_code_payload</code>. Eine
+Rechnung ohne Payload (Simulationsmodus) druckt die Ausfall-Zeile; ein vor dieser &Auml;nderung
+angelegter Entwurf erh&auml;lt den Payload beim Ausstellen aus derselben Transaktion (gleiche TANR).</li>
+</ul>
+
+<h3>TSE Signing Queue (Nachsignieren)</h3>
+
+<blockquote><p><strong>Dateien:</strong> <code>server/.../data/service/TseSigningQueueServiceImpl.kt</code>, <code>server/.../data/service/TseSigningRetryService.kt</code></p></blockquote>
+
+<p>Das &bdquo;Nachsignieren&ldquo; ist ein Mechanismus f&uuml;r den Fall, dass die TSE vor&uuml;bergehend nicht erreichbar ist:</p>
+
+<pre><code>┌─────────────────────────────────────────────────────────────────────────┐
+│                    TSE Signing Queue ("Nachsignieren")                   │
+│                                                                         │
+│  Neue Rechnung ──▶ TSE-Signierung versuchen                           │
+│                        │                                                │
+│                   ┌────┴────┐                                          │
+│                   ▼         ▼                                          │
+│              Erfolg      Fehler                                        │
+│               │           │                                             │
+│       SIGNED ─┘    Einreihen in Queue                                  │
+│                       │                                                 │
+│              ┌────────▼────────┐                                       │
+│              │ tse_signing_queue │                                      │
+│              │                  │                                       │
+│              │ Status: QUEUED   │                                       │
+│              │ retryCount: 0    │                                       │
+│              │ nextRetryAt: +1m │◀─── Exponentieller Backoff           │
+│              └────────┬─────────┘     1m → 2m → 4m → 5m (max)        │
+│                       │                                                 │
+│              ┌────────▼──────────┐                                     │
+│              │ TseSigningRetry-  │  Läuft alle 60 Sekunden            │
+│              │ Service           │  Verarbeitet bis zu 50 Einträge    │
+│              │                   │                                     │
+│              │ processBatch() ───┼──▶ TSE-Signierung erneut versuchen │
+│              └───────────────────┘                                     │
+│                       │                                                 │
+│                  ┌────┴────┐                                          │
+│                  ▼         ▼                                          │
+│             Erfolg      Fehler (retries &lt; max)                        │
+│              │           │                                              │
+│       SIGNED ─┘    QUEUED (nächster Versuch)                          │
+│                                                                         │
+│              Fehler (retries &gt;= maxRetries=10):                         │
+│              └── FAILED (manuelles Eingreifen nötig)                   │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘</code></pre>
+
+<p><strong>TseSigningRetryService:</strong></p>
+<ul>
+  <li>Singleton mit automatischem Start</li>
+  <li>Periodische Ausf&uuml;hrung alle 60 Sekunden</li>
+  <li>Initialer Delay: 60 Sekunden (Server-Startup)</li>
+  <li>Batch-Verarbeitung: bis zu 50 Eintr&auml;ge pro Zyklus</li>
+  <li>Pr&uuml;ft TSE-Verf&uuml;gbarkeit vor Verarbeitung</li>
+  <li>Pause/Resume-Funktion f&uuml;r Wartungsfenster</li>
+</ul>
+
+<h3 id="s11-replug">TSE abgezogen und wieder eingesteckt (seit 2026-10-04)</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>server/.../data/provider/local/TsePowerLossRecovery.kt</code></p></blockquote>
+
+<p>Solange die TSE abgezogen ist, laufen Belege wie vorgesehen ins Nachsignieren (<code>PENDING</code>/<code>QUEUED</code>).
+Nach dem Wiedereinstecken findet der Gesundheits-Takt die TSE innerhalb von etwa 10&nbsp;Sekunden wieder
+(<code>LocalTseLifecycleManager.reacquireIfLost</code>). Antwortet sie, erh&auml;lt der Treiber dabei dieselbe
+Konfiguration wie beim Serverstart: den TSE-Client (<code>TseDriverClient</code>: die erste aktive, bei der TSE
+registrierte Kasse) und die gespeicherte TimeAdmin-PIN. Das gilt auch f&uuml;r eine TSE, die erst bei laufendem Server
+eingesteckt wird &ndash; der Start hat dann keine TSE gefunden und den Treiber nicht konfiguriert (seit v1.1.2, siehe
+<a href="#aenderungen-v1-1-2">&Auml;nderungen v1.1.2</a>). Eine Swissbit-TSE, die stromlos war, meldet danach
+aber <code>passedSelfTest=false</code> und <code>validTime=false</code> &ndash; und weil der Nachsignier-Dienst nur
+bei einer <em>gesunden</em> TSE signiert, blieb die Warteschlange bisher stehen, bis ein Bediener
+Selbsttest und Zeitabgleich von Hand ausl&ouml;ste (gefunden an der echten TSE, F50).</p>
+
+<p>Jetzt holt der Server das selbst nach. Jede Gesundheitspr&uuml;fung (<code>checkHealth</code>, also auch die
+des Nachsignier-Dienstes) gibt ihr Ergebnis an <code>TsePowerLossRecovery</code>. Sie startet, wenn
+<strong>alle</strong> Bedingungen gelten: Modus NORMAL, die TSE antwortet, sie ist in Betrieb genommen
+(<code>initialized=true</code>), Selbsttest oder Zeit fehlen, und keine andere Wartung l&auml;uft. Dann:</p>
+
+<ol>
+  <li>Selbsttest &ndash; nur wenn <code>passedSelfTest=false</code> (Wartungs-Markierung <code>recovery-selftest</code>),
+    f&uuml;r die erste aktive, bei der TSE registrierte Kasse (<code>LocalTseSelfTest</code>, derselbe Weg wie der Knopf
+    &bdquo;Selbsttest&ldquo;; TSE&nbsp;2.0 braucht keinen Client),</li>
+  <li>Zeitabgleich als TimeAdmin mit der gespeicherten TimeAdmin-PIN (<code>recovery-timesync</code>).</li>
+</ol>
+
+<p>Gelingt beides und lief noch keine zeitgesteuerte Wartung (Server ohne TSE gestartet), startet sie jetzt
+(<code>TSE maintenance task started after recovering a TSE attached at runtime</code>). Erst nach dem Erfolg: Der
+Zeitabgleich hat die TimeAdmin-PIN dann gerade best&auml;tigt.</p>
+
+<p>Es sind dieselben Operationen wie <code>POST /api/tse/selftest</code> und <code>/updatetime</code>, auf dem
+TSE-Thread serialisiert und im Hintergrund ausgef&uuml;hrt (ein Selbsttest dauert ~14&nbsp;s, bis zu 60&nbsp;s).
+W&auml;hrenddessen meldet die TSE den Zustand <code>MAINTENANCE</code>. Im Log steht danach
+<code>TSE recovered after power loss: self-test + time update</code>; der n&auml;chste Takt sieht eine gesunde
+TSE und die Warteschlange l&auml;uft ab. Die Admin-PIN wird <strong>nie</strong> verwendet.</p>
+
+<ul>
+  <li><strong>Eine zur Zeit:</strong> l&auml;uft bereits eine Wiederherstellung, startet keine zweite.</li>
+  <li><strong>Abstand:</strong> h&ouml;chstens ein Versuch pro 60&nbsp;s; scheitert er, folgt der n&auml;chste fr&uuml;hestens nach 60&nbsp;s.</li>
+  <li><strong>Keine registrierte Kasse (TSE&nbsp;1.x):</strong> Der Selbsttest wird abgelehnt, bevor die TSE angesprochen
+    wird, mit dem Hinweis, eine Kasse bei der TSE zu registrieren (Ger&auml;te &rarr; Terminals). Es wird <em>kein</em>
+    Ersatz-Client verwendet: eine nicht registrierte Kasse weist die TSE mit <code>WORM_ERROR_CLIENT_NOT_REGISTERED</code>
+    ab, und der Treiber behandelt das als Hardwarefehler. Die Automatik versucht es nach 60&nbsp;s erneut; nach der
+    Registrierung gelingt der n&auml;chste Versuch.</li>
+  <li><strong>Abgewiesene TimeAdmin-PIN:</strong> keine weiteren Versuche (Schutz vor PIN-Sperre), einmalig WARN im Log.
+    TimeAdmin-PIN in der TSE-Konfiguration pr&uuml;fen, dann Selbsttest und Zeitabgleich in den TSE-Einstellungen
+    ausl&ouml;sen. Sobald die TSE wieder gesund ist, ist die Automatik wieder scharf.</li>
+</ul>
+
+<div class="hint"><p><strong>Voraussetzung: das Betriebssystem muss die TSE wieder einh&auml;ngen.</strong>
+Der Server findet die TSE nur unter einem Mount-Punkt (siehe <a href="#s4">Hardware-Erkennung</a>). Auf
+einem Linux-System ohne Desktop-Sitzung h&auml;ngt oft niemand den Stick automatisch ein &ndash; dann bleibt die
+TSE nach dem Wiedereinstecken unsichtbar und die Belege bleiben im Nachsignieren. Den Stick dort fest einh&auml;ngen,
+z.&nbsp;B. per <code>/etc/fstab</code>-Eintrag mit <code>nofail</code> (und <code>x-systemd.automount</code>) &uuml;ber die
+Dateisystem-UUID oder per udev-Regel, sodass er nach jedem Einstecken unter demselben Pfad erscheint.
+Das Einrichtungsskript <code>provision-node.sh</code> (siehe <a href="kap-02-ersteinrichtung.html#kap-02-kassenrechner">Kapitel 02</a>)
+richtet diesen Eintrag selbst ein: <code>LABEL=SWISSBIT</code> wird unter <code>/media/pos/SWISSBIT</code> eingeh&auml;ngt,
+mit <code>nofail</code>, <code>x-systemd.automount</code> und <code>x-systemd.device-bound</code> (beim Abziehen wird
+automatisch ausgeh&auml;ngt, auch wenn noch eine Datei offen ist), im Besitz des Dienstkontos <code>pos</code>.</p></div>
+
+<h3>Nachsignierungs-Nachweis (<code>tse_late_signing</code>)</h3>
+
+<p>Jeder Vorgang, der nicht sofort signiert werden konnte, erh&auml;lt beim Einreihen einen
+dauerhaften Nachweis: <strong>warum</strong> (Grund-Code und Fehlertext zum Zeitpunkt des Ausfalls)
+und <strong>seit wann</strong>. Wird der Vorgang sp&auml;ter signiert, wird der Zeitpunkt der
+Nachsignierung eingetragen; bricht ein Bediener die Nachsignierung ab, wird auch das festgehalten.
+Der Nachweis wird von der Queue-Bereinigung <strong>nie</strong> gel&ouml;scht &ndash; ein nachsignierter
+Vorgang bleibt damit von einem sofort signierten unterscheidbar (Dokumentationspflicht bei
+TSE-Ausfall, AEAO zu &sect; 146a).</p>
+
+<table>
+<tr><th>Grund-Code</th><th>Bedeutung</th></tr>
+<tr><td><code>TSE_UNAVAILABLE</code></td><td>TSE nicht erreichbar (Hardware fehlt, Mount-Point fehlt, keine Verbindung)</td></tr>
+<tr><td><code>TSE_ERROR</code></td><td>Die TSE hat mit einem Fehler geantwortet</td></tr>
+<tr><td><code>PENDING_SWEEP</code></td><td>Unsigniert vorgefunden und vom Sweeper eingereiht</td></tr>
+<tr><td><code>SIMULATED_WHILE_NORMAL</code></td><td>Neu eingereiht, weil der Simulator trotz NORMAL-Modus signiert hatte</td></tr>
+<tr><td><code>UNKNOWN_HISTORIC</code></td><td>Vor Version 1.1.0 eingereiht; der urspr&uuml;ngliche Grund wurde nicht erfasst</td></tr>
+<tr><td><code>TSE_NOT_OPERATIONAL</code></td><td>TSE nicht betriebsbereit: Die TSE war verbunden und hat geantwortet, war
+aber nicht signierbereit (nicht in Betrieb genommen, au&szlig;er Betrieb, Client nicht registriert,
+Zertifikat abgelaufen, PIN/PUK-Wechsel ausstehend)</td></tr>
+</table>
+
+<p><strong>Sichtbarkeit:</strong> Der Beleg druckt w&auml;hrend der Wartezeit
+&bdquo;TSE nicht erreichbar &ndash; Beleg wird nachsigniert&ldquo; mit dem Grund, nach der Nachsignierung
+&bdquo;Nachsigniert am &hellip;&ldquo; (zus&auml;tzlich zu den TSE-Daten, siehe
+<a href="#s11-beleg">TSE-Daten auf dem Beleg</a>). Die Beleg- und
+Kassenbuch-Detailansichten in Kasse und Backoffice zeigen Status, Grund und Einreihungszeit.
+Listenansichten zeigen ihn nicht.</p>
+
+<p><strong>DSFinV-K:</strong> <code>TSE_TA_FEHLER</code> (Freitext f&uuml;r Probleme zwischen
+Aufzeichnungssystem und TSE, max. 200 Zeichen) dokumentiert die Nachsignierung nach AEAO zu
+&sect;&nbsp;146a Nr.&nbsp;1.14.1 (Zeitpunkt und Ursache des Ausfalls):</p>
+<ul>
+<li>w&auml;hrend der Wartezeit: &bdquo;TSE-Signierung ausstehend (Nachsignierung) &ndash; TSE nicht erreichbar
+seit 19.09.2026 18:23:49 (&lt;Fehlertext&gt;)&ldquo;;</li>
+<li>nach der Nachsignierung: &bdquo;Nachsigniert am 19.09.2026 18:40:02 &ndash; TSE nicht erreichbar seit
+19.09.2026 18:23:49 (&lt;Fehlertext&gt;)&ldquo; &ndash; obwohl der Vorgang jetzt eine g&uuml;ltige Signatur tr&auml;gt;</li>
+<li>sofort signierte Vorg&auml;nge: leer; Vorg&auml;nge ohne Nachweis (vor Version 1.1.0 bereinigt): der bisherige Text ohne Zusatz.</li>
+</ul>
+<p>Gilt f&uuml;r Belege (auch die Neubuchung eines Zahlartwechsels), Kassenbuch-Buchungen, Bestellungen und Stornos. Die
+Belegkennzeichnung (&bdquo;TSE nicht erreichbar &ndash; Beleg wird nachsigniert&ldquo;) entspricht AEAO
+Nr.&nbsp;1.14.2: der Ausfall muss auf dem Beleg durch die fehlende Transaktionsnummer oder eine
+eindeutige Kennzeichnung erkennbar sein; Datum und Uhrzeit stammen dann aus der Kasse (Nr.&nbsp;1.14.3).</p>
+
+<p>Bestandsdaten: Die Migration V82 &uuml;bernimmt alle noch vorhandenen Queue-Eintr&auml;ge mit Grund
+<code>UNKNOWN_HISTORIC</code>. Bereits bereinigte Queue-Eintr&auml;ge lassen sich nicht wiederherstellen.</p>
+
+<h3>Priorit&auml;ten in der Queue</h3>
+
+<p>Die Warteschlange wird in der Reihenfolge abgearbeitet, in der die Vorg&auml;nge entstanden sind
+(&auml;lteste zuerst). F&auml;llt die TSE w&auml;hrend eines Durchlaufs aus, endet der Durchlauf; die
+&uuml;brigen Eintr&auml;ge behalten ihren Platz und verbrauchen keinen Wiederholungsversuch. Die Spalte
+<code>priority</code> wird weiter geschrieben, aber nicht mehr zur Sortierung verwendet.</p>
+
+<h3>Routes im Hauptserver</h3>
+
+<h4>TseAdminRoutes (<code>/api/tse/*</code>) &mdash; JWT + Befugnis <code>TSE_ADMIN</code></h4>
+
+<blockquote><p><strong>Datei:</strong> <code>server/.../domain/routes/TseAdminRoutes.kt</code></p></blockquote>
+
+<p>Spalte &bdquo;Admin-PIN&ldquo;: <em>ja</em> = erfordert die entsperrte Administration, sonst HTTP&nbsp;423; <em>nein</em> = l&auml;uft ohne Admin-PIN; &ndash; = keine TSE-Anmeldung beteiligt.</p>
+
+<table>
+<tr><th>Endpoint</th><th>Methode</th><th>Beschreibung</th><th>Admin-PIN</th></tr>
+<tr><td><code>/api/tse/config</code></td><td>GET / PUT</td><td>TSE-Konfiguration abrufen / aktualisieren (Zugangsdaten werden nie zur&uuml;ckgegeben)</td><td>&ndash;</td></tr>
+<tr><td><code>/api/tse/status</code></td><td>GET</td><td>TSE-Status</td><td>&ndash;</td></tr>
+<tr><td><code>/api/tse/info</code></td><td>GET</td><td>Detaillierte TSE-Informationen</td><td>nein</td></tr>
+<tr><td><code>/api/tse/health</code></td><td>GET</td><td>Health-Check; <code>certificateExpirationDate</code> wie bei <code>/api/tse/info</code> (seit 2026-10-04, vorher stets 0; 0 = unbekannt)</td><td>&ndash;</td></tr>
+<tr><td><code>/api/tse/flashhealth</code></td><td>GET</td><td>Flash-Speicher Gesundheit</td><td>nein</td></tr>
+<tr><td><code>/api/tse/ping</code></td><td>GET</td><td>Erreichbarkeit der TSE und Vorhandensein des Swissbit-SDK</td><td>&ndash;</td></tr>
+<tr><td><code>/api/tse/selftest</code></td><td>POST</td><td>Selbsttest durchf&uuml;hren</td><td>nein</td></tr>
+<tr><td><code>/api/tse/updatetime</code></td><td>POST</td><td>Zeit synchronisieren (als TimeAdmin)</td><td>nein</td></tr>
+<tr><td><code>/api/tse/setup</code></td><td>POST</td><td>TSE in Betrieb nehmen (Admin-PIN, PUK, Seed im Request; optional <code>terminalId</code> des ersten TSE-Clients)</td><td>im Request</td></tr>
+<tr><td><code>/api/tse/admin/unlock</code></td><td>POST</td><td>Administration entsperren (Admin-PIN nur im Arbeitsspeicher)</td><td>im Request</td></tr>
+<tr><td><code>/api/tse/admin/lock</code></td><td>POST</td><td>Administration sperren, Admin an der TSE abmelden</td><td>&ndash;</td></tr>
+<tr><td><code>/api/tse/admin/status</code></td><td>GET</td><td>Gesperrt/entsperrt und Leerlauf-Timeout; verl&auml;ngert die Sitzung nicht</td><td>&ndash;</td></tr>
+<tr><td><code>/api/tse/factory-reset</code></td><td>POST</td><td>Werksreset (nur Entwicklungs-Firmware)</td><td>nein</td></tr>
+<tr><td><code>/api/tse/restart</code></td><td>POST</td><td>TSE-Treiber neu initialisieren</td><td>&ndash;</td></tr>
+<tr><td><code>/api/tse/decommission</code></td><td>POST</td><td>Au&szlig;erbetriebnahme (irreversibel)</td><td>ja</td></tr>
+<tr><td><code>/api/tse/csp-export/disable</code></td><td>POST</td><td>Export deaktivieren, falls CSP-Test fehlschl&auml;gt</td><td>ja</td></tr>
+<tr><td><code>/api/tse/firmware-check</code></td><td>GET</td><td>Firmware-Update pr&uuml;fen</td><td>nein</td></tr>
+<tr><td><code>/api/tse/firmware-apply-bundled</code></td><td>POST</td><td>Geb&uuml;ndelte Firmware anwenden</td><td>ja</td></tr>
+<tr><td><code>/api/tse/export/full</code></td><td>POST</td><td>Vollst&auml;ndiger TAR-Export</td><td>nein</td></tr>
+<tr><td><code>/api/tse/export/incremental</code></td><td>POST</td><td>Inkrementeller Export</td><td>nein</td></tr>
+<tr><td><code>/api/tse/export/time-filtered</code></td><td>POST</td><td>Zeitgefilterter Export</td><td>nein</td></tr>
+<tr><td><code>/api/tse/export/transaction-filtered</code></td><td>POST</td><td>Transaktionsgefilterter Export</td><td>nein</td></tr>
+<tr><td><code>/api/tse/export/lcm</code></td><td>POST</td><td>LCM-Diagnosedaten</td><td>nein</td></tr>
+<tr><td><code>/api/tse/export/size</code></td><td>GET</td><td>Export-Gr&ouml;&szlig;e berechnen</td><td>nein</td></tr>
+<tr><td><code>/api/tse/export</code></td><td>DELETE</td><td>Exportieren und l&ouml;schen: Archiv schreiben, dann TSE-Speicher l&ouml;schen</td><td>ja</td></tr>
+<tr><td><code>/api/tse/archives</code></td><td>POST</td><td>Vorhandenes TSE-Archiv im Archivregister erfassen (&bdquo;Archiv registrieren&ldquo;)</td><td>nein</td></tr>
+<tr><td><code>/api/tse/verify</code></td><td>POST</td><td>Exportdatei pr&uuml;fen (AGD &sect;5.2)</td><td>&ndash;</td></tr>
+<tr><td><code>/api/tse/findings</code></td><td>GET</td><td>TANR-Befunde (Kapitel 17)</td><td>&ndash;</td></tr>
+<tr><td><code>/api/tse/explanations</code></td><td>POST</td><td>Erl&auml;uterung zu Befunden erfassen</td><td>&ndash;</td></tr>
+<tr><td><code>/api/tse/entries/browse</code></td><td>POST</td><td>Protokolleintr&auml;ge durchsuchen</td><td>nein</td></tr>
+<tr><td><code>/api/tse/clients</code></td><td>GET</td><td>Registrierte Clients auflisten</td><td>ja</td></tr>
+<tr><td><code>/api/tse/transactions</code></td><td>GET</td><td>Offene Transaktionen auflisten</td><td>nein</td></tr>
+<tr><td><code>/api/tse/last-transaction</code></td><td>GET</td><td>Letzte Transaktion</td><td>nein</td></tr>
+</table>
+
+<h4>TseSigningQueueRoutes (<code>/api/tse/queue/*</code>) &mdash; JWT + Befugnis <code>TSE_QUEUE_ADMIN</code></h4>
+
+<blockquote><p><strong>Datei:</strong> <code>server/.../domain/routes/TseSigningQueueRoutes.kt</code></p></blockquote>
+
+<table>
+<tr><th>Endpoint</th><th>Methode</th><th>Beschreibung</th></tr>
+<tr><td><code>/api/tse/queue/status</code></td><td>GET</td><td>Queue-Statistiken</td></tr>
+<tr><td><code>/api/tse/queue/entries</code></td><td>GET</td><td>Eintr&auml;ge auflisten (filterbar)</td></tr>
+<tr><td><code>/api/tse/queue/entries/{id}</code></td><td>GET</td><td>Einzelnen Eintrag abrufen</td></tr>
+<tr><td><code>/api/tse/queue/entries/{id}/retry</code></td><td>POST</td><td>Manueller Retry</td></tr>
+<tr><td><code>/api/tse/queue/entries/{id}/cancel</code></td><td>POST</td><td>Eintrag stornieren</td></tr>
+<tr><td><code>/api/tse/queue/pause</code></td><td>POST</td><td>Retry-Service pausieren</td></tr>
+<tr><td><code>/api/tse/queue/resume</code></td><td>POST</td><td>Retry-Service fortsetzen</td></tr>
+<tr><td><code>/api/tse/queue/trigger</code></td><td>POST</td><td>Manuellen Retry-Zyklus ausl&ouml;sen</td></tr>
+<tr><td><code>/api/tse/queue/cleanup</code></td><td>POST</td><td>Alte Eintr&auml;ge l&ouml;schen</td></tr>
+</table>
+
+<hr>
+
+<h2 id="s12">12. Datenbank-Schema</h2>
+
+<h3>TseTransactionTable (<code>tse_transaction</code>)</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>server/.../database/tables/TseTransactionTable.kt</code></p></blockquote>
+
+<p>Speichert alle TSE-signierten Transaktionen f&uuml;r den Audit-Trail:</p>
+
+<table>
+<tr><th>Spalte</th><th>Typ</th><th>Beschreibung</th></tr>
+<tr><td><code>id</code></td><td>Long (PK)</td><td>Auto-Increment ID</td></tr>
+<tr><td><code>tse_serial_number</code></td><td>VARCHAR</td><td>TSE-Seriennummer, wie sie beim Anlegen der Zeile geschrieben wurde. Historische Datens&auml;tze k&ouml;nnen hier noch die Base64-Darstellung des Ger&auml;ts enthalten; sie wird bewusst nicht nachtr&auml;glich umgeschrieben.</td></tr>
+<tr><td><code>tse_serial_hex</code></td><td>VARCHAR(100)</td><td>Ma&szlig;gebliche Seriennummer in Hex-Darstellung (seit V82). Jeder Vergleich und jede Gruppierung nach Ger&auml;te-Identit&auml;t sowie der DSFinV-K-Export verwenden diese Spalte; V82 hat sie aus <code>tse_serial_number</code> bef&uuml;llt. Eine bewusste Ausnahme ist die Monatsabschluss-Pr&uuml;fung auf simulierte Signaturen: sie gleicht <em>beide</em> Spalten ab, weil &auml;ltere Datens&auml;tze die Simulator-Seriennummer nur in <code>tse_serial_number</code> f&uuml;hren. Der Index <code>idx_tse_tx_serial_hex_tanr</code> &uuml;ber (<code>tse_serial_hex</code>, <code>transaction_number</code>) ist eindeutig, sofern der Bestand nicht bereits dieselbe TANR desselben Ger&auml;ts in zwei Kodierungen enth&auml;lt &ndash; dann wird er einfach (nicht eindeutig) angelegt, damit das Update nicht abbricht.</td></tr>
+<tr><td><code>transaction_number</code></td><td>Long</td><td>TSE-Transaktionsnummer (sequentiell)</td></tr>
+<tr><td><code>process_type</code></td><td>VARCHAR</td><td>DSFinV-K Typ (z.B. &bdquo;Kassenbeleg-V1&ldquo;)</td></tr>
+<tr><td><code>process_data_hash</code></td><td>TEXT</td><td>JSON Prozessdaten</td></tr>
+<tr><td><code>signature</code></td><td>VARCHAR(1000)</td><td>Base64-kodierte ECDSA-Signatur</td></tr>
+<tr><td><code>start_time</code></td><td>TIMESTAMP</td><td>Transaktions-Startzeit</td></tr>
+<tr><td><code>end_time</code></td><td>TIMESTAMP</td><td>Transaktions-Endzeit</td></tr>
+<tr><td><code>client_id</code></td><td>VARCHAR</td><td>Terminal/Workstation-ID</td></tr>
+<tr><td><code>tse_mode</code></td><td>VARCHAR</td><td>SIMULATION oder NORMAL</td></tr>
+<tr><td><code>tse_timestamp</code></td><td>Long</td><td>TSE-eigener Unix-Zeitstempel</td></tr>
+<tr><td><code>signature_counter</code></td><td>Long</td><td>Laufender Signaturz&auml;hler der TSE</td></tr>
+<tr><td><code>signature_algorithm</code></td><td>VARCHAR</td><td>z.B. &bdquo;ecdsa-plain-SHA384&ldquo;</td></tr>
+<tr><td><code>public_key</code></td><td>TEXT</td><td>Base64-kodierter &ouml;ffentlicher Schl&uuml;ssel</td></tr>
+<tr><td><code>certificate</code></td><td>TEXT</td><td>Base64-kodiertes Zertifikat</td></tr>
+<tr><td><code>exported_file_reference</code></td><td>VARCHAR</td><td>Referenz zur Export-Datei (optional)</td></tr>
+<tr><td><code>state</code></td><td>VARCHAR(16)</td><td>STARTED, FINISHED oder SUPERSEDED (seit V82; TANR-zuerst-Flow, Kapitel 9)</td></tr>
+<tr><td><code>superseded_by_id</code></td><td>Long (optional)</td><td>Bei <code>SUPERSEDED</code>: Verweis auf die ersetzende TseTransactionTable-Zeile (neue TANR). Bewusst <em>kein</em> Fremdschl&uuml;ssel: die Spalte wird ausschlie&szlig;lich unmittelbar nach dem Anlegen der Ersatzzeile geschrieben, und eine Fremdschl&uuml;sselbedingung m&uuml;sste in der Exposed-Tabellendefinition stehen, was den Spaltentyp auf <code>EntityID</code> umstellt und sich durch den gesamten fiskalischen Signierpfad zieht.</td></tr>
+</table>
+
+<h3>TseSigningQueueTable (<code>tse_signing_queue</code>)</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>server/.../database/tables/TseSigningQueueTable.kt</code></p></blockquote>
+
+<p>Warteschlange f&uuml;r das Nachsignieren bei TSE-Ausfall:</p>
+
+<table>
+<tr><th>Spalte</th><th>Typ</th><th>Beschreibung</th></tr>
+<tr><td><code>id</code></td><td>Long (PK)</td><td>Auto-Increment ID</td></tr>
+<tr><td><code>reference_id</code></td><td>VARCHAR</td><td>ID der zu signierenden Entit&auml;t</td></tr>
+<tr><td><code>entity_type</code></td><td>Enum</td><td>BILL, ORDER, CANCELLATION, KASSENBUCH, VOUCHER</td></tr>
+<tr><td><code>process_type</code></td><td>VARCHAR</td><td>DSFinV-K Prozesstyp</td></tr>
+<tr><td><code>process_data</code></td><td>TEXT</td><td>Zu signierende Prozessdaten</td></tr>
+<tr><td><code>client_id</code></td><td>VARCHAR</td><td>TSE Client-ID</td></tr>
+<tr><td><code>signing_status</code></td><td>Enum</td><td>PENDING, PROCESSING, QUEUED, SIGNED, FAILED, CANCELLED</td></tr>
+<tr><td><code>retry_count</code></td><td>Integer</td><td>Aktuelle Anzahl Wiederholungsversuche</td></tr>
+<tr><td><code>max_retries</code></td><td>Integer</td><td>Maximum (Standard: 10)</td></tr>
+<tr><td><code>last_error</code></td><td>TEXT</td><td>Letzte Fehlermeldung</td></tr>
+<tr><td><code>last_error_code</code></td><td>VARCHAR</td><td>Fehlercode f&uuml;r Kategorisierung</td></tr>
+<tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>Erstellungszeit</td></tr>
+<tr><td><code>last_attempt_at</code></td><td>TIMESTAMP</td><td>Zeitpunkt des letzten Versuchs</td></tr>
+<tr><td><code>signed_at</code></td><td>TIMESTAMP</td><td>Zeitpunkt der erfolgreichen Signierung</td></tr>
+<tr><td><code>next_retry_at</code></td><td>TIMESTAMP</td><td>Geplanter n&auml;chster Versuch (Backoff)</td></tr>
+<tr><td><code>priority</code></td><td>Integer</td><td>Queue-Priorit&auml;t (1=h&ouml;chste)</td></tr>
+<tr><td><code>tse_transaction_id</code></td><td>Long (FK)</td><td>Verweis auf TseTransactionTable (nach Erfolg)</td></tr>
+</table>
+
+<h3>TseLateSigningTable (<code>tse_late_signing</code>)</h3>
+
+<p>Dauerhafter Nachsignierungs-Nachweis je Vorgang (eindeutig je <code>entity_type</code> +
+<code>reference_id</code>); wird nie gel&ouml;scht.</p>
+
+<table>
+<tr><th>Spalte</th><th>Typ</th><th>Beschreibung</th></tr>
+<tr><td><code>entity_type</code></td><td>Enum</td><td>BILL, ORDER, CANCELLATION, KASSENBUCH, &hellip;</td></tr>
+<tr><td><code>reference_id</code></td><td>VARCHAR</td><td>ID des Vorgangs (wie in der Queue)</td></tr>
+<tr><td><code>queued_at</code></td><td>TIMESTAMP</td><td>Erstes Einreihen (erster Grund gewinnt)</td></tr>
+<tr><td><code>reason_code</code></td><td>VARCHAR</td><td>Grund-Code (siehe oben)</td></tr>
+<tr><td><code>reason_text</code></td><td>VARCHAR(500)</td><td>Fehlercode und -text zum Zeitpunkt des Ausfalls</td></tr>
+<tr><td><code>signed_at</code></td><td>TIMESTAMP</td><td>Zeitpunkt der Nachsignierung</td></tr>
+<tr><td><code>tse_transaction_id</code></td><td>Long (FK)</td><td>Die nachgeholte TSE-Transaktion</td></tr>
+<tr><td><code>abandoned_at</code></td><td>TIMESTAMP</td><td>Nachsignierung vom Bediener abgebrochen</td></tr>
+</table>
+
+<h3>Datenbank-Migrationen</h3>
+
+<p>Die fr&uuml;hen Einzelmigrationen (Warteschlange, CANCELLED-Status, Client-Registrierung je Terminal, TSE-Transaktions-ID f&uuml;r Tischsitzungen) sind im Basisschema enthalten und liegen nicht mehr als eigene Dateien vor. Die TSE-bezogenen Erweiterungen von v1.1.0 &ndash; <code>tse_serial_hex</code>, <code>state</code>/<code>superseded_by_id</code>, <code>tse_late_signing</code> und <code>tse_explanation</code> &ndash; stehen in <code>V82__schema_cash_and_fiscal.sql</code>.</p>
+
+<hr>
+
+<h2 id="s13">13. Client-UI Integration (Compose Multiplatform)</h2>
+
+<h3>Architektur</h3>
+
+<pre><code>TseSettingsViewModel
+├── TseSettingsApiClient   (HTTP Client → /api/tse/*)
+├── TseQueueApiClient      (HTTP Client → /api/tse/queue/*)
+└── StateFlow&lt;TseSettingsUiState&gt;
+    │
+    ├── TseConnectionStatusCard    — Verbindungsstatus
+    ├── TseConfigurationSection    — Konfigurationsformular
+    ├── TseInformationSection      — Geräte-Informationen
+    ├── TseAdminOperationsSection  — Manuelle Operationen
+    └── TseQueueMonitoringSection  — Warteschlangen-Status</code></pre>
+
+<h3>TseConfigurationSection</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>ui/shared/.../components/tse/TseConfigurationSection.kt</code></p></blockquote>
+
+<p>Formular zur Bearbeitung der TSE-Konfiguration:</p>
+
+<ul>
+  <li><strong>Modus</strong>: NORMAL / SIMULATION / DISABLED (Dropdown)</li>
+  <li><strong>Zeit-Admin-PIN</strong>: PIN f&uuml;r den Zeitabgleich (hinter &bdquo;Zugangsdaten anzeigen&ldquo;) &ndash; das einzige gespeicherte TSE-Geheimnis. <code>GET /api/tse/config</code> liefert sie nie aus (<code>timeAdminPin</code> ist immer leer); ein leeres Feld beh&auml;lt beim Speichern die gespeicherte PIN</li>
+  <li><strong>Keep-Alive</strong>: Checkbox und Intervall in Sekunden</li>
+  <li><strong>Ausfallverhalten</strong>: Nachsignieren (QUEUE) oder Sofortsignierung (FAIL)</li>
+  <li><strong>TSE initialisieren</strong>: nur bei nicht initialisierter TSE, die antwortet oder deren gespeicherter Modus nicht NORMAL ist (im Modus DISABLED &ouml;ffnet der Server die TSE erst bei der Inbetriebnahme, der Ping ist daher negativ; <code>TseSettingsUiState.canOfferSetup</code>); &ouml;ffnet den Dialog &bdquo;TSE in Betrieb nehmen&ldquo; (<code>TseSetupDialog</code>) f&uuml;r das als erster TSE-Client zu registrierende Terminal (Auswahl der aktiven Fiskal-Terminals), Admin-PIN, Admin-PUK, Zeit-Admin-PIN und Credential Seed</li>
+</ul>
+
+<div class="hint">
+<strong>Hinweis:</strong> Admin-PIN, PUK und Credential Seed stehen nicht im Formular und werden nicht gespeichert (Swissbit-Handbuch zur sicheren Verwendung, Abschnitt&nbsp;2.5). Die Admin-PIN wird f&uuml;r PIN-pflichtige Operationen &uuml;ber <em>Entsperren</em> (<code>TseAdminUnlockDialog</code>) eingegeben und nur im Arbeitsspeicher des Servers gehalten; die Sitzung endet nach 15&nbsp;Minuten ohne Aktivit&auml;t. Jemand vor Ort muss die Admin-PIN kennen.
+</div>
+
+<h3>TseAdminOperationsSection</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>ui/shared/.../components/tse/TseAdminOperationsSection.kt</code></p></blockquote>
+
+<p>Manuelle Admin-Operationen. Oben zeigt der Abschnitt, ob die TSE-Administration gesperrt oder entsperrt ist, mit den Schaltfl&auml;chen <strong>Entsperren</strong> / <strong>Sperren</strong>:</p>
+
+<table>
+<tr><th>Operation</th><th>Beschreibung</th></tr>
+<tr><td><strong>Selbsttest</strong></td><td>TSE-Selbsttest manuell ausl&ouml;sen</td></tr>
+<tr><td><strong>Zeit synchronisieren</strong></td><td>TSE-Uhr mit Systemzeit abgleichen</td></tr>
+<tr><td><strong>Health-Check</strong></td><td>Gesundheitsstatus abrufen</td></tr>
+<tr><td><strong>Flash-Health</strong></td><td>Flash-Speicher Zustand pr&uuml;fen</td></tr>
+<tr><td><strong>Firmware pr&uuml;fen</strong></td><td>Update-Verf&uuml;gbarkeit pr&uuml;fen</td></tr>
+<tr><td><strong>CSP-Export deaktivieren</strong></td><td>Export sperren, falls der CSP-Test fehlschl&auml;gt (Admin-PIN)</td></tr>
+<tr><td><strong>LCM-Daten exportieren</strong></td><td>Diagnosedaten f&uuml;r den Support</td></tr>
+<tr><td><strong>Geb&uuml;ndeltes Firmware-Update anwenden</strong></td><td>mit Best&auml;tigungsdialog (Admin-PIN)</td></tr>
+<tr><td><strong>Factory Reset</strong></td><td>Werksreset (nur Entwicklungs-Firmware sichtbar; Admin-PIN)</td></tr>
+<tr><td><strong>TSE au&szlig;er Betrieb nehmen</strong></td><td>irreversibel, Best&auml;tigung durch Eingabe von <code>DECOMMISSION</code> (Admin-PIN)</td></tr>
+</table>
+
+<p>Der TAR-Export und der DSFinV-K-Export sind eigene Abschnitte unterhalb der Admin-Operationen (Abschnitt&nbsp;14).</p>
+
+<p>Aufklappbare Unterabschnitte:</p>
+<ul>
+  <li><strong>Registrierte Clients</strong>: Liste aller bei der TSE registrierten Client-IDs (erfordert die entsperrte Administration)</li>
+  <li><strong>Offene Transaktionen</strong>: Aktuell gestartete, noch nicht abgeschlossene Transaktionen</li>
+  <li><strong>Letzte Transaktion</strong>: Details der zuletzt abgeschlossenen Transaktion</li>
+</ul>
+
+<h3>TseQueueMonitoringSection</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>ui/shared/.../components/tse/TseQueueMonitoringSection.kt</code></p></blockquote>
+
+<p>&Uuml;berwachung der Nachsignier-Warteschlange:</p>
+
+<ul>
+  <li><strong>Status&uuml;bersicht</strong>: Anzahl Eintr&auml;ge nach Status (Pending, Processing, Queued, Signed, Failed, Cancelled)</li>
+  <li><strong>Service-Steuerung</strong>: Pause / Fortsetzen des Retry-Service</li>
+  <li><strong>Statusfilter</strong>: Dropdown zur Filterung der Eintr&auml;ge</li>
+  <li><strong>Manueller Retry</strong>: Retry-Zyklus manuell ausl&ouml;sen</li>
+  <li><strong>Bereinigung</strong>: Alte Eintr&auml;ge l&ouml;schen</li>
+  <li><strong>Eintrags-Liste</strong>: Aufklappbar, mit Retry/Cancel-Buttons pro Eintrag</li>
+</ul>
+
+<h3>Mehrsprachigkeit</h3>
+
+<blockquote><p><strong>Dateien:</strong> <code>platform/api/.../strings/keys/TseSettingsKeys.kt</code> mit den &Uuml;bersetzungen in <code>platform/api/.../strings/translations/{German,English,Chinese}SettingsStrings.kt</code></p></blockquote>
+
+<p>Unterst&uuml;tzte Sprachen: <strong>Deutsch</strong>, <strong>Englisch</strong>, <strong>Chinesisch</strong></p>
+
+<hr>
+
+<h2 id="s14">14. Export &amp; DSFinV-K</h2>
+
+<h3>Prozessdaten-Format</h3>
+
+<p>Die Seriennummer der TSE wird f&uuml;r Zuordnung und Export ausschlie&szlig;lich in Hex-Darstellung verwendet (BSI TR-03153-1 &sect;9.3.2); historische Datens&auml;tze behalten in <code>tse_serial_number</code> ihre urspr&uuml;ngliche Base64-Darstellung.</p>
+
+<p>Das DSFinV-K (Digitale Schnittstelle der Finanzverwaltung f&uuml;r Kassensysteme) definiert das Format der signierten Daten:</p>
+
+<pre><code>Typ^MwSt1_MwSt2_MwSt3_MwSt4_MwSt5^Gesamtbetrag:Zahlungsart</code></pre>
+
+<p><strong>Prozesstypen:</strong></p>
+
+<table>
+<tr><th>Typ</th><th>Konstante</th><th>Beschreibung</th></tr>
+<tr><td><code>Kassenbeleg-V1</code></td><td>SIGN_BILL</td><td>Endg&uuml;ltiger Kassenbon (keine Updates)</td></tr>
+<tr><td><code>Bestellung-V1</code></td><td>SIGN_ORDERS</td><td>Bestellung (Updates m&ouml;glich, vom POS-Server nicht genutzt &ndash; je Runde Start+Finish, siehe <a href="#s9-bestellung-start-finish">Abschnitt&nbsp;9</a>)</td></tr>
+<tr><td><code>SonstigerVorgang</code></td><td>SIGN_FREE_CONTENT</td><td>Sonstiger Vorgang (Kassenbuch, Gutschein)</td></tr>
+<tr><td><code>Kassenbeleg-Storno</code></td><td>SIGN_CANCELLATION</td><td>Stornierung</td></tr>
+<tr><td><code>AVBelegabbruch</code></td><td>&mdash;</td><td>Abgebrochener Beleg (Maintenance-Cleanup)</td></tr>
+<tr><td><code>AVSonstige</code></td><td>SIGN_OTHER</td><td>Sonstiges</td></tr>
+</table>
+
+<h3>TSE-TAR-Export</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>pos-tse/.../operations/admin/export/FullExportOperation.kt</code></p></blockquote>
+
+<p>Die TSE speichert alle signierten Daten intern in einem TAR-Archiv. Dieses kann auf verschiedene Arten exportiert werden:</p>
+
+<table>
+<tr><th>Export-Typ</th><th>Endpoint</th><th>Beschreibung</th></tr>
+<tr><td><strong>Voll</strong></td><td><code>POST /api/tse/export/full</code></td><td>Alle Daten der TSE</td></tr>
+<tr><td><strong>Inkrementell</strong></td><td><code>POST /api/tse/export/incremental</code></td><td>Nur neue Daten seit dem mitgegebenen <code>lastState</code></td></tr>
+<tr><td><strong>Zeitgefiltert</strong></td><td><code>POST /api/tse/export/time-filtered</code></td><td>Daten in Zeitraum: <code>startDay</code>/<code>endDay</code> als Kalendertage (<code>yyyy-MM-dd</code>, Zeitzone des Betriebs, Endtag inklusive) oder <code>startDate</code>/<code>endDate</code> als Epoch-Millisekunden</td></tr>
+<tr><td><strong>Transaktionsgefiltert</strong></td><td><code>POST /api/tse/export/transaction-filtered</code></td><td>Daten in Transaktionsbereich (nur &uuml;ber die API)</td></tr>
+</table>
+
+<p>Alle Exporte laufen ohne Admin-PIN (die SDK-Exportaufrufe verlangen keine Anmeldung; nur ein angemeldeter TimeAdmin blockiert auf TSE&nbsp;2.0 den Export, weshalb der Zeitabgleich ihn sofort wieder abmeldet). Die Datei landet auf dem Server unter <code>&lt;DATEV-Exportpfad&gt;/tse</code> bzw. <code>exports/tse</code>, wo auch <em>Export pr&uuml;fen</em> (<code>POST /api/tse/verify</code>, AGD&nbsp;&sect;5.2) sucht. <em>Exportierte Daten l&ouml;schen</em> (<code>DELETE /api/tse/export</code>) verlangt dagegen die entsperrte Administration.</p>
+
+<h3>Exportieren und L&ouml;schen (<code>DELETE /api/tse/export</code>)</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>pos-tse/.../operations/admin/export/DeleteExportedDataOperation.kt</code></p></blockquote>
+
+<p><code>export_deleteStoredData()</code> gelingt laut SDK nur, wenn zuvor ein voller oder inkrementeller (kein gefilterter) Export lief und seither keine neuen Daten entstanden sind; au&szlig;erdem muss <em>Admin</em> angemeldet sein. Die Admin-Anmeldung schreibt selbst einen signierten Protokolleintrag. Ein getrennter Export ohne Anmeldung mit anschlie&szlig;endem L&ouml;schen scheiterte deshalb an der echten Swissbit-TSE immer mit <code>WORM_ERROR_EXPORT_UNACKNOWLEDGED_DATA</code> (HTTP&nbsp;422). Ein eigener &bdquo;Quittieren&ldquo;-Aufruf existiert im SDK nicht: Der vollst&auml;ndige <code>export_tar</code> ist die Quittung.</p>
+
+<p>Die Operation l&auml;uft daher als <strong>eine</strong> Sitzung auf dem TSE-Thread, ohne dass dazwischen ein anderer Vorgang (Keep-alive, Signierung) einen Eintrag schreiben kann:</p>
+
+<ol>
+  <li>Server: Exportordner beschreibbar (sonst 409), Admin-Sitzung entsperrt (sonst 423), freier Platz &ge; <code>tarExportSize</code> + 1&nbsp;MiB (sonst 507).</li>
+  <li><code>user_login(WORM_USER_ADMIN, pin)</code></li>
+  <li><code>info()</code>: <code>size()</code>, <code>tarExportSize()</code>; TSE&nbsp;2.0 ohne <code>hasValidTime()</code> &rarr; Abbruch (Schritt <code>PRECHECK</code>, 409 <code>TSE_TIME_SYNC_REQUIRED</code>).</li>
+  <li><code>export_tar(callback)</code> in <code>tse_export_before_delete_&lt;Zeitstempel&gt;.tar</code>, danach <code>flush</code> + <code>fsync</code>. Ein Schreibfehler bricht den Export &uuml;ber den R&uuml;ckgabewert &ne;&nbsp;0 des Callbacks ab.</li>
+  <li>Pr&uuml;fung: Gr&ouml;&szlig;e &gt;&nbsp;0, gleich den gelieferten Bytes, Vielfaches von 512 (TAR-Bl&ouml;cke), nicht kleiner als <code>tarExportSize()</code>. Sonst wird die Datei entfernt.</li>
+  <li><code>export_deleteStoredData()</code></li>
+  <li><code>user_logout(WORM_USER_ADMIN)</code> &ndash; immer, sobald angemeldet, auch nach einem Fehler.</li>
+</ol>
+
+<p>Antwort (<code>TseDto.ExportAndDeleteResultDto</code>): <code>archiveFileName</code>, <code>archiveFilePath</code>, <code>archiveSizeBytes</code>, <code>usedBlocksBefore</code>/<code>usedBlocksAfter</code>, <code>exportSizeBytesBefore</code>/<code>exportSizeBytesAfter</code>. Scheitert ein Schritt, wird nichts gel&ouml;scht; die Meldung nennt den Schritt (<code>LOGIN</code>, <code>PRECHECK</code>, <code>EXPORT</code>, <code>WRITE</code>, <code>VERIFY</code>, <code>DELETE</code>). Die Zeit wird bewusst <em>nicht</em> in dieser Sitzung gestellt: Auf TSE&nbsp;2.0 br&auml;uchte das den TimeAdmin, dessen Anmeldung den Admin verdr&auml;ngt.</p>
+
+<div class="hint">
+<strong>Die Archivdatei ist die einzige Kopie</strong> der gel&ouml;schten Eintr&auml;ge und muss f&uuml;r die gesetzliche Aufbewahrungsfrist gesichert werden &ndash; und im TSE-Exportordner bleiben, solange ein DSFinV-K-Export den gel&ouml;schten Zeitraum noch abdecken soll (Archivregister, unten). <strong>Testgrenze:</strong> Die virtuelle TSE bildet die Regel &bdquo;keine unexportierten Daten&ldquo; nicht nach; die Reihenfolge ist durch <code>DeleteExportedDataOperationTest</code> (Fakes) abgesichert, das Verhalten am Ger&auml;t nur an einer echten Swissbit-TSE pr&uuml;fbar.
+</div>
+
+<h3>Archivregister <code>tse_export_archive</code> (V82)</h3>
+
+<blockquote><p><strong>Dateien:</strong> <code>features/tse/data/service/TseExportArchiveService.kt</code>,
+<code>features/dsfinvk/data/service/TseTarAssembly.kt</code></p></blockquote>
+
+<p>Nach <em>Exportieren und L&ouml;schen</em> h&auml;lt die TSE nur noch, was seither signiert wurde. Der DSFinV-K-Export mit TSE-TAR lehnte einen Zeitraum, der in die gel&ouml;schten Eintr&auml;ge reicht, deshalb mit 409 ab und behauptete einen Ger&auml;tetausch (Praxistest rt14). Jedes Archiv, das <code>DELETE /api/tse/export</code> schreibt, wird nun im Archivregister erfasst: Dateiname und Pfad, Seriennummer (hex), TANR-, Signaturz&auml;hler- und Protokollzeit-Spanne (aus den Protokollmeldungen der Datei gelesen, wie <em>Export pr&uuml;fen</em> sie liest), Gr&ouml;&szlig;e, SHA-256, Zeitpunkt und Bediener. Die Antwort meldet das in <code>archiveRegistered</code>; scheitert die Erfassung nach dem L&ouml;schen, bleibt die Antwort erfolgreich (das L&ouml;schen ist geschehen), mit <code>archiveRegistered: false</code>: der Server protokolliert das als Fehler, das Pr&uuml;fprotokoll erh&auml;lt eine fehlgeschlagene Zeile <code>REGISTER_TSE_ARCHIVE</code> mit dem Dateinamen, und die TSE-Einstellungen zeigen eine Warnung, das Archiv mit <em>Archiv registrieren</em> von Hand zu erfassen. Jede Erfassung &ndash; automatisch oder von Hand, erfolgreich oder abgelehnt &ndash; steht im Pr&uuml;fprotokoll als <code>REGISTER_TSE_ARCHIVE</code>.</p>
+
+<p><strong>Archiv registrieren</strong> (<code>POST /api/tse/archives</code>, <code>{"fileName": "&hellip;"}</code>, F&auml;higkeit <code>TSE_ADMIN</code>): erfasst eine TAR-Datei, die bereits im TSE-Exportordner liegt &ndash; etwa ein vor dem Register geschriebenes Archiv oder eines, das aus einer Sicherung zur&uuml;ckgelegt wurde. Nur ein Dateiname, kein Pfad (au&szlig;erhalb des Ordners &rarr; 400, fehlt die Datei &rarr; 404). Eine Datei ohne TSE-Protokollmeldung oder mit Meldungen mehrerer TSEs wird mit 422 abgelehnt, ein Archiv gleichen Inhalts (SHA-256) mit 409 <code>TSE_ARCHIVE_ALREADY_REGISTERED</code>. Die TSE wird dabei nicht ber&uuml;hrt. In den TSE-Einstellungen: Abschnitt TSE-Export &rarr; <em>Archiv registrieren</em>.</p>
+
+<p><strong>Verwendung im DSFinV-K-Export</strong> (<code>includeTseTar=true</code>): Deckt der Vollexport des angeschlossenen Ger&auml;ts nicht jede signierte Transaktion des Zeitraums ab, nimmt der Export die registrierten Archive des betroffenen Ger&auml;ts hinzu, deren TANR-Spanne die fehlenden Transaktionen erreicht &ndash; aber nur, wenn die Datei noch unter ihrem Pfad liegt und ihr SHA-256 dem registrierten entspricht, und nur, wenn sie mindestens eine fehlende Transaktion enth&auml;lt. Diese Archive liegen unter ihrem eigenen Namen neben dem Ger&auml;te-TAR im Ordner <code>tse/</code> der ZIP. Bleibt etwas ungedeckt, lehnt der Export mit 409 <code>TSE_EXPORT_INCOMPLETE</code> ab und nennt Seriennummer, fehlenden TANR-Bereich und den Zeitraum, in dem die Kasse sie signiert hat. Liegen die fehlenden Transaktionen <em>unter</em> der niedrigsten, die das angeschlossene Ger&auml;t noch h&auml;lt, hei&szlig;t es: die Daten wurden von dieser TSE gel&ouml;scht, das Archiv ist zu registrieren oder unver&auml;ndert zur&uuml;ckzulegen; ein ge&auml;ndertes oder fehlendes registriertes Archiv wird dabei benannt. Nur wenn der Export des angeschlossenen Ger&auml;ts die Seriennummer gar nicht enth&auml;lt, bleibt es bei der Meldung &bdquo;nicht das signierende Ger&auml;t (Tausch &hellip;)&ldquo; &ndash; auch dann deckt ein registriertes Archiv des alten Ger&auml;ts den Zeitraum.</p>
+
+<h3>TSE-Client abmelden (<code>POST /api/v1/terminals/{id}/tse-deregister</code>)</h3>
+
+<p>Entfernt die Client-ID eines ausgemusterten Terminals von der TSE (<code>DeregisterClientOperation</code> &rarr; <code>tse_deregisterClient</code>), damit es keinen Platz unter der Client-Obergrenze belegt. Deaktivieren eines Terminals meldet den Client <em>nicht</em> ab. F&auml;higkeit wie <code>tse-register</code> (<code>TERMINAL_MANAGE</code>). Abgelehnt mit HTTP&nbsp;409, <strong>bevor die TSE ber&uuml;hrt wird</strong>, wenn die TSE deaktiviert ist (<code>TSE_DISABLED</code>), das Terminal noch aktiv ist, noch an ein Ger&auml;t gebunden ist oder Belege/Bestellungen mit Signaturstatus <code>PENDING</code> hat. Danach liest der Server die Client-Liste (gesperrte Admin-Sitzung &rarr; 423 <code>TSE_ADMIN_LOCKED</code>) und lehnt ab, wenn die TSE den Client nicht kennt, wenn er bei TSE im Modus NORMAL der <strong>letzte</strong> registrierte Client ist (der Selbsttest einer TSE&nbsp;1.x braucht einen registrierten Client) oder wenn die TSE noch gestartete Transaktionen dieses Clients h&auml;lt (<code>transaction_listStartedTransactions</code>; TSE&nbsp;1.x verweigert das selbst mit <code>WORM_ERROR_CLIENT_HAS_UNFINISHED_TRANSACTIONS</code>, TSE&nbsp;2.0 nicht). Bei Erfolg wird <code>tseClientRegistered</code> zur&uuml;ckgesetzt, der F&auml;higkeits-Cache invalidiert und ein Pr&uuml;fprotokoll-Eintrag <code>DEREGISTER_TSE_CLIENT</code> geschrieben (auch f&uuml;r abgelehnte Versuche). Die Abmeldung gilt f&uuml;r diese Client-ID, bis sie mit <code>tse-register</code> erneut registriert wird; bereits signierte Belege bleiben unber&uuml;hrt. Im Web-Admin: <strong>Ger&auml;te &rarr; Terminals &rarr; TSE-Client abmelden</strong>.</p>
+
+<p><strong>Finanzamt:</strong> Wird das Terminal endg&uuml;ltig ausgemustert, ist das eine Au&szlig;erbetriebnahme &ndash; innerhalb eines Monats &uuml;ber Mein ELSTER melden (<a href="#mitteilungspflicht">Mitteilungspflicht</a>).</p>
+
+<div class="hint">
+<strong>TSE 2.0 (Swissbit-SDK&nbsp;6):</strong> Die Hardware bietet keine gefilterten Exporte mehr. <code>TimeFilteredExportOperation</code> und <code>TransactionFilteredExportOperation</code> f&uuml;hren dort einen Vollexport aus und filtern das TAR in der Software (<code>FilteredTarExport</code>).
+</div>
+
+<div class="hint">
+<strong>Kasse w&auml;hlen &ndash; Standard: alle Kassen:</strong> Zeit- und transaktionsgefilterte Exporte nehmen ein optionales Feld <code>clientId</code> entgegen; in den TSE-Einstellungen ist das die Auswahl <em>Kasse</em>. <em>Alle Kassen</em> (kein <code>clientId</code>) ist der Standard und exportiert die Transaktionen aller TSE-Clients &ndash; auf TSE&nbsp;1.x mit der leeren Client-ID, die laut SDK &bdquo;alle Clients&ldquo; bedeutet, auf TSE&nbsp;2.0 ohne Client-Filter im Software-Filter. Eine gew&auml;hlte Kasse (z.&nbsp;B. <code>TER-001</code>) liefert nur deren Transaktionen. Der Server pr&uuml;ft die Angabe: sie muss die Client-ID eines Terminals sein (auch eines deaktivierten) oder ein auf der TSE registrierter Client, sonst antwortet er mit <strong>400</strong>. Fr&uuml;here Versionen filterten stillschweigend auf die Client-ID des Selbsttests (<code>TseStatus.getClientId()</code>); der Export enthielt dann nur die Transaktionen dieses einen Terminals &ndash; im Praxistest 0 von 26 Transaktionen des Tages bzw. &bdquo;keine Daten&ldquo; f&uuml;r vorhandene Transaktionsnummern. Jeder gefilterte Export legt neben das TAR eine Datei <code>&lt;Datei&gt;.json</code> mit dem Filter: Kasse oder &bdquo;alle&ldquo;, Zeit- oder TANR-Bereich, Anforderungszeitpunkt und SHA-256 des TARs. <em>Export pr&uuml;fen</em> liest sie: Weil die TSE die Transaktionen <em>aller</em> Kassen in einer TANR- und einer Signaturz&auml;hlerfolge nummeriert, hat ein korrekter Export einer einzelnen Kasse in beiden L&uuml;cken. Bei einem Einzelkassen-Export meldet die Pr&uuml;fung diese L&uuml;cken deshalb nicht, sondern verlangt jede Transaktion, die die Kasse f&uuml;r <em>diese</em> Kasse im angeforderten Bereich signiert hat (fehlt eine: kritisch, <code>POS_TRANSACTION_MISSING_FROM_EXPORT</code>), und nennt den angewandten Filter im Befund <code>EXPORT_FILTER_APPLIED</code> (INFO). Exporte f&uuml;r alle Kassen, Voll- und inkrementelle Exporte sowie Dateien ohne passende Filterdatei werden so streng gepr&uuml;ft wie bisher; passt der SHA-256 nicht zur Datei, wird die Filterdatei ignoriert (Warnung <code>FILTER_SIDECAR_MISMATCH</code>). F&uuml;r Pr&uuml;fer bleiben <em>Alle Kassen</em> oder der Vollexport die richtige Lieferung.<br>
+Meldet die TSE f&uuml;r den Bereich keine Daten (<code>WORM_ERROR_EXPORT_NO_DATA_AVAILABLE</code>), antwortet der Server mit <strong>404 <code>TSE_TRANSACTION_NOT_FOUND</code></strong> (fr&uuml;her 422) und entfernt die leere TAR-Datei, die der abgebrochene Export angelegt hatte.
+</div>
+
+<div class="hint">
+<strong>Zeitzone des zeitgefilterten Exports:</strong> Die TSE-Einstellungen schicken Start- und Enddatum als Kalendertage (<code>startDay</code>/<code>endDay</code>); der Server legt sie in der Zeitzone des Betriebs aus, vom Starttag 00:00&nbsp;Uhr bis einschlie&szlig;lich des ganzen Endtags &ndash; derselbe Zeitraum wie beim DSFinV-K-Export, der zus&auml;tzlich immer einen Vollexport beif&uuml;gt.
+</div>
+
+<h3>Gesetzliche Anforderungen</h3>
+
+<ul>
+  <li><strong>Kassennachschau</strong>: TAR-Export muss innerhalb von <strong>72 Stunden</strong> bereitgestellt werden k&ouml;nnen</li>
+  <li><strong>Aufbewahrungspflicht</strong>: 10 Jahre gem&auml;&szlig; AO &sect;147</li>
+  <li><strong>Inkrementeller State</strong>: Wird nach Datenl&ouml;schung ung&uuml;ltig</li>
+  <li><strong>Mitteilungspflicht</strong>: Abmeldung bzw. TSE-Tausch innerhalb eines Monats an das Finanzamt melden &ndash; siehe <a href="#mitteilungspflicht">Mitteilungspflicht an das Finanzamt</a></li>
+</ul>
+
+<h3 id="mitteilungspflicht">Mitteilungspflicht an das Finanzamt (&sect; 146a Abs.&nbsp;4 AO)</h3>
+
+<p>Anschaffung und Au&szlig;erbetriebnahme eines elektronischen Aufzeichnungssystems sind dem zust&auml;ndigen Finanzamt
+<strong>innerhalb eines Monats</strong> elektronisch mitzuteilen (AEAO zu &sect; 146a Nr.&nbsp;1.16.1.2) &ndash; &uuml;ber
+<strong>Mein ELSTER</strong>, Formular &bdquo;Mitteilung &uuml;ber elektronische Aufzeichnungssysteme (&sect; 146a Abs.&nbsp;4 AO)&ldquo;,
+oder &uuml;ber eine Software mit ERiC-Schnittstelle. Die Pflicht gilt seit dem 1.1.2025; den fr&uuml;heren Verweis auf die
+Aussetzung hat das BMF-Schreiben vom 28.6.2024 gestrichen. Zu melden ist jedes Ger&auml;t, das der TSE
+<em>zugeordnet</em> ist (Nr.&nbsp;1.16.2.4 in der Fassung vom 3.3.2025), und jede Mitteilung enth&auml;lt stets
+<strong>alle</strong> Aufzeichnungssysteme der Betriebsst&auml;tte (Nr.&nbsp;1.16.1.4).</p>
+
+<ul>
+  <li><strong>Terminal ausgemustert, TSE-Client abgemeldet:</strong> Das Ger&auml;t ist au&szlig;er Betrieb genommen.
+      Innerhalb eines Monats eine Mitteilung mit dem Datum der Au&szlig;erbetriebnahme dieses Ger&auml;ts abgeben.
+      Ein nur vor&uuml;bergehend deaktiviertes Terminal, das sp&auml;ter mit <em>TSE registrieren</em> wieder
+      angemeldet wird, ist keine Au&szlig;erbetriebnahme.</li>
+  <li><strong>TSE getauscht oder au&szlig;er Betrieb genommen:</strong> Die &bdquo;Art der TSE&ldquo; &ndash; Zertifizierungs-ID und
+      Seriennummer der TSE (Nr.&nbsp;1.16.2.2) &ndash; &auml;ndert sich. Innerhalb eines Monats eine Mitteilung mit den
+      Angaben der neuen TSE f&uuml;r alle Kassen der Betriebsst&auml;tte abgeben.</li>
+</ul>
+
+<p><strong>Wo die Angaben stehen:</strong> Web-Admin &rarr; <em>Compliance &rarr; Datenexport</em>, Karte
+<strong>Kassenmeldung</strong>. Der Abschnitt <em>Technische Sicherheitseinrichtung (TSE)</em> zeigt die
+<strong>TSE-Seriennummer</strong> in Hexadezimal-Darstellung &ndash; dasselbe Format wie im TSE-Export und in der
+DSFinV-K; die Base64-Form ist f&uuml;r die Zuordnung der TSE nicht zul&auml;ssig (BSI TR-03153-1 &sect;&nbsp;9.3.2) &ndash; und die
+<strong>BSI-Zertifizierungs-ID</strong> (<code>BSI-K-TR-nnnn-yyyy</code>, bei Wartungszertifikaten
+<code>BSI-K-TR-nnnn-yyyy-MA-ZZ</code>). Die ID liest der Server von der TSE selbst und erg&auml;nzt das
+Ausstellungsjahr aus der BSI-Liste; bleibt das Feld leer, weil die TSE eine unbekannte Nummer meldet, steht die ID
+auf dem Zertifikat des Ger&auml;ts bzw. in der BSI-Liste zertifizierter TSE und wird als <code>bsiCertIdOverride</code>
+in der TSE-Konfiguration hinterlegt. Die Seriennummer des Aufzeichnungssystems steht im Abschnitt
+<em>Elektronisches Aufzeichnungssystem</em>. Mit <strong>PDF exportieren</strong> legen Sie den Stand zur
+Mitteilung ab. Lesen Sie die Kassenmeldung bei einem TSE-Tausch erst <em>nach</em> der Inbetriebnahme der neuen
+TSE ab, sonst zeigt sie noch die alte.</p>
+
+<h3>Integration in DSFinV-K CSV-Export</h3>
+
+<p>Mit <code>includeTseTar = true</code> wird der TSE-TAR-Export als Teil des DSFinV-K-Gesamtexports bereitgestellt &ndash; immer als <strong>Vollexport</strong> (<code>exportFull</code>), nie als Zeitausschnitt:</p>
+
+<pre><code>DSFinV-K-ZIP/
+├── cashpointclosing.csv       # Kassenabschlüsse
+├── transactions.csv           # Transaktionen
+├── ... (weitere CSV-Dateien, index.xml)
+└── tse/
+    └── &lt;Name der TAR-Datei&gt;  # Vollständiger TAR-Export der TSE</code></pre>
+
+<p><strong>Abdeckungspr&uuml;fung (Checkliste&nbsp;28.4).</strong> Vor dem Packen vergleicht der Export die
+Log-Nachrichten des TAR mit den signierten Transaktionen des Zeitraums (Modus NORMAL, Zustand FINISHED,
+Signatur vorhanden) je Seriennummer und TANR. Eine erreichbare, aber falsche oder leere TSE &ndash; etwa eine
+virtuelle TSE nach einem Neustart ohne Neu-Inbetriebnahme, ein getauschtes oder gel&ouml;schtes Ger&auml;t &ndash;
+liefert ein g&uuml;ltiges TAR, das bei der Pr&uuml;fung mit 0 Transaktionen besteht. Ein solches TAR wird nicht
+beigef&uuml;gt: der Export antwortet mit <strong>409 <code>TSE_EXPORT_INCOMPLETE</code></strong> und nennt je
+Seriennummer die Anzahl und den Bereich der fehlenden TANR. Weil nur das TAR der angeschlossenen TSE
+exportiert werden kann, gilt das auch f&uuml;r einen Zeitraum mit Ger&auml;tetausch: das TAR der fr&uuml;heren TSE
+ist gesondert zu liefern, oder das Paket wird mit <code>allowMissingTseTar=true</code> ausdr&uuml;cklich
+<em>ohne</em> TAR erzeugt. Ein Zeitraum ohne signierte Transaktion wird nicht gepr&uuml;ft; ein vollst&auml;ndiges
+TAR wird byte-gleich beigef&uuml;gt.</p>
+
+<blockquote><p>Siehe auch: <a href="dsfinvk-export.html">DSFinV-K Export</a>, Abschnitt&nbsp;5</p></blockquote>
+
+<h3>SUPERSEDED-TANR als Extra-Zeile</h3>
+
+<p>Wird eine TANR von der TSE bereits geschlossen, ohne dass die Kasse deren Abschluss erhalten hat
+(Kapitel 9, &bdquo;TANR zuerst festhalten&ldquo;), signiert <code>TseVorgangSigner</code> den Vorgang unter
+einer neuen TANR. Die alte, <code>SUPERSEDED</code> markierte TANR erh&auml;lt in <code>transactions_tse.csv</code>
+eine zus&auml;tzliche Zeile auf demselben, bezahlten Bon &ndash; mit leeren Signaturfeldern und folgendem
+Wortlaut in <code>TSE_TA_FEHLER</code>:</p>
+
+<pre><code>TSE-Transaktion {alte TANR} abgeschlossen, Antwort nicht erhalten – ersetzt durch TANR {neue TANR}</code></pre>
+
+<p>Diese Zeile wird <strong>nie</strong> als <code>AVBelegabbruch</code>-Vorgang exportiert: der Bon wurde
+bezahlt, es handelt sich nicht um einen abgebrochenen Beleg, sondern um eine ersetzte TANR desselben
+Vorgangs.</p>
+
+<hr>
+
+<h2 id="s15">15. Fehlerbehandlung</h2>
+
+<h3>Fehlermodell: PosException und PosErrorCode</h3>
+
+<blockquote><p><strong>Dateien:</strong>
+<code>platform/api/.../core/error/PosErrorCode.kt</code> (Fehlercodes, <code>TSE_*</code>-Werte),
+<code>platform/server-common/.../infrastructure/errors/PosException.kt</code> (Exception),
+<code>pos-server/.../infrastructure/plugins/StatusPages.kt</code> (Umsetzung in die HTTP-Antwort)</p></blockquote>
+
+<p>Die TSE hat keine eigene Fehlerklassen-Hierarchie. Jeder Fehler im Treibermodul und in der
+TSE-Integration des Hauptservers wird als <code>PosException</code> mit einem <code>TSE_*</code>-Fehlercode
+(<code>PosErrorCode</code>) und einem HTTP-Status geworfen. Der Server wandelt sie in eine
+RFC-7807-Antwort (<code>application/problem+json</code>) mit <code>code</code>, <code>detail</code> und
+<code>traceId</code> um; Clients lesen den Code und zeigen eine lokalisierte Meldung. Die Codes lassen sich
+fachlich gruppieren:</p>
+
+<table>
+<tr><th>Gruppe</th><th>Beispiele (<code>PosErrorCode</code>)</th></tr>
+<tr><td>Verbindung</td><td><code>TSE_HARDWARE_NOT_FOUND</code>, <code>TSE_CONNECTION_FAILED</code>, <code>TSE_COMMUNICATION_TIMEOUT</code>, <code>TSE_HARDWARE_BUSY</code>, <code>TSE_INVALID_MOUNT_POINT</code></td></tr>
+<tr><td>Signierung</td><td><code>TSE_SIGNING_FAILED</code>, <code>TSE_INVALID_PROCESS_TYPE</code>, <code>TSE_INVALID_PROCESS_DATA</code>, <code>TSE_TRANSACTION_START_FAILED</code>, <code>TSE_TRANSACTION_FINISH_FAILED</code>, <code>TSE_TRANSACTION_UPDATE_FAILED</code>, <code>TSE_MAX_SIGNATURES_REACHED</code></td></tr>
+<tr><td>Antwort der TSE-Karte</td><td><code>TSE_NOT_OPERATIONAL</code>, <code>TSE_TRANSACTION_NOT_OPEN</code>, <code>TSE_OPERATION_REJECTED</code></td></tr>
+<tr><td>Administration</td><td><code>TSE_SETUP_FAILED</code>, <code>TSE_ALREADY_INITIALIZED</code>, <code>TSE_FACTORY_RESET_FAILED</code>, <code>TSE_SELF_TEST_FAILED</code>, <code>TSE_TIME_UPDATE_FAILED</code>, <code>TSE_CLIENT_REGISTRATION_FAILED</code>, <code>TSE_EXPORT_FAILED</code>, <code>TSE_PIN_CHANGE_FAILED</code></td></tr>
+<tr><td>Validierung</td><td><code>TSE_INVALID_PIN</code>, <code>TSE_INVALID_CLIENT_ID</code>, <code>TSE_INVALID_PARAMETERS</code></td></tr>
+<tr><td>Hardware</td><td><code>TSE_DECOMMISSIONED</code>, <code>TSE_FIRMWARE_ERROR</code>, <code>TSE_INSUFFICIENT_CAPACITY</code>, <code>TSE_HARDWARE_MALFUNCTION</code>, <code>TSE_TIME_SYNC_REQUIRED</code>, <code>TSE_CERTIFICATE_EXPIRED</code></td></tr>
+</table>
+
+<h3>HTTP-Status-Mapping</h3>
+
+<blockquote><p><strong>Dateien:</strong> <code>pos-tse/.../operations/signing/BaseTseSignOperation.kt</code> und
+<code>pos-tse/.../operations/admin/BaseTseOperation.kt</code> (werfen die <code>PosException</code>),
+<code>pos-tse/.../operations/signing/WormErrorClass.kt</code> (Einstufung von SDK-Fehlern)</p></blockquote>
+
+<p>Der HTTP-Status wird von der werfenden Operation festgelegt, nicht mehr pauschal pro Kategorie.
+Die h&auml;ufigsten F&auml;lle:</p>
+
+<table>
+<tr><th>Fehlercode</th><th>HTTP-Status</th><th>Beschreibung</th></tr>
+<tr><td><code>TSE_INVALID_PROCESS_TYPE</code>, <code>TSE_INVALID_PROCESS_DATA</code></td><td>400 Bad Request</td><td>Ung&uuml;ltige Eingabe</td></tr>
+<tr><td><code>TSE_HARDWARE_NOT_FOUND</code>, <code>TSE_INVALID_MOUNT_POINT</code>, <code>TSE_CONNECTION_FAILED</code>, <code>TSE_COMMUNICATION_TIMEOUT</code></td><td>503 Service Unavailable</td><td>TSE nicht erreichbar</td></tr>
+<tr><td><code>TSE_NOT_OPERATIONAL</code></td><td>503 Service Unavailable</td><td>TSE antwortet, ist aber nicht betriebsbereit (z.&nbsp;B. nicht in Betrieb genommen)</td></tr>
+<tr><td><code>TSE_TRANSACTION_NOT_OPEN</code></td><td>409 Conflict</td><td>Transaktion nicht (mehr) offen</td></tr>
+<tr><td><code>TSE_OPERATION_REJECTED</code></td><td>422 Unprocessable Entity</td><td>TSE hat den Vorgang abgelehnt</td></tr>
+<tr><td>sonstige nicht erwartete Fehler</td><td>500 Internal Server Error</td><td>Interner Fehler; Details nur im Server-Log (<code>traceId</code>)</td></tr>
+</table>
+
+<h3>Wiederholbare Fehler</h3>
+
+<p><code>PosErrorCode.isTseRetryable()</code> (<code>platform/api/.../core/error/PosErrorCodeExtensions.kt</code>)
+nennt die Codes, bei denen ein erneuter Versuch sinnvoll ist (u.&nbsp;a. <code>TSE_CONNECTION_FAILED</code>,
+<code>TSE_COMMUNICATION_TIMEOUT</code>, <code>TSE_HARDWARE_BUSY</code>,
+<code>TSE_TRANSACTION_START_FAILED</code>, <code>TSE_TRANSACTION_UPDATE_FAILED</code>,
+<code>TSE_TIME_UPDATE_FAILED</code>, <code>TSE_INFO_RETRIEVAL_FAILED</code>). Der Hintergrunddienst
+<code>TseSigningRetryService</code> arbeitet die Nachsignier-Warteschlange ab.
+<code>TseCertificateExpiredException</code> ist dagegen keine API-Antwort, sondern wird nur in der
+Wartungsaufgabe des Treibermoduls verwendet.</p>
+
+<h3>Klassifizierung nach Swissbit-Fehlercode</h3>
+
+<p>Seit 2026-09 unterscheidet der Signierpfad (<code>BaseTseSignOperation</code>) eine
+<code>WormException</code> anhand des Fehlercodes der Swissbit-SDK selbst: Codes unterhalb
+<code>0x1000</code> stammen vom Host, von der SDK oder von der Verbindung &ndash; hier wird die
+Verbindung zur&uuml;ckgesetzt wie bisher; ein Timeout (<code>TIMEOUT</code>,
+<code>RESPONSE_MISSING</code>, <code>NETWORK_TIMEOUT</code>) meldet
+<code>TSE_COMMUNICATION_TIMEOUT</code>, weil die Anfrage die TSE bereits erreicht haben kann und eine
+Signatur schon existieren k&ouml;nnte; alle &uuml;brigen F&auml;lle melden
+<code>TSE_CONNECTION_FAILED</code>. Codes ab <code>0x1000</code> sind Antworten der TSE selbst &ndash;
+die TSE hat also geantwortet und ist verbunden, weshalb die Verbindung erhalten bleibt und der Fehler
+als <code>TSE_NOT_OPERATIONAL</code>, <code>TSE_TRANSACTION_NOT_OPEN</code> oder
+<code>TSE_OPERATION_REJECTED</code> gemeldet wird. Deshalb schl&auml;gt die Inbetriebnahme
+(<code>POST /api/tse/setup</code>) nach einem Verkauf gegen eine noch nicht in Betrieb genommene TSE
+nicht mehr rund eine Minute lang fehl.</p>
+
+<h3>Graceful Degradation</h3>
+
+<p>Bei TSE-Ausfall oder -Fehler greift das konfigurierte Fehlerverhalten (<code>failureBehavior</code>):</p>
+
+<ol>
+  <li><strong>Nachsignieren (QUEUE)</strong>: Transaktion wird in die Queue eingereiht und sp&auml;ter signiert</li>
+  <li><strong>Abweisen (FAIL)</strong>: Transaktion wird abgelehnt, solange keine Signatur m&ouml;glich ist</li>
+</ol>
+
+<p>Der Modus wechselt bei einem Hardwareausfall <strong>nie</strong> automatisch &ndash; weder zu
+SIMULATION noch zu DISABLED. Eine NORMAL-Kasse ohne erreichbare TSE bleibt NORMAL und signiert nicht.</p>
+
+<hr>
+
+<h2 id="s16">16. Deployment</h2>
+
+<p>Das Treibermodul wird nicht mehr eigenst&auml;ndig ausgeliefert. Es ist eine gew&ouml;hnliche
+JVM-Bibliothek und wird beim Bau des Hauptservers mit eingebunden:</p>
+
+<pre><code># Deployment-Paket des Hauptservers erstellen
+./gradlew :pos-server:packageForDeployment
+# Ergebnis: pos-server/build/deploy/</code></pre>
+
+<h3>Deployment-Verzeichnis</h3>
+
+<pre><code>build/deploy/
+├── pos-server.jar            # Fat JAR des Hauptservers
+├── native/                   # TSE-Laufzeit (nur interne Releases)
+│   ├── WormAPI.jar           # Swissbit SDK, via Class-Path-Manifest geladen
+│   └── linux64/
+│       ├── libWormAPI.so
+│       └── libWormAPIJni.so
+└── run.sh                    # Linux Startup-Script</code></pre>
+
+<div class="alert alert-info">
+<p>Die Swissbit-SDK ist <strong>nicht</strong> Teil des ver&ouml;ffentlichten JARs: <code>pos-tse</code>
+deklariert sie als <code>compileOnly</code>. Zur Laufzeit wird sie &uuml;ber den
+<code>Class-Path</code>-Eintrag des Manifests aus <code>native/WormAPI.jar</code> geladen. Der
+Public-Release-Build (<code>-PincludeTseRuntime=false</code>) l&auml;sst <code>native/</code> ganz
+weg; Betreiber legen die SDK selbst dorthin.</p>
+</div>
+
+<h3>Konfiguration</h3>
+
+<p>Das Treibermodul <code>pos-tse/</code> hat keine eigene Konfigurationsdatei mehr. Die
+TSE-Einstellungen liegen ausschlie&szlig;lich in der Shop-Konfiguration des Hauptservers
+(Schl&uuml;ssel <code>TSE_CONFIG</code>).</p>
+
+<h3>Systemanforderungen</h3>
+
+<ul>
+  <li><strong>Java</strong>: JDK/JRE 21 (der Server wird mit <code>jvmToolchain(21)</code> gebaut)</li>
+  <li><strong>Betriebssystem</strong>: Linux (64/32-Bit)</li>
+  <li><strong>USB</strong>: Freier USB-Port f&uuml;r Swissbit TSE</li>
+  <li><strong>Mount-Punkt</strong>: TSE muss unter <code>/mnt/</code> oder <code>/media/</code> gemountet sein</li>
+</ul>
+
+<h3>Entwicklung</h3>
+
+<pre><code># Hauptserver gegen eine virtuelle TSE starten (ohne Hardware)
+./gradlew :pos-server:runVirtual
+
+# Treiber-Tests ausführen (laufen ohne Hardware gegen das virtuelle Gerät)
+./gradlew :pos-tse:test</code></pre>
+
+<hr>
+
+<h2 id="s17">17. TSE-Befunde &amp; Erl&auml;uterungen</h2>
+
+<p>Der TSE-Log ist auch dann l&uuml;ckenlos, wenn die Kasse eine Signatur nicht mehr verzeichnet hat
+&ndash; nach BSI TR-03153-1 &sect;9.4 ist der wiederholte Aufruf und damit eine neue Transaktionsnummer
+(TANR) genau die vorgeschriebene Reaktion auf einen fehlgeschlagenen oder unbeantworteten
+TSE-Aufruf (Kapitel 9). Eine TANR, zu der die Kasse keinen gew&ouml;hnlichen Datensatz h&auml;lt, ist
+daher nicht automatisch falsch, muss aber nach AEAO &sect; 146a Nr. 1.15.1 erkennbar bleiben und nach
+Swissbit AGD &sect;5.2 analysiert werden. Dieser Abschnitt beschreibt, wie das POS-System solche
+L&uuml;cken findet, gegen den TSE-Export abgleicht und die Erkl&auml;rung dazu dauerhaft festh&auml;lt.</p>
+
+<h3>Monatsabschluss-Pr&uuml;fpunkt <code>tse_tanr_continuity</code></h3>
+
+<blockquote><p><strong>Datei:</strong> <code>features/monthlyclose/data/service/checks/TseTanrContinuityCheck.kt</code>,
+<code>features/tse/findings/TanrContinuityAnalyzer.kt</code></p></blockquote>
+
+<p>Der Pr&uuml;fpunkt listet je TSE (nach ihrer Hex-Seriennummer) Transaktionsnummern, zu denen die
+Kasse keinen Datensatz h&auml;lt: L&uuml;cken in der fortlaufenden Nummerierung eines Ger&auml;ts sowie
+dieselbe Nummer, die zweimal aufgezeichnet wurde (das passiert, wenn ein Ger&auml;t unter zwei
+verschiedenen Serial-Kodierungen gespeichert war). Der Status ist <strong>WARNING</strong>, nicht
+FAILED &ndash; eine L&uuml;cke ist erkl&auml;rbar und nicht per se ein Fehler. Der Pr&uuml;fpunkt meldet
+ausschlie&szlig;lich das, was bislang niemand erkl&auml;rt hat: Bereiche, die bereits einen aktuellen
+Registereintrag haben (siehe unten), werden nicht mehr aufgef&uuml;hrt.</p>
+
+<h3>Abgleich in &bdquo;Export pr&uuml;fen&ldquo;</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>features/tse/verification/PosReconciliation.kt</code> (aufgerufen aus
+<code>TseVerificationService.verifyExport</code>, <code>POST /api/tse/verify</code>)</p></blockquote>
+
+<p>F&uuml;r jede Transaktionsnummer im gepr&uuml;ften TAR-Export wird gegen die POS-Daten abgeglichen, ob
+ein passender Datensatz existiert. Fehlt er, entsteht ein Befund, der die auf der TSE protokollierten
+Operationen und den Prozesstyp benennt. Weil der TSE-Log auch dann l&uuml;ckenlos ist, wenn die Kasse
+eine Signatur verloren hat, findet nur dieser Abgleich &ndash; und nicht der reine POS-seitige
+Kontinuit&auml;tscheck &ndash; solche TANRs zuverl&auml;ssig. Der Abgleich kann einen abgebrochenen
+Vorgang nicht von einer doppelten Signatur unterscheiden, weil der Parser die Prozessdaten (Tag 2)
+nicht ausliest.</p>
+
+<p><strong>Die Gegenrichtung</strong> (<code>features/tse/verification/ExportCoverage.kt</code>): Jede Transaktion,
+die die Kasse auf derselben TSE signiert hat (NORMAL-Modus, mit TANR) und die im Bereich des Exports liegt, muss im
+Export stehen. Den Bereich liest der Server aus dem Archiv selbst, je Seriennummer: die Spanne seiner
+Transaktionsnummern und die Spanne der Protokollzeiten <em>aller</em> Meldungen (auch System- und Audit-Logs &ndash;
+so ist auch ein Export ohne jede Transaktion datiert), an beiden Enden um 60&nbsp;Sekunden verk&uuml;rzt, weil die Kasse
+<code>start_time</code> mit der Serveruhr stempelt. Fehlt eine solche Transaktion, ist das ein
+<strong>kritischer</strong> Befund <code>POS_TRANSACTION_MISSING_FROM_EXPORT</code> (Ergebnis <em>Fehlgeschlagen</em>) &ndash;
+dieselbe Bedingung, unter der der DSFinV-K-Export mit <code>TSE_EXPORT_INCOMPLETE</code> ablehnt. Bei einem Einzelkassen-Export (Filterdatei <code>&lt;Datei&gt;.json</code>, siehe Kapitel&nbsp;14) z&auml;hlen nur die Transaktionen dieser Kasse, und zwar auch &uuml;ber den angeforderten Bereich, nicht nur &uuml;ber den, den die Datei selbst erreicht. Reicht der angeforderte Bereich in Eintr&auml;ge, die ein Exportieren-und-L&ouml;schen von der TSE entfernt hat, werden diese nicht verlangt, sofern ein registriertes Archiv (Archivregister) sie h&auml;lt &ndash; der Befund <code>ERASED_ENTRIES_IN_ARCHIVE</code> (INFO) nennt das Archiv. Eine fehlende Transaktion, die kein Archiv h&auml;lt oder die innerhalb der eigenen Spanne der Datei liegt, bleibt kritisch. Exporte f&uuml;r alle Kassen lesen ihren Bereich aus der Datei selbst und verlangen gel&ouml;schte Eintr&auml;ge ohnehin nicht. Bis 2026-10 bestand ein
+zeitgefilterter Export mit 0 von 26 Transaktionen des Tages die Pr&uuml;fung. Eine Datei ohne jede
+TSE-Protokollmeldung (0&nbsp;Byte, kein TAR oder nur <code>info.csv</code>) ist ebenfalls kritisch:
+<code>EMPTY_ARCHIVE</code>.</p>
+
+<h3>Erkl&auml;rungsregister <code>tse_explanation</code> (V82)</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>db/migration/V82__schema_cash_and_fiscal.sql</code>,
+<code>features/tse/findings/TseExplanationRepository.kt</code>, <code>features/tse/findings/TseFindingService.kt</code></p></blockquote>
+
+<p>Das Register ist <strong>append-only</strong>: jeder Eintrag deckt eine TSE-Seriennummer und einen
+TANR-Bereich ab, mit einer Kategorie, dem Erkl&auml;rungstext, wer ihn erfasst hat und wann. Eintr&auml;ge
+werden nie ge&auml;ndert oder gel&ouml;scht; eine Korrektur ist ein neuer Eintrag, der den ersetzten
+Eintrag benennt (<code>supersedesId</code>). Das System schreibt selbst die Eintr&auml;ge, deren Ursache
+sicher feststeht (eine ersetzte TANR, Kategorie <code>SUPERSEDED</code>, siehe Kapitel 9);
+alles &Uuml;brige erkl&auml;rt ein Bediener.</p>
+
+<p><strong>Kategorien</strong> (<code>TseExplanationCategory</code>): <code>TANR_WITHOUT_POS_RECORD</code>,
+<code>ORPHAN_ABORT</code>, <code>DUPLICATE_SIGNATURE</code>, <code>SUPERSEDED</code>,
+<code>DUPLICATE_TANR</code>, <code>SIGNATURE_COUNTER_GAP</code>, <code>TSE_OUTAGE</code>,
+<code>OTHER</code>.</p>
+
+<h3>adminApp: &bdquo;TSE-Befunde&ldquo;</h3>
+
+<blockquote><p><strong>Datei:</strong> <code>ui/backoffice/.../features/tse/presentation/TseFindingsScreen.kt</code>
+(unter <strong>Ger&auml;te</strong>, Endpoint <code>GET /api/tse/findings</code>, Capability
+<code>TSE_ADMIN</code>)</p></blockquote>
+
+<p>Zeigt die Befunde mit dem Status &bdquo;erl&auml;utert&ldquo; bzw. &bdquo;nicht erl&auml;utert&ldquo;, bietet
+einen &bdquo;Erl&auml;utern&ldquo;-Dialog zum Anlegen eines Registereintrags und einen CSV-Export des
+Registers f&uuml;r die Verfahrensdokumentation. Der CSV-Export enth&auml;lt das <strong>vollst&auml;ndige</strong>
+Register einschlie&szlig;lich ersetzter Eintr&auml;ge: Spalte <code>id</code>, <code>status</code>
+(<code>CURRENT</code>/<code>SUPERSEDED</code>), <code>superseded_by</code> (die ersetzende Eintrags-ID) sowie
+Autor als Mitarbeiter-ID und Mitarbeiternummer (<code>created_by</code>, <code>created_by_number</code>). Die
+Ansicht selbst zeigt nur den jeweils g&uuml;ltigen Eintrag. Diese Ansicht ist die <strong>POS-seitige</strong>
+Sicht &ndash; die TANR-Befunde aus &bdquo;Export pr&uuml;fen&ldquo; stammen aus einer Exportdatei und
+beantworten eine andere Frage; eine TANR vor dem ersten POS-Datensatz eines Ger&auml;ts ist dort ein
+Befund und hier keine L&uuml;cke. Beide k&ouml;nnen daher legitim auseinanderlaufen und werden nie zu
+einer Liste zusammengef&uuml;hrt.</p>
+
+<p><strong>Hinweis f&uuml;r die Verfahrensdokumentation &ndash; Zahlartwechsel:</strong> Ein Zahlartwechsel
+wird als zwei gew&ouml;hnlich signierte Vorg&auml;nge abgebildet, zuerst ein Storno, dann eine Neubuchung.
+Ein Storno mit Grund ZAHLARTWECHSEL ist die erste H&auml;lfte eines Zahlartwechsels; der unmittelbar
+folgende Beleg verweist &uuml;ber bon_referenzen auf den stornierten Ursprungsbeleg. Die DSFinV-K kennt
+kein Feld f&uuml;r den Storno-Grund; der Zusammenhang ergibt sich aus den Referenzen (Storno &rarr;
+Original und Neubuchung &rarr; Original, jeweils <code>REF_TYP</code> <code>Transaktion</code>).
+Ebenso verweist nach einem Storno mit wieder ge&ouml;ffnetem Tisch der Beleg, der die zur&uuml;ckgelegten
+Positionen abrechnet, auf jeden stornierten Ursprungsbeleg (abgeleitet aus den Positionen, nicht gespeichert).</p>
+
+<div class="alert alert-info">
+<p><strong>Einmaliger Historienlauf nach dem Upgrade:</strong> &Ouml;ffnen Sie &bdquo;TSE-Befunde&ldquo; nach
+dem Upgrade einmal. Die Ansicht kennt keinen Datumsfilter und listet stets die <strong>gesamte
+Historie der eigenen Kassendatens&auml;tze</strong>, sodass auch alte L&uuml;cken sichtbar werden und
+einmalig erl&auml;utert werden k&ouml;nnen. Ein Abgleich <em>gegen eine TSE-Exportdatei</em> findet hier
+nicht statt &ndash; das leistet &bdquo;Export pr&uuml;fen&ldquo;.</p>
+</div>
+
+<h3>Rechtliche Grundlage</h3>
+
+<ul>
+  <li><strong>AEAO &sect; 146a Nr. 1.15.1</strong> &ndash; L&uuml;cken in der TSE-Absicherung m&uuml;ssen erkennbar
+  bleiben.</li>
+  <li><strong>BSI TR-03153-1 &sect;9.4</strong> &ndash; der wiederholte Aufruf (und damit eine neue TANR) ist die
+  vorgeschriebene Reaktion auf einen fehlgeschlagenen oder unbeantworteten TSE-Aufruf.</li>
+  <li><strong>Swissbit AGD &sect;5.2</strong> &ndash; eine L&uuml;cke muss analysiert werden.</li>
+</ul>
+
+<hr>
+
+<p><em>Letzte Aktualisierung: 2026-10-26</em><br>
+<em>Generiert aus dem Quellcode des POS-Systems (Branch: dev)</em></p>
+
+
+<h2 id="aenderungen-je-version">&Auml;nderungen an Signierung und Export je Version</h2>
+<p>Dieser Abschnitt ist f&uuml;r Pr&uuml;fer, Steuerberater und Betreuer geschrieben. Wer in den Daten einer Installation
+etwas anderes oder scheinbar Falsches vorfindet als in &auml;lteren Daten derselben Installation, soll hier nachlesen
+k&ouml;nnen, <strong>warum</strong> es sich ge&auml;ndert hat und <strong>ab wann</strong>. Je Version steht, was sich an der
+TSE-Signierung, am Kassenbuch oder am DSFinV-K-/TAR-Export ge&auml;ndert hat, welcher Fehler oder Befund der Anlass war,
+welcher Ablauf betroffen ist, ab wann es gilt und was ein Pr&uuml;fer in den Daten anders sieht. Die Release-Hinweise
+(&bdquo;Was ist neu&ldquo;, Tabelle <code>changelog_release</code>) sind die Kurzfassung f&uuml;r Betreiber und ersetzen
+diesen Abschnitt nicht. Die Auswirkungen auf den DSFinV-K-Export stehen zus&auml;tzlich in der
+<a href="dsfinvk-export.html#s7">DSFinV-K-Dokumentation, Abschnitt&nbsp;7</a>.</p>
+
+<h3 id="aenderungen-grundsatz">Grundsatz: Jede &Auml;nderung wirkt nur vorw&auml;rts</h3>
+<p>Eine &Auml;nderung gilt ab dem <strong>ersten Start der neuen Version auf dieser Installation</strong>. Was vorher in die
+TSE signiert wurde, bleibt unver&auml;ndert im WORM-Speicher der TSE und damit in jedem TAR-Export; ein WORM-Eintrag l&auml;sst
+sich nicht umschreiben, und keine Version versucht es. Gespeicherte Kassenbuch-, Beleg- und Abschlusszeilen werden beim
+Update nicht nachtr&auml;glich umgestellt. Anders der DSFinV-K-Export: Er wird bei jedem Export neu aus den gespeicherten
+Daten abgeleitet, eine Export&auml;nderung wirkt also auch auf &auml;ltere Zeitr&auml;ume, sobald sie neu exportiert werden
+&ndash; das ist beim jeweiligen Eintrag vermerkt. Ein Eintrag einer bereits ver&ouml;ffentlichten Version wird nie
+umgeschrieben; eine Korrektur steht unter der n&auml;chsten Version.</p>
+
+<h3 id="aenderungen-wann">Wann wurde eine Version auf dieser Installation eingespielt?</h3>
+<p>Der Umstellungszeitpunkt ist der erste Start der neuen Version. Ihn belegen, vom zuverl&auml;ssigsten an:</p>
+<ol>
+<li><strong>Je Kassenabschluss: <code>KASSE_SW_VERSION</code></strong> in <code>cashregister.csv</code> des DSFinV-K-Exports,
+gespeichert in <code>zbon.stamm_kasse_sw_version</code>. Jeder Abschluss friert beim Erstellen die Software-Version ein, unter
+der er erstellt wurde (Stammdaten-Snapshot, siehe <a href="dsfinvk-export.html#s33">DSFinV-K-Dokumentation&nbsp;3.3</a>);
+sp&auml;tere Updates &auml;ndern den Wert nicht. F&uuml;r alles, was beim Tagesabschluss selbst entsteht (Aggregat,
+Kassendifferenz, Auszahlungen, Geldtransit), ist das der direkte Nachweis: ein Abschluss mit <code>KASSE_SW_VERSION</code>
+<code>1.1.1</code> wurde unter v1.1.1 erstellt. Wird &uuml;ber die Update-Seite installiert, lehnt der Server die Installation
+ab, solange seit dem letzten Abschluss Belege oder Kassenbuch-Eintr&auml;ge offen sind
+(<a href="kap-17-softwareaktualisierung.html#kap-17-blockiert">Kapitel&nbsp;17</a>); dann liegen auch alle Vorg&auml;nge eines
+Abschlusses unter derselben Version. Nach einem Programmtausch von Hand gilt das nicht zwingend.
+<em>Einschr&auml;nkung:</em> verl&auml;sslich f&uuml;r Abschl&uuml;sse, die unter v1.1.0 oder sp&auml;ter erstellt wurden.
+&Auml;ltere Abschl&uuml;sse erhielten beim ersten Start von v1.1.0 die damals laufende Version eingefroren (z.&nbsp;B.
+<code>1.0.10</code>), nicht unbedingt die, unter der sie erstellt wurden.</li>
+<li><strong>Pr&uuml;fprotokoll: Eintrag <code>UPDATE_APPLIED</code></strong> in <code>transaction_audit_log</code>
+(<code>entity_type = 'SOFTWARE_UPDATE'</code>, <code>entity_id</code> = die neue Version, <code>timestamp</code> = Neustart in die
+neue Version, UTC; abrufbar &uuml;ber <code>GET /api/audit/transactions?entityType=SOFTWARE_UPDATE</code>). Hat der
+R&uuml;ckfall-W&auml;chter nach einem missgl&uuml;ckten Start das alte Programm zur&uuml;ckgeholt, steht dort stattdessen
+<code>UPDATE_ROLLED_BACK</code> &ndash; die neue Version war dann nicht in Betrieb. Der Eintrag entsteht nur bei einer
+Installation &uuml;ber die Update-Seite (<a href="kap-17-softwareaktualisierung.html#kap-17-installation">Kapitel&nbsp;17</a>,
+seit v1.1.0), nicht bei einem Programmtausch von Hand.</li>
+<li><strong>Release-Marker: <code>changelog_release.applied_at</code></strong> (und <code>applied_by</code>) der Zeile mit
+<code>release_version = '1.1.1'</code>. Die Release-Marker-Migration der Version (f&uuml;r v1.1.1
+<code>V92__release_1_1_1.sql</code>) schreibt sie beim ersten Start, unabh&auml;ngig vom Installationsweg.
+<code>release_date</code> ist dagegen das offizielle Ver&ouml;ffentlichungsdatum, nicht das Einspielen. Auf einer
+Neuinstallation werden alle Marker beim Einrichten angelegt; <code>applied_at</code> ist dann der Installationszeitpunkt.</li>
+<li><strong>Migrationsverlauf: <code>flyway_schema_history.installed_on</code></strong> der Zeilen <code>version = '92'</code>
+(Release-Marker) und <code>'91'</code> (Spalte <code>cash_book.signing_terminal_id</code>) &ndash; derselbe Zeitpunkt wie
+Punkt&nbsp;3. Eine Neuinstallation enth&auml;lt statt der einzelnen Migrationen nur eine Baseline-Zeile mit dem
+Installationszeitpunkt.</li>
+</ol>
+<p><strong>Nach einer R&uuml;cksicherung</strong> geh&ouml;ren <code>zbon</code>, <code>transaction_audit_log</code> und
+<code>changelog_release</code> zum Archiv und zeigen die Geschichte der gesicherten Datenbank;
+<code>flyway_schema_history</code> ist vom Archiv ausgenommen und beschreibt die Zielinstallation.</p>
+<pre><code>-- Wann lief welche Version zum ersten Mal auf dieser Datenbank?
+SELECT release_version, release_date, applied_at, applied_by FROM changelog_release ORDER BY applied_at;
+SELECT version, description, installed_on FROM flyway_schema_history ORDER BY installed_rank;
+SELECT timestamp, operation, entity_id, changes_summary FROM transaction_audit_log
+ WHERE entity_type = 'SOFTWARE_UPDATE' ORDER BY timestamp;
+
+-- Unter welcher Version wurde jeder Abschluss erstellt, und wie wurde sein Aggregat behandelt?
+SELECT z.zbon_nummer, z.created_at, z.stamm_kasse_sw_version, h.tse_signing_status, h.tse_transaction_id
+  FROM zbon z JOIN kassenbuch_header h ON h.zbon_id = z.zbon_id AND h.is_zbon_aggregate
+ ORDER BY z.zbon_nummer;</code></pre>
+
+<h3 id="aenderungen-v1-2-0">v1.2.0</h3>
+<p><strong>Gilt ab</strong> dem ersten Start von v1.2.0 auf der Installation (Nachweis siehe
+<a href="#aenderungen-wann">oben</a>). <strong>Unver&auml;ndert</strong> bleiben Prozessart, processData-Format und Client aller
+signierten Vorg&auml;nge sowie Format des DSFinV-K-Exports; ge&auml;ndert sind nur der Betrag einer Aktion und der Belegtext einer Kassensturz-Differenzbuchung, wie unten beschrieben.</p>
+
+<h4>1. Prozentaktion auf den ganzen Beleg wird beim Anwenden auf den Cent gerundet</h4>
+<ul>
+<li><strong>Was:</strong> Der Abzug einer Aktion mit Prozentrabatt auf den ganzen Beleg (<code>BILL_WIDE</code>, <code>PERCENTAGE</code>)
+wird beim Anwenden kaufm&auml;nnisch auf zwei Nachkommastellen gerundet (HALF_UP), wie es f&uuml;r den Prozentabzug auf einen einzelnen
+Artikel schon seit der TSER-3-Korrektur galt und wie es die Kassen-App rechnet. Beispiel: 10&nbsp;% auf 29,68&nbsp;&euro; ergeben
+2,97&nbsp;&euro; (bisher 2,9680&nbsp;&euro;), der Beleg lautet auf 26,71&nbsp;&euro;.</li>
+<li><strong>Anlass:</strong> Beim Bef&uuml;llen eines Testsystems (13.10.2026) lie&szlig; sich ein solcher Beleg nicht bezahlen: Der Server verlangte
+26,7120&nbsp;&euro;, jede Zahlung ist aber auf den Cent gerundet; die Antwort war 400 <code>PAYMENT_TOTAL_MISMATCH</code>.</li>
+<li><strong>Betroffener Ablauf:</strong> Anlegen eines Belegs mit einer <code>BILL_WIDE</code>-Prozentaktion (<code>BillServiceImpl</code>);
+Zahlungspr&uuml;fung, Aufteilung auf die Steuers&auml;tze (<code>PromotionGroupApportionment</code>), Signierung und DSFinV-K-Export lesen den gerundeten Betrag.</li>
+<li><strong>Was der Pr&uuml;fer sieht:</strong> Ein Beleg mit einer solchen Aktion h&auml;tte vor v1.2.0 nicht abgeschlossen werden k&ouml;nnen, wenn der
+Abzug keine ganze Cent-Zahl war; es gibt in &auml;lteren Daten daher keinen Beleg mit Untercent-Abzug. Bei Abz&uuml;gen, die schon ganze Cent
+waren, ist nichts anders. Ab v1.2.0 tragen <code>bill.promotion_amount</code>, <code>bill_promotion.deducted_amount</code>, die signierten
+Umsatzbetr&auml;ge und die Rabattzeile im DSFinV-K-Export genau zwei Nachkommastellen, und <code>&Sigma;&nbsp;Umsatz = &Sigma;&nbsp;Zahlung</code> gilt am Beleg.</li>
+</ul>
+
+<h4>2. Belegtext der Kassensturz-Differenzbuchung: der Kassenname wird gek&uuml;rzt, nicht die Buchungsart</h4>
+<ul>
+<li><strong>Was:</strong> Der Belegtext der Differenzbuchung, die ein Kassensturz in einer Nebenkasse oder im Tresor bucht, lautet
+weiterhin <code>Kassensturz &lt;Kasse&gt;: Kassendifferenz Plus|Minus</code> und bleibt auf 60&nbsp;Zeichen begrenzt
+(<code>kassenbuch_header.belegtext varchar(60)</code>; zugleich der DATEV-Buchungstext, XSD-Typ <code>p10060</code>). Ist der Text zu
+lang, wird jetzt der <em>Kassenname</em> gek&uuml;rzt und mit &bdquo;&hellip;&ldquo; markiert; Pr&auml;fix und Buchungsart bleiben immer
+vollst&auml;ndig. Der vollst&auml;ndige Kassenname steht zus&auml;tzlich in der Beschreibung des Eigenbelegs.</li>
+<li><strong>Anlass:</strong> Befund FO-23 (UI-Pr&uuml;fung 13.10.2026): Bei einem langen Kassennamen wurde der Text einfach nach 60
+Zeichen abgeschnitten (&bdquo;&hellip;Veranstaltungen S&ldquo;); die Buchungsart &ndash; ob &Uuml;berschuss oder Fehlbetrag &ndash;
+fehlte im Text ganz, ohne dass die K&uuml;rzung erkennbar war.</li>
+<li><strong>Betroffener Ablauf:</strong> Kassensturz (<code>CashBookCloseServiceImpl</code>, Text aus <code>KassensturzBelegtext</code>).
+Nur nicht-fiskalische Kassenb&uuml;cher: diese Buchung wird nie TSE-signiert (<code>tse_signing_status = NOT_APPLICABLE</code>) und
+erscheint nicht im DSFinV-K-Export.</li>
+<li><strong>Was der Pr&uuml;fer sieht:</strong> Ab v1.2.0 enden Belegtexte von Kassensturz-Differenzbuchungen immer auf
+&bdquo;Kassendifferenz Plus&ldquo; bzw. &bdquo;Kassendifferenz Minus&ldquo;; ein &bdquo;&hellip;&ldquo; vor dem Doppelpunkt zeigt einen
+gek&uuml;rzten Kassennamen. Im Kassenbuch und im DATEV-Export (Buchungstext) &auml;lterer Versionen kann bei langen Kassennamen die
+Buchungsart abgeschnitten sein; ma&szlig;geblich sind dort Buchungsart (<code>entry_type</code>) und Vorzeichen des Betrags. Bestehende
+Eintr&auml;ge werden nicht umgeschrieben.</li>
+</ul>
+
+<h3 id="aenderungen-v1-1-2">v1.1.2 (noch nicht ver&ouml;ffentlicht)</h3>
+<p><strong>Gilt ab</strong> dem ersten Start von v1.1.2 auf der Installation (Nachweis siehe
+<a href="#aenderungen-wann">oben</a>; Release-Marker <code>V93__release_1_1_2.sql</code>). <strong>Unver&auml;ndert</strong>
+bleiben Prozessart, processData und Client aller signierten Vorg&auml;nge sowie Format und Inhalt des DSFinV-K-Exports (zu Punkt&nbsp;2 siehe dort).
+Technische Beschreibung: <a href="#s11-replug">Abschnitt&nbsp;11</a>.</p>
+
+<h4>1. TSE bei laufendem Server eingesteckt: Selbsttest und Zeitabgleich ohne Neustart</h4>
+<ul>
+<li><strong>Was:</strong> Wird die TSE bei laufendem Server eingesteckt &ndash; erstmals, nach dem Abziehen oder nach einem
+Stromausfall am USB-Anschluss &ndash;, gibt der Server dem Treiber beim Wiederfinden dieselbe Konfiguration wie beim Start:
+den TSE-Client und die gespeicherte TimeAdmin-PIN. Die automatische Wiederherstellung f&uuml;hrt danach Selbsttest und
+Zeitabgleich mit diesem Client aus und startet die zeitgesteuerte Wartung, falls sie noch nicht lief. Der Knopf
+&bdquo;Selbsttest&ldquo; (<code>POST /api/tse/selftest</code>) nutzt denselben Client. Welche Kasse als Client dient,
+bestimmt jetzt eine einzige Regel f&uuml;r Start, &bdquo;TSE neu starten&ldquo;, gespeicherte TSE-Konfiguration,
+Wiederfinden und Selbsttest: die erste aktive, bei der TSE registrierte Kasse. Auf eine nicht registrierte Kasse f&auml;llt
+sie nicht mehr zur&uuml;ck.</li>
+<li><strong>Anlass:</strong> An einer echten Swissbit-TSE&nbsp;1.x (Produktions-Firmware, Test-Kasse, 10.10.2026, v1.1.1) blieb die TSE nach dem Einstecken bei laufendem Server dauerhaft im Zustand <code>DEGRADED</code>
+(<code>passedSelfTest=false</code>, <code>validTime=false</code>). Wiederherstellung und Selbsttest-Knopf scheiterten mit
+&bdquo;no client ID is configured&ldquo;, bevor die TSE angesprochen wurde, die Wiederherstellung alle ~2&nbsp;Minuten
+erneut. Belege und Kassenbuch-Eintr&auml;ge blieben im Nachsignieren, bis jemand den Server neu startete oder
+&bdquo;TSE neu starten&ldquo; ausl&ouml;ste.</li>
+<li><strong>Betroffener Ablauf:</strong> Wiederfinden der TSE (<code>reacquireIfLost</code>), Wiederherstellung nach
+Stromausfall (<code>TsePowerLossRecovery</code>), manueller Selbsttest, sowie die Client-Wahl beim Start, bei
+&bdquo;TSE neu starten&ldquo; und nach dem Speichern der TSE-Konfiguration. Technik: <a href="#s11-replug">Abschnitt&nbsp;11</a>.</li>
+<li><strong>Keine Kasse registriert (TSE&nbsp;1.x):</strong> Der Selbsttest wird abgelehnt, ohne die TSE anzusprechen
+&ndash; der Knopf mit HTTP&nbsp;409 <code>TSE_NOT_OPERATIONAL</code> und Handlungsanweisung, die Automatik mit einer
+WARN-Zeile und einem neuen Versuch nach 60&nbsp;s. Bis v1.1.1 wurde dann eine beliebige aktive Kasse verwendet, die die
+TSE als nicht registriert abwies. TSE&nbsp;2.0 braucht f&uuml;r den Selbsttest keinen Client und ist davon nicht betroffen.</li>
+<li><strong>Was der Pr&uuml;fer sieht:</strong> Was signiert wird &ndash; Prozessart, processData und Client der Belege,
+Bestellungen und Kassenbuch-Vorg&auml;nge &ndash; ist unver&auml;ndert. Anders ist der Zeitpunkt: Nach dem Einstecken bei
+laufendem Server, einem Abziehen oder einem Stromausfall stehen die System-Log-Eintr&auml;ge f&uuml;r Selbsttest und
+Zeitabgleich im TAR-Export der TSE jetzt kurz nach dem Wiedereinstecken statt erst nach einem Neustart des Servers, und
+die im Nachsignieren wartenden Vorg&auml;nge werden entsprechend fr&uuml;her signiert (k&uuml;rzere Abst&auml;nde zwischen
+Ausfall und Nachsignierung in <code>tse_late_signing</code>). Der Selbsttest l&auml;uft unter der ersten registrierten
+Kasse, nach derselben Regel wie beim Start.</li>
+</ul>
+
+<h4>2. Kassenbuch-Vorg&auml;nge ohne USt-Bezug werden mit Satz 0 gespeichert (Geldtransit, Bankeinzahlung u.&nbsp;a.)</h4>
+<ul>
+<li><strong>Was:</strong> F&uuml;r Vorg&auml;nge, die DSFinV-K als nicht steuerbar f&uuml;hrt &ndash; Geldtransit (inkl. Bankeinzahlung und
+Wechselgeld-Aufstockung), Privateinlage, Privatentnahme, Bargeldeinlage, Kassendifferenz und Anfangsbestand &ndash;, speichert
+der Server jetzt den Steuersatz <code>0</code> an jeder Position, gleichg&uuml;ltig, welchen Satz der Client mitschickt. Die
+Kassen-App blendet die Satzauswahl f&uuml;r diese Typen aus und sendet selbst <code>0</code>; die Detailansicht zeigt statt eines
+Prozentsatzes &bdquo;Nicht steuerbar&ldquo;. Eine Storno-Buchung folgt dem stornierten Vorgang und wird ebenfalls mit <code>0</code> gespeichert, auch wenn der Originaleintrag noch den alten Satz tr&auml;gt.</li>
+<li><strong>Anlass:</strong> Eine Bankeinzahlung (Geldtransit) wurde in der Detailansicht als &bdquo;19&nbsp;%&ldquo; angezeigt. Ursache: Das
+Formular startet mit dem Satz 19; die Signierung und der DSFinV-K-Export verwarfen ihn bereits (Umsatzsteuerschl&uuml;ssel&nbsp;5), die
+Zeile in der Datenbank behielt ihn aber, und der DATEV-XML-Export schrieb ihn als <code>&lt;tax&gt;19.00&lt;/tax&gt;</code>.</li>
+<li><strong>Betroffener Ablauf:</strong> Anlegen von Kassenbuch-Eintr&auml;gen und -Korrekturen (<code>KassenbuchServiceImpl</code>,
+Entscheidung in <code>KassenbuchTaxClassifier.storedRate</code>).</li>
+<li><strong>Was der Pr&uuml;fer sieht:</strong> <em>Unver&auml;ndert</em> sind processData und Signatur (Container&nbsp;5) sowie der
+DSFinV-K-Export &ndash; diese Stelle hat den Satz auch bisher verworfen. Anders ist nur die gespeicherte Zeile
+(<code>kassenbuch_line_item.ust_satz</code>): ab v1.1.2 <code>0</code> statt des mitgeschickten Satzes, und im DATEV-XML-Export fehlt
+das Element <code>tax</code> an diesen Positionen. Bereits gespeicherte Eintr&auml;ge (v1.1.1 und fr&uuml;her) behalten
+ihren Satz &ndash; signierte Daten werden nicht umgeschrieben; an ihnen ist ein Satz&nbsp;19 bei einem dieser Typen ohne
+Aussagekraft, ma&szlig;geblich ist der signierte Container&nbsp;5. Die Detailansicht zeigt f&uuml;r diese Typen auch bei Altdaten
+&bdquo;Nicht steuerbar&ldquo;.</li>
+</ul>
+
+<h3 id="aenderungen-v1-1-1">v1.1.1 (10.10.2026)</h3>
+<p><strong>Gilt ab</strong> dem ersten Start von v1.1.1 auf der Installation (Nachweis siehe
+<a href="#aenderungen-wann">oben</a>); Punkt&nbsp;2 zus&auml;tzlich erst ab dem Bestimmen einer signierenden Kasse.
+<strong>Unver&auml;ndert</strong> bleiben die Signierung von Belegen (Kassenbeleg-V1), Bestellungen (Bestellung-V1) und
+Stornos, Prozessart und processData der weiterhin signierten Kassenbuch-Vorg&auml;nge sowie Format und Inhalt des
+DSFinV-K-Exports f&uuml;r bereits erstellte Abschl&uuml;sse. Grundlage: Spezifikation
+<code>docs/superpowers/specs/2026-10-09-zbon-close-anywhere-design.md</code>; Bedienung:
+<a href="kap-12-finanzdokumente.html#kap-12-signierende-kasse">Kapitel&nbsp;12</a>; technische Beschreibung:
+<a href="#s11-zbon-signer">Abschnitt&nbsp;11</a>.</p>
+
+<h4>1. Das Z-Bon-Aggregat wird nicht mehr TSE-signiert</h4>
+<ul>
+<li><strong>Was:</strong> Die Sammelbuchung des Tagesabschlusses (<code>kassenbuch_header</code> mit
+<code>entry_type = 'CASH_SALE'</code> und <code>is_zbon_aggregate = true</code>) wird ohne TSE-Transaktion gespeichert:
+<code>tse_signing_status = 'NOT_APPLICABLE'</code>, keine <code>tse_transaction_id</code>, kein Eintrag in der
+Signierwarteschlange, nicht vom Nachsignieren erfasst. Die Zeile selbst bleibt im Kassenbuch, denn der laufende Saldo
+(Kassensturzf&auml;higkeit) h&auml;ngt an ihr.</li>
+<li><strong>Anlass:</strong> Bis v1.1.0 wurde das Aggregat als <code>SonstigerVorgang</code> signiert, mit der Begr&uuml;ndung,
+ein &bdquo;anderer Vorgang&ldquo; sei aufzeichnungspflichtig. Das Aggregat begr&uuml;ndet aber keinen Gesch&auml;ftsvorfall:
+Es gibt je Steuersatz nur die Ums&auml;tze wieder, die jeder Beleg bereits als eigener Kassenbeleg-V1 signiert hat.
+Vorg&auml;nge, die f&uuml;r die Schutzziele nicht erforderlich sind, m&uuml;ssen nicht abgesichert werden (AEAO zu
+&sect;&nbsp;146a Nr.&nbsp;1.11.2); die Bargeldbewegungen eines Abschlusses sind dagegen Gesch&auml;ftsvorf&auml;lle nach
+Nr.&nbsp;1.10.2 (u.&nbsp;a. Trinkgeld, Lohnzahlung aus der Kasse, Geldtransit) und bleiben signiert. Ausl&ouml;ser der
+&Uuml;berpr&uuml;fung war der Tagesabschluss aus dem Admin-Panel: Die Pflichtsignatur des Aggregats verlangte f&uuml;r
+<em>jeden</em> Abschluss eine signierende Kasse, die ein Browser nicht hat.</li>
+<li><strong>Ablauf:</strong> Tagesabschluss (<code>ZBonServiceImpl.createReport</code>). Ein Abschluss ohne Z&auml;hlung,
+Bar-Trinkgeld-Auszahlung, Aufstockung und eingerichteten t&auml;glichen Geldtransit erzeugt damit &uuml;berhaupt keine
+TSE-Transaktion mehr und braucht keine signierende Kasse; er gelingt von jedem Ger&auml;t, auch von einer deaktivierten oder
+nicht bei der TSE angemeldeten Kasse. Unter v1.1.0 lehnte der Server jeden Abschluss ab, den nicht eine
+signierf&auml;hige Kasse ausl&ouml;ste.</li>
+<li><strong>DSFinV-K:</strong> unver&auml;ndert. Das Aggregat ist seit v1.1.0 aus allen f&uuml;nf Kassenbuch-Ausgaben des
+Exports ausgeschlossen (<code>!isZbonAggregate</code>, Commit <code>eaa2b2182</code>); ein Export &auml;ndert sich durch diese
+&Auml;nderung um kein Byte.</li>
+<li><strong>Was der Pr&uuml;fer sieht:</strong> Im TAR je Abschluss eine Transaktion weniger; Abschl&uuml;sse ohne
+Bargeldbewegung haben keine TSE-Transaktion. Jede Aggregat-Zeile zeigt selbst, wie sie behandelt wurde:
+<code>NOT_APPLICABLE</code> ohne <code>tse_transaction_id</code> hei&szlig;t &bdquo;unter v1.1.1 oder sp&auml;ter erstellt,
+bewusst nicht signiert&ldquo;; eine gesetzte <code>tse_transaction_id</code> oder ein Warteschlangeneintrag hei&szlig;t
+&bdquo;unter einer fr&uuml;heren Version signiert&ldquo; (bei Aggregaten aus v1.0.x kann die Statusspalte von der
+tats&auml;chlichen Signatur abweichen &ndash; ma&szlig;geblich ist dort die verkn&uuml;pfte <code>tse_transaction</code>).
+<strong>&Auml;ltere TAR-Exporte &ndash; und neue, weil das TAR vollst&auml;ndig ausgeliefert wird &ndash; enthalten
+Transaktionen, auf die keine Zeile des DSFinV-K-Exports verweist: das sind die
+Aggregat-Signaturen der Abschl&uuml;sse vor v1.1.1, keine fehlenden Belege.</strong> Ihr Prozesstyp in der TSE h&auml;ngt von
+der Version ab: Abschl&uuml;sse unter v1.1.0 tragen <code>SonstigerVorgang</code>, Abschl&uuml;sse unter v1.0.x (bis
+einschlie&szlig;lich v1.0.10) tragen <code>Kassenbeleg-V1</code>, obwohl dort <code>tse_transaction.process_type</code>
+<code>SonstigerVorgang</code> nennt (<a href="#aenderungen-aggregat-berichtigung">Berichtigung</a>). Siehe die Tabelle
+<a href="#aenderungen-aggregat">Behandlung des Aggregats &uuml;ber die Versionen</a>.</li>
+</ul>
+
+<h4>2. Bargeldbewegungen des Abschlusses signiert die signierende Kasse der Ladenkasse</h4>
+<ul>
+<li><strong>Was:</strong> Kassendifferenz, Trinkgeld-Auszahlung bar, Aufstockung (Geldtransit-Gegenbuchung) und der
+t&auml;gliche Geldtransit werden unter dem TSE-Client der Kasse signiert, die an der Ladenkasse als signierende Kasse
+bestimmt ist (<code>cash_book.signing_terminal_id</code>, Migration&nbsp;V91) &ndash; gleich, welches Ger&auml;t den Abschluss
+ausl&ouml;st. Ist keine bestimmt, signiert wie bisher die ausl&ouml;sende Kasse. Ein Ger&auml;t ohne Kasse (Admin-Panel)
+wird dann abgelehnt (<code>409 ZBON_SIGNER_NOT_DESIGNATED</code>), eine bestimmte, aber nicht signierf&auml;hige Kasse
+ebenso (<code>409 ZBON_SIGNER_UNAVAILABLE</code>); der Server weicht nie still auf eine andere Kasse aus. Die Ablehnung
+f&auml;llt vor dem ersten Schreibzugriff &ndash; keine Z-Nummer verbraucht, nichts gebucht. Prozessart und processData
+dieser Vorg&auml;nge sind unver&auml;ndert; nur die ClientID kann eine andere sein.</li>
+<li><strong>Anlass:</strong> Tagesabschluss aus dem Admin-Panel. Ein Browser hat keinen eigenen TSE-Client; unter v1.1.0
+lehnte der Server jeden Abschluss von dort mit 403 ab. Ein zus&auml;tzlicher TSE-Client f&uuml;r das Back-Office w&auml;re
+eine weitere Kasse im Sinne der DSFinV-K gewesen.</li>
+<li><strong>Ablauf:</strong> Tagesabschluss (<code>ClosingSigner</code>); Festlegen &uuml;ber
+<code>PUT /api/v1/kassenbuch/books/{id}/signing-terminal</code> (Befugnis <code>TERMINAL_MANAGE</code>, nur die
+fiskalische Ladenkasse, nur aktive, fiskalische, bei der TSE angemeldete Kassen mit Rolle CASHIER).</li>
+<li><strong>Gilt ab:</strong> v1.1.1 <em>und</em> dem Bestimmen einer Kasse. Nach dem Update ist keine bestimmt (V91
+schreibt keine Daten); Abschl&uuml;sse an einer Kasse verhalten sich dann genau wie unter v1.1.0. Jedes Bestimmen,
+&Auml;ndern und Zur&uuml;cksetzen steht mit Zeitpunkt und neuem Wert im Pr&uuml;fprotokoll
+(<code>SET_CASH_BOOK_SIGNING_TERMINAL</code>, <code>entity_type = 'CASH_BOOK'</code>) &ndash; das ist der zweite
+Umstellungszeitpunkt.</li>
+<li><strong>Was der Pr&uuml;fer sieht:</strong> Die ClientID dieser Vorg&auml;nge (TAR, <code>tse_transaction.client_id</code>)
+ist die der bestimmten Kasse, auch wenn der Abschluss an einer anderen Kasse oder im Admin-Panel ausgel&ouml;st wurde.
+Im DSFinV-K-Export erscheinen sie unter dieser Kasse (<code>TERMINAL_ID</code> in <code>transactions.csv</code>,
+<code>TERMINAL_SERIENNR</code> in <code>slaves.csv</code>), weil die Zuordnung aus der signierenden ClientID abgeleitet wird
+(Anhang&nbsp;E S.&nbsp;85); es kommt keine zus&auml;tzliche Kasse hinzu. Wer den Abschluss ausgel&ouml;st hat, steht am
+Z-Bon (Mitarbeiter) und im Pr&uuml;fprotokoll (Mitarbeiter und Ger&auml;t). Die Pr&uuml;fprotokoll-Zeile des Abschlusses
+(<code>CREATE_REPORT</code>, Spalte <code>after_state</code>) nennt au&szlig;erdem, unter welcher ClientID seine
+Bargeldbewegungen signiert wurden und warum: <code>signingClientId</code> und <code>signingClientSource</code> mit
+<code>DESIGNATED_TILL</code> (die bestimmte Kasse), <code>CALLING_TILL</code> (keine bestimmt, die ausl&ouml;sende Kasse),
+<code>NONE_NO_CASH_MOVEMENTS</code> (keine Bargeldbewegung, kein Signierer n&ouml;tig, <code>signingClientId</code> leer)
+oder <code>TSE_DISABLED_PLACEHOLDER</code> (TSE deaktiviert, keine Kasse beteiligt, Platzhalter
+<code>TSE-DISABLED</code> &ndash; es wurde nichts signiert). Der Wert stammt aus derselben Aufl&ouml;sung, unter der signiert
+wurde. Abschl&uuml;sse vor v1.1.1 tragen diese Angaben nicht. Ein erneuter Export &auml;lterer Abschl&uuml;sse &auml;ndert sich nicht &ndash; die
+Zuordnung folgt der jeweils gespeicherten Signatur.</li>
+</ul>
+
+<h4>3. TSE deaktiviert: Kassenbuch-Vorg&auml;nge ohne registrierte Kasse</h4>
+<ul>
+<li><strong>Was:</strong> Im TSE-Modus <code>DISABLED</code> wird nichts signiert. Fiskalische Kassenbuch-Vorg&auml;nge &ndash;
+manuelle Eintr&auml;ge und Korrekturen, Kassenz&auml;hlungen, Trinkgeld-Auszahlungen au&szlig;erhalb des Abschlusses,
+Geldtransit-Buchungen zwischen Kassenb&uuml;chern &ndash; und Tagesabschl&uuml;sse verlangen dann keine registrierte
+Kasse mehr und gelingen auch aus dem Admin-Panel oder von einem unbekannten Ger&auml;t
+(<code>resolveSigningClientId</code>, <code>ClosingSigner</code>). Eine registrierte, aber deaktivierte Kasse wird in jedem
+Modus weiterhin abgelehnt. Der intern verwendete Platzhalter-Client <code>TSE-DISABLED</code> wird nie an eine TSE gesendet
+und in keiner Fiskaltabelle gespeichert; einzig die Pr&uuml;fprotokoll-Zeile eines Tagesabschlusses nennt ihn, als
+Kennzeichen &bdquo;nichts signiert&ldquo; (<code>signingClientSource = TSE_DISABLED_PLACEHOLDER</code>, siehe Punkt&nbsp;2).</li>
+<li><strong>Anlass:</strong> Unter v1.1.0 verweigerte der Server diese Vorg&auml;nge von Ger&auml;ten ohne Kasse (403 bzw.
+404) auch dann, wenn ohne TSE gar nichts zu signieren war.</li>
+<li><strong>Unver&auml;ndert:</strong> Bestellungen, Bestellpositionen, Belege und Belege zum Ausgleich von Rechnungen
+verlangen weiterhin eine registrierte, aktive Kasse &ndash; sie speichern einen Verweis auf die Kasse.</li>
+<li><strong>Was der Pr&uuml;fer sieht:</strong> Solche Kassenbuch-Eintr&auml;ge tragen
+<code>tse_signing_status = 'DISABLED'</code> und keine TSE-Transaktion; im DSFinV-K-Export stehen sie mit
+<code>TSE_TA_FEHLER</code> &bdquo;TSE deaktiviert&ldquo; (<code>transactions_tse.csv</code>) und leerer
+<code>TERMINAL_ID</code> (<code>transactions.csv</code>) &ndash; genau wie <code>DISABLED</code>-Eintr&auml;ge schon unter
+v1.1.0. Neu ist nur, dass sie auch von Ger&auml;ten ohne Kasse stammen k&ouml;nnen; das ausl&ouml;sende Ger&auml;t steht im
+Pr&uuml;fprotokoll.</li>
+</ul>
+
+<h4>4. Ohne Auswirkung auf signierte Daten oder Export</h4>
+<ul>
+<li><strong>Meldungstext f&uuml;r Ger&auml;te ohne Kasse:</strong> Versucht ein Ger&auml;t, das keine registrierte Kasse ist,
+einen signierpflichtigen Vorgang, lautet die Meldung jetzt auch im 404-Fall &bdquo;&hellip; is not a registered POS
+terminal and cannot perform fiscal (TSE) operations&ldquo; statt &bdquo;Terminal not found&ldquo;. Die Fehlercodes
+(403 <code>AUTH_FORBIDDEN</code> f&uuml;r das Admin-Panel, 404 <code>CARD_TERMINAL_NOT_FOUND</code> sonst) sind
+unver&auml;ndert.</li>
+<li><strong>Trinkgeld-Auszahlung per Bank oder Lohn</strong> bucht wie bisher keinen Kassenbuch-Eintrag und wird nicht
+signiert; neu ist nur, dass der Abschlussdialog sie auch dann anbietet, wenn keine Kasse signieren kann.</li>
+<li><strong>Neue Leseroute</strong> <code>GET /api/z-bon/closing-readiness</code> (Befugnis <code>ZBON_CLOSE</code>): meldet
+den Signierer vor dem Abschluss, schreibt nichts.</li>
+</ul>
+
+<h4 id="aenderungen-aggregat">Behandlung des Z-Bon-Aggregats &uuml;ber die Versionen</h4>
+<p>Ma&szlig;geblich ist, was eine Installation tats&auml;chlich ausgef&uuml;hrt hat. Zwischen v1.0.10 (11.05.2026) und
+v1.1.0 (09.10.2026) wurde keine Version ver&ouml;ffentlicht; die datierten Zwischenst&auml;nde dieser Zeit liefen nur auf
+Installationen mit einem Entwicklungsstand (<code>dev</code>-Build), z.&nbsp;B. Test- und Vorabinstallationen.</p>
+<table>
+<tr><th>Zeitraum / Version</th><th>Signierung des Aggregats</th><th>Im DSFinV-K-Export</th></tr>
+<tr><td>bis einschlie&szlig;lich v1.0.10 (Entwicklungsstand bis 10.07.2026)</td><td>in der Datenbank als <code>SonstigerVorgang</code> vermerkt,
+in der TSE jedoch als <code>Kassenbeleg-V1</code> signiert, unter dem TSE-Client der ausl&ouml;senden Kasse
+(<a href="#aenderungen-aggregat-berichtigung">Berichtigung</a>)</td><td>unter v1.0.x mit exportiert (Ums&auml;tze doppelt erfasst); seit 10.07.2026 ausgeschlossen
+(ausgeliefert mit v1.1.0) &ndash; ein unter v1.1.0 oder sp&auml;ter neu erzeugter Export desselben Zeitraums l&auml;sst es
+weg</td></tr>
+<tr><td>10.07.&ndash;16.07.2026, <em>nur Entwicklungsstand, in keiner Version ausgeliefert</em></td><td>signiert als
+<code>SonstigerVorgang</code> unter dem TSE-Client der ausl&ouml;senden Kasse (Befehl <code>signfreecontent</code>)</td><td>ausgeschlossen</td></tr>
+<tr><td>16.07.&ndash;05.08.2026, <em>nur Entwicklungsstand, in keiner Version ausgeliefert</em></td><td>signiert als
+Kassenbeleg-V1 (TSER-2-ZBon) &ndash; der Tagesumsatz wurde in der TSE ein zweites Mal als Kassenbeleg bezeugt</td><td>seit
+10.07.2026 ausgeschlossen</td></tr>
+<tr><td>05.08.2026 bis v1.1.0 (ausgeliefert mit v1.1.0)</td><td>signiert als <code>SonstigerVorgang</code> unter dem
+TSE-Client der ausl&ouml;senden Kasse (<a href="#audit-2026-07-16">Nachtrag 05.08.2026</a>)</td><td>ausgeschlossen</td></tr>
+<tr><td>ab v1.1.1</td><td><strong>nicht signiert</strong>, <code>NOT_APPLICABLE</code>, keine TSE-Transaktion</td><td>ausgeschlossen
+(unver&auml;ndert)</td></tr>
+</table>
+
+<p id="aenderungen-aggregat-berichtigung"><strong>Berichtigung (Nachpr&uuml;fung 10.10.2026):</strong> Eine fr&uuml;here Fassung dieser
+Tabelle gab f&uuml;r v1.0.x an, das Aggregat sei in der TSE als <code>SonstigerVorgang</code> signiert worden. Das war ein
+Irrtum, den die Nachpr&uuml;fung des Quelltexts von v1.0.10 aufgedeckt hat. Der Server verlangte zwar
+<code>SonstigerVorgang</code> und speicherte diesen Typ in <code>tse_transaction.process_type</code>, l&ouml;ste den Typ aber nur
+f&uuml;r <code>Bestellung-V1</code> auf einen eigenen Signierbefehl auf; jeder andere Typ fiel auf den Befehl
+<code>signbill</code> zur&uuml;ck. Der TSE-Treiber leitet den signierten Prozesstyp aus dem aufgel&ouml;sten Befehl ab, nicht aus dem
+Wert des Aufrufers, und signierte deshalb <code>Kassenbeleg-V1</code>. Behoben ist das seit dem 10.07.2026 (ausgeliefert mit
+v1.1.0). Betroffen sind unter v1.0.x <em>alle</em> als <code>SonstigerVorgang</code> beauftragten Signierungen, also auch die
+manuellen Kassenbuch-Eintr&auml;ge, nicht nur das Aggregat. Die Signatur im WORM-Speicher l&auml;sst sich nicht ver&auml;ndern; in der
+Datenbank hat die Zeile den Typ, der verlangt wurde, im TAR steht der Typ, der signiert wurde. F&uuml;r die Pr&uuml;fung z&auml;hlt der
+Typ im TAR.</p>
+
+<h3 id="aenderungen-v1-1-0">v1.1.0 (09.10.2026)</h3>
+<p>v1.1.0 fasst alle Entwicklungsst&auml;nde seit v1.0.10 zusammen; f&uuml;r Betreiber wurden sie erst mit dem Einspielen von
+v1.1.0 wirksam. Dieses Verzeichnis entstand nach v1.1.0, die &Auml;nderungen dieser Version sind daher nicht hier
+aufgeschl&uuml;sselt, sondern in den datierten Abschnitten beschrieben:
+<a href="#audit-2026-07">Audit-Remediation (14.07.2026)</a>, <a href="#audit-2026-07-16">Round-3-Remediation (16.07.2026)
+mit Nachtrag 05.08.2026</a>, <a href="#audit-2026-07-18">Round-5-Remediation (18.07.2026)</a>,
+<a href="#quicksale-entfernt-2026-07-22">Quick-Sale entfernt (22.07.2026)</a> sowie die mit &bdquo;seit 2026-09&ldquo; bzw.
+&bdquo;seit 2026-10&ldquo; gekennzeichneten Abschnitte in <a href="#s9">Abschnitt&nbsp;9</a> und
+<a href="#s11">Abschnitt&nbsp;11</a> (au&szlig;er <a href="#s11-zbon-signer">Signierende Kasse beim Tagesabschluss</a>, die
+zu v1.1.1 geh&ouml;rt). F&uuml;r den DSFinV-K-Export gilt: Ein unter v1.1.0 neu erzeugtes Paket weicht von einem unter
+v1.0.x erzeugten ab, siehe <a href="dsfinvk-export.html#s7">DSFinV-K-Dokumentation, Abschnitt&nbsp;7</a>.</p>
+
+<h2 id="audit-2026-07">Audit-Remediation (14.07.2026)</h2>
+<p>Umsetzung des isolierten TSE-/DSFinV-K-Audits (Branch <code>fix/dsfinvk-audit-remediation</code>):</p>
+<ul>
+<li><strong>Nachsignieren-Verkn&uuml;pfung:</strong> Storno-Belege werden als <code>BILL</code> (numerische Bill-ID) eingereiht, Z-Bon-Eintr&auml;ge mit der numerischen KassenbuchHeader-ID; eine nicht verkn&uuml;pfbare referenceId l&auml;sst den Queue-Eintrag LAUT fehlschlagen statt still &bdquo;SIGNED&ldquo; zu melden.</li>
+<li><strong>Quick-Sale-Ausfall:</strong> Queue-Eintr&auml;ge tragen <code>open_tse_transaction_number</code> (V92); der Worker FINISHt die bereits gestartete Transaktion (Update der bestehenden TseTransaction-Zeile &mdash; unique Index Serial+Nummer) statt neu quickzusignen; <code>cancelQuickSaleTse</code> reiht den Belegabbruch bei Ausfall ein statt ihn zu verwerfen. Training-Quick-Sales signieren als <code>AVTraining</code>.</li>
+<li><strong>processData (Anhang I):</strong> Bestellung-V1 signiert den Brutto-EINZELpreis mit <code>\r</code>-Zeilentrennern; Kassenbeleg-Zahlungen werden je (Art, W&auml;hrung) akkumuliert, 0,00-Eintr&auml;ge entfallen; Betr&auml;ge werden auf 2 Nachkommastellen ABGESCHNITTEN; Mehrzweckgutschein-Einl&ouml;sung = negativer 0%-Container statt Unbar; Steuercontainer akzeptieren aktuelle UND historische S&auml;tze (19/16, 7/5, 7,8/8,4/9,0/9,5/10,7, 5,5).</li>
+<li><strong>QR-Code:</strong> Feld&nbsp;7 = eigene StartTransaction-Log-Time der Kassenbeleg-Transaktion (<code>tseStartTimestamp</code>); die erste Bestellzeit ist eine separate DRUCK-Pflicht (Tz.&nbsp;2.7, Layout-Follow-up).</li>
+<li><strong>TAR-Export:</strong> &uuml;ber den modusbewussten <code>TseAdminProvider</code> (damals lokal/remote; der Remote-Weg ist seit v1.1.0 entfernt); Fehlschlag bricht den DSFinV-K-Export mit 503 ab, sofern nicht <code>allowMissingTseTar=true</code>.</li>
+<li><strong>Seriennummer:</strong> wird bei Persistierung und Export auf die 64-stellige Hexadezimalform normalisiert (TR-03153 &sect;7.5).</li>
+</ul>
+<p><strong>Nachtrag 14.07.2026 (freigegebene pos-tse-&Auml;nderung):</strong> StartTransaction sendet jetzt einen LEEREN processType (Anhang I; processData war bereits leer), und quickSign liefert die StartTransaction-Log-Time (<code>SignResultDto.startTimestamp</code>) &mdash; <code>TSE_TA_START</code> tr&auml;gt damit den Ger&auml;tewert. Hinweis: die modul-eigene Testsuite von <code>pos-tse</code> ist durch eine vorbestehende fehlende JUnit-Jupiter-Abh&auml;ngigkeit nicht kompilierbar; Verifikation erfolgt &uuml;ber die konsumierenden pos-server-Suiten.</p>
+
+<h2 id="audit-2026-07-16">Round-3-Remediation (16.07.2026)</h2>
+<p>Lifecycle-/Querschnitts-Audit vom 15.07.2026 (siehe <code>docs/audits/dsfinvk-tse/findings-log.md</code>). Wesentliche TSE-relevante &Auml;nderungen:</p>
+<ul>
+<li><strong>Kassenbuch-Bewegungen signieren als Kassenbeleg-V1</strong> (nicht mehr <code>SonstigerVorgang</code> mit propriet&auml;rer Payload; <em>Berichtigung 10.10.2026: unter v1.0.x hat die TSE sie tats&auml;chlich bereits als Kassenbeleg-V1 signiert, nur die Payload war propriet&auml;r &ndash; siehe <a href="#aenderungen-aggregat-berichtigung">Berichtigung</a></em>): Geldtransit, Ein-/Auszahlung usw. tragen kind-bewusste Zahlart-Buckets (NON_CASH_PAYMENT ausgeschlossen), sodass BON_TYP &bdquo;Beleg&ldquo; und processType konsistent sind (Anhang&nbsp;I S.&nbsp;119/120; TSER-2).</li>
+<li><strong>Tagesabschluss-Aggregat (Z-Bon CASH_SALE)</strong> signiert ebenfalls Kassenbeleg-V1 &uuml;ber den kind-bewussten Builder (TSER-2-ZBon). <em>(Nachtrag 05.08.2026: zur&uuml;ckgenommen &mdash; siehe unten.)</em></li>
+<li><strong>Erste-Bestellung-Zeit auf dem Beleg:</strong> die Startzeit der ersten Bestellung wird jetzt auf den Beleg gedruckt (Tz.&nbsp;2.7.2-Erleichterungs-Voraussetzung; TSER-3).</li>
+<li><strong>PENDING-Sweeper:</strong> Vorg&auml;nge, die im Crash-Fenster zwischen Commit und Enqueue ihre Queue-Zeile verloren haben, werden von einem Sweeper erneut eingereiht (TSER-9 &mdash; derzeit BILL-Vorw&auml;rtsverk&auml;ufe; Order/KB/Storno als Follow-up; die Neubuchung eines Zahlartwechsels ist ein BILL-Vorw&auml;rtsverkauf).</li>
+<li><strong>Orphan-Cleanup:</strong> schlie&szlig;t nicht mehr nur die Session, sondern reiht bei fehlgeschlagenem Finish den Belegabbruch ein &mdash; keine dauerhaft offenen WORM-Transaktionen (TSER-8).</li>
+<li><strong>Stornos:</strong> negieren nur die MENGE (kein doppelt negierter/fehlerhafter Preis wie <code>--0,25</code>; TSER-7).</li>
+<li><strong>Bestellung-V1</strong> signiert den geladenen Brutto-Einzelpreis inkl.&nbsp;Extras/Rabatt, abgeschnitten (TSER-6).</li>
+<li><strong>Offen:</strong> TSER-4 (pos-tse <code>ProcessDataValidator</code> weist spec-valide negative Betr&auml;ge zur&uuml;ck &rarr; Pfand-R&uuml;ckgabe-Finish scheitert, WORM-Transaktion leckt) &mdash; ben&ouml;tigt eine freigegebene pos-tse-&Auml;nderung und ist NICHT umgesetzt. <em>(Nachtrag 17.07.2026: durch den freigegebenen pos-tse-Fix behoben.)</em></li>
+</ul>
+
+<p><strong>Nachtrag 05.08.2026 &mdash; TSER-2-ZBon zur&uuml;ckgenommen:</strong> Das Tagesabschluss-Aggregat signiert wieder als
+<code>SonstigerVorgang</code>. Die Begr&uuml;ndung von TSER-2-ZBon lautete, das Aggregat werde als BON_TYP &bdquo;Beleg&ldquo;
+exportiert, processType m&uuml;sse also dazu passen. Das traf zum Zeitpunkt der &Auml;nderung bereits nicht mehr zu: seit dem
+10.07.2026 filtert der DSFinV-K-Export <code>is_zbon_aggregate</code> aus allen f&uuml;nf Kassenbuch-Verbrauchern heraus,
+weil das Aggregat nur Buchhaltung &uuml;ber bereits exportierte Bons ist. Es entsteht also gar kein Bon und damit kein
+BON_TYP, zu dem etwas passen m&uuml;sste. Die Positionen des Aggregats sind die USt-Gruppen des Tages &mdash; genau der
+Umsatz, den die TSE bereits belegweise signiert hat; als Kassenbeleg signiert erschien er im (seit TSER-1 vollst&auml;ndig
+ausgelieferten) TAR ein zweites Mal, in einem Vorgang, den das DSFinV-K-Paket bewusst nicht referenziert. Der Eintrag wird
+weiterhin signiert &mdash; ein &bdquo;anderer Vorgang&ldquo; ist aufzeichnungspflichtig &mdash; deklariert aber keinen Umsatz
+mehr. <strong>Nur vorw&auml;rts wirksam:</strong> bereits signierte Vorg&auml;nge sind unver&auml;nderlich; TARs aus dem
+Zeitraum 16.07.&ndash;05.08.2026 enthalten das doppelt deklarierende Aggregat weiterhin. TSER-2 selbst bleibt f&uuml;r die
+echten Bargeld-Vorg&auml;nge (Privateinlage, Geldtransit, Barausgabe) unver&auml;ndert g&uuml;ltig.
+<em>(Versionsbezug, erg&auml;nzt 10.10.2026: Der Zeitraum 16.07.&ndash;05.08.2026 war ein Entwicklungsstand zwischen v1.0.10
+und v1.1.0 und wurde in keiner Version ausgeliefert; ein TAR mit Kassenbeleg-Aggregaten stammt daher nur von einer
+Installation, die einen Entwicklungsstand aus diesem Zeitraum lief. Ausgeliefert wurde der Stand dieses Nachtrags mit
+v1.1.0; mit v1.1.1 abgel&ouml;st, siehe <a href="#aenderungen-aggregat">Behandlung des Aggregats &uuml;ber die
+Versionen</a>.)</em></p>
+
+<p><strong>Nachtrag 09.10.2026 &mdash; Aggregat nicht mehr signiert (ausgeliefert mit v1.1.1, 10.10.2026):</strong> Das
+Tagesabschluss-Aggregat wird ab v1.1.1 (&bdquo;Tagesabschluss von jedem Ger&auml;t&ldquo;) gar nicht mehr signiert
+(<code>NOT_APPLICABLE</code>, keine TSE-Transaktion); die Begr&uuml;ndung steht in <a href="#s11-zbon-signer">Abschnitt 11</a>.
+Die Bargeld-Vorg&auml;nge des Abschlusses bleiben signiert. Wirksam ab dem ersten Start von v1.1.1 auf der jeweiligen
+Installation; wie dieser Zeitpunkt nachzuweisen ist und was ein Pr&uuml;fer anders sieht, steht unter
+<a href="#aenderungen-v1-1-1">&Auml;nderungen je Version: v1.1.1</a>.</p>
+
+<h2 id="audit-2026-07-18">Round-5-Remediation (18.07.2026)</h2>
+<p>Audit vom 17.07.2026, Remediation-Plan <code>docs/superpowers/plans/2026-07-18-dsfinvk-tse-round5-remediation.md</code>. TSE-relevante &Auml;nderungen:</p>
+<ul>
+<li><strong>Ausgehende Kassenbuch-Eintr&auml;ge signieren einen NEGATIVEN Bar-Zahlbetrag</strong> (TSER-1, CRITICAL &mdash; Regression aus Runde&nbsp;3/T7). Der kind-bewusste Builder lieferte vorzeichenrichtige USt-Buckets, aber die Zahlungssumme wurde UNSIGNIERT &uuml;bergeben: eine Barausgabe signierte <code>&hellip;^-119.00_&hellip;^119.00:Bar</code>, das signierte Dokument ging also nicht auf (Anhang&nbsp;I S.&nbsp;119&ndash;121). <strong>Merksatz (Regel R3): Vorzeichen und Nachkommastellen sind getrennte Belange &mdash; das eine zu korrigieren korrigiert das andere nicht.</strong></li>
+<li><strong>ITEM_SPECIFIC-Rabattabzug rundet auf 2&nbsp;Nachkommastellen</strong> (TSER-3): der Abzug blieb auf Skala&nbsp;4, wodurch die signierten Buckets unter den tats&auml;chlichen Zahlbetrag abschnitten.</li>
+<li><strong>Schnellverkaufs-Pfand</strong> verteilt sich im signierten Kassenbeleg-V1 jetzt auf den USt-Slot seines PfandType statt auf den 0-%-Slot (BPOS-4). Die Gesamtsummen bleiben unver&auml;ndert.</li>
+</ul>
+
+<h3>&#x26A0; Deploy-Vorbedingung: KASSENBUCH-Signierwarteschlange leeren</h3>
+<p><strong>Vor dem Ausrollen von TSER-1 zwingend pr&uuml;fen.</strong> <code>TseSigningQueueServiceImpl</code> spielt <code>tse_signing_queue.process_data</code> <strong>unver&auml;ndert</strong> ab &mdash; die Nutzlast wurde beim <em>Einreihen</em> serialisiert und wird beim Nachsignieren nicht neu aus dem aktuellen Code abgeleitet. Zudem &uuml;berspringt <code>TsePendingSweeper</code> KASSENBUCH ausdr&uuml;cklich, es r&auml;umt also niemand automatisch auf.</p>
+<p><strong>Folge:</strong> jeder vor dem Deploy eingereihte Kassenbuch-Eintrag wird nach dem Deploy mit dem ALTEN positiven Bar-Betrag in die WORM signiert &mdash; dauerhaft (WORM-Daten sind unver&auml;nderlich) und unsichtbar, weil der ausgerollte Code korrekt aussieht und alle Tests gr&uuml;n sind. Nach dem Deploy ist das weder erkennbar noch reparierbar.</p>
+<pre><code>-- Muss 0 liefern. Gegen die PRODUKTIVdatenbank, unmittelbar vor dem Deploy.
+SELECT COUNT(*) FROM tse_signing_queue
+ WHERE entity_type = 'KASSENBUCH'
+   AND signing_status IN ('QUEUED', 'PENDING', 'PROCESSING', 'FAILED');</code></pre>
+<p>Bei &gt;&nbsp;0&nbsp;Zeilen: <strong>NICHT deployen.</strong> TSE anschlie&szlig;en, die Warteschlange auf dem ALTEN Stand leeren (dort passen die Nutzlasten zum Code), Abfrage wiederholen, erst dann deployen. Vollst&auml;ndige Runbook-Fassung: <code>docs/dsfinvk_tse_release_audit.md</code>, Teil&nbsp;0.1.</p>
+
+<h2 id="quicksale-entfernt-2026-07-22">Quick-Sale entfernt (22.07.2026)</h2>
+<p>Der Quick-Sale-Flow wurde vollst&auml;ndig entfernt (Backend + Client). Er war in der Praxis
+ungenutzt, aber fiskalisch der riskanteste Pfad im System.</p>
+<ul>
+<li><strong>Die zweistufige TSE-API hat keinen Aufrufer mehr.</strong> <code>startQuickSaleTse</code> war
+die <em>einzige</em> Stelle im gesamten Code, die <code>TseTransactionService.startTransaction</code>
+aufrief. Alle verbleibenden Signierpfade nutzen <code>quickSign</code> (StartTransaction und
+FinishTransaction in einer WormAPI-Sequenz). Damit kann kein Vorgang mehr &bdquo;nach
+Transaktionsbeginn abgebrochen&ldquo; werden &mdash; der Fall <code>AVBelegabbruch</code> nach DSFinV-K
+Anhang&nbsp;B S.&nbsp;46, f&uuml;r den der DSFinV-K-Export nie einen Produzenten besa&szlig;.</li>
+<li><strong>Entfernte Endpunkte:</strong> <code>POST /api/v1/bills/quick-sale/start</code>,
+<code>POST /api/v1/bills/quick-sale/{tseTransactionId}/cancel</code>,
+<code>POST /api/v1/bills/quick-sale</code> (inkl. RoutePermissions, OpenAPI und DTOs).</li>
+<li><strong>Gutscheinverkauf an der Theke</strong> (<code>sessionId = null</code>) l&auml;uft jetzt
+&uuml;ber <code>BillService.createBill</code>: Session auf dem virtuellen VOUCHER-Tisch, Position ohne
+Order-Entity, atomare Signatur. Die fiskalische Form ist unver&auml;ndert &mdash; genau ein
+Kassenbeleg-V1-Vorgang, keine zus&auml;tzliche <code>AVBestellung</code>.</li>
+<li><strong>Die AVBelegabbruch-F&auml;higkeit bleibt als benannte API erhalten</strong>, statt mit dem
+Quick-Sale-Code verloren zu gehen: <code>TseTransactionService.abortTransaction(tseTransactionId,
+clientId)</code> beendet eine bereits gestartete Transaktion regelkonform; die Nutzlast
+<code>AVBelegabbruch^0.00_0.00_0.00_0.00_0.00^</code> (Anhang&nbsp;I S.&nbsp;120) baut ausschlie&szlig;lich
+<code>ProcessDataBuilder.buildBelegabbruch()</code>. Beide sind dokumentiert, aber <strong>ohne
+Aufrufer</strong> &mdash; sie existieren f&uuml;r ein k&uuml;nftiges Feature, das
+<code>startTransaction</code> ben&ouml;tigt.
+<strong>Achtung:</strong> wer sie einsetzt, muss zuvor einen Produzenten f&uuml;r
+<code>BON_TYP = AVBelegabbruch</code> im DSFinV-K-Export erg&auml;nzen &mdash; sonst zeigt das
+TSE-Protokoll eine signierte Transaktion, die der Export nicht erkl&auml;ren kann (Tz.&nbsp;2.1).</li>
+<li><strong><code>OrphanedTransactionCleanupService</code> entfernt.</strong> Der Sweeper existierte
+nur, um Quick-Sale-Sessions mit offener TSE-Transaktion nachtr&auml;glich abzubrechen. Da kein Pfad
+mehr eine Transaktion offen lassen kann, hatte er keinen Produzenten mehr; ein periodischer Job, der
+nie etwas findet, verschleiert nur. Auf der Ger&auml;teseite r&auml;umt weiterhin
+<code>TseMaintenanceTask</code> (pos-tse) Transaktionen ab, die l&auml;nger als 60&nbsp;Minuten offen
+sind.</li>
+<li><strong>Schema und Bestandsdaten unver&auml;ndert:</strong> der Standorttyp
+<code>QUICK_SALE</code> (ID&nbsp;5), die <code>sessionType</code>-Werte und der Export-Pfad f&uuml;r
+bestehende Quick-Sale-Belege bleiben erhalten, damit Altbelege &uuml;ber die Aufbewahrungsfrist
+exportierbar bleiben.</li>
+<li><strong>Die Einrichtung legt keinen QUICK_SALE-Tisch mehr an</strong> (23.07.2026).
+<code>initializeDefaults</code> erzeugte bei jeder Neueinrichtung einen virtuellen
+<code>QUICK_SALE</code>-Tisch, auf dem seit der Entfernung keine Sitzung mehr er&ouml;ffnet werden
+kann. Stattdessen wird nun der <code>VOUCHER</code>-Tisch angelegt, den der Thekenverkauf
+tats&auml;chlich braucht: dieser entstand bisher nur als Nebeneffekt des Speicherns der
+Gutschein-Einstellungen, nie bei der Einrichtung selbst &mdash; <code>initializeDefaults</code>
+schreibt <code>VOUCHER_CONFIG</code> direkt in die Konfigurationstabelle und l&ouml;st
+<code>checkVoucherConfig</code> daher nicht aus. Bestehende <code>QUICK_SALE</code>-Tische bleiben
+unangetastet; der Standorttyp selbst bleibt ohnehin erhalten.</li>
+<li><strong><code>t_table_session.tse_transaction_id</code> bleibt bestehen.</strong> Die Spalte
+wurde ausschlie&szlig;lich vom Quick-Sale-Flow beschrieben und vom entfernten Sweeper gelesen und
+wird nicht mehr bef&uuml;llt. Sie wird trotzdem <em>nicht</em> gel&ouml;scht: sie ist ein
+Fremdschl&uuml;ssel auf eine TSE-Tabelle, und Altzeilen k&ouml;nnen eine echte Verkn&uuml;pfung
+Sitzung&nbsp;&rarr;&nbsp;TSE-Transaktion enthalten, die &uuml;ber die Aufbewahrungsfrist lesbar
+bleiben muss.</li>
+</ul>
+
+</body>
+</html>

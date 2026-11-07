@@ -1,0 +1,68 @@
+[Unit]
+Description=POS Server
+Documentation=https://github.com/example/pos-kmp
+# Ensure tmpfiles has finished setting up /tmp and /dev/shm before we start,
+# otherwise systemd-tmpfiles-setup may race with embedded PostgreSQL and
+# remove /dev/shm/PostgreSQL.* segments after postgres has created them.
+After=systemd-tmpfiles-setup.service
+After=network-online.target
+After=time-sync.target
+Wants=network-online.target
+After=docker.service
+Requires=docker.service
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=pos
+Group=pos
+WorkingDirectory=/opt/pos-server
+
+# Auto-rollback guard: increments failure counter; after 3 strikes swaps
+# in pos-server.jar.bak so the next start uses the last known-good JAR.
+ExecStartPre=/opt/pos-server/restart-guard.sh
+
+# Use bundled JRE if available
+ExecStart=/opt/pos-server/run.sh
+
+# Health probe: clear the failure counter once /health responds. If the
+# server never reaches a healthy state in ~60s the post step exits 1 and
+# systemd treats this start as failed (the guard increments next round).
+ExecStartPost=/bin/bash -c 'for i in $$(seq 1 30); do [ "$$(systemctl show -p MainPID --value pos-server)" != 0 ] || exit 1; curl -fsS -o /dev/null http://127.0.0.1:8080/health && echo 0 > /opt/pos-server/.restart-count && exit 0; sleep 2; done; exit 1'
+
+# Restart on failure with increasing delay
+Restart=on-failure
+RestartSec=5
+
+# Environment
+Environment=HOME=/home/pos
+Environment=DATABASE_MODE=external
+# JWT signing secret + auth mode (auto-provisioned, file mode 600). systemd reads
+# this as root before dropping to User=, so the secret stays out of the unit file.
+EnvironmentFile=/opt/pos-server/pos-server.env
+Environment=DATABASE_URL=jdbc:postgresql://localhost:5432/pos_db
+Environment=DATABASE_USERNAME=pos
+Environment=DATABASE_PASSWORD=pos
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=false
+ReadWritePaths="/home/pos/Zenbon POS" /opt/pos-server /media/pos
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+# Resource limits
+LimitNOFILE=65536
+LimitNPROC=4096
+
+# Logging — stdout/stderr go to journald
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=pos-server
+
+[Install]
+WantedBy=multi-user.target

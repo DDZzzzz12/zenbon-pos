@@ -1,0 +1,31 @@
+# Local-only PostgreSQL for the @Tag("realdata") integration check (RealDataMigrationCheck).
+#
+# Version pinned to 16.13 to match the real backup's metadata.json `pgVersion`
+# ("16.13 (Debian ...)") — restoring a jdbc-copy-csv backup taken on 16.x into the same major/minor
+# avoids any COPY/format surprises.
+#
+# Port 5440 is deliberately NOT 5432 (a system Postgres) nor 5435 (the app's embedded PG), so this
+# never collides with a running dev database. Override via POS_TEST_PG_URL if you must.
+#
+# This stack is LOCAL ONLY. It is never started in CI. See pos-server/src/test/README-real-data.md.
+
+services:
+  pos-realdata-db:
+    image: postgres:16.13
+    container_name: pos-realdata-db
+    environment:
+      POSTGRES_DB: pos_db
+      POSTGRES_USER: pos
+      POSTGRES_PASSWORD: pos
+    ports:
+      - "5440:5432"
+    volumes:
+      - pos_realdata_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pos -d pos_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pos_realdata_pgdata:

@@ -1,0 +1,234 @@
+{
+  "_comment": [
+    "Release license allowlist (policy decided 2026-10-09). Read by scripts/licenses/third_party.py,",
+    "which ./gradlew checkLicenses and ./gradlew generateThirdPartyNotices run. A shipped dependency",
+    "passes when at least one license it declares (multiple POM licenses are read as a choice, as are",
+    "SPDX 'OR' expressions) normalises to an id listed here. Anything else fails the build unless",
+    "exceptions.json names it. Order matters: when a dependency offers several allowed licenses, the",
+    "FIRST one in this list is the one recorded in the notices (permissive before weak copyleft).",
+    "names / urls are case-insensitive regular expressions matched against the WHOLE license name or",
+    "URL a POM or package.json declares; ids are matched exactly. texts are files under texts/ that",
+    "the notices reproduce once per license. See docs/claude/deployment.md, 'Dependency licenses'."
+  ],
+  "firstPartyGroups": ["POS", "org.example.project"],
+  "licenses": [
+    {
+      "id": "Apache-2.0",
+      "category": "permissive",
+      "name": "Apache License 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0",
+      "aliases": ["Apache-2.0", "Apache 2", "Apache 2\\.0", "Apache License,? (Version )?2\\.0", "The Apache (Software )?License,? Version 2\\.0", "Apache Software License,? (Version )?2\\.0", "ASL,? (version )?2(\\.0)?", "Apache License v2(\\.0)?"],
+      "urls": ["https?://(www\\.)?apache\\.org/licenses/LICENSE-2\\.0(\\.txt|\\.html)?", "https?://opensource\\.org/licenses/Apache-2\\.0"],
+      "texts": ["Apache-2.0.txt"]
+    },
+    {
+      "id": "MIT",
+      "category": "permissive",
+      "name": "MIT License",
+      "url": "https://opensource.org/licenses/MIT",
+      "aliases": ["MIT", "MIT License", "The MIT License( \\(MIT\\))?", "MIT-style", "Expat"],
+      "urls": ["https?://(www\\.)?opensource\\.org/licenses/mit(-license)?(\\.php)?"],
+      "texts": ["MIT.txt"]
+    },
+    {
+      "id": "BSD-3-Clause",
+      "category": "permissive",
+      "name": "BSD 3-Clause License",
+      "url": "https://opensource.org/licenses/BSD-3-Clause",
+      "aliases": ["BSD-3-Clause", "BSD 3-Clause( License)?", "The BSD 3-Clause License", "New BSD License", "The New BSD License", "The \\(New\\) BSD License", "Revised BSD License", "BSD License 3", "3-Clause BSD License"],
+      "urls": ["https?://(www\\.)?opensource\\.org/licenses/BSD-3-Clause"],
+      "texts": ["BSD-3-Clause.txt"]
+    },
+    {
+      "id": "BSD-2-Clause",
+      "category": "permissive",
+      "name": "BSD 2-Clause License",
+      "url": "https://opensource.org/licenses/BSD-2-Clause",
+      "aliases": ["BSD-2-Clause", "BSD 2-Clause( License)?", "The BSD 2-Clause License", "Simplified BSD License", "FreeBSD License", "BSD-2-Clause License"],
+      "urls": ["https?://(www\\.)?opensource\\.org/licenses/BSD-2-Clause"],
+      "texts": ["BSD-2-Clause.txt"]
+    },
+    {
+      "id": "ISC",
+      "category": "permissive",
+      "name": "ISC License",
+      "url": "https://opensource.org/licenses/ISC",
+      "aliases": ["ISC", "ISC License"],
+      "urls": [],
+      "texts": ["ISC.txt"]
+    },
+    {
+      "id": "Zlib",
+      "category": "permissive",
+      "name": "zlib License",
+      "url": "https://opensource.org/licenses/Zlib",
+      "aliases": ["Zlib", "zlib License", "The zlib/libpng License"],
+      "urls": [],
+      "texts": ["Zlib.txt"]
+    },
+    {
+      "id": "0BSD",
+      "category": "permissive",
+      "name": "BSD Zero Clause License",
+      "url": "https://opensource.org/licenses/0BSD",
+      "_note": "Public-domain equivalent (no conditions at all), allowed under the 'Public Domain / Unlicense / CC0' rule of the 2026-10-09 policy.",
+      "aliases": ["0BSD", "Zero-Clause BSD", "BSD Zero Clause License"],
+      "urls": [],
+      "texts": ["0BSD.txt"]
+    },
+    {
+      "id": "Unicode-3.0",
+      "category": "permissive",
+      "name": "Unicode License v3 / ICU",
+      "url": "https://www.unicode.org/license.txt",
+      "aliases": ["Unicode-3\\.0", "Unicode-DFS-2016", "Unicode-DFS-2015", "ICU", "Unicode License.*", "ICU License"],
+      "urls": ["https?://(www\\.)?unicode\\.org/(copyright\\.html|license\\.txt).*", "https?://(raw\\.githubusercontent\\.com|github\\.com)/unicode-org/icu/.*LICENSE.*"],
+      "texts": ["Unicode-3.0.txt", "Unicode-DFS-2016.txt", "ICU.txt"]
+    },
+    {
+      "id": "PostgreSQL",
+      "category": "permissive",
+      "name": "PostgreSQL License",
+      "url": "https://www.postgresql.org/about/licence/",
+      "aliases": ["PostgreSQL", "The PostgreSQL License", "PostgreSQL License"],
+      "urls": ["https?://(www\\.)?postgresql\\.org/about/licen[cs]e/?"],
+      "texts": ["PostgreSQL.txt"]
+    },
+    {
+      "id": "CC0-1.0",
+      "category": "permissive",
+      "name": "Creative Commons Zero v1.0 Universal",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "aliases": ["CC0-1\\.0", "CC0", "CC0 1\\.0 Universal", "Public Domain, per Creative Commons CC0"],
+      "urls": ["https?://creativecommons\\.org/publicdomain/zero/1\\.0/?.*"],
+      "texts": ["CC0-1.0.txt"]
+    },
+    {
+      "id": "Unlicense",
+      "category": "permissive",
+      "name": "The Unlicense",
+      "url": "https://unlicense.org/",
+      "aliases": ["Unlicense", "The Unlicense"],
+      "urls": ["https?://unlicense\\.org/?"],
+      "texts": ["Unlicense.txt"]
+    },
+    {
+      "id": "Public-Domain",
+      "category": "permissive",
+      "name": "Public Domain",
+      "url": "",
+      "aliases": ["Public Domain", "Public-Domain", "LicenseRef-Public-Domain"],
+      "urls": [],
+      "texts": []
+    },
+    {
+      "id": "BlueOak-1.0.0",
+      "category": "permissive",
+      "name": "Blue Oak Model License 1.0.0",
+      "url": "https://blueoakcouncil.org/license/1.0.0",
+      "aliases": ["BlueOak-1\\.0\\.0", "Blue Oak Model License.*"],
+      "urls": [],
+      "texts": ["BlueOak-1.0.0.txt"]
+    },
+    {
+      "id": "OFL-1.1",
+      "category": "permissive",
+      "name": "SIL Open Font License 1.1",
+      "url": "https://openfontlicense.org",
+      "aliases": ["OFL-1\\.1", "SIL Open Font License,? (Version )?1\\.1", "OFL"],
+      "urls": ["https?://scripts\\.sil\\.org/OFL.*", "https?://openfontlicense\\.org/?.*"],
+      "texts": ["OFL-1.1.txt"]
+    },
+    {
+      "id": "Bouncy-Castle",
+      "category": "permissive",
+      "name": "Bouncy Castle Licence (MIT-style)",
+      "url": "https://www.bouncycastle.org/licence.html",
+      "aliases": ["Bouncy Castle Licen[cs]e", "LicenseRef-Bouncy-Castle"],
+      "urls": ["https?://(www\\.)?bouncycastle\\.org/licen[cs]e\\.html"],
+      "texts": ["MIT.txt"]
+    },
+    {
+      "id": "EDL-1.0",
+      "category": "permissive",
+      "name": "Eclipse Distribution License 1.0 (BSD-3-Clause)",
+      "url": "https://www.eclipse.org/org/documents/edl-v10.php",
+      "aliases": ["EDL-1\\.0", "Eclipse Distribution License.*", "EDL 1\\.0"],
+      "urls": ["https?://(www\\.)?eclipse\\.org/org/documents/edl-v10\\.(php|html)"],
+      "texts": ["BSD-3-Clause.txt"]
+    },
+    {
+      "id": "GPL-2.0-with-classpath-exception",
+      "category": "permissive",
+      "name": "GNU General Public License v2.0 with the Classpath Exception",
+      "url": "https://openjdk.org/legal/gplv2+ce.html",
+      "_note": "Only WITH the Classpath Exception (JDK/JRE, OpenJFX). A bare GPL-2.0 is NOT on this list and fails.",
+      "aliases": ["GPL-2\\.0-with-classpath-exception", "GPL-2\\.0(-only)? WITH Classpath-exception-2\\.0", "GPL2 w/ CPE", "GPLv2 with Classpath Exception", "GNU General Public License,? version 2,? with the Classpath Exception", "GNU General Public License, version 2 with the GNU Classpath Exception"],
+      "urls": ["https?://openjdk\\.(java\\.net|org)/legal/gplv2\\+ce\\.html"],
+      "texts": ["GPL-2.0-only.txt", "Classpath-exception-2.0.txt"]
+    },
+    {
+      "id": "MPL-2.0",
+      "category": "weak-copyleft",
+      "name": "Mozilla Public License 2.0",
+      "url": "https://www.mozilla.org/en-US/MPL/2.0/",
+      "aliases": ["MPL-2\\.0", "MPL 2\\.0", "Mozilla Public License,? (Version |v)?2\\.0"],
+      "urls": ["https?://(www\\.)?mozilla\\.org/(en-US/)?MPL/2\\.0/?.*"],
+      "texts": ["MPL-2.0.txt"]
+    },
+    {
+      "id": "EPL-2.0",
+      "category": "weak-copyleft",
+      "name": "Eclipse Public License 2.0",
+      "url": "https://www.eclipse.org/legal/epl-2.0/",
+      "aliases": ["EPL-2\\.0", "EPL 2\\.0", "Eclipse Public License,? (- )?(v ?|Version )?2\\.0"],
+      "urls": ["https?://(www\\.)?eclipse\\.org/legal/epl-(v)?2(0)?(\\.0)?(/|\\.html)?"],
+      "texts": ["EPL-2.0.txt"]
+    },
+    {
+      "id": "EPL-1.0",
+      "category": "weak-copyleft",
+      "name": "Eclipse Public License 1.0",
+      "url": "https://www.eclipse.org/legal/epl-v10.html",
+      "aliases": ["EPL-1\\.0", "EPL 1\\.0", "Eclipse Public License,? (- )?(v ?|Version )?1\\.0"],
+      "urls": ["https?://(www\\.)?eclipse\\.org/legal/epl-v10\\.html", "https?://(www\\.)?opensource\\.org/licenses/eclipse-1\\.0(\\.php)?"],
+      "texts": ["EPL-1.0.txt"]
+    },
+    {
+      "id": "CDDL-1.1",
+      "category": "weak-copyleft",
+      "name": "Common Development and Distribution License 1.1",
+      "url": "https://spdx.org/licenses/CDDL-1.1.html",
+      "aliases": ["CDDL-1\\.1", "CDDL 1\\.1", "CDDL\\+GPL License", "CDDL/GPLv2\\+CE", "Common Development and Distribution License,? (\\(CDDL\\) )?(v|Version )?1\\.1"],
+      "urls": ["https?://glassfish\\.(java\\.net|dev\\.java\\.net)/public/CDDL\\+GPL_1_1\\.html", "https?://oss\\.oracle\\.com/licenses/CDDL\\+GPL-1\\.1"],
+      "texts": ["CDDL-1.1.txt"]
+    },
+    {
+      "id": "CDDL-1.0",
+      "category": "weak-copyleft",
+      "name": "Common Development and Distribution License 1.0",
+      "url": "https://opensource.org/licenses/CDDL-1.0",
+      "aliases": ["CDDL-1\\.0", "CDDL 1\\.0", "CDDL", "Common Development and Distribution License,? (\\(CDDL\\) )?(v|Version )?1\\.0"],
+      "urls": ["https?://(www\\.)?opensource\\.org/licenses/CDDL-1\\.0"],
+      "texts": ["CDDL-1.0.txt"]
+    },
+    {
+      "id": "LGPL-2.1",
+      "category": "weak-copyleft",
+      "name": "GNU Lesser General Public License v2.1",
+      "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html",
+      "aliases": ["LGPL-2\\.1(-only|-or-later|\\+)?", "GNU Lesser General Public License,? (v|Version )?2\\.1.*", "LGPL,? (version )?2\\.1", "GNU LESSER GENERAL PUBLIC LICENSE, Version 2\\.1"],
+      "urls": ["https?://(www\\.)?gnu\\.org/licenses/old-licenses/lgpl-2\\.1(\\.html|\\.txt)?", "https?://(www\\.)?opensource\\.org/licenses/lgpl-2\\.1(\\.php)?"],
+      "texts": ["LGPL-2.1-only.txt"]
+    },
+    {
+      "id": "LGPL-3.0",
+      "category": "weak-copyleft",
+      "name": "GNU Lesser General Public License v3.0",
+      "url": "https://www.gnu.org/licenses/lgpl-3.0.html",
+      "aliases": ["LGPL-3\\.0(-only|-or-later|\\+)?", "GNU Lesser General Public License,? (v|Version )?3(\\.0)?.*", "LGPL,? (version )?3(\\.0)?", "Lesser General Public License, version 3 or greater"],
+      "urls": ["https?://(www\\.)?gnu\\.org/licenses/lgpl(-3\\.0)?(\\.html|\\.txt)?"],
+      "texts": ["LGPL-3.0-only.txt", "GPL-3.0-only.txt"]
+    }
+  ]
+}

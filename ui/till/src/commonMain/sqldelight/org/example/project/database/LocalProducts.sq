@@ -1,0 +1,70 @@
+-- Local product storage
+-- Stores synced product data for offline access
+
+CREATE TABLE IF NOT EXISTS local_products (
+    id INTEGER NOT NULL PRIMARY KEY,
+    product_number TEXT NOT NULL,
+    name TEXT NOT NULL,
+    en_name TEXT,
+    ch_name TEXT,
+    description TEXT,
+    price TEXT AS org.example.project.money.Decimal NOT NULL,
+    product_type TEXT NOT NULL,
+    category_id INTEGER NOT NULL,
+    is_active INTEGER NOT NULL DEFAULT 1,
+    allow_custom_price INTEGER NOT NULL DEFAULT 0,
+    image_url TEXT,
+    FOREIGN KEY (category_id) REFERENCES local_product_categories (id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_local_products_category_id ON local_products(category_id);
+CREATE INDEX IF NOT EXISTS idx_local_products_is_active ON local_products(is_active);
+CREATE INDEX IF NOT EXISTS idx_local_products_product_number ON local_products(product_number);
+CREATE INDEX IF NOT EXISTS idx_local_products_name ON local_products(name);
+
+-- Insert or update a product
+insertOrUpdateProduct:
+INSERT OR REPLACE INTO local_products(id, product_number, name, en_name, ch_name, description, price, product_type, category_id, is_active, allow_custom_price, image_url)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-- Get all active products ordered by name
+getAllProducts:
+SELECT * FROM local_products WHERE is_active = 1 ORDER BY name;
+
+-- Get all products with inactive flag set
+getAllProductsWithInactive:
+SELECT * FROM local_products;
+
+-- Get a specific product by ID
+getProductById:
+SELECT * FROM local_products WHERE id = ?;
+
+-- Get products by category ID
+getProductsByCategory:
+SELECT * FROM local_products WHERE category_id = ? AND is_active = 1 ORDER BY name;
+
+-- Search products by name or product number
+searchProducts:
+SELECT * FROM local_products
+WHERE is_active = 1
+  AND (
+    name LIKE '%' || ? || '%'
+    OR product_number LIKE '%' || ? || '%'
+  )
+ORDER BY
+  CASE
+    WHEN product_number = ? THEN 1
+    WHEN product_number LIKE ? || '%' THEN 2
+    WHEN name LIKE ? || '%' THEN 3
+    ELSE 4
+  END,
+  name
+LIMIT 10;
+
+-- Delete a specific product
+deleteProduct:
+DELETE FROM local_products WHERE id = ?;
+
+-- Clear all products
+clearAllProducts:
+DELETE FROM local_products;

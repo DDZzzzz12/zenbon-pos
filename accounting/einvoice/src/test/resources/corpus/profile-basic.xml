@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Hand-authored by us — a regression guard, NOT evidence.
+  It cannot prove the URN below is the right one, because we wrote both this file and the constant
+  it is compared against. The URN was verified against external sources; see corpus/README.md.
+  Note the "#compliant#" spelling: BASIC is a CIUS (a restriction of EN 16931), whereas EXTENDED is
+  "#conformant#" (an extension). Transposing the two words is the easy mistake this fixture pins.
+  Deliberately minimal: only the document context a profile detector reads.
+-->
+<rsm:CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100"
+                          xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+    <rsm:ExchangedDocumentContext>
+        <ram:GuidelineSpecifiedDocumentContextParameter>
+            <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic</ram:ID>
+        </ram:GuidelineSpecifiedDocumentContextParameter>
+    </rsm:ExchangedDocumentContext>
+</rsm:CrossIndustryInvoice>

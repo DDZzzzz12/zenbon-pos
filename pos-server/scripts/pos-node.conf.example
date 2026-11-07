@@ -1,0 +1,100 @@
+# POS node configuration — read by provision-node.sh (plain shell syntax, KEY="value").
+# Copy to ./pos-node.conf (next to the script) or /etc/pos-node.conf and edit.
+# Every key is optional; the value shown is the default.
+
+# What this machine does:
+#   server        the POS server only (headless)
+#   kiosk         a full-screen browser pointed at another machine's server (set SERVER_URL)
+#   server+kiosk  both on one box
+ROLE="server+kiosk"
+
+# --- Server ---------------------------------------------------------------
+# Unpacked server package (contains pos-server.jar, install-service.sh, run.sh, jre/).
+# Default: the directory provision-node.sh lives in.
+DEPLOY_DIR=""
+INSTALL_DIR="/opt/pos-server"
+PORT="8080"
+# yes = PostgreSQL in Docker instead of the bundled embedded one (installs Docker).
+DOCKER_POSTGRES="no"
+
+# --- Kiosk browser --------------------------------------------------------
+# Which web apps to open. One app = true kiosk mode. Several = one full-screen window
+# with one tab per app; switch with Ctrl+Tab (needs a keyboard).
+#   pos     order station / till   -> /pos/    (404 until a browser-station role is enabled
+#                                               in adminApp: Settings -> Browser-Stationen)
+#   admin   back-office            -> /admin/
+KIOSK_APPS="pos"
+# Base URL of the server. Only set for ROLE=kiosk; for server+kiosk it is http://localhost:PORT
+# (localhost is a secure context, a LAN IP over plain http is not — the wasm apps need one).
+SERVER_URL=""
+# Browser binary. "auto" picks chromium / google-chrome-stable and refuses the Ubuntu snap
+# stub (snap browsers do not behave under a kiosk compositor).
+BROWSER_CMD="auto"
+KIOSK_USER="kiosk"
+# Keyboard layout inside the kiosk. Empty = take it from the desktop install (/etc/default/keyboard),
+# which is what you normally want. Set only to override (XKB names), e.g. KEYBOARD_LAYOUT="de",
+# KEYBOARD_VARIANT="nodeadkeys" or "mac" for an Apple German layout.
+KEYBOARD_LAYOUT=""
+KEYBOARD_VARIANT=""
+KEYBOARD_MODEL=""
+KEYBOARD_OPTIONS=""
+
+# A "System" tab after the app tabs: battery level, server and network state, and Restart / Shut down /
+# Turn-the-screen-off buttons (Ctrl+<n> jumps to it, Ctrl+Tab cycles). Needs python3. When the battery falls below
+# BATTERY_WARN_PERCENT while running on battery, the tab comes to the front by itself and offers a button back
+# to the till; it comes back every BATTERY_REWARN_MINUTES (every 3 minutes below BATTERY_CRITICAL_PERCENT) until
+# the charger is connected. The kiosk then also runs Chromium's DevTools endpoint on 127.0.0.1:9222 (loopback only).
+KIOSK_STATUS_TAB="yes"
+# "Turn the screen off" on that tab stops the till, switches the display off (backlight, framebuffer) and
+# leaves the server running. This keyboard shortcut brings the till back: modifiers (ctrl, alt, shift, meta)
+# plus one key (a-z, 0-9, f1-f12, space, enter), by physical key position. At least one modifier is required.
+KIOSK_WAKE_COMBO="ctrl+alt+u"
+BATTERY_WARN_PERCENT="40"
+BATTERY_CRITICAL_PERCENT="15"
+BATTERY_REWARN_MINUTES="10"
+
+# --- Printing -------------------------------------------------------------
+# keep    leave CUPS running (needed for USB printers: the server prints through
+#         javax.print, which on Linux only sees CUPS queues)
+# disable mask CUPS completely (raw-TCP network printers on port 9100 do not need it)
+CUPS="keep"
+# Optional: create a raw CUPS queue now. Leave empty to add one yourself later
+# (http://localhost:631 or lpadmin). Examples:
+#   PRINTER_URI="usb://EPSON/TM-T20III?serial=XXXX"   (see: lpinfo -v)
+#   PRINTER_URI="socket://192.168.2.50:9100"
+PRINTER_QUEUE=""
+PRINTER_URI=""
+
+# --- USB volumes ----------------------------------------------------------
+# Mounted by label at /media/pos/<label>, owned by the server account, nofail (the machine boots
+# without them). Plugging a stick in later needs no reboot.
+# TSE: the Swissbit stick. /media/pos/SWISSBIT is found by the server's TSE locator on its own.
+TSE_LABEL="SWISSBIT"
+TSE_FS="vfat"               # used only until the stick is plugged in; then the real type is read
+# Backup stick: leave empty to skip. Then set the backup path in the admin app to
+# /media/pos/<label> (the scheduled BACKUP job and the manual backup both take a path there).
+BACKUP_LABEL="ZEN_BACKUP"     # label the stick with this name; empty = no backup mount
+BACKUP_FS="exfat"           # FAT32 caps files at 4 GB; use exfat or ext4
+
+# --- Slimming -------------------------------------------------------------
+# Boot to a text console (no GDM/GNOME). GNOME stays installed so drivers are untouched;
+# undo with: systemctl set-default graphical.target && systemctl enable gdm3
+BOOT_TO_CONSOLE="yes"
+# Services to mask when present. avahi-daemon is deliberately NOT here (mDNS printer
+# discovery); add it if you only use USB or fixed-IP printers.
+MASK_SERVICES="bluetooth ModemManager bolt colord switcheroo-control iio-sensor-proxy power-profiles-daemon gnome-remote-desktop cups-browsed apport whoopsie kerneloops"
+
+# Block unattended kernel upgrades. auto = only when an out-of-tree driver such as the Broadcom
+# `wl` Wi-Fi module is loaded (a failed DKMS build would otherwise cost you the Wi-Fi).
+HOLD_KERNEL="auto"          # auto | yes | no
+FIREWALL="yes"              # ufw: allow SSH + PORT (+ mDNS), deny the rest
+
+# --- Laptop / network -----------------------------------------------------
+LID_IGNORE="yes"            # closing the lid must not suspend the server
+LID_STOPS_KIOSK="yes"       # closing the lid stops the kiosk screen (cage), the server keeps running; opening it starts the kiosk again
+WIFI_POWERSAVE_OFF="yes"    # Wi-Fi power saving causes latency spikes / drops
+# Fixed address on the active connection, applied on next reboot. Empty = keep DHCP
+# (a DHCP reservation in the router works just as well).
+STATIC_IP=""                # e.g. 192.168.2.60/24
+GATEWAY=""                  # e.g. 192.168.2.1
+DNS=""                      # e.g. 192.168.2.1
