@@ -35,6 +35,9 @@ fun Application.configureContentNegotiation() {
     }
 }
 
+/** What `respondFile` infers for the staged till APK. */
+private val ANDROID_APK = ContentType("application", "vnd.android.package-archive")
+
 fun Application.configureHTTP() {
     install(Compression) {
         // Highest priority. gzip had been commented out as "temporary" and never restored,
@@ -76,8 +79,14 @@ fun Application.configureHTTP() {
         // image/svg+xml is XML and compresses well — so revisit this if SVG assets are added.
         //
         // text/csv (the DATEV Buchungsstapel export) is deliberately absent: it compresses well.
+        //
+        // The Android client APK is one of them, and excluding it is a correctness matter, not just
+        // CPU: a till hashes the bytes it receives against the published SHA-256, and a gzip body
+        // that the client does not inflate fails that check ("downloaded file did not match its
+        // checksum"). `application/vnd.android.package-archive` is what respondFile infers for `.apk`.
         excludeContentType(
             ContentType.Application.Zip,
+            ANDROID_APK,
             ContentType.Application.Pdf,
             ContentType.Image.Any,
             ContentType.Video.Any,

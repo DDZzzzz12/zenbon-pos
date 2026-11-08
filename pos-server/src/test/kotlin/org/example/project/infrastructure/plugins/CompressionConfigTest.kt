@@ -55,6 +55,14 @@ class CompressionConfigTest {
         }
     }
 
+    /** A real `.apk` on disk: the till's update download goes through `respondFile`, which infers the type. */
+    private val apkFile: File by lazy {
+        File.createTempFile("compression-test-", ".apk").apply {
+            writeBytes(binaryPayload)
+            deleteOnExit()
+        }
+    }
+
     private fun compressionApp(block: suspend ApplicationTestBuilder.(HttpClient) -> Unit) =
         testApplication {
             application {
@@ -70,6 +78,7 @@ class CompressionConfigTest {
                     get("/zip") { call.respondBytes(binaryPayload, ContentType.Application.Zip) }
                     get("/pdf") { call.respondBytes(binaryPayload, ContentType.Application.Pdf) }
                     get("/webp") { call.respondBytes(binaryPayload, ContentType.Image.WEBP) }
+                    get("/apk") { call.respondFile(apkFile) }
                     get("/image-file") { call.respondFile(jpegFile) }
                     get("/csv") { call.respondText(payload, ContentType.Text.CSV) }
                 }
@@ -198,5 +207,17 @@ class CompressionConfigTest {
                 "excluding a content type must pass the body through untouched, not merely drop the " +
                     "Content-Encoding header",
             )
+        }
+
+    @Test
+    fun `the android apk is never compressed`() =
+        compressionApp { client ->
+            val response = client.get("/apk") { header(HttpHeaders.AcceptEncoding, "gzip, deflate") }
+            assertNull(
+                response.headers[HttpHeaders.ContentEncoding],
+                "a till hashes the APK bytes it receives against the published SHA-256; a gzip body " +
+                    "that the client does not inflate fails that check and the update is discarded",
+            )
+            assertContentEquals(binaryPayload, response.readRawBytes())
         }
 }

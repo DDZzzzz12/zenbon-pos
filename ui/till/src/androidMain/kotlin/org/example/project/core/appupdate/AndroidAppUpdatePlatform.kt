@@ -16,8 +16,10 @@ import androidx.core.net.toUri
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.HttpTimeoutConfig
+import io.ktor.client.request.header
 import io.ktor.client.request.prepareGet
 import io.ktor.client.statement.bodyAsChannel
+import io.ktor.http.HttpHeaders
 import io.ktor.http.isSuccess
 import io.ktor.utils.io.readAvailable
 import kotlinx.coroutines.CancellationException
@@ -68,7 +70,7 @@ class AndroidAppUpdatePlatform(
                 }
             }
         try {
-            client.prepareGet(url).execute { response ->
+            client.prepareGet(url) { header(HttpHeaders.AcceptEncoding, "identity") }.execute { response ->
                 if (!response.status.isSuccess()) throw AppUpdateException(AppUpdateFailure.DOWNLOAD_FAILED)
                 val headerDigest = response.headers[HEADER_SHA256]
                 val actual = writeAndHash(response.bodyAsChannel(), target, info.sizeBytes, onProgress)

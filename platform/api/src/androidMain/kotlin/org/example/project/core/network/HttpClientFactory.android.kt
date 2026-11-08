@@ -61,11 +61,14 @@ actual fun createPlatformEngine(config: HttpClientConfig): HttpClientEngine =
 
             // Add compression and user-agent headers
             addInterceptor { chain ->
+                val original = chain.request()
+                // A caller that set Accept-Encoding itself (the APK download asks for `identity`) keeps it:
+                // OkHttp does not inflate a body whose Accept-Encoding the app set, so a second header
+                // would have the server gzip bytes that the caller hashes as they arrive.
                 val request =
-                    chain
-                        .request()
+                    original
                         .newBuilder()
-                        .addHeader("Accept-Encoding", "gzip, deflate")
+                        .apply { if (original.header("Accept-Encoding") == null) addHeader("Accept-Encoding", "gzip, deflate") }
                         .addHeader("User-Agent", config.userAgent)
                         .build()
                 chain.proceed(request)
