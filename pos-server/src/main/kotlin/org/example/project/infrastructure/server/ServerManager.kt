@@ -367,6 +367,7 @@ fun Application.module(enabled: Boolean) {
     install(AdminPanelSecurityHeaders)
     // Answers If-None-Match with 304. Only responses carrying an ETag are affected (the browser apps'
     // static files, see StaticResourceValidators). Outside configureHTTP() so tests exercise it too.
+    install(BrowserAppEtagOnly)
     install(ConditionalHeaders)
 
     // HTTP compression — skip in test mode (enabled=false) to avoid Content-Length mismatch in Ktor test engine

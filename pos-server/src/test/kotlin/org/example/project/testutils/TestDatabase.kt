@@ -46,6 +46,18 @@ object TestDatabase {
         transaction { exec(ADVISORY_LOCK_ALIAS) }
     }
 
+    /**
+     * The Postgres counterpart of [setup], for `@Tag("postgres")` classes: same Koin/pool hygiene,
+     * schema created by Exposed exactly as on H2. [config] should name a database no other test
+     * has used ([PostgresTestDatabase.freshDatabaseConfig]). No advisory-lock alias: Postgres has
+     * the real function.
+     */
+    fun setupPostgres(config: HikariConfig) {
+        stopKoin()
+        DatabaseFactory.close()
+        initDB(config, runMigrations = false)
+    }
+
     fun teardown() {
         DatabaseFactory.close()
         stopKoin()

@@ -26,6 +26,7 @@
  */
 package org.example.project.features.tse.data.service
 
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -190,81 +191,92 @@ class TsePendingSweeper(
      */
     @OptIn(ExperimentalTime::class)
     @TestOnlyApi
-    suspend fun sweep(): Int =
-        dbQuery {
-            val cutoff = currentInstant().minus(GRACE_PERIOD_MINUTES.minutes).toLocalDateTime(getTimeZone())
-
-            val stranded =
+    suspend fun sweep(): Int {
+        val cutoff = currentInstant().minus(GRACE_PERIOD_MINUTES.minutes).toLocalDateTime(getTimeZone())
+        val strandedIds =
+            dbQuery {
                 Bill
                     .find {
                         (BillTable.tseSigningStatus eq TseSigningStatus.PENDING) and
                             BillTable.tseTransactionId.isNull() and
                             BillTable.deletedBillId.isNull() and
                             (BillTable.endTime less cutoff)
-                    }.toList()
-
-            var enqueued = 0
-            for (bill in stranded) {
-                val referenceId = bill.id.value.toString()
-
-                // A queue row (ANY status) means the worker path already owns this Vorgang.
-                if (queueRepository.existsForReference(referenceId, TseEntityType.BILL)) continue
-
-                val clientId = bill.terminal?.clientId
-                if (clientId == null) {
-                    logger.warn(
-                        "TsePendingSweeper: bill ${bill.billNumber} (id=$referenceId) is PENDING with no " +
-                            "queue row but has no terminal/clientId — cannot rebuild the signing client; skipping",
-                    )
-                    continue
-                }
-
-                // NOTE: do NOT also skip on the terminal's CURRENT fiscal/tseClientRegistered state.
-                // syncTseRegistrationStatus legitimately flips tseClientRegistered to false on a TSE
-                // swap — a genuinely-stranded Ausfall bill from BEFORE the swap must still be
-                // Nachsigniert, not silently and permanently dropped. clientId == null above is the
-                // only case where re-signing is truly impossible (no client to sign under at all).
-
-                val processData = ProcessDataBuilder.buildForBill(bill)
-                try {
-                    queueService.enqueue(
-                        referenceId = referenceId,
-                        entityType = TseEntityType.BILL,
-                        processType = TseTransactionService.PROCESS_TYPE_RECEIPT,
-                        processData = processData,
-                        clientId = clientId,
-                        reason = TseLateSigningReason.PENDING_SWEEP,
-                        reasonText = "Unsigniert vorgefunden (PENDING, keine Warteschlange) – vom Sweeper eingereiht",
-                    )
-                    enqueued++
-                    logger.info(
-                        "TsePendingSweeper: enqueued stranded PENDING bill ${bill.billNumber} " +
-                            "(id=$referenceId) for Nachsignierung",
-                    )
-                } catch (e: Exception) {
-                    logger.error(
-                        "TsePendingSweeper: failed to enqueue stranded bill ${bill.billNumber} " +
-                            "(id=$referenceId): ${e.message}",
-                        e,
-                    )
-                }
+                    }.map { it.id.value }
             }
 
-            if (enqueued > 0) {
-                logger.info("TsePendingSweeper: enqueued $enqueued stranded PENDING bill(s) this cycle")
-            } else {
-                logger.debug("TsePendingSweeper: no stranded PENDING bills found")
+        // One transaction PER BILL, and the catch OUTSIDE it. The whole cycle used to be one
+        // transaction with the catch inside: on Postgres a failed enqueue aborts the transaction,
+        // and when that bill was the last one pgjdbc turned the COMMIT into a silent ROLLBACK —
+        // every queue row and tse_late_signing record of the cycle was lost while the log reported
+        // them enqueued. Now a failure rolls back that bill alone, and the others stay queued.
+        var enqueued = 0
+        for (billId in strandedIds) {
+            try {
+                if (dbQuery { enqueueIfStranded(billId) }) enqueued++
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                logger.error("TsePendingSweeper: failed to enqueue stranded bill id=$billId: ${e.message}", e)
             }
-
-            // TODO round-3 TSER-9 follow-up: ORDER (Bestellung-V1) and KASSENBUCH (SonstigerVorgang /
-            // Kassenbeleg-V1), plus storno reverse bills, are NOT
-            // yet swept. Their processData is not a pure function of the persisted entity (order-item
-            // DTO mapping; the KassenbuchHeader carries no clientId and its build branches on entryType;
-            // non-forward bills sign reversed buckets and refund payments), so a naive
-            // rebuild here would risk signing DIVERGENT data. Extend once each build is cleanly
-            // extractable into a shared entity->processData helper like buildForBill.
-            enqueued
         }
+
+        if (enqueued > 0) {
+            logger.info("TsePendingSweeper: enqueued $enqueued stranded PENDING bill(s) this cycle")
+        } else {
+            logger.debug("TsePendingSweeper: no stranded PENDING bills found")
+        }
+
+        // TODO round-3 TSER-9 follow-up: ORDER (Bestellung-V1) and KASSENBUCH (SonstigerVorgang /
+        // Kassenbeleg-V1), plus storno reverse bills, are NOT
+        // yet swept. Their processData is not a pure function of the persisted entity (order-item
+        // DTO mapping; the KassenbuchHeader carries no clientId and its build branches on entryType;
+        // non-forward bills sign reversed buckets and refund payments), so a naive
+        // rebuild here would risk signing DIVERGENT data. Extend once each build is cleanly
+        // extractable into a shared entity->processData helper like buildForBill.
+        return enqueued
+    }
+
+    /**
+     * Enqueues one stranded bill; true when it was queued, false when it was skipped. Requires an
+     * ambient transaction. Re-checks the queue inside that transaction, so a bill the live signing
+     * path queued since the scan is left alone.
+     */
+    private suspend fun enqueueIfStranded(billId: Long): Boolean {
+        val bill = Bill.findById(billId) ?: return false
+        // Signed (or otherwise settled) by the live path since the scan above.
+        if (bill.tseSigningStatus != TseSigningStatus.PENDING || bill.tseTransaction != null) return false
+        val referenceId = billId.toString()
+
+        // A queue row (ANY status) means the worker path already owns this Vorgang.
+        if (queueRepository.existsForReference(referenceId, TseEntityType.BILL)) return false
+
+        val clientId = bill.terminal?.clientId
+        if (clientId == null) {
+            logger.warn(
+                "TsePendingSweeper: bill ${bill.billNumber} (id=$referenceId) is PENDING with no " +
+                    "queue row but has no terminal/clientId — cannot rebuild the signing client; skipping",
+            )
+            return false
+        }
+
+        // NOTE: do NOT also skip on the terminal's CURRENT fiscal/tseClientRegistered state.
+        // syncTseRegistrationStatus legitimately flips tseClientRegistered to false on a TSE
+        // swap — a genuinely-stranded Ausfall bill from BEFORE the swap must still be
+        // Nachsigniert, not silently and permanently dropped. clientId == null above is the
+        // only case where re-signing is truly impossible (no client to sign under at all).
+
+        queueService.enqueue(
+            referenceId = referenceId,
+            entityType = TseEntityType.BILL,
+            processType = TseTransactionService.PROCESS_TYPE_RECEIPT,
+            processData = ProcessDataBuilder.buildForBill(bill),
+            clientId = clientId,
+            reason = TseLateSigningReason.PENDING_SWEEP,
+            reasonText = "Unsigniert vorgefunden (PENDING, keine Warteschlange) – vom Sweeper eingereiht",
+        )
+        logger.info("TsePendingSweeper: enqueued stranded PENDING bill ${bill.billNumber} (id=$referenceId) for Nachsignierung")
+        return true
+    }
 
     /** Shuts down the sweep executor gracefully. Should be called during application shutdown. */
     fun shutdown() {

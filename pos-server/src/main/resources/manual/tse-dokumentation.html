@@ -2139,6 +2139,50 @@ SELECT z.zbon_nummer, z.created_at, z.stamm_kasse_sw_version, h.tse_signing_stat
   FROM zbon z JOIN kassenbuch_header h ON h.zbon_id = z.zbon_id AND h.is_zbon_aggregate
  ORDER BY z.zbon_nummer;</code></pre>
 
+<h3 id="aenderungen-v1-2-3">v1.2.3 (11.11.2026)</h3>
+<p><strong>Gilt ab</strong> dem ersten Start von v1.2.3 auf der Installation (Nachweis siehe
+<a href="#aenderungen-wann">oben</a>). <strong>Unver&auml;ndert</strong> bleiben Prozessart, processData, Client und Reihenfolge
+aller signierten Vorg&auml;nge sowie Format und Inhalt des DSFinV-K-Exports. Betroffen sind nur Installationen mit
+PostgreSQL (der Normalfall); die Ursache bestand schon vor v1.2.0.</p>
+
+<h4>1. Ein fehlgeschlagener Nebenschritt l&ouml;scht den Tagesabschluss nicht mehr unbemerkt</h4>
+<ul>
+<li><strong>Was:</strong> Das Z-Bon-PDF und die Neuberechnung der Favoriten laufen erst, nachdem der Tagesabschluss gespeichert
+ist, jeweils in einer eigenen Transaktion und weiterhin vor der TSE-Signierung (Phase&nbsp;2). Das Ziel-Kassenbuch des
+t&auml;glichen Geldtransits wird vor der Abschluss-Transaktion gelesen. Die Nachsignier-Suche nach &bdquo;h&auml;ngenden&ldquo;
+PENDING-Belegen (<code>TsePendingSweeper</code>) reiht jeden Beleg in einer eigenen Transaktion ein.</li>
+<li><strong>Anlass:</strong> Review des Datenbank-Umbaus (11/2026), an einer echten PostgreSQL best&auml;tigt: Schl&auml;gt in
+PostgreSQL eine SQL-Anweisung fehl, ist die ganze Transaktion abgebrochen, und der JDBC-Treiber f&uuml;hrt das abschlie&szlig;ende
+COMMIT stillschweigend als ROLLBACK aus und meldet Erfolg. Beide Nebenschritte fingen ihre Fehler <em>innerhalb</em> der
+Abschluss-Transaktion ab. Scheiterten sie, meldete der Abschluss Erfolg (mit Z-Nummer), gespeichert war aber nichts: kein
+Z-Bon, kein Kassenbuch-Aggregat, keine Trinkgeldauszahlung, keine Kassendifferenz, kein Geldtransit. Die anschlie&szlig;ende
+Phase&nbsp;2 signierte trotzdem die Kassenbewegungen dieses Abschlusses.</li>
+<li><strong>Betroffener Ablauf:</strong> Tagesabschluss (<code>ZBonServiceImpl.createReport</code>); Nachsignierung h&auml;ngender
+Belege (<code>TsePendingSweeper</code>).</li>
+<li><strong>Was der Pr&uuml;fer sieht:</strong> Bis einschlie&szlig;lich v1.2.2 kann der TAR-Export einer PostgreSQL-Installation
+TSE-Transaktionen (<code>SonstigerVorgang</code>/<code>Kassenbeleg-V1</code> der Kasse des Abschlusses) enthalten, zu denen es
+keinen Kassenbuch-Eintrag gibt, weil der zugeh&ouml;rige Abschluss zur&uuml;ckgerollt wurde. Die Z-Nummer wurde dabei nicht
+verbraucht, die Z-Nummern-Folge hat also keine L&uuml;cke; der n&auml;chste Abschluss erhielt dieselbe Nummer und schloss dieselben
+Ums&auml;tze ab. Ab v1.2.3 gibt es solche Signaturen ohne Kassenbuch-Eintrag aus diesem Grund nicht mehr. Fehlt einem Abschluss
+ab v1.2.3 das verkn&uuml;pfte Z-Bon-PDF, ist das PDF-Erzeugen gescheitert (im Server-Log vermerkt); der Abschluss selbst ist
+vollst&auml;ndig gespeichert. Bei der Nachsignier-Suche konnte bis v1.2.2 ein einzelner fehlerhafter Beleg die Einreihung aller
+anderen Belege desselben Durchlaufs zur&uuml;cknehmen; sie wurden im n&auml;chsten Durchlauf erneut versucht.</li>
+</ul>
+
+<h4>2. Nachsignierung abbrechen: ohne Protokolleintrag kein Abbruch</h4>
+<ul>
+<li><strong>Was:</strong> Kann beim Abbrechen einer Nachsignierung (<code>TseSigningQueueServiceImpl.cancelEntry</code>) der
+Protokolleintrag <code>TSE_QUEUE_CANCELLED</code> nicht geschrieben werden, schl&auml;gt der Abbruch jetzt mit einer Fehlermeldung
+fehl; der Eintrag bleibt in der Warteschlange und kann erneut abgebrochen oder signiert werden.</li>
+<li><strong>Anlass:</strong> Wie Punkt&nbsp;1: Der Protokollfehler wurde innerhalb der Transaktion abgefangen. Unter PostgreSQL
+wurde damit auch der Abbruch selbst stillschweigend zur&uuml;ckgerollt, w&auml;hrend die Oberfl&auml;che den Abbruch als erfolgreich
+anzeigte.</li>
+<li><strong>Betroffener Ablauf:</strong> Warteschlange der Nachsignierung, &bdquo;Abbrechen&ldquo; mit Begr&uuml;ndung (Befund M8).</li>
+<li><strong>Was der Pr&uuml;fer sieht:</strong> Ab v1.2.3 hat jeder Warteschlangen-Eintrag mit Status <code>CANCELLED</code> einen
+Protokolleintrag <code>TSE_QUEUE_CANCELLED</code> mit Mitarbeiter und Begr&uuml;ndung. Unter v1.2.2 konnte ein als abgebrochen
+gemeldeter Eintrag weiter offen (<code>PENDING</code>) sein; er wurde dann sp&auml;ter regul&auml;r nachsigniert.</li>
+</ul>
+
 <h3 id="aenderungen-v1-2-0">v1.2.0</h3>
 <p><strong>Gilt ab</strong> dem ersten Start von v1.2.0 auf der Installation (Nachweis siehe
 <a href="#aenderungen-wann">oben</a>). <strong>Unver&auml;ndert</strong> bleiben Prozessart, processData-Format und Client aller

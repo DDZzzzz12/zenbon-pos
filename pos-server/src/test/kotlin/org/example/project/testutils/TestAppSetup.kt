@@ -31,11 +31,14 @@ fun testApp(
     // Loaded after the production modules in the same startKoin, so they override a binding
     // BEFORE the eager singletons (scheduler, TSE workers) are built and capture the original.
     overrides: List<Module> = emptyList(),
+    // Connects the app's database. The H2 suite by default; a `@Tag("postgres")` class passes
+    // `{ TestDatabase.setupPostgres(pg.freshDatabaseConfig()) }` to run the same flow on Postgres.
+    database: () -> Unit = TestDatabase::setup,
     block: suspend ApplicationTestBuilder.(HttpClient) -> Unit,
 ) {
     testApplication {
         application {
-            TestDatabase.setup()
+            database()
             // Start Koin globally before module() so that:
             // 1. module() detects existing Koin and skips configureKoin()
             // 2. GlobalContext.get() is available for eager singletons (TSE providers)

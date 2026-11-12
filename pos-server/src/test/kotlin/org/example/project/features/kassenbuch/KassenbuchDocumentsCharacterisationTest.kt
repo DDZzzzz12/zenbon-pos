@@ -168,7 +168,7 @@ class KassenbuchDocumentsCharacterisationTest {
     // ── Z-Bon closing: in-closing tip payouts, drawer count, report ──────────────────────────────
 
     @Test
-    fun `the closing books its Eigenbelege and the Z-Bon report inside the closing transaction`() =
+    fun `the closing books its Eigenbelege inside the closing transaction and the Z-Bon report after it`() =
         scenario { rig, client ->
             val response =
                 fixture.closeWith(
@@ -191,8 +191,13 @@ class KassenbuchDocumentsCharacterisationTest {
                 ),
                 calls.map { normalise(it.text) },
             )
-            assertTrue(calls.all { it.inTransaction }, "every document call runs inside the closing's transaction")
-            assertEquals(1, calls.map { it.transaction }.distinct().size, "and all of them inside ONE transaction")
+            assertTrue(calls.all { it.inTransaction }, "every document call runs inside a transaction")
+            val eigenbelege = calls.dropLast(1)
+            assertEquals(1, eigenbelege.map { it.transaction }.distinct().size, "the Eigenbelege inside ONE transaction, the closing's")
+            // The report is best-effort and runs in its own transaction once the closing has committed:
+            // inside the closing, a failed statement of its own aborted the closing on Postgres and the
+            // COMMIT became a silent ROLLBACK (SilentRollbackScenarios).
+            assertTrue(calls.last().transaction != eigenbelege.first().transaction, "the Z-Bon report runs after the closing's transaction")
             assertStoredAndLinked(rig, calls)
 
             // The download returns the stored report, read through the document service outside any transaction.

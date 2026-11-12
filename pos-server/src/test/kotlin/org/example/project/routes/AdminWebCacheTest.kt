@@ -65,6 +65,23 @@ class AdminWebCacheTest {
             assertEquals(HttpStatusCode.OK, response.status)
         }
 
+    /**
+     * Regression for the blank `/pos/` after an upgrade: the shadow JAR gives every entry the same
+     * fixed 1980 mtime, so a browser's `If-Modified-Since` always "matched" and Ktor answered 304
+     * even though the stale `If-None-Match` did not. The browser then kept an old `composeApp.js`
+     * whose chunk and wasm names no longer existed. The ETag alone must decide.
+     */
+    @Test
+    fun `a stale ETag with a matching If-Modified-Since still gets the full file`() =
+        testApp { client ->
+            val response =
+                client.get("/admin/604.js") {
+                    header(HttpHeaders.IfNoneMatch, "\"stale\"")
+                    header(HttpHeaders.IfModifiedSince, "Fri, 01 Jan 2100 00:00:00 GMT")
+                }
+            assertEquals(HttpStatusCode.OK, response.status)
+        }
+
     @Test
     fun `the content-hashed wasm is cached publicly for a year`() =
         testApp { client ->

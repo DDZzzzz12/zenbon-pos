@@ -71,7 +71,8 @@ class TippedDayFixture(
         TestData.createFiscalRegisteredTerminal(deviceId = deviceId, clientId = "TERM-$prefix")
         transaction {
             // H2 stand-in for the Postgres advisory lock used to serialize Kassenbuch/Z-Bon writes.
-            exec("CREATE ALIAS IF NOT EXISTS PG_ADVISORY_XACT_LOCK AS 'long pgAdvisoryXactLock(long key) { return key; }'")
+            // Postgres has the real function (and no CREATE ALIAS).
+            if (db.vendor == "h2") exec("CREATE ALIAS IF NOT EXISTS PG_ADVISORY_XACT_LOCK AS 'long pgAdvisoryXactLock(long key) { return key; }'")
         }
 
         sales.forEachIndexed { i, sale ->

@@ -586,33 +586,33 @@ class TseSigningQueueServiceImpl(
 
             // Mirrors the TSE_QUEUE_SIGNED entry the success path writes. Abandoning a signature is
             // the more consequential of the two and previously left no trace whatsoever.
-            try {
-                transactionAuditService.logTransaction(
-                    employeeId = employeeId,
-                    employeeNumber = employeeId,
-                    authorizationType = "MANUAL",
-                    authorizingManagerId = employeeId,
-                    operation = TSE_QUEUE_CANCELLED,
-                    entityType = entry.entityType.name,
-                    entityId = entry.referenceId,
-                    entityName = "Nachsignieren abgebrochen ${entry.entityType} ${entry.referenceId}",
-                    deviceId = entry.clientId,
-                    reason = reason,
-                    metadata =
-                        mapOf(
-                            "queueEntryId" to entry.id.value.toString(),
-                            "processType" to entry.processType,
-                            "retryCount" to entry.retryCount.toString(),
-                        ),
-                    traceId = traceId,
-                )
-            } catch (e: Exception) {
-                logger.error(
-                    "Audit log FAILED for $TSE_QUEUE_CANCELLED ${entry.entityType} ${entry.referenceId} " +
-                        "— the abandonment is now UNRECORDED",
-                    e,
-                )
-            }
+            //
+            // NOT caught. The abandonment and its record are one act: a cancel whose audit row could
+            // not be written must fail, so the entry stays queued and the operator sees the error.
+            // Catching it here was worse than an unrecorded abandonment on Postgres, where the failed
+            // INSERT aborts this transaction and pgjdbc turns the COMMIT into a silent ROLLBACK — the
+            // operator was told the cancel worked while nothing, not even the cancel, was written.
+            // A savepoint would keep the transaction usable, but would commit exactly the unrecorded
+            // abandonment M8 exists to prevent.
+            transactionAuditService.logTransaction(
+                employeeId = employeeId,
+                employeeNumber = employeeId,
+                authorizationType = "MANUAL",
+                authorizingManagerId = employeeId,
+                operation = TSE_QUEUE_CANCELLED,
+                entityType = entry.entityType.name,
+                entityId = entry.referenceId,
+                entityName = "Nachsignieren abgebrochen ${entry.entityType} ${entry.referenceId}",
+                deviceId = entry.clientId,
+                reason = reason,
+                metadata =
+                    mapOf(
+                        "queueEntryId" to entry.id.value.toString(),
+                        "processType" to entry.processType,
+                        "retryCount" to entry.retryCount.toString(),
+                    ),
+                traceId = traceId,
+            )
 
             cancelled.toQueueEntryResponseDto()
         }

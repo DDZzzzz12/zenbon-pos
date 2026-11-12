@@ -11,6 +11,7 @@
 package org.example.project.features.zBon.data.service
 
 import io.ktor.http.HttpStatusCode
+import kotlinx.coroutines.CancellationException
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.number
@@ -291,7 +292,7 @@ class ZBonServiceImpl(
 
     override suspend fun getClosingReadiness(deviceId: String): ZBonDto.ClosingReadinessDto {
         val mode = configManager.getTseMode()
-        val transfer = dailyTransferConfigured()
+        val transfer = dailyTransferConfigured(configManager.getCashBookTransferTargetId())
         val currency = configManager.getDefaultCurrency()
         return dbQuery {
             val shop =
@@ -318,8 +319,8 @@ class ZBonServiceImpl(
     }
 
     /** A daily Geldtransit target is configured and usable — the same test the closing applies before booking one. */
-    private suspend fun dailyTransferConfigured(): Boolean {
-        val targetId = configManager.getCashBookTransferTargetId() ?: return false
+    private suspend fun dailyTransferConfigured(targetId: Long?): Boolean {
+        if (targetId == null) return false
         return dbQuery { CashBook.findById(targetId)?.let { it.isActive && !it.isFiscal } ?: false }
     }
 
@@ -335,6 +336,8 @@ class ZBonServiceImpl(
     ): ZBonDto.ZBonResponseDto {
         data class ZBonCreationResult(
             val responseDto: ZBonDto.ZBonResponseDto,
+            /** The closing's own Kassenbuch entry, which the Z-Bon PDF is linked to after the commit. */
+            val zBonKassenbuchHeaderId: Long,
             /** Who signs this closing's movements, and why; null when it has none (the aggregate is never signed). */
             val signer: ClosingSigner.Signer?,
             /** The daily Geldtransit's Ladenkasse leg, when a transfer was booked — signed in phase 2 too. */
@@ -397,7 +400,13 @@ class ZBonServiceImpl(
             // and the config, before anything is written. The aggregate is not one of them. A configured
             // daily Geldtransit counts even on a day that will move nothing — the conservative choice
             // keeps this decidable up front and equal to what GET /closing-readiness reports.
-            val transferConfigured = dailyTransferConfigured()
+            //
+            // The target is read HERE, outside the closing's transaction, like the TSE mode above: on
+            // a cache expiry the config manager refreshes from the database and swallows a failed
+            // SELECT, and on Postgres a failed statement aborts the transaction it ran in, so a read
+            // inside the closing could doom it. The id is the one the closing books against.
+            val configuredTransferTargetId = configManager.getCashBookTransferTargetId()
+            val transferConfigured = dailyTransferConfigured(configuredTransferTargetId)
             val needsSigner =
                 counted != null || payoutPlan.cashPayouts.isNotEmpty() || closingTopUp != null || transferConfigured
 
@@ -1103,7 +1112,7 @@ class ZBonServiceImpl(
                         var dailyTransferLegs: CashBookTransferServiceImpl.TransferLegs? = null
                         // Gated on the SAME up-front decision that sized needsSigner: a target that became
                         // usable after it was computed must not be booked unsigned.
-                        val transferTargetId = if (transferConfigured) configManager.getCashBookTransferTargetId() else null
+                        val transferTargetId = if (transferConfigured) configuredTransferTargetId else null
                         if (transferTargetId != null) {
                             val targetBook = CashBook.findById(transferTargetId)
                             // isActive: a deactivated book must not receive cash. !isFiscal: a
@@ -1229,34 +1238,13 @@ class ZBonServiceImpl(
 
                         val zbonResponseDto = report.toResponseDto(currency, withKassenBuchData = true, withTipPayouts = true)
 
-                        // Generate Z-Bon PDF and link to the Z-Bon's kassenbuch entry (best-effort)
-                        try {
-                            documents.storeZBonReport(
-                                zBon = zbonResponseDto,
-                                employeeId = employee.id.value,
-                                kassenbuchHeader = zBonKassenBuchEntry,
-                            )
-                        } catch (e: Exception) {
-                            logger.warn(
-                                "ZBonServiceImpl.createReport: failed to generate Z-Bon PDF for Z-Bon {}, report still created",
-                                report.id.value,
-                                e,
-                            )
-                        }
-
-                        try {
-                            favouriteProductService.updateFavourites()
-                            logger.info(
-                                "ZBonServiceImpl.createReport: favourite products recalculated after Z-Bon {}",
-                                report.id.value,
-                            )
-                        } catch (e: Exception) {
-                            logger.warn(
-                                "ZBonServiceImpl.createReport: failed to recalculate favourite products after Z-Bon {}: {}",
-                                report.id.value,
-                                e.message,
-                            )
-                        }
+                        // The Z-Bon PDF and the favourites recalculation are NOT done here: both are
+                        // best-effort and run after this transaction has committed (storeZBonReportBestEffort,
+                        // refreshFavouritesBestEffort). Caught inside this transaction, a failed statement
+                        // of theirs aborted it on Postgres, and pgjdbc then turned the COMMIT into a silent
+                        // ROLLBACK: the closing answered 201 having written nothing — no Z-Bon, no
+                        // Kassenbuch entry, no payouts, no count, no transfer — and phase 2 went on to sign
+                        // entries that did not exist.
 
                         // The daily Geldtransit's Ladenkasse leg is a fiscal entry like any other.
                         // createTransferLegsInTransaction marks it PENDING and leaves the signing to
@@ -1288,6 +1276,7 @@ class ZBonServiceImpl(
 
                         ZBonCreationResult(
                             responseDto = zbonResponseDto,
+                            zBonKassenbuchHeaderId = zBonKassenBuchEntry.id.value,
                             signer = signer,
                             transferLegSigning = transferLegSigning,
                             topUpLegSigning = topUpLegSigning,
@@ -1301,6 +1290,12 @@ class ZBonServiceImpl(
             // Phase 1 committed: only now may the floor plans learn that the closing freed those tables.
             // A rolled-back close announces nothing.
             endedSessionCards.forEach { NotificationService.notifyTableStatusUpdate(it) }
+
+            // Best-effort follow-ups, each in its own transaction now that the closing is committed —
+            // a failure here is logged and leaves the closing intact. Kept ahead of phase 2, where they
+            // ran before (inside phase 1), so nothing moves relative to the TSE signatures.
+            storeZBonReportBestEffort(phase1.responseDto, UUID.fromString(employeeId), phase1.zBonKassenbuchHeaderId)
+            refreshFavouritesBestEffort(phase1.responseDto.id)
 
             // Phase 2: TSE signing (outside dbQuery — prevents orphaned TSE transactions on DB rollback)
             val responseDto = phase1.responseDto
@@ -1389,6 +1384,51 @@ class ZBonServiceImpl(
             }
 
             responseDto
+        }
+    }
+
+    /**
+     * Renders and stores the Z-Bon PDF, linked to the closing's Kassenbuch entry, in its OWN
+     * transaction after the closing has committed. Best-effort: a failure is logged and the closing
+     * stands; the PDF can be rendered again from the stored closing.
+     */
+    private suspend fun storeZBonReportBestEffort(
+        zBon: ZBonDto.ZBonResponseDto,
+        employeeId: UUID,
+        kassenbuchHeaderId: Long,
+    ) {
+        try {
+            dbQuery {
+                documents.storeZBonReport(
+                    zBon = zBon,
+                    employeeId = employeeId,
+                    kassenbuchHeader = KassenbuchHeader.findById(kassenbuchHeaderId),
+                )
+            }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            logger.warn(
+                "ZBonServiceImpl.createReport: failed to generate Z-Bon PDF for Z-Bon {}, report still created",
+                zBon.id,
+                e,
+            )
+        }
+    }
+
+    /** Recalculates the favourite products after a committed closing. Best-effort, own transaction. */
+    private suspend fun refreshFavouritesBestEffort(zBonId: Long) {
+        try {
+            favouriteProductService.updateFavourites()
+            logger.info("ZBonServiceImpl.createReport: favourite products recalculated after Z-Bon {}", zBonId)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            logger.warn(
+                "ZBonServiceImpl.createReport: failed to recalculate favourite products after Z-Bon {}: {}",
+                zBonId,
+                e.message,
+            )
         }
     }
 

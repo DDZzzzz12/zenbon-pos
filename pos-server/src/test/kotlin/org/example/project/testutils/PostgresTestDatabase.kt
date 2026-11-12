@@ -57,6 +57,17 @@ class PostgresTestDatabase private constructor(
         }
 
     /**
+     * Like [hikariConfig], but for a NEW, empty database on this instance, so each test of a class
+     * gets its own schema without restarting Postgres. `CREATE DATABASE` cannot run inside a
+     * transaction; zonky's [dataSource] hands out auto-commit connections.
+     */
+    fun freshDatabaseConfig(): HikariConfig {
+        val name = "t_${System.nanoTime()}"
+        dataSource.connection.use { it.createStatement().execute("CREATE DATABASE $name") }
+        return hikariConfig().apply { jdbcUrl = pg.getJdbcUrl("postgres", name) }
+    }
+
+    /**
      * Tears down the global [DatabaseFactory] before the server it points at, then the server.
      *
      * The global is closed here rather than left to each test class because forgetting it is
