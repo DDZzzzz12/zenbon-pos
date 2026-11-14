@@ -111,4 +111,19 @@ class ServerAddressTest {
         assertFalse(ServerAddress.isLoopback("   "))
         assertFalse(ServerAddress.isLoopback("ftp://localhost"))
     }
+
+    @Test
+    fun a_loopback_origin_is_replaced_by_the_first_server_suggestion() {
+        val suggestions = listOf("http://192.168.1.20:8080", "http://10.0.0.5:8080")
+        assertEquals("http://192.168.1.20:8080", ServerAddress.reachableOrigin("http://localhost:8080", suggestions))
+    }
+
+    @Test
+    fun a_reachable_origin_or_an_empty_suggestion_list_keeps_the_origin() {
+        assertEquals(
+            "https://kasse.example.de",
+            ServerAddress.reachableOrigin("https://kasse.example.de", listOf("http://192.168.1.20:8080")),
+        )
+        assertEquals("http://localhost:8080", ServerAddress.reachableOrigin("http://localhost:8080", emptyList()))
+    }
 }

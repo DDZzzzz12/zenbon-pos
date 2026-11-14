@@ -34,6 +34,7 @@ import kotlinx.serialization.json.Json
 import org.example.project.core.domain.dto.terminal.TerminalDto
 import org.example.project.core.error.PosErrorCode
 import org.example.project.core.utils.DeviceIdentifiers
+import org.example.project.features.terminal.data.service.LanServerUrls
 import org.example.project.features.terminal.data.service.PairAttemptLimiter
 import org.example.project.features.terminal.data.service.TlsRootCa
 import org.example.project.features.terminal.domain.service.StationSessionService
@@ -524,7 +525,16 @@ fun Routing.terminalRoutes() {
                 val request = call.receivePairingCodeRequest()
                 call.respond(
                     HttpStatusCode.Created,
-                    terminalService.generatePairingCode(userId ?: "", id, request.registerTseClient),
+                    terminalService
+                        .generatePairingCode(userId ?: "", id, request.registerTseClient)
+                        .copy(
+                            suggestedServerUrls =
+                                LanServerUrls.urlsFor(
+                                    addresses = LanServerUrls.localAddresses(),
+                                    port = call.request.local.localPort,
+                                    tlsRootPresent = TlsRootCa.current() != null,
+                                ),
+                        ),
                 )
             }
 

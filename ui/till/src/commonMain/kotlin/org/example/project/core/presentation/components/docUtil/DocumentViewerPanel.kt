@@ -20,7 +20,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -116,13 +121,18 @@ internal fun DocumentViewerPanelFrame(
                         ),
             )
 
-            // Side panel surface
+            // Side panel surface. Drawn edge to edge on Android, so the viewer toolbar would sit under the
+            // status bar and its buttons could not be tapped: the body starts below it. The surface still
+            // paints behind the bar. A no-op wherever the status bar is not an inset (desktop, browser) or
+            // an ancestor already consumed it.
             Surface(
                 modifier = modifier.align(Alignment.CenterEnd),
                 tonalElevation = 8.dp,
                 shadowElevation = 8.dp,
             ) {
-                body()
+                Box(modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars.only(WindowInsetsSides.Top))) {
+                    body()
+                }
             }
         }
     }

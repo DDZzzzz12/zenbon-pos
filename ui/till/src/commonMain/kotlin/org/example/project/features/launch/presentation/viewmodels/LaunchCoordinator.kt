@@ -692,6 +692,26 @@ class LaunchCoordinator(
 
     fun onColdReset() = updateInputs { it.copy(device = DeviceResolution.NoToken, offline = false) }
 
+    /**
+     * The offline screen's way out for a paired device whose server will not answer (it moved, was
+     * re-addressed or replaced): the operator's own re-pair, the same cold reset the nav footer
+     * offers. Straight to the pairing screen, where the server address can be changed — [offline]
+     * and the stale launch answers are dropped, or the offline screen would win the precedence
+     * again and the device would stay locked to the address it can no longer reach.
+     */
+    fun repairFromOffline() {
+        lifecycleHandler.coldReset(TerminalColdResetReason.OPERATOR_REPAIR)
+        updateInputs {
+            it.copy(
+                offline = false,
+                certificateUntrusted = false,
+                requiresSetup = false,
+                device = DeviceResolution.NoToken,
+                deviceTokenStored = false,
+            )
+        }
+    }
+
     fun pairDifferentDevice() {
         localDb.clearDeviceToken()
         localDb.clearTerminalRegistration()

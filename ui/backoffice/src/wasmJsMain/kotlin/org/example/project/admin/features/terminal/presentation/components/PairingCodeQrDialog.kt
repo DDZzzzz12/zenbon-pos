@@ -21,6 +21,7 @@ import org.example.project.admin.features.terminal.presentation.browserPairingLi
 import org.example.project.core.domain.dto.terminal.TerminalDto
 import org.example.project.core.presentation.strings.keys.CommonKeys
 import org.example.project.core.presentation.strings.str
+import org.example.project.core.utils.ServerAddress
 import org.example.project.core.utils.formatLocalDateTimeShort
 import org.example.project.ui.components.PosDialog
 import org.example.project.ui.components.PosDialogAction
@@ -38,7 +39,9 @@ fun PairingCodeQrDialog(
         }
 
     // The link follows the address field, so correcting localhost for the QR corrects it here too.
-    var serverUrl by remember { mutableStateOf(window.location.origin) }
+    // Opened on the server itself the origin is localhost, so the server's own LAN address leads.
+    val initialServerUrl = remember(code) { ServerAddress.reachableOrigin(window.location.origin, code.suggestedServerUrls) }
+    var serverUrl by remember(initialServerUrl) { mutableStateOf(initialServerUrl) }
 
     PosDialog(
         onDismiss = onDismiss,
@@ -57,7 +60,7 @@ fun PairingCodeQrDialog(
             // address devices on the network reach the server by (e.g. localhost).
             PairingQrAddressSection(
                 code = code.code,
-                initialServerUrl = window.location.origin,
+                initialServerUrl = initialServerUrl,
                 qrContentDescription = null,
                 rootFingerprint = code.rootFingerprint,
                 onServerUrlChange = { serverUrl = it },

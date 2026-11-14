@@ -169,6 +169,13 @@ object TerminalDto {
          * null. Carried by the pairing QR so a till can pin that root without any CA installed.
          */
         val rootFingerprint: String? = null,
+        /**
+         * Base URLs a device on the shop network could reach this server by, best first. The back
+         * office prefills its pairing address with the browser origin, which is useless when it was
+         * opened on the server itself (`localhost`); it then falls back to the first of these.
+         * Empty when the server found no private network address.
+         */
+        val suggestedServerUrls: List<String> = emptyList(),
     )
 
     /** Device-side request to bind to a terminal using a pairing code. No JWT. */

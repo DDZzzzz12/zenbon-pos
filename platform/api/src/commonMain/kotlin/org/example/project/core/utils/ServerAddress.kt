@@ -75,4 +75,15 @@ object ServerAddress {
         val lowerHost = host.lowercase()
         return lowerHost in LOOPBACK_HOSTS || lowerHost.startsWith(IPV4_LOOPBACK_PREFIX)
     }
+
+    /**
+     * The address to prefill a pairing QR with: the browser's own [origin] unless that is a loopback
+     * host (the back office was opened on the server itself), in which case the first of the
+     * server's own [suggestions] — a device on the shop network cannot dial `localhost`. Falls back
+     * to [origin] when the server offered none, so the operator still sees the loopback warning.
+     */
+    fun reachableOrigin(
+        origin: String,
+        suggestions: List<String>,
+    ): String = if (isLoopback(origin)) suggestions.firstOrNull() ?: origin else origin
 }

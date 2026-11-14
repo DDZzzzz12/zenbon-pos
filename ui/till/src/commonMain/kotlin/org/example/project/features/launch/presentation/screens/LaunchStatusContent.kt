@@ -43,6 +43,7 @@ import org.example.project.features.launch.presentation.nav.StationBlock
 import org.example.project.ui.components.PosApiSettingsDialog
 import org.example.project.ui.components.PosButton
 import org.example.project.ui.components.PosCard
+import org.example.project.ui.components.PosSecondaryButton
 import org.example.project.ui.components.PosTextButton
 import org.example.project.ui.components.PosTextField
 
@@ -151,6 +152,7 @@ fun LaunchOfflineContent(
     onChangeServerAddress: (address: String) -> Unit,
     certificateUntrusted: Boolean = false,
     onPinCertificate: (checkCode: String) -> Unit = {},
+    onRepair: (() -> Unit)? = null,
 ) {
     val settingManager = LocalSettingManager.current
     val serverAddress by settingManager.url.collectAsState()
@@ -243,6 +245,15 @@ fun LaunchOfflineContent(
                 onClick = onRetry,
                 modifier = Modifier.fillMaxWidth(),
             )
+            // A paired device cannot edit the address here, so when its server is gone for good the
+            // only way back is a fresh pairing, which has the address dialog.
+            if (!canChangeServerAddress && onRepair != null) {
+                PosSecondaryButton(
+                    text = str(LaunchKeys.repairDevice),
+                    onClick = onRepair,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
         }
     }
 

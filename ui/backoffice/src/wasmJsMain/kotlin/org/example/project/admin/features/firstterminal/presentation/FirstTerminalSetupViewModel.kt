@@ -26,6 +26,7 @@ import org.example.project.core.network.error.onError
 import org.example.project.core.network.error.runCatchingApi
 import org.example.project.core.presentation.error.UiError
 import org.example.project.core.presentation.strings.keys.CommonKeys
+import org.example.project.core.utils.ServerAddress
 import org.example.project.core.utils.TseCredentialPlaceholders
 
 /**
@@ -381,6 +382,8 @@ class FirstTerminalSetupViewModel(
                             busy = false,
                             pairingCode = resp.code,
                             pairingRootFingerprint = resp.rootFingerprint,
+                            // Opened on the server itself, the origin is localhost: offer its LAN address instead.
+                            serverUrl = ServerAddress.reachableOrigin(state.serverUrl, resp.suggestedServerUrls),
                             pairingOptions = null,
                             step = FirstTerminalStep.DONE,
                             needsFirstTerminal = false,

@@ -250,6 +250,7 @@ fun AppNavigation() {
                                             onChangeServerAddress = { coordinator.changeServerAddress(it) },
                                             certificateUntrusted = d.certificateUntrusted,
                                             onPinCertificate = coordinator::pinServerCertificate,
+                                            onRepair = coordinator::repairFromOffline,
                                         )
                                     is AppDestination.Setup ->
                                         WebSetupRequiredScreen(
